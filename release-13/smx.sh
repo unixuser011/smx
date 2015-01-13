@@ -26390,8 +26390,8 @@ function sql_menu () {
                          read -p "Press [enter] to continue..." ReadDamKey
               	    fi
               	    ;;
-	    setpriv)
-		      clear
+	        setpriv)
+		              clear
             	      echo "$(date)                                     $(whoami)@$(hostname)"
             	      echo "[TOP]                                  [Entry Fields]"
             	      read -p " Grant or revoke privileges -------- (grant/revoke) > " ansPriv
@@ -26423,7 +26423,7 @@ function sql_menu () {
                             echo "Enter SQL root password to grant $privildges to: $userName on: $tblName..."
                             $(which mysql) -u root -p -e 'GRANT $privChoice TO $tblName TO $userName;'
                             if [ $? -eq 0 ]; then
-				 echo "#######################################################################################" >> /var/log/smx-log/success.log
+				                 echo "#######################################################################################" >> /var/log/smx-log/success.log
                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                  echo "Successfuly granted privileges to $userName on table: $tblName" >> /var/log/smx-log/success.log
                                  echo "Command run: $(which mysql) -u root -p -e 'GRANT $privChoice ON $tblName TO $userName;'" >> /var/log/smx-log/success.log
@@ -26448,8 +26448,8 @@ function sql_menu () {
                                  cat /var/log/smx-log/success.log | tail -n 6
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
-            		    else
-				 echo "#######################################################################################" >> /var/log/smx-log/fail.log
+            		        else
+				                 echo "#######################################################################################" >> /var/log/smx-log/fail.log
                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                  echo "Not granted privileges to $userName on table: $tblName, check command syntax" >> /var/log/smx-log/fail.log
                                  echo "Command run: $(which mysql) -u root -p -e 'GRANT $privChoice ON $tblName TO $userName;'" >> /var/log/smx-log/fail.log
@@ -26468,7 +26468,7 @@ function sql_menu () {
                                  echo "File                                Fileset                 Type"
                                  echo "----------------------------------------------------------------"
                                  echo "$(which mysql)                      bos.sysmgt.mysql        exec"
-            			 echo "Command unsuccessful, check command variables and syntax"
+            			         echo "Command unsuccessful, check command variables and syntax"
                                  echo
                                  cat /var/log/smx-log/fail.log | tail -n 6
                                  echo
@@ -26477,8 +26477,8 @@ function sql_menu () {
                             echo "Enter SQL root password to flush privildges..."
                             $(which mysql) -u root -p -e 'FLUSH PRIVILEGES;'
                             read -p "Press [enter] to continue..." ReadDamKey
-      		      else
-      			    clear
+      		          else
+      			            clear
                             echo "$(date)                                     $(whoami)@$(hostname)"
                             echo "ALL PRIVILEGES MUST BE SEPERATED BY A COLON"
                             echo "priviledge example: SELECT, UPDATE, INSERT"
@@ -26504,8 +26504,8 @@ function sql_menu () {
                             clear
                             echo "Enter SQL root password to revoke privleges from: $userName..."
                             $(which mysql) -u root -p -e 'REVOKE $privChoice TO $tblName FROM $userName;'
-      			    if [ $? -eq 0 ]; then
-				 echo "##########################################################################################" >> /var/log/smx-log/success.log
+      			            if [ $? -eq 0 ]; then
+				                 echo "##########################################################################################" >> /var/log/smx-log/success.log
                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                  echo "Successfuly granted privileges to $userName on table: $tblName" >> /var/log/smx-log/success.log
                                  echo "Command run: $(which mysql) -u root -p -e 'REVOKE $privChoice ON $tblName FROM $userName;'" >> /var/log/smx-log/success.log
@@ -26530,8 +26530,8 @@ function sql_menu () {
                                  cat /var/log/smx-log/success.log | tail -n 6
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
-      			    else
-				 echo "############################################################################" >> /var/log/smx-log/fail.log
+      			           else
+				                 echo "############################################################################" >> /var/log/smx-log/fail.log
                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                  echo "Not granted privileges to $userName on table: $tblName, check command syntax" >> /var/log/smx-log/fail.log
                                  echo "" >> /var/log/smx-log/fail.log
@@ -26554,14 +26554,14 @@ function sql_menu () {
                                  cat /var/log/smx-log/fail.log | tail -n 6
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
-      			    fi
+      			            fi
                             echo "Enter SQL root password to flush privileges..."
                             $(which mysql) -u root -p -e 'FLUSH PRIVILEGES;'
                             read -p "Press [enter] to continue..." ReadDamKey
                       fi
                       ;;
-	    backup)
-		     clear
+	        backup)
+		             clear
             	     echo "$(date)                                     $(whoami)@$(hostname)"
             	     echo "DATABASE NAMES MUST BE SEPERATED BY A SPACE"
             	     echo "Database name example: testdb testdb01"
@@ -26589,7 +26589,7 @@ function sql_menu () {
             	     echo "Enter SQL root password to backup: $dbName..."
             	     $(which mysqldump) -u root -p $dbName > $bakLoc$fileName
             	     if [ $? -eq 0 ]; then
-			  echo "#####################################################################" >> /var/log/smx-log/success.log
+			              echo "#####################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                           echo "Successfuly backed up database: $dbName to: $bacLoc" >> /var/log/smx-log/success.log
                           echo "Command run: $(which mysqldump) -u root -p $dbName > $bakLoc$fileName" >> /var/log/smx-log/success.log
@@ -26614,8 +26614,8 @@ function sql_menu () {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-      		     else
-			  echo "#####################################################################" >> /var/log/smx-log/fail.log
+      		         else
+			              echo "#####################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not backed up database: $dbName to: $bakLoc, check command syntax" >> /var/log/smx-log/fail.log
                           echo "Command run: $(which mysqldump) -u root -p $dbName > $bakLoc$fileName" >> /var/log/smx-log/fail.log
@@ -26642,8 +26642,8 @@ function sql_menu () {
                           read -p "Press [enter] to continue..." ReadDamKey
             	     fi
             	     ;;
-	    restore)
-		      clear
+	        restore)
+		              clear
             	      echo "$(date)                                     $(whoami)@$(hostname)"
             	      echo "Database name example: testdb"
             	      echo "Backup location example: /home/user/sqlbackup/"
@@ -26670,7 +26670,7 @@ function sql_menu () {
             	      echo "Enter SQL root password to restore: $dbName..."
             	      $(which mysql) -u root -p $dbName < $bakLoc$fileName
             	      if [ $? -eq 0 ]; then
-			   echo "##################################################################" >> /var/log/smx-log/success.log
+			               echo "##################################################################" >> /var/log/smx-log/success.log
                            echo "$(hostname)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                            echo "Successfuly restored database file: $fileName to database: $dbName" >> /var/log/smx-log/success.log
                            echo "Command run: $(which mysql) -u root -p $dbName < $bakLoc$fileName" >> /var/log/smx-log/success.log
@@ -26695,8 +26695,8 @@ function sql_menu () {
                            cat /var/log/smx-log/success.log | tail -n 6
                            echo
                            read -p "Press [enter] to continue..." ReadDamKey
-      		      else
-			   echo "################################################################################" >> /var/log/smx-log/fail.log
+      		          else
+			               echo "################################################################################" >> /var/log/smx-log/fail.log
                            echo "$(hostname)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                            echo "Not restored database file: $fileName to database: $dbName, check command syntax" >> /var/log/smx-log/fail.log
                            echo "Command run: $(which mysql) -u root -p $dbName < $bakLoc$fileName" >> /var/log/smx-log/fail.log
@@ -26723,99 +26723,99 @@ function sql_menu () {
                            read -p "Press [enter] to continue..." ReadDamKey
             	      fi
             	      ;;
-	    resetPwd)
-		       clear
-		       echo "$(date)                                     $(whoami)@$(hostname)"
-		       echo "[TOP]                                      [Entry Fields]"
-		       read -p " Enter SQL user to reset password ------ > " sqlUsr
-		       read -p " Enter new SQL password ---------------- > " sqlPwd
-		       clear
-		       echo "         COMMAND STATUS           "
-		       echo
-		       echo "$(date)                                     $(whoami)@$(hostname)"
-		       echo
-		       echo "Command: RUNNING    stdout: yes    stderr: no     "
-		       echo
-		       echo "Before command completion, additional instructions may appear below"
-		       echo
-		       echo "File                                 Fileset                 Type"
-		       echo "-----------------------------------------------------------------"
-		       echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-		       echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'"
-		       echo "Command run: $(which mysql) -u root -p -e 'flush privileges;'"
-		       sleep 2
-		       clear
-		       echo "Enter mysql root password to reset user: $sqlUsr password..."
-		       $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD("$sqlPwd") where User="$sqlUsr";'
-		       if [ $PIPESTATUS -eq 0 ]; then
-			    echo "####################################################################################################################" >> /var/log/smx-log/success.log
-			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			    echo "Successfuly reset SQL user: $sqlUsr password to: $sqlPwd" >> /var/log/smx-log/success.log
-			    echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    echo "####################################################################################################################" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    read -p "Press [enter] to conitnue..." ReadDamKey
-			    clear
-			    echo "         COMMAND STATUS           "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: OK    stdout: yes    stderr: no          "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			    echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'"
-			    echo
-			    cat /var/log/smx-log/success.log | tail -n 6
-			    echo
-			    read -p "Press [enter] to conitnue..." ReadDamKey
-		       else
-			    echo "####################################################################################################################" >> /var/log/smx-log/fail.log
-			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-			    echo "Not reset SQL user: $sqlUsr password to: $sqlPwd, check command syntax" >> /var/log/smx-log/fail.log
-			    echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'" >> /var/log/smx-log/fail.log
-			    echo "" >> /var/log/smx-log/fail.log
-			    echo "####################################################################################################################" >> /var/log/smx-log/fail.log
-			    echo "" >> /var/log/smx-log/fail.log
-			    read -p "Press [enter] to conitnue..." ReadDamKey
-			    clear
-			    echo "         COMMAND STATUS           "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: FAIL    stdout: yes    stderr: no        "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			    echo "Command unsuccessful, check command variables and syntax"
-			    echo
-			    cat /var/log/smx-log/fail.log | tail -n 6
-			    echo
-			    read -p "Press [enter] to conitnue..." ReadDamKey
-		       fi
-		       echo "Enter mysql root password to flush privilege tables..."
-		       $(which mysql) -u root -p -e "flush privileges;"
-		       read -p "Press [enter] to continue..." ReadDamKey
-		       ;;
-	    resetRoot)
-		        clear
-			echo "$(date)                                     $(whoami)@$(hostname)"
-			echo "WARNING: Please close ALL connections to SQL server"
-		        echo "[TOP]                                                [Entry Fields]"
-			read -p " Enter OS type -------------------- (rhl/deb/suse) > " osType
-			if [ "$osType" = "rhl" ]; then
-			      clear
-			      echo "$(date)                                     $(whoami)@$(hostname)"
-			      echo "[TOP]                                  [Entry Fields]"
-			      read -p " Enter new SQL root password ------- > " rootPwd
-			      clear
+	        resetPwd)
+		               clear
+        		       echo "$(date)                                     $(whoami)@$(hostname)"
+        		       echo "[TOP]                                      [Entry Fields]"
+        		       read -p " Enter SQL user to reset password ------ > " sqlUsr
+        		       read -p " Enter new SQL password ---------------- > " sqlPwd
+        		       clear
+        		       echo "         COMMAND STATUS           "
+        		       echo
+        		       echo "$(date)                                     $(whoami)@$(hostname)"
+        		       echo
+        		       echo "Command: RUNNING    stdout: yes    stderr: no     "
+        		       echo
+        		       echo "Before command completion, additional instructions may appear below"
+        		       echo
+        		       echo "File                                 Fileset                 Type"
+        		       echo "-----------------------------------------------------------------"
+        		       echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+        		       echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'"
+        		       echo "Command run: $(which mysql) -u root -p -e 'flush privileges;'"
+        		       sleep 2
+        		       clear
+        		       echo "Enter mysql root password to reset user: $sqlUsr password..."
+        		       $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD("$sqlPwd") where User="$sqlUsr";'
+        		       if [ $PIPESTATUS -eq 0 ]; then
+            			    echo "####################################################################################################################" >> /var/log/smx-log/success.log
+            			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            			    echo "Successfuly reset SQL user: $sqlUsr password to: $sqlPwd" >> /var/log/smx-log/success.log
+            			    echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'" >> /var/log/smx-log/success.log
+            			    echo "" >> /var/log/smx-log/success.log
+            			    echo "####################################################################################################################" >> /var/log/smx-log/success.log
+            			    echo "" >> /var/log/smx-log/success.log
+            			    read -p "Press [enter] to conitnue..." ReadDamKey
+            			    clear
+            			    echo "         COMMAND STATUS           "
+            			    echo
+            			    echo "$(date)                                     $(whoami)@$(hostname)"
+            			    echo
+            			    echo "Command: OK    stdout: yes    stderr: no          "
+            			    echo
+            			    echo "Before command completion, additional instructions may appear below"
+            			    echo
+            			    echo "File                                 Fileset                 Type"
+            			    echo "-----------------------------------------------------------------"
+            			    echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			    echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'"
+            			    echo
+            			    cat /var/log/smx-log/success.log | tail -n 6
+            			    echo
+            			    read -p "Press [enter] to conitnue..." ReadDamKey
+		              else
+            			    echo "####################################################################################################################" >> /var/log/smx-log/fail.log
+            			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+            			    echo "Not reset SQL user: $sqlUsr password to: $sqlPwd, check command syntax" >> /var/log/smx-log/fail.log
+            			    echo "Command run: $(which mysql) -u root -p -e 'update mysql.user set password=PASSWORD('$sqlPwd') where User='$sqlUsr';'" >> /var/log/smx-log/fail.log
+            			    echo "" >> /var/log/smx-log/fail.log
+            			    echo "####################################################################################################################" >> /var/log/smx-log/fail.log
+            			    echo "" >> /var/log/smx-log/fail.log
+            			    read -p "Press [enter] to conitnue..." ReadDamKey
+            			    clear
+            			    echo "         COMMAND STATUS           "
+            			    echo
+            			    echo "$(date)                                     $(whoami)@$(hostname)"
+            			    echo
+            			    echo "Command: FAIL    stdout: yes    stderr: no        "
+            			    echo
+            			    echo "Before command completion, additional instructions may appear below"
+            			    echo
+            			    echo "File                                 Fileset                 Type"
+            			    echo "-----------------------------------------------------------------"
+            			    echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			    echo "Command unsuccessful, check command variables and syntax"
+            			    echo
+            			    cat /var/log/smx-log/fail.log | tail -n 6
+            			    echo
+            			    read -p "Press [enter] to conitnue..." ReadDamKey
+        		       fi
+        		       echo "Enter mysql root password to flush privilege tables..."
+        		       $(which mysql) -u root -p -e "flush privileges;"
+        		       read -p "Press [enter] to continue..." ReadDamKey
+        		       ;;
+	        resetRoot)
+		                clear
+            			echo "$(date)                                     $(whoami)@$(hostname)"
+            			echo "WARNING: Please close ALL connections to SQL server"
+		                echo "[TOP]                                                [Entry Fields]"
+            			read -p " Enter OS type -------------------- (rhl/deb/suse) > " osType
+            			if [ "$osType" = "rhl" ]; then
+            			      clear
+            			      echo "$(date)                                     $(whoami)@$(hostname)"
+            			      echo "[TOP]                                  [Entry Fields]"
+            			      read -p " Enter new SQL root password ------- > " rootPwd
+            			      clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26826,30 +26826,30 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-			      echo "$(which service)                     bos.sysmgt.service      exec"
-			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			      echo "Command run: $(which service) mysqld stop"
-			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-			      echo "Command run: $(which service) mysqld restart"
-			      sleep 2
-			      clear
-			      $(which service) mysqld stop
-			      $(which mysqld_safe) --skip-grant-tables &
-			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
-			      $(which mysql) -u root -c "flush privileges;"
-			      $(which service) mysqld restart
-			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
-			      echo "" >> /var/log/smx-log/success.log
-			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-			      echo "" >> /var/log/smx-log/success.log
-			      read -p "Press [enter] to conitnue..." ReadDamKey
-			      clear
+            			      echo "$(which service)                     bos.sysmgt.service      exec"
+            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			      echo "Command run: $(which service) mysqld stop"
+            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+            			      echo "Command run: $(which service) mysqld restart"
+            			      sleep 2
+            			      clear
+            			      $(which service) mysqld stop
+            			      $(which mysqld_safe) --skip-grant-tables &
+            			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
+            			      $(which mysql) -u root -c "flush privileges;"
+            			      $(which service) mysqld restart
+            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
+            			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
+            			      echo "" >> /var/log/smx-log/success.log
+            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
+            			      echo "" >> /var/log/smx-log/success.log
+            			      read -p "Press [enter] to conitnue..." ReadDamKey
+            			      clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26860,25 +26860,25 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-			      echo "$(which service)                     bos.sysmgt.service      exec"
-			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			      echo "Command run: $(which service) mysqld stop"
-			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-			      echo "Command run: $(which service) mysqld restart"
-			      echo
-			      cat /var/log/smx-log/success.log | tail -n 6
-			      echo
-			      read -p "Press [enter] to continue..." ReadDamKey
-			fi
-			if [ "$osType" = "deb" ]; then
-			      clear
-			      echo "$(date)                                     $(whoami)@$(hostname)"
-			      echo "[TOP]                                  [Entry Fields]"
-			      read -p " Enter new SQL root password ------- > " rootPwd
-			      clear
+            			      echo "$(which service)                     bos.sysmgt.service      exec"
+            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			      echo "Command run: $(which service) mysqld stop"
+            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+            			      echo "Command run: $(which service) mysqld restart"
+            			      echo
+            			      cat /var/log/smx-log/success.log | tail -n 6
+            			      echo
+            			      read -p "Press [enter] to continue..." ReadDamKey
+            			fi
+            			if [ "$osType" = "deb" ]; then
+            			      clear
+            			      echo "$(date)                                     $(whoami)@$(hostname)"
+            			      echo "[TOP]                                  [Entry Fields]"
+            			      read -p " Enter new SQL root password ------- > " rootPwd
+            			      clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26889,30 +26889,30 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			      echo "Command run: /etc/init.d/mysql stop"
-			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-			      echo "Command run: $(which service) mysqld restart"
-			      sleep 2
-			      clear
-			      /etc/init.d/mysql stop
-			      $(which mysqld_safe) --skip-grant-tables &
-			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
-			      $(which mysql) -u root -c "flush privileges;"
-			      $(which service) mysqld restart
-			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
-			      echo "" >> /var/log/smx-log/success.log
-			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-			      echo "" >> /var/log/smx-log/success.log
-			      read -p "Press [enter] to conitnue..." ReadDamKey
-			      clear
+            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			      echo "Command run: /etc/init.d/mysql stop"
+            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+            			      echo "Command run: $(which service) mysqld restart"
+            			      sleep 2
+            			      clear
+            			      /etc/init.d/mysql stop
+            			      $(which mysqld_safe) --skip-grant-tables &
+            			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
+            			      $(which mysql) -u root -c "flush privileges;"
+            			      $(which service) mysqld restart
+            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
+            			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
+            			      echo "" >> /var/log/smx-log/success.log
+            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
+            			      echo "" >> /var/log/smx-log/success.log
+            			      read -p "Press [enter] to conitnue..." ReadDamKey
+            			      clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26923,25 +26923,25 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			      echo "Command run: /etc/init.d/mysql stop"
-			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-			      echo "Command run: /etc/init.d/mysql restart"
-			      echo
-			      cat /var/log/smx-log/success.log | tail -n 6
-			      echo
-			      read -p "Press [enter] to continue..." ReadDamKey
-			fi
-			if [ "$osType" = "suse" ]; then
-			      clear
-			      echo "$(date)                                     $(whoami)@$(hostname)"
-			      echo "[TOP]                                  [Entry Fields]"
-			      read -p " Enter new SQL root password ------- > " rootPwd
-			      clear
+            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			      echo "Command run: /etc/init.d/mysql stop"
+            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+            			      echo "Command run: /etc/init.d/mysql restart"
+            			      echo
+            			      cat /var/log/smx-log/success.log | tail -n 6
+            			      echo
+            			      read -p "Press [enter] to continue..." ReadDamKey
+            			fi
+            			if [ "$osType" = "suse" ]; then
+            			      clear
+            			      echo "$(date)                                     $(whoami)@$(hostname)"
+            			      echo "[TOP]                                  [Entry Fields]"
+            			      read -p " Enter new SQL root password ------- > " rootPwd
+            			      clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26952,30 +26952,30 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			      echo "Command run: /etc/init.d/mysql stop"
-			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-			      echo "Command run: $(which service) mysqld restart"
-			      sleep 2
-			      clear
-			      /etc/init.d/mysql stop
-			      $(which mysqld_safe) --skip-grant-tables &
-			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
-			      $(which mysql) -u root -c "flush privileges;"
-			      $(which service) mysqld restart
-			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
-			      echo "" >> /var/log/smx-log/success.log
-			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-			      echo "" >> /var/log/smx-log/success.log
-			      read -p "Press [enter] to conitnue..." ReadDamKey
-			      clear
+            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			      echo "Command run: /etc/init.d/mysql stop"
+            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+            			      echo "Command run: $(which service) mysqld restart"
+            			      sleep 2
+            			      clear
+            			      /etc/init.d/mysql stop
+            			      $(which mysqld_safe) --skip-grant-tables &
+            			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
+            			      $(which mysql) -u root -c "flush privileges;"
+            			      $(which service) mysqld restart
+            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
+            			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
+            			      echo "" >> /var/log/smx-log/success.log
+            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
+            			      echo "" >> /var/log/smx-log/success.log
+            			      read -p "Press [enter] to conitnue..." ReadDamKey
+            			      clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26986,96 +26986,96 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			      echo "Command run: /etc/init.d/mysql stop"
-			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-			      echo "Command run: /etc/init.d/mysql restart"
-			      echo
-			      cat /var/log/smx-log/success.log | tail -n 6
-			      echo
-			      read -p "Press [enter] to continue..." ReadDamKey
-			fi
-			;;
-	    session)
-		      clear
-		      echo "$(date)                                     $(whoami)@$(hostname)"
-		      echo "[TOP]                                   [Entry Fields]"
-		      read -p " Enter SQL user --------------------- > " sqlUsr
-		      clear
-		      echo "         COMMAND STATUS              "
-		      echo
-		      echo "$(date)                                     $(whoami)@$(hostname)"
-		      echo
-		      echo "Command: RUNNING    stdout: yes    stderr: no     "
-		      echo
-		      echo "Before command completion, additional instructions may appear below"
-		      echo
-		      echo "File                                 Fileset                 Type"
-		      echo "-----------------------------------------------------------------"
-		      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-		      echo "Command run: $(which mysql) -u $sqlUsr -p"
-		      sleep 2
-		      clear
-		      $(which mysql) -u $sqlUsr -p
-		      if [ $? -eq 0 ]; then
-			   echo "#################################################" >> /var/log/smx-log/success.log
-			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			   echo "Successfuly opened mysql session as user: $sqlUsr" >> /var/log/smx-log/success.log
-			   echo "Command run: $(which mysql) -u $sqlUsr -p" >> /var/log/smx-log/success.log
-			   echo "" >> /var/log/smx-log/success.log
-			   echo "#################################################" >> /var/log/smx-log/success.log
-			   echo "" >> /var/log/smx-log/success.log
-			   read -p "Press [enter] to continue..." ReadDamKey
-			   clear
-			   echo "         COMMAND STATUS              "
-			   echo
-			   echo "$(date)                                     $(whoami)@$(hostname)"
-			   echo
-			   echo "Command: OK    stdout: yes    stderr: no          "
-			   echo
-			   echo "Before command completion, additional instructions may appear below"
-			   echo
-			   echo "File                                 Fileset                 Type"
-			   echo "-----------------------------------------------------------------"
-			   echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			   echo "Command run: $(which mysql) -u $sqlUsr -p"
-			   echo
-			   cat /var/log/smx-log/success.log | tail -n 6
-			   echo
-			   read -p "Press [enter] to conitnue..." ReadDamKey
-		      else
-			   echo "######################################################################################" >> /var/log/smx-log/fail.log
-			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-			   echo "Not opened mysql session as user: $sqlUsr, check command syntax, password and username" >> /var/log/smx-log/fail.log
-			   echo "Command run: $(which mysql) -u $sqlUsr -p" >> /var/log/smx-log/fail.log
-			   echo "" >> /var/log/smx-log/success.log
-			   echo "######################################################################################" >> /var/log/smx-log/fail.log
-			   echo "" >> /var/log/smx-log/success.log
-			   read -p "Press [enter] to continue..." ReadDamKey
-			   clear
-			   echo "         COMMAND STATUS              "
-			   echo
-			   echo "$(date)                                     $(whoami)@$(hostname)"
-			   echo
-			   echo "Command: FAIL    stdout: yes    stderr: no        "
-			   echo
-			   echo "Before command completion, additional instructions may appear below"
-			   echo
-			   echo "File                                 Fileset                 Type"
-			   echo "-----------------------------------------------------------------"
-			   echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-			   echo "Command unsuccessful, check command variables and syntax"
-			   echo
-			   cat /var/log/smx-log/fail.log | tail -n 6
-			   echo
-			   read -p "Press [enter] to conitnue..." ReadDamKey
-		      fi
-		      ;;
-	    exit)
+            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			      echo "Command run: /etc/init.d/mysql stop"
+            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+            			      echo "Command run: /etc/init.d/mysql restart"
+            			      echo
+            			      cat /var/log/smx-log/success.log | tail -n 6
+            			      echo
+            			      read -p "Press [enter] to continue..." ReadDamKey
+            			fi
+            			;;
+	        session)
+		              clear
+        		      echo "$(date)                                     $(whoami)@$(hostname)"
+        		      echo "[TOP]                                   [Entry Fields]"
+        		      read -p " Enter SQL user --------------------- > " sqlUsr
+        		      clear
+        		      echo "         COMMAND STATUS              "
+        		      echo
+        		      echo "$(date)                                     $(whoami)@$(hostname)"
+        		      echo
+        		      echo "Command: RUNNING    stdout: yes    stderr: no     "
+        		      echo
+        		      echo "Before command completion, additional instructions may appear below"
+        		      echo
+        		      echo "File                                 Fileset                 Type"
+        		      echo "-----------------------------------------------------------------"
+        		      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+        		      echo "Command run: $(which mysql) -u $sqlUsr -p"
+        		      sleep 2
+        		      clear
+        		      $(which mysql) -u $sqlUsr -p
+        		      if [ $? -eq 0 ]; then
+            			   echo "#################################################" >> /var/log/smx-log/success.log
+            			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            			   echo "Successfuly opened mysql session as user: $sqlUsr" >> /var/log/smx-log/success.log
+            			   echo "Command run: $(which mysql) -u $sqlUsr -p" >> /var/log/smx-log/success.log
+            			   echo "" >> /var/log/smx-log/success.log
+            			   echo "#################################################" >> /var/log/smx-log/success.log
+            			   echo "" >> /var/log/smx-log/success.log
+            			   read -p "Press [enter] to continue..." ReadDamKey
+            			   clear
+            			   echo "         COMMAND STATUS              "
+            			   echo
+            			   echo "$(date)                                     $(whoami)@$(hostname)"
+            			   echo
+            			   echo "Command: OK    stdout: yes    stderr: no          "
+            			   echo
+            			   echo "Before command completion, additional instructions may appear below"
+            			   echo
+            			   echo "File                                 Fileset                 Type"
+            			   echo "-----------------------------------------------------------------"
+            			   echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			   echo "Command run: $(which mysql) -u $sqlUsr -p"
+            			   echo
+            			   cat /var/log/smx-log/success.log | tail -n 6
+            			   echo
+            			   read -p "Press [enter] to conitnue..." ReadDamKey
+		              else
+            			   echo "######################################################################################" >> /var/log/smx-log/fail.log
+            			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+            			   echo "Not opened mysql session as user: $sqlUsr, check command syntax, password and username" >> /var/log/smx-log/fail.log
+            			   echo "Command run: $(which mysql) -u $sqlUsr -p" >> /var/log/smx-log/fail.log
+            			   echo "" >> /var/log/smx-log/success.log
+            			   echo "######################################################################################" >> /var/log/smx-log/fail.log
+            			   echo "" >> /var/log/smx-log/success.log
+            			   read -p "Press [enter] to continue..." ReadDamKey
+            			   clear
+            			   echo "         COMMAND STATUS              "
+            			   echo
+            			   echo "$(date)                                     $(whoami)@$(hostname)"
+            			   echo
+            			   echo "Command: FAIL    stdout: yes    stderr: no        "
+            			   echo
+            			   echo "Before command completion, additional instructions may appear below"
+            			   echo
+            			   echo "File                                 Fileset                 Type"
+            			   echo "-----------------------------------------------------------------"
+            			   echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+            			   echo "Command unsuccessful, check command variables and syntax"
+            			   echo
+            			   cat /var/log/smx-log/fail.log | tail -n 6
+            			   echo
+            			   read -p "Press [enter] to conitnue..." ReadDamKey
+        		      fi
+        		      ;;
+	        exit)
                    echo "#######################################################" >> /var/log/smx-log/exit.log
                    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
             	   echo "Successfuly terminated $(basename $0)/srv_menu/sql_menu" >> /var/log/smx-log/exit.log
@@ -27084,7 +27084,7 @@ function sql_menu () {
                    echo "" >> /var/log/smx-log/exit.log
             	   srv_menu
             	   ;;
-	    exit-mas)
+	        exit-mas)
                        clear
                        echo "#################################" >> /var/log/smx-log/exit.log
             	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
@@ -27094,7 +27094,7 @@ function sql_menu () {
                        echo "" >> /var/log/smx-log/exit.log
             	       exit 0
             	       ;;
-	    *)         clear
+	        *)         clear
             	       echo "        COMMAND STATUS        "
             	       echo
             	       echo "$(date)                                     $(whoami)@$(hostname)"
@@ -27105,14 +27105,14 @@ function sql_menu () {
                        echo
                        echo "Unkonwn command, please consult the command list, executed with pid - 3452 (0x1)"
                        read -p "Press [enter] to continue..." ReadDamKey;;
-	esac
+	    esac
     done
 }
 
 function smb_menu() {
     while :
     do
-	clear
+	    clear
       	echo "$(date)                                     $(whoami)@$(hostname)"
       	echo "+------------------------------+"
       	echo "|        SMB MANAGEMENT        |"
@@ -27137,11 +27137,11 @@ function smb_menu() {
       	
       	case "$choice_smb" in
       	    install)
-		      clear
+		              clear
                       cat /proc/version | grep "Red Hat" > /dev/null
-		      if [ $? -eq 0 ]; then
+		              if [ $? -eq 0 ]; then
                            clear
-			   echo "OS = Red Hat"
+			               echo "OS = Red Hat"
                            echo "$(date)                                     $(whoami)@$(hostname)"
                            echo "[TOP]                                                     [Entry Fields]"
                            read -p " Open access or authenticated share ------- (open/auth) > " ans
@@ -27208,7 +27208,7 @@ function smb_menu() {
                                       cat /var/log/smx-log/success.log | tail -n 6
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
-				 else
+				                 else
                                       echo "######################################################################################" >> /var/log/smx-log/fail.log
                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                       echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
@@ -27257,8 +27257,8 @@ function smb_menu() {
                                  $(which chkconfig) smb start
                                  $(which chkconfig) nmb start
                                  read -p "Press [enter] to continue..." ReadDamKey
-			   else
-			         echo "$(date)                                     $(whoami)@$(hostname)"
+			               else
+			                     echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "Folder share name example: /home/share/samba"
                                  echo "Samba share name example: test-share"
                                  echo "Allowed address range example: 192.168.1.23 192.168.1.12"
@@ -27304,7 +27304,7 @@ function smb_menu() {
                                  clear
                                  $(which yum) -y install samba | $(which tee) /var/log/smx-log/yum.log
                                  if [ $PIPESTATUS -eq 0 ]; then
-				      echo "######################################################################################" >> /var/log/smx-log/success.log
+				                      echo "######################################################################################" >> /var/log/smx-log/success.log
                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                       echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
                                       echo "Command run: $(which yum) -y install samba | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
@@ -27330,7 +27330,7 @@ function smb_menu() {
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
                                  else
-				      echo "######################################################################################" >> /var/log/smx-log/fail.log
+				                      echo "######################################################################################" >> /var/log/smx-log/fail.log
                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                       echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
                                       echo "Command run: $(which yum) -y install samba | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
@@ -27381,21 +27381,21 @@ function smb_menu() {
                                  $(which chkconfig) smb on
                                  $(which chkconfig) nmb on
                                  read -p "Press [enter] to continue..." ReadDamKey
-			   fi
+			                fi
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-			        echo "OS = Debian"
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo "Folder share name example: /samba/share"
-				echo "Share name example: test-share"
-				echo "Allowed addresses example: 192.168.2.4 192.168.1.34"
-				echo "[TOP]                                    [Entry Fields]"
-				read -p " Open access or authenticated share -- (open/auth) > " ans
-				if [ "$ans" = "open" ]; then
-			              clear
+			                    echo "OS = Debian"
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo "Folder share name example: /samba/share"
+                				echo "Share name example: test-share"
+                				echo "Allowed addresses example: 192.168.2.4 192.168.1.34"
+                				echo "[TOP]                                    [Entry Fields]"
+                				read -p " Open access or authenticated share -- (open/auth) > " ans
+                				if [ "$ans" = "open" ]; then
+                			          clear
                                       echo "$(date)                                     $(whoami)@$(hostname)"
                                       echo "Folder share name example: /samba/share"
                                       echo "Share name example: smb-test"
@@ -27429,57 +27429,57 @@ function smb_menu() {
                                       clear
                                       $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log
                                       if [ $PIPESTATUS -eq 0 ]; then
-					   echo "##############################################################################################" >> /var/log/smx-log/success.log
-					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					   echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-					   echo "" >> /var/log/smx-log/success.log
-					   echo "##############################################################################################" >> /var/log/smx-log/success.log
-					   echo "" >> /var/log/smx-log/success.log
-					   read -p "Press [enter] to continue..." ReadDamKey
-					   clear
-					   echo "        COMMAND STATUS          "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: OK    stdout: yes    stderr: no          "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                 Fileset                 Type"
-					   echo "-----------------------------------------------------------------"
-					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
-					   echo
-					   cat /var/log/smx-log/success.log | tail -n 6
-					   echo
-					   read -p "Press [enter] to continue..." ReadDamKey
-                        	      else
-					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
-					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					   echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-					   echo "" >> /var/log/smx-log/fail.log
-					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
-					   echo "" >> /var/log/smx-log/fail.log
-					   read -p "Press [enter] to continue..." ReadDamKey
-					   clear
-					   echo "        COMMAND STATUS          "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: FAIL    stdout: yes    stderr: no        "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                 Fileset                 Type"
-					   echo "-----------------------------------------------------------------"
-					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					   echo "Command unsuccessful, check command variables and syntax"
-					   echo
-					   cat /var/log/smx-log/fail.log | tail -n 6
-					   echo
-					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   echo "##############################################################################################" >> /var/log/smx-log/success.log
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   echo "##############################################################################################" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   clear
+                    					   echo "        COMMAND STATUS          "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: OK    stdout: yes    stderr: no          "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                 Fileset                 Type"
+                    					   echo "-----------------------------------------------------------------"
+                    					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
+                    					   echo
+                    					   cat /var/log/smx-log/success.log | tail -n 6
+                    					   echo
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                        	          else
+                    					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    					   echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    					   echo "" >> /var/log/smx-log/fail.log
+                    					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                    					   echo "" >> /var/log/smx-log/fail.log
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   clear
+                    					   echo "        COMMAND STATUS          "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: FAIL    stdout: yes    stderr: no        "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                 Fileset                 Type"
+                    					   echo "-----------------------------------------------------------------"
+                    					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					   echo "Command unsuccessful, check command variables and syntax"
+                    					   echo
+                    					   cat /var/log/smx-log/fail.log | tail -n 6
+                    					   echo
+                    					   read -p "Press [enter] to continue..." ReadDamKey
                                       fi
                                       $(which mkdir) -p $folderName
                                       $(which chmod) 777 $folderName
@@ -27500,8 +27500,8 @@ function smb_menu() {
                                       echo "" >> /etc/samba/smb.conf
                                       /etc/init.d/samba start
                                       read -p "Press [enter] to continue..." ReadDamKey
-				else
-			              clear
+				                else
+			                          clear
                                       echo "$(date)                                     $(whoami)@$(hostname)"
                                       echo "Folder share name example: /samba/share"
                                       echo "Share name example: samba-test"
@@ -27543,57 +27543,57 @@ function smb_menu() {
                                       clear
                                       $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log
                                       if [ $PIPESTATUS -eq 0 ]; then
-					   echo "##############################################################################################" >> /var/log/smx-log/success.log
-					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					   echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-					   echo "" >> /var/log/smx-log/success.log
-					   echo "##############################################################################################" >> /var/log/smx-log/success.log
-					   echo "" >> /var/log/smx-log/success.log
-					   read -p "Press [enter] to continue..." ReadDamKey
-					   clear
-					   echo "        COMMAND STATUS          "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: OK    stdout: yes    stderr: no          "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                 Fileset                 Type"
-					   echo "-----------------------------------------------------------------"
-					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
-					   echo
-					   cat /var/log/smx-log/success.log | tail -n 6
-					   echo
-					   read -p "Press [enter] to continue..." ReadDamKey
-                        	      else
-					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
-					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					   echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-					   echo "" >> /var/log/smx-log/fail.log
-					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
-					   echo "" >> /var/log/smx-log/fail.log
-					   read -p "Press [enter] to continue..." ReadDamKey
-					   clear
-					   echo "        COMMAND STATUS          "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: FAIL    stdout: yes    stderr: no        "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                 Fileset                 Type"
-					   echo "-----------------------------------------------------------------"
-					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					   echo "Command unsuccessful, check command variables and syntax"
-					   echo
-					   cat /var/log/smx-log/fail.log | tail -n 6
-					   echo
-					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   echo "##############################################################################################" >> /var/log/smx-log/success.log
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   echo "##############################################################################################" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   clear
+                    					   echo "        COMMAND STATUS          "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: OK    stdout: yes    stderr: no          "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                 Fileset                 Type"
+                    					   echo "-----------------------------------------------------------------"
+                    					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
+                    					   echo
+                    					   cat /var/log/smx-log/success.log | tail -n 6
+                    					   echo
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                        	          else
+                    					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    					   echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    					   echo "" >> /var/log/smx-log/fail.log
+                    					   echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                    					   echo "" >> /var/log/smx-log/fail.log
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   clear
+                    					   echo "        COMMAND STATUS          "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: FAIL    stdout: yes    stderr: no        "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                 Fileset                 Type"
+                    					   echo "-----------------------------------------------------------------"
+                    					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					   echo "Command unsuccessful, check command variables and syntax"
+                    					   echo
+                    					   cat /var/log/smx-log/fail.log | tail -n 6
+                    					   echo
+                    					   read -p "Press [enter] to continue..." ReadDamKey
                                       fi
                                       $(which groupadd) samba
                                       $(which mkdir) -p $folderName
@@ -27617,487 +27617,487 @@ function smb_menu() {
                                       $(which usermod) -G samba $smbUsers
                                       /etc/init.d/samba start
                                       read -p "Press [enter] to continue..." ReadDamKey
-				fi
+				                 fi
                            else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-				     echo "OS = Ubuntu"
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo "Folder share name example: /samba/share"
-				     echo "Share name example: test-share"
-				     echo "Allowed addresses example: 192.168.2.4 192.168.1.34"
-				     echo "[TOP]                                    [Entry Fields]"
-				     read -p " Open access or authenticated share -- (open/auth) > " ans
-				     if [ "$ans" = "open" ]; then
-					   clear
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo "Folder share name example: /samba/share"
-					   echo "Share name example: smb-test"
-					   echo "Allowed addresses example: 192.168.1.121 192.168.1.23"
-					   echo "[TOP]                                     [Entry Fields]"
-					   read -p " Enter folder share name -------------- > " folderName
-					   read -p " Enter share name --------------------- > " smbName
-					   read -p " Enter allowed addresses -------------- > " addrRange
-					   sleep 2
-					   clear
-					   echo "      COMMAND STATUS         "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: RUNNING    stdout: yes    stderr: no     "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                Fileset                 Type"
-					   echo "----------------------------------------------------------------"
-					   echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
-					   echo "$(which mkdir)                      bos.sysmgt.mkdir        exec"
-					   echo "$(which chmod)                      bos.sysmgt.chmod        exec"
-					   echo "$(which sed)                        bos.sysmgt.sed          exec"
-					   echo "/etc/init.d/samba                   bos.sysmgt.samba        exec"
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
-					   echo "Command run: $(which mkdir) -p $folderName"
-					   echo "Command run: $(which chmod) 777 $folderName"
-					   echo "Command run: /etc/init.d/samba start"
-					   sleep 2
-					   clear
-					   $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log
-					   if [ $PIPESTATUS -eq 0 ]; then
-					        echo "##############################################################################################" >> /var/log/smx-log/success.log
-						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-						echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-						echo "" >> /var/log/smx-log/success.log
-						echo "##############################################################################################" >> /var/log/smx-log/success.log
-						echo "" >> /var/log/smx-log/success.log
-						read -p "Press [enter] to continue..." ReadDamKey
-						clear
-						echo "        COMMAND STATUS          "
-						echo
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo
-						echo "Command: OK    stdout: yes    stderr: no          "
-						echo
-						echo "Before command completion, additional instructions may appear below"
-						echo
-						echo "File                                 Fileset                 Type"
-						echo "-----------------------------------------------------------------"
-						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
-						echo
-						cat /var/log/smx-log/success.log | tail -n 6
-						echo
-						read -p "Press [enter] to continue..." ReadDamKey
-                        		   else
-					        echo "##############################################################################################" >> /var/log/smx-log/fail.log
-						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-						echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-						echo "" >> /var/log/smx-log/fail.log
-						echo "##############################################################################################" >> /var/log/smx-log/fail.log
-						echo "" >> /var/log/smx-log/fail.log
-						read -p "Press [enter] to continue..." ReadDamKey
-						clear
-						echo "        COMMAND STATUS          "
-						echo
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo
-						echo "Command: FAIL    stdout: yes    stderr: no        "
-						echo
-						echo "Before command completion, additional instructions may appear below"
-						echo
-						echo "File                                 Fileset                 Type"
-						echo "-----------------------------------------------------------------"
-						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-						echo "Command unsuccessful, check command variables and syntax"
-						echo
-						cat /var/log/smx-log/fail.log | tail -n 6
-						echo
-						read -p "Press [enter] to continue..." ReadDamKey
-					   fi
-					   $(which mkdir) -p $folderName
-					   $(which chmod) 777 $folderName
-					   echo "unix charset = UTF-8" >> /etc/samba/smb.conf
-					   $(which sed) -i 's/MSHOME/WORKGROUP/g' /etc/samba/smb.conf
-					   echo "interfaces = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
-					   echo "bind interfaces only = yes" >> /etc/samba/smb.conf
-					   $(which sed) -i 's/security = user/security = share/g' /etc/samba/smb.conf
-					   echo "" >> /etc/samba/smb.conf
-					   echo "[$smbName]" >> /etc/samba/smb.conf
-					   echo "path = $folderName" >> /etc/samba/smb.conf
-					   echo "writable = yes" >> /etc/samba/smb.conf
-					   echo "guest ok = yes" >> /etc/samba/smb.conf
-					   echo "guest only = yes" >> /etc/samba/smb.conf
-					   echo "create mode = 0777" >> /etc/samba/smb.conf
-					   echo "directory mode = 0777" >> /etc/samba/smb.conf
-					   echo "share modes = yes" >> /etc/samba/smb.conf
-					   echo "" >> /etc/samba/smb.conf
-					   /etc/init.d/samba start
-					   read -p "Press [enter] to continue..." ReadDamKey
-				     else
-					   clear
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo "Folder share name example: /samba/share"
-					   echo "Share name example: samba-test"
-					   echo "Allowed addresses example: 192.168.3.2 192.168.1.34"
-					   echo "Allowed users example: user01 user02"
-					   echo "[TOP]                                     [Entry Fields]"
-					   read -p " Enter folder share name -------------- > " folderName
-					   read -p " Enter share name --------------------- > " smbName
-					   read -p " Enter allowed addresses -------------- > " addrRange
-					   read -p " Enter allowed users ------------------ > " smbUsers
-					   sleep 2
-					   clear
-					   echo "      COMMAND STATUS         "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: RUNNING    stdout: yes    stderr: no     "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                Fileset                 Type"
-					   echo "----------------------------------------------------------------"
-					   echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
-					   echo "$(which groupadd)                   bos.grpmgt.groupadd     exec"
-					   echo "$(which chgrp)                      bos.grpmgt.chgrp        exec"
-					   echo "$(which usermod)                    bos.usrmgt.usermod      exec"
-					   echo "$(which mkdir)                      bos.sysmgt.mkdir        exec"
-					   echo "$(which chmod)                      bos.sysmgt.chmod        exec"
-					   echo "$(which sed)                        bos.sysmgt.sed          exec"
-					   echo "/etc/init.d/samba                   bos.sysmgt.samba        exec"
-					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
-					   echo "Command run: $(which groupadd) samba"
-					   echo "Command run: $(which chgrp) samba $folderName"
-					   echo "Command run: $(which usermod) -G samba $smbUsers"
-					   echo "Command run: $(which mkdir) -p $folderName"
-					   echo "Command run: $(which chmod) 770 $folderName"
-					   echo "Command run: /etc/init.d/samba start"
-					   sleep 2
-					   clear
-					   $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log
-					   if [ $PIPESTATUS -eq 0 ]; then
-					        echo "##############################################################################################" >> /var/log/smx-log/success.log
-						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-						echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-						echo "" >> /var/log/smx-log/success.log
-						echo "##############################################################################################" >> /var/log/smx-log/success.log
-						echo "" >> /var/log/smx-log/success.log
-						read -p "Press [enter] to continue..." ReadDamKey
-						clear
-						echo "        COMMAND STATUS          "
-						echo
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo
-						echo "Command: OK    stdout: yes    stderr: no          "
-						echo
-						echo "Before command completion, additional instructions may appear below"
-						echo
-						echo "File                                 Fileset                 Type"
-						echo "-----------------------------------------------------------------"
-						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
-						echo
-						cat /var/log/smx-log/success.log | tail -n 6
-						echo
-						read -p "Press [enter] to continue..." ReadDamKey
-                        		   else
-					        echo "##############################################################################################" >> /var/log/smx-log/fail.log
-						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-						echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-						echo "" >> /var/log/smx-log/fail.log
-						echo "##############################################################################################" >> /var/log/smx-log/fail.log
-						echo "" >> /var/log/smx-log/fail.log
-						read -p "Press [enter] to continue..." ReadDamKey
-						clear
-						echo "        COMMAND STATUS          "
-						echo
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo
-						echo "Command: FAIL    stdout: yes    stderr: no        "
-						echo
-						echo "Before command completion, additional instructions may appear below"
-						echo
-						echo "File                                 Fileset                 Type"
-						echo "-----------------------------------------------------------------"
-						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-						echo "Command unsuccessful, check command variables and syntax"
-						echo
-						cat /var/log/smx-log/fail.log | tail -n 6
-						echo
-						read -p "Press [enter] to continue..." ReadDamKey
-					   fi
-					   $(which groupadd) samba
-					   $(which mkdir) -p $folderName
-					   $(which chgrp) samba $folderName
-					   $(which chmod) 770 $folderName
-					   echo "unix charset = UTF-8" >> /etc/samba/smb.conf
-					   $(which sed) -i 's/MSHOME/WORKGROUP/g' /etc/samba/smb.conf
-					   echo "interfaces = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
-					   echo "bind interfaces only = yes" >> /etc/samba/smb.conf
-					   echo "" >> /etc/samba/smb.conf
-					   echo "[$smbName]" >> /etc/samba/smb.conf
-					   echo "path = $folderName" >> /etc/samba/smb.conf
-					   echo "writable = yes" >> /etc/samba/smb.conf
-					   echo "guest ok = no" >> /etc/samba/smb.conf
-					   echo "create mode = 0770" >> /etc/samba/smb.conf
-					   echo "directory mode = 0770" >> /etc/samba/smb.conf
-					   echo "share modes = yes" >> /etc/samba/smb.conf
-					   echo "valid users = @samba" >> /etc/samba/smb.conf
-					   echo "" >> /etc/samba/smb.conf
-					   $(which smbpasswd) -a $smbUsers
-					   $(which usermod) -G samba $smbUsers
-					   /etc/init.d/samba start
-					   read -p "Press [enter] to continue..." ReadDamKey
-				     fi
+                				     echo "OS = Ubuntu"
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo "Folder share name example: /samba/share"
+                				     echo "Share name example: test-share"
+                				     echo "Allowed addresses example: 192.168.2.4 192.168.1.34"
+                				     echo "[TOP]                                    [Entry Fields]"
+                				     read -p " Open access or authenticated share -- (open/auth) > " ans
+                				     if [ "$ans" = "open" ]; then
+                    					   clear
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo "Folder share name example: /samba/share"
+                    					   echo "Share name example: smb-test"
+                    					   echo "Allowed addresses example: 192.168.1.121 192.168.1.23"
+                    					   echo "[TOP]                                     [Entry Fields]"
+                    					   read -p " Enter folder share name -------------- > " folderName
+                    					   read -p " Enter share name --------------------- > " smbName
+                    					   read -p " Enter allowed addresses -------------- > " addrRange
+                    					   sleep 2
+                    					   clear
+                    					   echo "      COMMAND STATUS         "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                Fileset                 Type"
+                    					   echo "----------------------------------------------------------------"
+                    					   echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
+                    					   echo "$(which mkdir)                      bos.sysmgt.mkdir        exec"
+                    					   echo "$(which chmod)                      bos.sysmgt.chmod        exec"
+                    					   echo "$(which sed)                        bos.sysmgt.sed          exec"
+                    					   echo "/etc/init.d/samba                   bos.sysmgt.samba        exec"
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
+                    					   echo "Command run: $(which mkdir) -p $folderName"
+                    					   echo "Command run: $(which chmod) 777 $folderName"
+                    					   echo "Command run: /etc/init.d/samba start"
+                    					   sleep 2
+                    					   clear
+                    					   $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log
+                    					   if [ $PIPESTATUS -eq 0 ]; then
+					                            echo "##############################################################################################" >> /var/log/smx-log/success.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						echo "##############################################################################################" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo "        COMMAND STATUS          "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: OK    stdout: yes    stderr: no          "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
+                        						echo
+                        						cat /var/log/smx-log/success.log | tail -n 6
+                        						echo
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        		           else
+					                            echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        						echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                        						echo "" >> /var/log/smx-log/fail.log
+                        						echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                        						echo "" >> /var/log/smx-log/fail.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo "        COMMAND STATUS          "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: FAIL    stdout: yes    stderr: no        "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        						echo "Command unsuccessful, check command variables and syntax"
+                        						echo
+                        						cat /var/log/smx-log/fail.log | tail -n 6
+                        						echo
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                    					   fi
+                    					   $(which mkdir) -p $folderName
+                    					   $(which chmod) 777 $folderName
+                    					   echo "unix charset = UTF-8" >> /etc/samba/smb.conf
+                    					   $(which sed) -i 's/MSHOME/WORKGROUP/g' /etc/samba/smb.conf
+                    					   echo "interfaces = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
+                    					   echo "bind interfaces only = yes" >> /etc/samba/smb.conf
+                    					   $(which sed) -i 's/security = user/security = share/g' /etc/samba/smb.conf
+                    					   echo "" >> /etc/samba/smb.conf
+                    					   echo "[$smbName]" >> /etc/samba/smb.conf
+                    					   echo "path = $folderName" >> /etc/samba/smb.conf
+                    					   echo "writable = yes" >> /etc/samba/smb.conf
+                    					   echo "guest ok = yes" >> /etc/samba/smb.conf
+                    					   echo "guest only = yes" >> /etc/samba/smb.conf
+                    					   echo "create mode = 0777" >> /etc/samba/smb.conf
+                    					   echo "directory mode = 0777" >> /etc/samba/smb.conf
+                    					   echo "share modes = yes" >> /etc/samba/smb.conf
+                    					   echo "" >> /etc/samba/smb.conf
+                    					   /etc/init.d/samba start
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+				                     else
+                    					   clear
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo "Folder share name example: /samba/share"
+                    					   echo "Share name example: samba-test"
+                    					   echo "Allowed addresses example: 192.168.3.2 192.168.1.34"
+                    					   echo "Allowed users example: user01 user02"
+                    					   echo "[TOP]                                     [Entry Fields]"
+                    					   read -p " Enter folder share name -------------- > " folderName
+                    					   read -p " Enter share name --------------------- > " smbName
+                    					   read -p " Enter allowed addresses -------------- > " addrRange
+                    					   read -p " Enter allowed users ------------------ > " smbUsers
+                    					   sleep 2
+                    					   clear
+                    					   echo "      COMMAND STATUS         "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                Fileset                 Type"
+                    					   echo "----------------------------------------------------------------"
+                    					   echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
+                    					   echo "$(which groupadd)                   bos.grpmgt.groupadd     exec"
+                    					   echo "$(which chgrp)                      bos.grpmgt.chgrp        exec"
+                    					   echo "$(which usermod)                    bos.usrmgt.usermod      exec"
+                    					   echo "$(which mkdir)                      bos.sysmgt.mkdir        exec"
+                    					   echo "$(which chmod)                      bos.sysmgt.chmod        exec"
+                    					   echo "$(which sed)                        bos.sysmgt.sed          exec"
+                    					   echo "/etc/init.d/samba                   bos.sysmgt.samba        exec"
+                    					   echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
+                    					   echo "Command run: $(which groupadd) samba"
+                    					   echo "Command run: $(which chgrp) samba $folderName"
+                    					   echo "Command run: $(which usermod) -G samba $smbUsers"
+                    					   echo "Command run: $(which mkdir) -p $folderName"
+                    					   echo "Command run: $(which chmod) 770 $folderName"
+                    					   echo "Command run: /etc/init.d/samba start"
+                    					   sleep 2
+                    					   clear
+                    					   $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log
+                    					   if [ $PIPESTATUS -eq 0 ]; then
+					                            echo "##############################################################################################" >> /var/log/smx-log/success.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						echo "##############################################################################################" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo "        COMMAND STATUS          "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: OK    stdout: yes    stderr: no          "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log"
+                        						echo
+                        						cat /var/log/smx-log/success.log | tail -n 6
+                        						echo
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        		           else
+					                            echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        						echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        						echo "Command run: $(which apt-get) -y install samba | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                        						echo "" >> /var/log/smx-log/fail.log
+                        						echo "##############################################################################################" >> /var/log/smx-log/fail.log
+                        						echo "" >> /var/log/smx-log/fail.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo "        COMMAND STATUS          "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: FAIL    stdout: yes    stderr: no        "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        						echo "Command unsuccessful, check command variables and syntax"
+                        						echo
+                        						cat /var/log/smx-log/fail.log | tail -n 6
+                        						echo
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                    					   fi
+                    					   $(which groupadd) samba
+                    					   $(which mkdir) -p $folderName
+                    					   $(which chgrp) samba $folderName
+                    					   $(which chmod) 770 $folderName
+                    					   echo "unix charset = UTF-8" >> /etc/samba/smb.conf
+                    					   $(which sed) -i 's/MSHOME/WORKGROUP/g' /etc/samba/smb.conf
+                    					   echo "interfaces = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
+                    					   echo "bind interfaces only = yes" >> /etc/samba/smb.conf
+                    					   echo "" >> /etc/samba/smb.conf
+                    					   echo "[$smbName]" >> /etc/samba/smb.conf
+                    					   echo "path = $folderName" >> /etc/samba/smb.conf
+                    					   echo "writable = yes" >> /etc/samba/smb.conf
+                    					   echo "guest ok = no" >> /etc/samba/smb.conf
+                    					   echo "create mode = 0770" >> /etc/samba/smb.conf
+                    					   echo "directory mode = 0770" >> /etc/samba/smb.conf
+                    					   echo "share modes = yes" >> /etc/samba/smb.conf
+                    					   echo "valid users = @samba" >> /etc/samba/smb.conf
+                    					   echo "" >> /etc/samba/smb.conf
+                    					   $(which smbpasswd) -a $smbUsers
+                    					   $(which usermod) -G samba $smbUsers
+                    					   /etc/init.d/samba start
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+				                     fi
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-					  echo "OS = SuSE"
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo "[TOP]                                    [Entry Fields]"
-					  read -p " Open access or authenticated share --- (open/auth) > " ans
-					  if [ "$ans" = "open" ]; then
-					        clear
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo "Folder name example: /samba/share"
-						echo "Share name example: samba-test"
-						echo "Allowed addresses example: 192.168.1.34 192.168.1.32"
-						echo "[TOP]                                     [Entry Fields]"
-						read -p " Enter folder name -------------------- > " folderName
-						read -p " Enter share name --------------------- > " smbName
-						read -p " Enter allowed addresses -------------- > " addrRange
-						clear
-						echo "         COMMAND STATUS           "
-						echo
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo
-						echo "Command: RUNNING    stdout: yes    stderr: no     "
-						echo
-						echo "Before command completion, additional instructions may appear below"
-						echo
-						echo "File                                 Fileset                 Type"
-						echo "-----------------------------------------------------------------"
-						echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-						echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
-						echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-						echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
-						echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
-						echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
-						echo "Command run: $(which mkdir) -p $folderName"
-						echo "Command run: $(which chmod) 777 $folderName"
-						echo "Command run: /etc/init.d/smb start"
-						echo "Command run: $(which chkconfig) smb on"
-						sleep 2
-						clear
-						$(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log
-						if [ $PIPESTATUS -eq 0 ]; then
-						     echo "#######################################################################################" >> /var/log/smx-log/success.log
-						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-						     echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-						     echo "" >> /var/log/smx-log/success.log
-						     echo "#######################################################################################" >> /var/log/smx-log/success.log
-						     echo "" >> /var/log/smx-log/success.log
-						     read -p "Press [enter] to continue..." ReadDamKey
-						     clear
-						     echo "        COMMAND STATUS          "
-						     echo
-						     echo "$(date)                                     $(whoami)@$(hostname)"
-						     echo
-						     echo "Command: OK    stdout: yes    stderr: no          "
-						     echo
-						     echo "Before command completion, additional instructions may appear below"
-						     echo
-						     echo "File                                 Fileset                 Type"
-						     echo "-----------------------------------------------------------------"
-						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
-						     echo
-						     cat /var/log/smx-log/success.log | tail -n 6
-						     echo
-						     read -p "Press [enter] to continue..." ReadDamKey
-                        			else
-						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
-						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-						     echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-						     echo "" >> /var/log/smx-log/fail.log
-						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
-						     echo "" >> /var/log/smx-log/fail.log
-						     read -p "Press [enter] to continue..." ReadDamKey
-						     clear
-						     echo "        COMMAND STATUS          "
-						     echo
-						     echo "$(date)                                     $(whoami)@$(hostname)"
-						     echo
-						     echo "Command: FAIL    stdout: yes    stderr: no        "
-						     echo
-						     echo "Before command completion, additional instructions may appear below"
-						     echo
-						     echo "File                                 Fileset                 Type"
-						     echo "-----------------------------------------------------------------"
-						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-						     echo "Command unsuccessful, check command variables and syntax"
-						     echo
-						     cat /var/log/smx-log/fail.log | tail -n 6
-						     echo
-						     read -p "Press [enter] to continue..." ReadDamKey
-						fi
-						$(which mkdir) -p $folderName
-						$(which chmod) 777 $folderName
-						echo "unix charset = UTF-8" >> /etc/samba/smb.conf
-						echo "host allow = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
-						echo "security = share" >> /etc/samba/smb.conf
-						echo "" >> /etc/samba/smb.conf
-						echo "[$smbName]" >> /etc/samba/smb.conf
-						echo "path = $folderName" >> /etc/samba/smb.conf
-						echo "writable = yes" >> /etc/samba/smb.conf
-						echo "guest ok = yes" >> /etc/samba/smb.conf
-						echo "guest only = yes" >> /etc/samba/smb.conf
-						echo "create mode = 0777" >> /etc/samba/smb.conf
-						echo "directory mode = 0777" >> /etc/samba/smb.conf
-						echo "share modes = yes" >> /etc/samba/smb.conf
-						echo "" >> /etc/samba/smb.conf
-						/etc/init.d/smb start
-						$(which chkconfig) smb on
-						echo "To successfuly use samba, DISABLE apparmor..."
-						read -p "Press [enter] to continue..." ReadDamKey
-					  else
-					        clear
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo "Folder name example: /samba/share"
-						echo "Share name example: samba-test"
-						echo "Allowed addresses example: 192.168.1.34 192.168.1.32"
-						echo "Allowed users example: user01 user02"
-						echo "[TOP]                                     [Entry Fields]"
-						read -p " Enter folder name -------------------- > " folderName
-						read -p " Enter share name --------------------- > " smbName
-						read -p " Enter allowed addresses -------------- > " addrRange
-						read -p " Enter allowed users ------------------ > " smbUsers
-						clear
-						echo "         COMMAND STATUS           "
-						echo
-						echo "$(date)                                     $(whoami)@$(hostname)"
-						echo
-						echo "Command: RUNNING    stdout: yes    stderr: no     "
-						echo
-						echo "Before command completion, additional instructions may appear below"
-						echo
-						echo "File                                 Fileset                 Type"
-						echo "-----------------------------------------------------------------"
-						echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-						echo "$(which groupadd)                    bos.grpmgt.groupadd     exec"
-						echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
-						echo "$(which chgrp)                       bos.grpmgt.chgrp        exec"
-						echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-						echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
-						echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
-						echo "$(which smbpasswd)                   bos.sysmgt.smbpasswd    exec"
-						echo "$(which usermod)                     bos.sysmgt.usermod      exec"
-						echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
-						echo "Command run: $(which groupadd) samba"
-						echo "Command run: $(which mkdir) -p $folderName"
-						echo "Command run: $(which chgrp) samba $folderName"
-						echo "Command run: $(which chmod) 2770 $folderName"
-						echo "Command run: /etc/init.d/smb start"
-						echo "Command run: $(which chkconfig) smb on"
-						echo "Command run: $(which smbpasswd) -a $smbUsers"
-						echo "Command run: $(which usermod) -G samba $smbUsers"
-						sleep 2
-						clear
-						$(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log
-						if [ $PIPESTATUS -eq 0 ]; then
-						     echo "#######################################################################################" >> /var/log/smx-log/success.log
-						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-						     echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-						     echo "" >> /var/log/smx-log/success.log
-						     echo "#######################################################################################" >> /var/log/smx-log/success.log
-						     echo "" >> /var/log/smx-log/success.log
-						     read -p "Press [enter] to continue..." ReadDamKey
-						     clear
-						     echo "        COMMAND STATUS          "
-						     echo
-						     echo "$(date)                                     $(whoami)@$(hostname)"
-						     echo
-						     echo "Command: OK    stdout: yes    stderr: no          "
-						     echo
-						     echo "Before command completion, additional instructions may appear below"
-						     echo
-						     echo "File                                 Fileset                 Type"
-						     echo "-----------------------------------------------------------------"
-						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
-						     echo
-						     cat /var/log/smx-log/success.log | tail -n 6
-						     echo
-						     read -p "Press [enter] to continue..." ReadDamKey
-                        			else
-						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
-						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-						     echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-						     echo "" >> /var/log/smx-log/fail.log
-						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
-						     echo "" >> /var/log/smx-log/fail.log
-						     read -p "Press [enter] to continue..." ReadDamKey
-						     clear
-						     echo "        COMMAND STATUS          "
-						     echo
-						     echo "$(date)                                     $(whoami)@$(hostname)"
-						     echo
-						     echo "Command: FAIL    stdout: yes    stderr: no        "
-						     echo
-						     echo "Before command completion, additional instructions may appear below"
-						     echo
-						     echo "File                                 Fileset                 Type"
-						     echo "-----------------------------------------------------------------"
-						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-						     echo "Command unsuccessful, check command variables and syntax"
-						     echo
-						     cat /var/log/smx-log/fail.log | tail -n 6
-						     echo
-						     read -p "Press [enter] to continue..." ReadDamKey
-						fi
-						$(which mkdir) -p $folderName
-						$(which chmod) 777 $folderName
-						echo "unix charset = UTF-8" >> /etc/samba/smb.conf
-						echo "host allow = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
-						echo "security = share" >> /etc/samba/smb.conf
-						echo "" >> /etc/samba/smb.conf
-						echo "[$smbName]" >> /etc/samba/smb.conf
-						echo "path = $folderName" >> /etc/samba/smb.conf
-						echo "writable = yes" >> /etc/samba/smb.conf
-						echo "guest ok = no" >> /etc/samba/smb.conf
-						echo "create mode = 0770" >> /etc/samba/smb.conf
-						echo "directory mode = 0770" >> /etc/samba/smb.conf
-						echo "share modes = yes" >> /etc/samba/smb.conf
-						echo "valid users = @samba" >> /etc/samba/smb.conf
-						echo "" >> /etc/samba/smb.conf
-						/etc/init.d/smb start
-						$(which chkconfig) smb on
-						$(which smbpasswd) -a $smbUsers
-						$(which usermod) -G samba $smbUsers
-						read -p "Press [enter] to continue..." ReadDamKey
-					  fi
+                    					  echo "OS = SuSE"
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo "[TOP]                                    [Entry Fields]"
+                    					  read -p " Open access or authenticated share --- (open/auth) > " ans
+                    					  if [ "$ans" = "open" ]; then
+                    					        clear
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo "Folder name example: /samba/share"
+                        						echo "Share name example: samba-test"
+                        						echo "Allowed addresses example: 192.168.1.34 192.168.1.32"
+                        						echo "[TOP]                                     [Entry Fields]"
+                        						read -p " Enter folder name -------------------- > " folderName
+                        						read -p " Enter share name --------------------- > " smbName
+                        						read -p " Enter allowed addresses -------------- > " addrRange
+                        						clear
+                        						echo "         COMMAND STATUS           "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+                        						echo "$(which chmod)                       bos.sysmgt.chmod        exec"
+                        						echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
+                        						echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
+                        						echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        						echo "Command run: $(which mkdir) -p $folderName"
+                        						echo "Command run: $(which chmod) 777 $folderName"
+                        						echo "Command run: /etc/init.d/smb start"
+                        						echo "Command run: $(which chkconfig) smb on"
+                        						sleep 2
+                        						clear
+                        						$(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log
+                        						if [ $PIPESTATUS -eq 0 ]; then
+                        						     echo "#######################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     echo "#######################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo "        COMMAND STATUS          "
+                        						     echo
+                        						     echo "$(date)                                     $(whoami)@$(hostname)"
+                        						     echo
+                        						     echo "Command: OK    stdout: yes    stderr: no          "
+                        						     echo
+                        						     echo "Before command completion, additional instructions may appear below"
+                        						     echo
+                        						     echo "File                                 Fileset                 Type"
+                        						     echo "-----------------------------------------------------------------"
+                        						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        						     echo
+                        						     cat /var/log/smx-log/success.log | tail -n 6
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        			            else
+                        						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        						     echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo "        COMMAND STATUS          "
+                        						     echo
+                        						     echo "$(date)                                     $(whoami)@$(hostname)"
+                        						     echo
+                        						     echo "Command: FAIL    stdout: yes    stderr: no        "
+                        						     echo
+                        						     echo "Before command completion, additional instructions may appear below"
+                        						     echo
+                        						     echo "File                                 Fileset                 Type"
+                        						     echo "-----------------------------------------------------------------"
+                        						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						     echo "Command unsuccessful, check command variables and syntax"
+                        						     echo
+                        						     cat /var/log/smx-log/fail.log | tail -n 6
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						fi
+                        						$(which mkdir) -p $folderName
+                        						$(which chmod) 777 $folderName
+                        						echo "unix charset = UTF-8" >> /etc/samba/smb.conf
+                        						echo "host allow = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
+                        						echo "security = share" >> /etc/samba/smb.conf
+                        						echo "" >> /etc/samba/smb.conf
+                        						echo "[$smbName]" >> /etc/samba/smb.conf
+                        						echo "path = $folderName" >> /etc/samba/smb.conf
+                        						echo "writable = yes" >> /etc/samba/smb.conf
+                        						echo "guest ok = yes" >> /etc/samba/smb.conf
+                        						echo "guest only = yes" >> /etc/samba/smb.conf
+                        						echo "create mode = 0777" >> /etc/samba/smb.conf
+                        						echo "directory mode = 0777" >> /etc/samba/smb.conf
+                        						echo "share modes = yes" >> /etc/samba/smb.conf
+                        						echo "" >> /etc/samba/smb.conf
+                        						/etc/init.d/smb start
+                        						$(which chkconfig) smb on
+                        						echo "To successfuly use samba, DISABLE apparmor..."
+                        						read -p "Press [enter] to continue..." ReadDamKey
+					                      else
+					                            clear
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo "Folder name example: /samba/share"
+                        						echo "Share name example: samba-test"
+                        						echo "Allowed addresses example: 192.168.1.34 192.168.1.32"
+                        						echo "Allowed users example: user01 user02"
+                        						echo "[TOP]                                     [Entry Fields]"
+                        						read -p " Enter folder name -------------------- > " folderName
+                        						read -p " Enter share name --------------------- > " smbName
+                        						read -p " Enter allowed addresses -------------- > " addrRange
+                        						read -p " Enter allowed users ------------------ > " smbUsers
+                        						clear
+                        						echo "         COMMAND STATUS           "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						echo "$(which groupadd)                    bos.grpmgt.groupadd     exec"
+                        						echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+                        						echo "$(which chgrp)                       bos.grpmgt.chgrp        exec"
+                        						echo "$(which chmod)                       bos.sysmgt.chmod        exec"
+                        						echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
+                        						echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
+                        						echo "$(which smbpasswd)                   bos.sysmgt.smbpasswd    exec"
+                        						echo "$(which usermod)                     bos.sysmgt.usermod      exec"
+                        						echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        						echo "Command run: $(which groupadd) samba"
+                        						echo "Command run: $(which mkdir) -p $folderName"
+                        						echo "Command run: $(which chgrp) samba $folderName"
+                        						echo "Command run: $(which chmod) 2770 $folderName"
+                        						echo "Command run: /etc/init.d/smb start"
+                        						echo "Command run: $(which chkconfig) smb on"
+                        						echo "Command run: $(which smbpasswd) -a $smbUsers"
+                        						echo "Command run: $(which usermod) -G samba $smbUsers"
+                        						sleep 2
+                        						clear
+                        						$(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log
+                        						if [ $PIPESTATUS -eq 0 ]; then
+                        						     echo "#######################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     echo "#######################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo "        COMMAND STATUS          "
+                        						     echo
+                        						     echo "$(date)                                     $(whoami)@$(hostname)"
+                        						     echo
+                        						     echo "Command: OK    stdout: yes    stderr: no          "
+                        						     echo
+                        						     echo "Before command completion, additional instructions may appear below"
+                        						     echo
+                        						     echo "File                                 Fileset                 Type"
+                        						     echo "-----------------------------------------------------------------"
+                        						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        						     echo
+                        						     cat /var/log/smx-log/success.log | tail -n 6
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        			           else
+                        						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        						     echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        						     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo "        COMMAND STATUS          "
+                        						     echo
+                        						     echo "$(date)                                     $(whoami)@$(hostname)"
+                        						     echo
+                        						     echo "Command: FAIL    stdout: yes    stderr: no        "
+                        						     echo
+                        						     echo "Before command completion, additional instructions may appear below"
+                        						     echo
+                        						     echo "File                                 Fileset                 Type"
+                        						     echo "-----------------------------------------------------------------"
+                        						     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						     echo "Command unsuccessful, check command variables and syntax"
+                        						     echo
+                        						     cat /var/log/smx-log/fail.log | tail -n 6
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						fi
+                        						$(which mkdir) -p $folderName
+                        						$(which chmod) 777 $folderName
+                        						echo "unix charset = UTF-8" >> /etc/samba/smb.conf
+                        						echo "host allow = 127.0.0.1 $addrRange" >> /etc/samba/smb.conf
+                        						echo "security = share" >> /etc/samba/smb.conf
+                        						echo "" >> /etc/samba/smb.conf
+                        						echo "[$smbName]" >> /etc/samba/smb.conf
+                        						echo "path = $folderName" >> /etc/samba/smb.conf
+                        						echo "writable = yes" >> /etc/samba/smb.conf
+                        						echo "guest ok = no" >> /etc/samba/smb.conf
+                        						echo "create mode = 0770" >> /etc/samba/smb.conf
+                        						echo "directory mode = 0770" >> /etc/samba/smb.conf
+                        						echo "share modes = yes" >> /etc/samba/smb.conf
+                        						echo "valid users = @samba" >> /etc/samba/smb.conf
+                        						echo "" >> /etc/samba/smb.conf
+                        						/etc/init.d/smb start
+                        						$(which chkconfig) smb on
+                        						$(which smbpasswd) -a $smbUsers
+                        						$(which usermod) -G samba $smbUsers
+                        						read -p "Press [enter] to continue..." ReadDamKey
+					                      fi
                                      fi
                                 fi
-			   fi
-		      fi
-	              ;;
-	    start)
-		    clear
+			               fi
+    		          fi
+    	              ;;
+	        start)
+		            clear
                     cat /proc/version | grep "Red Hat" > /dev/null
-		    if [ $? -eq 0 ]; then
+		            if [ $? -eq 0 ]; then
                          clear
-			 echo "OS = Red Hat"
+			             echo "OS = Red Hat"
                          echo "        COMMAND STATUS        "
                          echo
                          echo "$(date)                                     $(whoami)@$(hostname)"
@@ -28115,7 +28115,7 @@ function smb_menu() {
                          clear
                          $(which service) smb start
                          $(which service) nmb start
-			 echo "######################################################" >> /var/log/smx-log/success.log
+			             echo "######################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Successfuly started smb and nmb on system: $(hostname)" >> /var/log/smx-log/success.log
                          echo "Command run: $(which service) smb start" >> /var/log/smx-log/success.log
@@ -28139,13 +28139,13 @@ function smb_menu() {
                          echo
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
-			 read -p "Press [enter] to continue..." ReadDamKey
+			             read -p "Press [enter] to continue..." ReadDamKey
                     else
                          clear
                          cat /proc/version | grep "Debian" > /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-			      echo "OS = Debian"
+			                  echo "OS = Debian"
                               echo "       COMMAND STATUS         "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -28161,7 +28161,7 @@ function smb_menu() {
                               sleep 2
                               clear
                               /etc/init.d/samba start
-			      echo "################################################" >> /var/log/smx-log/success.log
+			                  echo "################################################" >> /var/log/smx-log/success.log
                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
                               echo "Command run: /etc/init.d/samba start" >> /var/log/smx-log/success.log
@@ -28184,108 +28184,108 @@ function smb_menu() {
                               echo
                               cat /var/log/smx-log/success.log | tail -n 6
                               echo
-			      read -p "Press [enter] to continue..." ReadDamKey
+			                  read -p "Press [enter] to continue..." ReadDamKey
                          else
                               clear
                               cat /proc/version | grep "Ubuntu" > /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-				   echo "OS = Ubuntu"
-				   echo "       COMMAND STATUS         "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: RUNNING    stdout: yes    stderr: no     "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                 Type"
-				   echo "-----------------------------------------------------------------"
-				   echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				   echo "Command run: /etc/init.d/samba start"
-				   sleep 2
-				   clear
-				   /etc/init.d/samba start
-				   echo "################################################" >> /var/log/smx-log/success.log
-				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				   echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
-				   echo "Command run: /etc/init.d/samba start" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   echo "################################################" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   clear
-				   echo "       COMMAND STATUS         "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: OK    stdout: yes    stderr: no          "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                 Type"
-				   echo "-----------------------------------------------------------------"
-				   echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				   echo "Command run: /etc/init.d/samba start"
-				   echo
-				   cat /var/log/smx-log/success.log | tail -n 6
-				   echo
-				   read -p "Press [enter] to continue..." ReadDamKey
+                				   echo "OS = Ubuntu"
+                				   echo "       COMMAND STATUS         "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                 Type"
+                				   echo "-----------------------------------------------------------------"
+                				   echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				   echo "Command run: /etc/init.d/samba start"
+                				   sleep 2
+                				   clear
+                				   /etc/init.d/samba start
+                				   echo "################################################" >> /var/log/smx-log/success.log
+                				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				   echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                				   echo "Command run: /etc/init.d/samba start" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   echo "################################################" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   clear
+                				   echo "       COMMAND STATUS         "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: OK    stdout: yes    stderr: no          "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                 Type"
+                				   echo "-----------------------------------------------------------------"
+                				   echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				   echo "Command run: /etc/init.d/samba start"
+                				   echo
+                				   cat /var/log/smx-log/success.log | tail -n 6
+                				   echo
+                				   read -p "Press [enter] to continue..." ReadDamKey
                               else
                                    clear
                                    cat /proc/version | grep "SUSE" > /dev/null
                                    if [ $? -eq 0 ]; then
                                         clear
-				        echo "OS = SuSE"
-					echo "       COMMAND STATUS         "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: RUNNING    stdout: yes    stderr: no     "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
-					echo "Command run: /etc/init.d/smb start"
-					sleep 2
-					clear
-					/etc/init.d/smb start
-					echo "################################################" >> /var/log/smx-log/success.log
-					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
-					echo "Command run: /etc/init.d/smb start" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					echo "################################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					clear
-					echo "       COMMAND STATUS         "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: OK    stdout: yes    stderr: no          "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
-					echo "Command run: /etc/init.d/smb start"
-					echo
-					cat /var/log/smx-log/success.log | tail -n 6
-					echo
-					read -p "Press [enter] to continue..." ReadDamKey
+				                        echo "OS = SuSE"
+                    					echo "       COMMAND STATUS         "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
+                    					echo "Command run: /etc/init.d/smb start"
+                    					sleep 2
+                    					clear
+                    					/etc/init.d/smb start
+                    					echo "################################################" >> /var/log/smx-log/success.log
+                    					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					echo "Command run: /etc/init.d/smb start" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					echo "################################################" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					clear
+                    					echo "       COMMAND STATUS         "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: OK    stdout: yes    stderr: no          "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
+                    					echo "Command run: /etc/init.d/smb start"
+                    					echo
+                    					cat /var/log/smx-log/success.log | tail -n 6
+                    					echo
+                    					read -p "Press [enter] to continue..." ReadDamKey
                                    fi
                               fi
-			 fi
-		    fi
-		    ;;
-	    stop)
-		   clear
+			             fi
+        		    fi
+        		    ;;
+	        stop)
+		           clear
                    cat /proc/version | grep "Red Hat" > /dev/null
-		   if [ $? -eq 0 ]; then
+		           if [ $? -eq 0 ]; then
                         clear
-		        echo "OS = Red Hat"
+		                echo "OS = Red Hat"
                         echo "        COMMAND STATUS        "
                         echo
                         echo "$(date)                                     $(whoami)@$(hostname)"
@@ -28327,13 +28327,13 @@ function smb_menu() {
                         echo
                         cat /var/log/smx-log/success.log | tail -n 6
                         echo
-			read -p "Press [enter] to continue..." ReadDamKey
+			            read -p "Press [enter] to continue..." ReadDamKey
                    else
                         clear
                         cat /proc/version | grep "Debian" > /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-			     echo "OS = Debian"
+			                 echo "OS = Debian"
                              echo "       COMMAND STATUS         "
                              echo
                              echo "$(date)                                     $(whoami)@$(hostname)"
@@ -28349,7 +28349,7 @@ function smb_menu() {
                              sleep 2
                              clear
                              /etc/init.d/samba stop
-			     echo "################################################" >> /var/log/smx-log/success.log
+			                 echo "################################################" >> /var/log/smx-log/success.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                              echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
                              echo "Command run: /etc/init.d/samba stop" >> /var/log/smx-log/success.log
@@ -28372,103 +28372,103 @@ function smb_menu() {
                              echo
                              cat /var/log/smx-log/success.log | tail -n 6
                              echo
-			     read -p "Press [enter] to continue..." ReadDamKey
+			                 read -p "Press [enter] to continue..." ReadDamKey
                         else
                              clear
                              cat /proc/version | grep "Ubuntu" > /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-				  echo "OS = Ubuntu"
-				  echo "       COMMAND STATUS         "
-				  echo
-				  echo "$(date)                                     $(whoami)@$(hostname)"
-				  echo
-				  echo "Command: RUNNING    stdout: yes    stderr: no     "
-				  echo
-				  echo "Before command completion, additional instructions may appear below"
-				  echo
-				  echo "File                                 Fileset                 Type"
-				  echo "-----------------------------------------------------------------"
-				  echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				  echo "Command run: /etc/init.d/samba stop"
-				  sleep 2
-				  clear
-				  /etc/init.d/smb stop
-				  echo "################################################" >> /var/log/smx-log/success.log
-				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				  echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
-				  echo "Command run: /etc/init.d/samba stop" >> /var/log/smx-log/success.log
-				  echo "" >> /var/log/smx-log/success.log
-				  echo "################################################" >> /var/log/smx-log/success.log
-				  echo "" >> /var/log/smx-log/success.log
-				  clear
-				  echo "       COMMAND STATUS         "
-				  echo
-				  echo "$(date)                                     $(whoami)@$(hostname)"
-				  echo
-				  echo "Command: OK    stdout: yes    stderr: no          "
-				  echo
-				  echo "Before command completion, additional instructions may appear below"
-				  echo
-				  echo "File                                 Fileset                 Type"
-				  echo "-----------------------------------------------------------------"
-				  echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				  echo "Command run: /etc/init.d/smb stop"
-				  echo
-				  cat /var/log/smx-log/success.log | tail -n 6
-				  echo
-				  read -p "Press [enter] to continue..." ReadDamKey
+                				  echo "OS = Ubuntu"
+                				  echo "       COMMAND STATUS         "
+                				  echo
+                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                				  echo
+                				  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				  echo
+                				  echo "Before command completion, additional instructions may appear below"
+                				  echo
+                				  echo "File                                 Fileset                 Type"
+                				  echo "-----------------------------------------------------------------"
+                				  echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				  echo "Command run: /etc/init.d/samba stop"
+                				  sleep 2
+                				  clear
+                				  /etc/init.d/smb stop
+                				  echo "################################################" >> /var/log/smx-log/success.log
+                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				  echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                				  echo "Command run: /etc/init.d/samba stop" >> /var/log/smx-log/success.log
+                				  echo "" >> /var/log/smx-log/success.log
+                				  echo "################################################" >> /var/log/smx-log/success.log
+                				  echo "" >> /var/log/smx-log/success.log
+                				  clear
+                				  echo "       COMMAND STATUS         "
+                				  echo
+                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                				  echo
+                				  echo "Command: OK    stdout: yes    stderr: no          "
+                				  echo
+                				  echo "Before command completion, additional instructions may appear below"
+                				  echo
+                				  echo "File                                 Fileset                 Type"
+                				  echo "-----------------------------------------------------------------"
+                				  echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				  echo "Command run: /etc/init.d/smb stop"
+                				  echo
+                				  cat /var/log/smx-log/success.log | tail -n 6
+                				  echo
+                				  read -p "Press [enter] to continue..." ReadDamKey
                              else
                                   clear
                                   cat /proc/version | grep "SUSE" > /dev/null
                                   if [ $? -eq 0 ]; then
                                        clear
-				       echo "OS = SuSE"
-				       echo "       COMMAND STATUS         "
-				       echo
-				       echo "$(date)                                     $(whoami)@$(hostname)"
-				       echo
-				       echo "Command: RUNNING    stdout: yes    stderr: no     "
-				       echo
-				       echo "Before command completion, additional instructions may appear below"
-				       echo
-				       echo "File                                 Fileset                 Type"
-				       echo "-----------------------------------------------------------------"
-				       echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
-				       echo "Command run: /etc/init.d/smb stop"
-				       sleep 2
-				       clear
-				       /etc/init.d/smb stop
-				       echo "################################################" >> /var/log/smx-log/success.log
-				       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				       echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
-				       echo "Command run: /etc/init.d/smb stop" >> /var/log/smx-log/success.log
-				       echo "" >> /var/log/smx-log/success.log
-				       echo "################################################" >> /var/log/smx-log/success.log
-				       echo "" >> /var/log/smx-log/success.log
-				       clear
-				       echo "       COMMAND STATUS         "
-				       echo
-				       echo "$(date)                                     $(whoami)@$(hostname)"
-				       echo
-				       echo "Command: OK    stdout: yes    stderr: no          "
-				       echo
-				       echo "Before command completion, additional instructions may appear below"
-				       echo
-				       echo "File                                 Fileset                 Type"
-				       echo "-----------------------------------------------------------------"
-				       echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
-				       echo "Command run: /etc/init.d/smb stop"
-				       echo
-				       cat /var/log/smx-log/success.log | tail -n 6
-				       echo
-				       read -p "Press [enter] to continue..." ReadDamKey
+                				       echo "OS = SuSE"
+                				       echo "       COMMAND STATUS         "
+                				       echo
+                				       echo "$(date)                                     $(whoami)@$(hostname)"
+                				       echo
+                				       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				       echo
+                				       echo "Before command completion, additional instructions may appear below"
+                				       echo
+                				       echo "File                                 Fileset                 Type"
+                				       echo "-----------------------------------------------------------------"
+                				       echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
+                				       echo "Command run: /etc/init.d/smb stop"
+                				       sleep 2
+                				       clear
+                				       /etc/init.d/smb stop
+                				       echo "################################################" >> /var/log/smx-log/success.log
+                				       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				       echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                				       echo "Command run: /etc/init.d/smb stop" >> /var/log/smx-log/success.log
+                				       echo "" >> /var/log/smx-log/success.log
+                				       echo "################################################" >> /var/log/smx-log/success.log
+                				       echo "" >> /var/log/smx-log/success.log
+                				       clear
+                				       echo "       COMMAND STATUS         "
+                				       echo
+                				       echo "$(date)                                     $(whoami)@$(hostname)"
+                				       echo
+                				       echo "Command: OK    stdout: yes    stderr: no          "
+                				       echo
+                				       echo "Before command completion, additional instructions may appear below"
+                				       echo
+                				       echo "File                                 Fileset                 Type"
+                				       echo "-----------------------------------------------------------------"
+                				       echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
+                				       echo "Command run: /etc/init.d/smb stop"
+                				       echo
+                				       cat /var/log/smx-log/success.log | tail -n 6
+                				       echo
+                				       read -p "Press [enter] to continue..." ReadDamKey
                                   fi
                              fi
-			fi
-		   fi
-	           ;;
-	    restart)
+			            fi
+		           fi
+	               ;;
+	        restart)
 		      clear
                       cat /proc/version | grep "Red Hat" > /dev/null
 		      if [ $? -eq 0 ]; then
