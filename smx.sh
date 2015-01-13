@@ -22845,13 +22845,13 @@ function nis_menu() {
                                 fi 
 			               fi
         		      fi
-        		      ;;
+         		      ;;
 	    start)
-		    clear
-                    cat /proc/version | grep "Red Hat" > /dev/null
-                    if [ $? -eq 0 ]; then
-                         clear
-			 echo "OS = Red Hat"
+		        clear
+                cat /proc/version | grep "Red Hat" > /dev/null
+                if [ $? -eq 0 ]; then
+                     clear
+		          	 echo "OS = Red Hat"
                 	 echo "        COMMAND STATUS          "
                 	 echo
                 	 echo "$(date)                                     $(whoami)@$(hostname)"
@@ -22864,20 +22864,20 @@ function nis_menu() {
                 	 echo "-----------------------------------------------------------------"
                 	 echo "$(which service)                     bos.sysmgt.service      exec"
                 	 echo "Command run: /etc/init.d/rpcbind start"
-			 echo "Command run: /etc/init.d/ypserv start"
-			 echo "Command run: /etc/init.d/yppasswdd start"
+        			 echo "Command run: /etc/init.d/ypserv start"
+        			 echo "Command run: /etc/init.d/yppasswdd start"
                 	 sleep 3
                 	 clear
                 	 $(which service) rpcbind start
                 	 $(which service) ypserv start
-			 $(which service) yppasswdd start
-			 echo "##############################################" >> /var/log/smx-log/success.log
+        			 $(which service) yppasswdd start
+        			 echo "##############################################" >> /var/log/smx-log/success.log
                 	 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                 	 echo "Successfuly started nis on system: $(hostname)" >> /var/log/smx-log/success.log
-			 echo "Command run: $(which service) ypserv start" >> /var/log/smx-log/success.log
+			         echo "Command run: $(which service) ypserv start" >> /var/log/smx-log/success.log
                 	 echo "" >> /var/log/smx-log/success.log
-			 echo "##############################################" >> /var/log/smx-log/success.log
-			 echo "" >> /var/log/smx-log/success.log
+        			 echo "##############################################" >> /var/log/smx-log/success.log
+        			 echo "" >> /var/log/smx-log/success.log
                 	 clear
                 	 echo "        COMMAND STATUS          "
                 	 echo
@@ -22891,168 +22891,168 @@ function nis_menu() {
                 	 echo "-----------------------------------------------------------------"
                 	 echo "$(which service)                     bos.sysmgt.service      exec"
                 	 echo "Command run: $(which service) rpcbind start"
-			 echo "Command run: $(which service) ypserv start"
-			 echo "Command run: $(which service) yppasswdd start"
+        			 echo "Command run: $(which service) ypserv start"
+        			 echo "Command run: $(which service) yppasswdd start"
                 	 echo
                 	 cat /var/log/smx-log/success.log | tail -n 6
                 	 echo
-			 read -p "Press [enter] to continue..." ReadDamKey
-                    else
-                         clear
-                         cat /proc/version | grep "Debian" > /dev/null
-                         if [ $? -eq 0 ]; then
-                              clear
-			      echo "OS = Debian"
-                	      echo "        COMMAND STATUS          "
-                	      echo
-                	      echo "$(date)                                     $(whoami)@$(hostname)"
-                	      echo
-                	      echo "Command: RUNNING    stdout: yes    stderr: no     "
-                	      echo
-                	      echo "Before command completion, additional instructions may appear below"
-                	      echo
-                	      echo "File                                 Fileset                 Type"
-                	      echo "-----------------------------------------------------------------"
-                	      echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                	      echo "Command run: /etc/init.d/nis start"
-                	      sleep 2
-                	      clear
-                	      /etc/init.d/nis start
-			      echo "################################################" >> /var/log/smx-log/success.log
-                  	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                  	      echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-			      echo "Command run: /etc/init.d/nis start" >> /var/log/smx-log/success.log
-                  	      echo "" >> /var/log/smx-log/success.log
-			      echo "################################################" >> /var/log/smx-log/success.log
-			      echo "" >> /var/log/smx-log/success.log
-                  	      clear
-                  	      echo "        COMMAND STATUS          "
-                  	      echo
-                  	      echo "$(date)                                     $(whoami)@$(hostname)"
-                  	      echo
-                  	      echo "Command: OK    stdout: yes    stderr: no          "
-                  	      echo
-                  	      echo "Before command completion, additional instructions may appear below"
-                  	      echo
-                  	      echo "File                                 Fileset                 Type"
-                  	      echo "-----------------------------------------------------------------"
-                  	      echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                  	      echo "Command run: /etc/init.d/nis start"
-                  	      echo
-                  	      cat /var/log/smx-log/success.log | tail -n 6
-                  	      echo
-			      read -p "Press [enter] to continue..." ReadDamKey
-                         else
-                              clear
-                              cat /proc/version | grep "Ubuntu" > /dev/null
-                              if [ $? -eq 0 ]; then
-                                   clear
-				   echo "OS = Ubuntu"
-                		   echo "        COMMAND STATUS          "
-                		   echo
-                		   echo "$(date)                                     $(whoami)@$(hostname)"
-                		   echo
-                		   echo "Command: RUNNING    stdout: yes    stderr: no     "
-                		   echo
-                		   echo "Before command completion, additional instructions may appear below"
-                		   echo
-                		   echo "File                                 Fileset                 Type"
-                		   echo "-----------------------------------------------------------------"
-                		   echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                		   echo "Command run: /etc/init.d/nis start"
-                		   sleep 2
-                		   clear
-                		   /etc/init.d/nis start
-				   echo "################################################" >> /var/log/smx-log/success.log
-                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                  		   echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-				   echo "Command run: /etc/init.d/nis start" >> /var/log/smx-log/success.log
-                  		   echo "" >> /var/log/smx-log/success.log
-				   echo "################################################" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-                  		   clear
-                  		   echo "        COMMAND STATUS          "
-                  		   echo
-                  		   echo "$(date)                                     $(whoami)@$(hostname)"
-                  		   echo
-                  		   echo "Command: OK    stdout: yes    stderr: no          "
-                  		   echo
-                  		   echo "Before command completion, additional instructions may appear below"
-                  		   echo
-                  		   echo "File                                 Fileset                 Type"
-                  		   echo "-----------------------------------------------------------------"
-                  		   echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                  		   echo "Command run: /etc/init.d/nis start"
-                  		   echo
-                  		   cat /var/log/smx-log/success.log | tail -n 6
-                  		   echo
-				   read -p "Press [enter] to continue..." ReadDamKey
-                              else
-                                   clear
-                                   cat /proc/version | grep "SUSE" > /dev/null
-                                   if [ $? -eq 0 ]; then
-                                        clear
-				        echo "OS = SuSE"
-                			echo "        COMMAND STATUS          "
-                			echo
-                			echo "$(date)                                     $(whoami)@$(hostname)"
-                			echo
-                			echo "Command: RUNNING    stdout: yes    stderr: no     "
-                			echo
-                			echo "Before command completion, additional instructions may appear below"
-                			echo
-                			echo "File                                 Fileset                 Type"
-                			echo "-----------------------------------------------------------------"
-                			echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
-                			echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
-                			echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
-                			echo "Command run: /etc/init.d/rpcbind start"
-                			echo "Command run: /etc/init.d/ypserv start"
-                			echo "Command run: /etc/init.d/yppasswdd start"
-                			sleep 3
-                			clear
-                			/etc/init.d/rpcbind start
-                			/etc/init.d/ypserv start
-                			/etc/init.d/yppasswdd start
-					echo "##############################################" >> /var/log/smx-log/success.log
-                			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                			echo "Successfuly started nis on system: $(hostname)" >> /var/log/smx-log/success.log
-					echo "Command run: /etc/init.d/ypserv start" >> /var/log/smx-log/success.log
-                			echo "" >> /var/log/smx-log/success.log
-					echo "##############################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-                			clear
-                			echo "        COMMAND STATUS          "
-                			echo
-                			echo "$(date)                                     $(whoami)@$(hostname)"
-                			echo
-                			echo "Command: OK    stdout: yes    stderr: no          "
-                			echo
-                			echo "Before command completion, additional instructions may appear below"
-                			echo
-                			echo "File                                 Fileset                 Type"
-                			echo "-----------------------------------------------------------------"
-                			echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
-                			echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
-                			echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
-                			echo "Command run: /etc/init.d/rpcbind start"
-                			echo "Command run: /etc/init.d/ypserv start"
-                			echo "Command run: /etc/init.d/yppasswdd start"
-                			echo
-                			cat /var/log/smx-log/success.log | tail -n 6
-                			echo
-                			read -p "Press [enter] to continue..." ReadDamKey
-                                   fi
-                              fi 
-			 fi
-		    fi
-                    ;;
+			         read -p "Press [enter] to continue..." ReadDamKey
+                else
+                     clear
+                     cat /proc/version | grep "Debian" > /dev/null
+                     if [ $? -eq 0 ]; then
+                          clear
+    	                  echo "OS = Debian"
+                          echo "        COMMAND STATUS          "
+              	          echo
+                    	  echo "$(date)                                     $(whoami)@$(hostname)"
+                    	  echo
+                    	  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    	  echo
+                    	  echo "Before command completion, additional instructions may appear below"
+                    	  echo
+                    	  echo "File                                 Fileset                 Type"
+                    	  echo "-----------------------------------------------------------------"
+                    	  echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                    	  echo "Command run: /etc/init.d/nis start"
+                    	  sleep 2
+                    	  clear
+                    	  /etc/init.d/nis start
+			              echo "################################################" >> /var/log/smx-log/success.log
+                      	  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	  echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
+			              echo "Command run: /etc/init.d/nis start" >> /var/log/smx-log/success.log
+                    	  echo "" >> /var/log/smx-log/success.log
+            			  echo "################################################" >> /var/log/smx-log/success.log
+            			  echo "" >> /var/log/smx-log/success.log
+                      	  clear
+                      	  echo "        COMMAND STATUS          "
+                      	  echo
+                      	  echo "$(date)                                     $(whoami)@$(hostname)"
+                      	  echo
+                      	  echo "Command: OK    stdout: yes    stderr: no          "
+                      	  echo
+                      	  echo "Before command completion, additional instructions may appear below"
+                      	  echo
+                      	  echo "File                                 Fileset                 Type"
+                      	  echo "-----------------------------------------------------------------"
+                      	  echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                      	  echo "Command run: /etc/init.d/nis start"
+                      	  echo
+                      	  cat /var/log/smx-log/success.log | tail -n 6
+                      	  echo
+			              read -p "Press [enter] to continue..." ReadDamKey
+                     else
+                          clear
+                          cat /proc/version | grep "Ubuntu" > /dev/null
+                          if [ $? -eq 0 ]; then
+                               clear
+			                   echo "OS = Ubuntu"
+                    		   echo "        COMMAND STATUS          "
+                    		   echo
+                        	   echo "$(date)                                     $(whoami)@$(hostname)"
+                        	   echo
+                        	   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    		   echo
+                    		   echo "Before command completion, additional instructions may appear below"
+                    		   echo
+                    		   echo "File                                 Fileset                 Type"
+                    		   echo "-----------------------------------------------------------------"
+                    		   echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                        	   echo "Command run: /etc/init.d/nis start"
+                        	   sleep 2
+                        	   clear
+                    		   /etc/init.d/nis start
+				               echo "################################################" >> /var/log/smx-log/success.log
+                      		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      		   echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
+			                   echo "Command run: /etc/init.d/nis start" >> /var/log/smx-log/success.log
+              		           echo "" >> /var/log/smx-log/success.log
+                			   echo "################################################" >> /var/log/smx-log/success.log
+                			   echo "" >> /var/log/smx-log/success.log
+                          	   clear
+                        	   echo "        COMMAND STATUS          "
+                      		   echo
+                      		   echo "$(date)                                     $(whoami)@$(hostname)"
+                      		   echo
+                      		   echo "Command: OK    stdout: yes    stderr: no          "
+                      		   echo
+                      		   echo "Before command completion, additional instructions may appear below"
+                          	   echo
+                          	   echo "File                                 Fileset                 Type"
+                          	   echo "-----------------------------------------------------------------"
+                    		   echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                      		   echo "Command run: /etc/init.d/nis start"
+                      		   echo
+                     		   cat /var/log/smx-log/success.log | tail -n 6
+                       		   echo
+			                   read -p "Press [enter] to continue..." ReadDamKey
+                          else
+                               clear
+                               cat /proc/version | grep "SUSE" > /dev/null
+                               if [ $? -eq 0 ]; then
+                                    clear
+			                        echo "OS = SuSE"
+                         			echo "        COMMAND STATUS          "
+                        			echo
+                        			echo "$(date)                                     $(whoami)@$(hostname)"
+                        			echo
+                            		echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            		echo
+                            		echo "Before command completion, additional instructions may appear below"
+                        			echo
+                        			echo "File                                 Fileset                 Type"
+                        			echo "-----------------------------------------------------------------"
+                        			echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
+                        			echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
+                        			echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
+                        			echo "Command run: /etc/init.d/rpcbind start"
+                            		echo "Command run: /etc/init.d/ypserv start"
+                            		echo "Command run: /etc/init.d/yppasswdd start"
+                            		sleep 3
+                        			clear
+                        			/etc/init.d/rpcbind start
+                        			/etc/init.d/ypserv start
+                        			/etc/init.d/yppasswdd start
+				                    echo "##############################################" >> /var/log/smx-log/success.log
+                        			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        			echo "Successfuly started nis on system: $(hostname)" >> /var/log/smx-log/success.log
+                                    echo "Command run: /etc/init.d/ypserv start" >> /var/log/smx-log/success.log
+                			        echo "" >> /var/log/smx-log/success.log
+                    				echo "##############################################" >> /var/log/smx-log/success.log
+                    				echo "" >> /var/log/smx-log/success.log
+                        			clear
+                        			echo "        COMMAND STATUS          "
+                        			echo
+                        			echo "$(date)                                     $(whoami)@$(hostname)"
+                        			echo
+                        			echo "Command: OK    stdout: yes    stderr: no          "
+                        			echo
+                            		echo "Before command completion, additional instructions may appear below"
+                            		echo
+                            		echo "File                                 Fileset                 Type"
+                        			echo "-----------------------------------------------------------------"
+                        			echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
+                        			echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
+                        			echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
+                        			echo "Command run: /etc/init.d/rpcbind start"
+                        			echo "Command run: /etc/init.d/ypserv start"
+                        			echo "Command run: /etc/init.d/yppasswdd start"
+                            		echo
+                            		cat /var/log/smx-log/success.log | tail -n 6
+                            		echo
+                        			read -p "Press [enter] to continue..." ReadDamKey
+                               fi
+                          fi 
+			         fi
+		        fi
+                ;;
 	    stop)
           	   clear
-                   cat /proc/version | grep "Red Hat" > /dev/null
-                   if [ $? -eq 0 ]; then
-                        clear
-			echo "OS = Red Hat"
+               cat /proc/version | grep "Red Hat" > /dev/null
+               if [ $? -eq 0 ]; then
+                    clear
+			        echo "OS = Red Hat"
                 	echo "        COMMAND STATUS          "
                 	echo
                 	echo "$(date)                                     $(whoami)@$(hostname)"
@@ -23072,13 +23072,13 @@ function nis_menu() {
                 	$(which service) rpcbind stop
                 	$(which service) ypserv stop
                 	$(which service) yppasswdd stop
-			echo "##############################################" >> /var/log/smx-log/success.log
+			        echo "##############################################" >> /var/log/smx-log/success.log
                 	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                 	echo "Successfuly stopped nis on system: $(hostname)" >> /var/log/smx-log/success.log
-			echo "Command run: $(which service) ypserv stop"
+			        echo "Command run: $(which service) ypserv stop"
                 	echo "" >> /var/log/smx-log/success.log
-			echo "##############################################" >> /var/log/smx-log/success.log
-			echo "" >> /var/log/smx-log/success.log
+        			echo "##############################################" >> /var/log/smx-log/success.log
+        			echo "" >> /var/log/smx-log/success.log
                 	clear
                 	echo "        COMMAND STATUS          "
                 	echo
@@ -23097,13 +23097,13 @@ function nis_menu() {
                 	echo
                 	cat /var/log/smx-log/success.log | tail -n 6
                 	echo
-			read -p "Press [enter] to continue..." ReadDamKey
-                   else
-                        clear
-                        cat /proc/version | grep "Debian" > /dev/null
-                        if [ $? -eq 0 ]; then
-                             clear
-			     echo "OS = Debian"
+			        read -p "Press [enter] to continue..." ReadDamKey
+               else
+                    clear
+                    cat /proc/version | grep "Debian" > /dev/null
+                    if [ $? -eq 0 ]; then
+                         clear
+			             echo "OS = Debian"
                 	     echo "        COMMAND STATUS          "
                 	     echo
                 	     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -23119,13 +23119,13 @@ function nis_menu() {
                 	     sleep 2
                 	     clear
                 	     /etc/init.d/nis stop
-			     echo "##############################################" >> /var/log/smx-log/success.log
+			             echo "##############################################" >> /var/log/smx-log/success.log
                 	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                 	     echo "Successfuly stopped NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-			     echo "Command run: /etc/init.d/nis stop" >> /var/log/smx-log/success.log
+			             echo "Command run: /etc/init.d/nis stop" >> /var/log/smx-log/success.log
                 	     echo "" >> /var/log/smx-log/success.log
-			     echo "##############################################" >> /var/log/smx-log/success.log
-			     echo "" >> /var/log/smx-log/success.log
+        			     echo "##############################################" >> /var/log/smx-log/success.log
+        			     echo "" >> /var/log/smx-log/success.log
                 	     clear
                 	     echo "        COMMAND STATUS          "
                 	     echo
@@ -23142,118 +23142,118 @@ function nis_menu() {
                 	     echo
                 	     cat /var/log/smx-log/success.log | tail -n 6
                 	     echo
-			     read -p "Press [enter] to continue..." ReadDamKey
-                        else
-                             clear
-                             cat /proc/version | grep "Ubuntu" > /dev/null
-                             if [ $? -eq 0 ]; then
-                                  clear
-				  echo "OS = Ubuntu"
-                		  echo "        COMMAND STATUS          "
-                		  echo
-                		  echo "$(date)                                     $(whoami)@$(hostname)"
-                		  echo
-                		  echo "Command: RUNNING    stdout: yes    stderr: no     "
-                		  echo
-                		  echo "Before command completion, additional instructions may appear below"
-                		  echo
-                		  echo "File                                 Fileset                 Type"
-                		  echo "-----------------------------------------------------------------"
-                		  echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                		  echo "Command run: /etc/init.d/nis stop"
-                		  sleep 2
-                		  clear
-                		  /etc/init.d/nis stop
-				  echo "##############################################" >> /var/log/smx-log/success.log
-                		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                		  echo "Successfuly stopped NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-				  echo "Command run: /etc/init.d/nis stop" >> /var/log/smx-log/success.log
-                		  echo "" >> /var/log/smx-log/success.log
-				  echo "##############################################" >> /var/log/smx-log/success.log
-				  echo "" >> /var/log/smx-log/success.log
-                		  clear
-                		  echo "        COMMAND STATUS          "
-                		  echo
-                		  echo "$(date)                                     $(whoami)@$(hostname)"
-                		  echo
-                		  echo "Command: OK    stdout: yes    stderr: no          "
-                		  echo
-                		  echo "Before command completion, additional instructions may appear below"
-                		  echo
-                		  echo "File                                 Fileset                 Type"
-                		  echo "-----------------------------------------------------------------"
-                		  echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                		  echo "Command run: /etc/init.d/nis stop"
-                		  echo
-                		  cat /var/log/smx-log/success.log | tail -n 6
-                		  echo
-				  read -p "Press [enter] to continue..." ReadDamKey
-                             else
-                                  clear
-                                  cat /proc/version | grep "SUSE" > /dev/null
-                                  if [ $? -eq 0 ]; then
-                                       clear
-				       echo "OS = SuSE"
-                		       echo "        COMMAND STATUS          "
-                		       echo
-                		       echo "$(date)                                     $(whoami)@$(hostname)"
-                		       echo
-                		       echo "Command: RUNNING    stdout: yes    stderr: no     "
-                		       echo
-                		       echo "Before command completion, additional instructions may appear below"
-                		       echo
-                		       echo "File                                 Fileset                 Type"
-                		       echo "-----------------------------------------------------------------"
-                		       echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
-                		       echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
-                		       echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
-                		       echo "Command run: /etc/init.d/rpcbind stop"
-                		       echo "Command run: /etc/init.d/ypserv stop"
-                		       echo "Command run: /etc/init.d/yppasswdd stop"
-                		       sleep 3
-                		       clear
-                		       /etc/init.d/rpcbind stop
-                		       /etc/init.d/ypserv stop
-                		       /etc/init.d/yppasswdd stop
-				       echo "##############################################" >> /var/log/smx-log/success.log
-                		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                		       echo "Successfuly stopped nis on system: $(hostname)" >> /var/log/smx-log/success.log
-				       echo "Command run: /etc/init.d/ypserv stop" >> /var/log/smx-log/success.log
-                		       echo "" >> /var/log/smx-log/success.log
-				       echo "##############################################" >> /var/log/smx-log/success.log
-				       echo "" >> /var/log/smx-log/success.log
-                		       clear
-                		       echo "        COMMAND STATUS          "
-                		       echo
-                		       echo "$(date)                                     $(whoami)@$(hostname)"
-                		       echo
-                		       echo "Command: OK    stdout: yes    stderr: no          "
-                		       echo
-                		       echo "Before command completion, additional instructions may appear below"
-                		       echo
-                		       echo "File                                 Fileset                 Type"
-                		       echo "-----------------------------------------------------------------"
-                		       echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
-                		       echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
-                		       echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
-                		       echo "Command run: /etc/init.d/rpcbind stop"
-                		       echo "Command run: /etc/init.d/ypserv stop"
-                		       echo "Command run: /etc/init.d/yppasswdd stop"
-                		       echo
-                		       cat /var/log/smx-log/success.log | tail -n 6
-                		       echo
-                		       read -p "Press [enter] to continue..." ReadDamKey
-                                  fi
-                             fi 
-			fi
-		   fi
+			             read -p "Press [enter] to continue..." ReadDamKey
+                    else
+                         clear
+                         cat /proc/version | grep "Ubuntu" > /dev/null
+                         if [ $? -eq 0 ]; then
+                              clear
+				              echo "OS = Ubuntu"
+                    		  echo "        COMMAND STATUS          "
+                    		  echo
+                    		  echo "$(date)                                     $(whoami)@$(hostname)"
+                    		  echo
+                    		  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    		  echo
+                    		  echo "Before command completion, additional instructions may appear below"
+                    		  echo
+                    		  echo "File                                 Fileset                 Type"
+                    		  echo "-----------------------------------------------------------------"
+                    		  echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                    		  echo "Command run: /etc/init.d/nis stop"
+                    		  sleep 2
+                    		  clear
+                    		  /etc/init.d/nis stop
+				              echo "##############################################" >> /var/log/smx-log/success.log
+                    		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    		  echo "Successfuly stopped NIS on system: $(hostname)" >> /var/log/smx-log/success.log
+				              echo "Command run: /etc/init.d/nis stop" >> /var/log/smx-log/success.log
+                		      echo "" >> /var/log/smx-log/success.log
+            				  echo "##############################################" >> /var/log/smx-log/success.log
+            				  echo "" >> /var/log/smx-log/success.log
+                    		  clear
+                    		  echo "        COMMAND STATUS          "
+                    		  echo
+                    		  echo "$(date)                                     $(whoami)@$(hostname)"
+                    		  echo
+                    		  echo "Command: OK    stdout: yes    stderr: no          "
+                    		  echo
+                    		  echo "Before command completion, additional instructions may appear below"
+                    		  echo
+                    		  echo "File                                 Fileset                 Type"
+                    		  echo "-----------------------------------------------------------------"
+                    		  echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                    		  echo "Command run: /etc/init.d/nis stop"
+                    		  echo
+                    		  cat /var/log/smx-log/success.log | tail -n 6
+                    		  echo
+				              read -p "Press [enter] to continue..." ReadDamKey
+                         else
+                              clear
+                              cat /proc/version | grep "SUSE" > /dev/null
+                              if [ $? -eq 0 ]; then
+                                   clear
+				                   echo "OS = SuSE"
+                    		       echo "        COMMAND STATUS          "
+                    		       echo
+                    		       echo "$(date)                                     $(whoami)@$(hostname)"
+                    		       echo
+                    		       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    		       echo
+                    		       echo "Before command completion, additional instructions may appear below"
+                    		       echo
+                    		       echo "File                                 Fileset                 Type"
+                    		       echo "-----------------------------------------------------------------"
+                    		       echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
+                    		       echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
+                    		       echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
+                    		       echo "Command run: /etc/init.d/rpcbind stop"
+                    		       echo "Command run: /etc/init.d/ypserv stop"
+                    		       echo "Command run: /etc/init.d/yppasswdd stop"
+                    		       sleep 3
+                    		       clear
+                    		       /etc/init.d/rpcbind stop
+                    		       /etc/init.d/ypserv stop
+                    		       /etc/init.d/yppasswdd stop
+				                   echo "##############################################" >> /var/log/smx-log/success.log
+                    		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    		       echo "Successfuly stopped nis on system: $(hostname)" >> /var/log/smx-log/success.log
+				                   echo "Command run: /etc/init.d/ypserv stop" >> /var/log/smx-log/success.log
+                		           echo "" >> /var/log/smx-log/success.log
+            				       echo "##############################################" >> /var/log/smx-log/success.log
+            				       echo "" >> /var/log/smx-log/success.log
+                    		       clear
+                    		       echo "        COMMAND STATUS          "
+                    		       echo
+                    		       echo "$(date)                                     $(whoami)@$(hostname)"
+                    		       echo
+                    		       echo "Command: OK    stdout: yes    stderr: no          "
+                    		       echo
+                    		       echo "Before command completion, additional instructions may appear below"
+                    		       echo
+                    		       echo "File                                 Fileset                 Type"
+                    		       echo "-----------------------------------------------------------------"
+                    		       echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
+                    		       echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
+                    		       echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
+                    		       echo "Command run: /etc/init.d/rpcbind stop"
+                    		       echo "Command run: /etc/init.d/ypserv stop"
+                    		       echo "Command run: /etc/init.d/yppasswdd stop"
+                    		       echo
+                    		       cat /var/log/smx-log/success.log | tail -n 6
+                    		       echo
+                    		       read -p "Press [enter] to continue..." ReadDamKey
+                              fi
+                         fi 
+			        fi
+		       fi
 	           ;;
 	    restart)
-		      clear
-                      cat /proc/version | grep "Red Hat" > /dev/null
-                      if [ $? -eq 0 ]; then
-                           clear
-			   echo "OS = Red Hat"
+		          clear
+                  cat /proc/version | grep "Red Hat" > /dev/null
+                  if [ $? -eq 0 ]; then
+                       clear
+			           echo "OS = Red Hat"
                 	   echo "        COMMAND STATUS          "
                 	   echo
                 	   echo "$(date)                                     $(whoami)@$(hostname)"
@@ -23273,13 +23273,13 @@ function nis_menu() {
                 	   $(which service) rpcbind restart
                 	   $(which service) ypserv restart
                 	   $(which service) yppasswdd restart
-			   echo "################################################" >> /var/log/smx-log/success.log
+			           echo "################################################" >> /var/log/smx-log/success.log
                 	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                 	   echo "Successfuly restarted nis on system: $(hostname)" >> /var/log/smx-log/success.log
-                           echo "Command run: $(which service) ypserv restart"
+                       echo "Command run: $(which service) ypserv restart"
                 	   echo "" >> /var/log/smx-log/success.log
-                           echo "################################################" >> /var/log/smx-log/success.log
-                           echo "" >> /var/log/smx-log/success.log
+                       echo "################################################" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
                 	   clear
                 	   echo "        COMMAND STATUS          "
                 	   echo
@@ -23298,177 +23298,177 @@ function nis_menu() {
                 	   echo
                 	   cat /var/log/smx-log/success.log | tail -n 6
                 	   echo
-			   read -p "Press [enter] to continue..." ReadDamKey
-                      else
-                           clear
-                           cat /proc/version | grep "Debian" > /dev/null
-                           if [ $? -eq 0 ]; then
-                                clear
-			        echo "OS = Debian"
-                		echo "        COMMAND STATUS          "
-                		echo
-                		echo "$(date)                                     $(whoami)@$(hostname)"
-                		echo
-                		echo "Command: RUNNING    stdout: yes    stderr: no     "
-                		echo
-                		echo "Before command completion, additional instructions may appear below"
-                		echo
-                		echo "File                                 Fileset                 Type"
-                		echo "-----------------------------------------------------------------"
-                		echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                		echo "Command run: /etc/init.d/nis restart"
-                		sleep 2
-                		clear
-                		/etc/init.d/nis restart
-				echo "################################################" >> /var/log/smx-log/success.log
-                		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				echo "Command run: /etc/init.d/nis restart" >> /var/log/smx-log/success.log
-                		echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-                		echo "" >> /var/log/smx-log/success.log
-				echo "################################################" >> /var/log/smx-log/succes.log
-				echo "" >> /var/log/smx-log/success.log
-                		clear
-                		echo "        COMMAND STATUS          "
-                		echo
-                		echo "$(date)                                     $(whoami)@$(hostname)"
-                		echo
-                		echo "Command: OK    stdout: yes    stderr: no          "
-                		echo
-                		echo "Before command completion, additional instructions may appear below"
-                		echo
-                		echo "File                                 Fileset                 Type"
-                		echo "-----------------------------------------------------------------"
-                		echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                		echo "Command run: /etc/init.d/nis restart"
-                		echo
-                		cat /var/log/smx-log/success.log | tail -n 6
-                		echo
-				read -p "Press [enter] to continue..." ReadDamKey
-                           else
-                                clear
-                                cat /proc/version | grep "Ubuntu" > /dev/null
-                                if [ $? -eq 0 ]; then
-                                     clear
-				     echo "OS = Ubuntu"
-                		     echo "        COMMAND STATUS          "
-                		     echo
-                		     echo "$(date)                                     $(whoami)@$(hostname)"
-                		     echo
-                		     echo "Command: RUNNING    stdout: yes    stderr: no     "
-                		     echo
-                		     echo "Before command completion, additional instructions may appear below"
-                		     echo
-                		     echo "File                                 Fileset                 Type"
-                		     echo "-----------------------------------------------------------------"
-                		     echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                		     echo "Command run: /etc/init.d/nis restart"
-                		     sleep 2
-                		     clear
-                		     /etc/init.d/nis restart
-				     echo "################################################" >> /var/log/smx-log/success.log
-                		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				     echo "Command run: /etc/init.d/nis restart" >> /var/log/smx-log/success.log
-                		     echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-                		     echo "" >> /var/log/smx-log/success.log
-				     echo "################################################" >> /var/log/smx-log/succes.log
-				     echo "" >> /var/log/smx-log/success.log
-                		     clear
-                		     echo "        COMMAND STATUS          "
-                		     echo
-                		     echo "$(date)                                     $(whoami)@$(hostname)"
-                		     echo
-                		     echo "Command: OK    stdout: yes    stderr: no          "
-                		     echo
-                		     echo "Before command completion, additional instructions may appear below"
-                		     echo
-                		     echo "File                                 Fileset                 Type"
-                		     echo "-----------------------------------------------------------------"
-                		     echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
-                		     echo "Command run: /etc/init.d/nis restart"
-                		     echo
-                		     cat /var/log/smx-log/success.log | tail -n 6
-                		     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
-                                else
-                                     clear
-                                     cat /proc/version | grep "SUSE" > /dev/null
-                                     if [ $? -eq 0 ]; then
-                                          clear
-					  echo "OS = SuSE"
-              				  echo "        COMMAND STATUS          "
-              				  echo
-              				  echo "$(date)                                     $(whoami)@$(hostname)"
-              				  echo
-              				  echo "Command: RUNNING    stdout: yes    stderr: no     "
-              				  echo
-              				  echo "Before command completion, additional instructions may appear below"
-              				  echo
-              				  echo "File                                 Fileset                 Type"
-              				  echo "-----------------------------------------------------------------"
-              				  echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
-              				  echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
-              				  echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
-              				  echo "Command run: /etc/init.d/rpcbind restart"
-              				  echo "Command run: /etc/init.d/ypserv restart"
-              				  echo "Command run: /etc/init.d/yppasswdd restart"
-              				  sleep 3
-              				  clear
-              				  /etc/init.d/rpcbind restart
-              				  /etc/init.d/ypserv restart
-              				  /etc/init.d/yppasswdd restart
-					  echo "##############################################" >> /var/log/smx-log/success.log
-              				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-              				  echo "Successfuly restarted nis on system: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "Command run: /etc/init.d/ypserv restart" >> /var/log/smx-log/success.log
-              				  echo "" >> /var/log/smx-log/success.log
-					  echo "##############################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-              				  clear
-              				  echo "        COMMAND STATUS          "
-              				  echo
-              				  echo "$(date)                                     $(whoami)@$(hostname)"
-              				  echo
-              				  echo "Command: OK    stdout: yes    stderr: no          "
-              				  echo
-              				  echo "Before command completion, additional instructions may appear below"
-              				  echo
-              				  echo "File                                 Fileset                 Type"
-              				  echo "-----------------------------------------------------------------"
-              				  echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
-              				  echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
-              				  echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
-              				  echo "Command run: /etc/init.d/rpcbind restart"
-              				  echo "Command run: /etc/init.d/ypserv restart"
-              				  echo "Command run: /etc/init.d/yppasswdd restart"
-              				  echo
-              				  cat /var/log/smx-log/success.log | tail -n 6
-              				  echo
-              				  read -p "Press [enter] to continue..." ReadDamKey
-                                     fi
-                                fi 
-			   fi
-		      fi
-		      ;;
+			           read -p "Press [enter] to continue..." ReadDamKey
+                  else
+                       clear
+                       cat /proc/version | grep "Debian" > /dev/null
+                       if [ $? -eq 0 ]; then
+                            clear
+			                echo "OS = Debian"
+                    		echo "        COMMAND STATUS          "
+                    		echo
+                    		echo "$(date)                                     $(whoami)@$(hostname)"
+                    		echo
+                    		echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    		echo
+                    		echo "Before command completion, additional instructions may appear below"
+                    		echo
+                    		echo "File                                 Fileset                 Type"
+                    		echo "-----------------------------------------------------------------"
+                    		echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                    		echo "Command run: /etc/init.d/nis restart"
+                    		sleep 2
+                    		clear
+                    		/etc/init.d/nis restart
+				            echo "################################################" >> /var/log/smx-log/success.log
+                		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+				            echo "Command run: /etc/init.d/nis restart" >> /var/log/smx-log/success.log
+                    		echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
+                    		echo "" >> /var/log/smx-log/success.log
+            				echo "################################################" >> /var/log/smx-log/succes.log
+            				echo "" >> /var/log/smx-log/success.log
+                    		clear
+                    		echo "        COMMAND STATUS          "
+                    		echo
+                    		echo "$(date)                                     $(whoami)@$(hostname)"
+                    		echo
+                    		echo "Command: OK    stdout: yes    stderr: no          "
+                    		echo
+                    		echo "Before command completion, additional instructions may appear below"
+                    		echo
+                    		echo "File                                 Fileset                 Type"
+                    		echo "-----------------------------------------------------------------"
+                    		echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                    		echo "Command run: /etc/init.d/nis restart"
+                    		echo
+                    		cat /var/log/smx-log/success.log | tail -n 6
+                    		echo
+				            read -p "Press [enter] to continue..." ReadDamKey
+                       else
+                            clear
+                            cat /proc/version | grep "Ubuntu" > /dev/null
+                            if [ $? -eq 0 ]; then
+                                 clear
+				                 echo "OS = Ubuntu"
+                    		     echo "        COMMAND STATUS          "
+                    		     echo
+                    		     echo "$(date)                                     $(whoami)@$(hostname)"
+                    		     echo
+                    		     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    		     echo
+                    		     echo "Before command completion, additional instructions may appear below"
+                    		     echo
+                    		     echo "File                                 Fileset                 Type"
+                    		     echo "-----------------------------------------------------------------"
+                    		     echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                    		     echo "Command run: /etc/init.d/nis restart"
+                    		     sleep 2
+                    		     clear
+                    		     /etc/init.d/nis restart
+				                 echo "################################################" >> /var/log/smx-log/success.log
+                		         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+				                 echo "Command run: /etc/init.d/nis restart" >> /var/log/smx-log/success.log
+                    		     echo "Successfuly restarted NIS on system: $(hostname)" >> /var/log/smx-log/success.log
+                    		     echo "" >> /var/log/smx-log/success.log
+            				     echo "################################################" >> /var/log/smx-log/succes.log
+            				     echo "" >> /var/log/smx-log/success.log
+                    		     clear
+                    		     echo "        COMMAND STATUS          "
+                    		     echo
+                    		     echo "$(date)                                     $(whoami)@$(hostname)"
+                    		     echo
+                    		     echo "Command: OK    stdout: yes    stderr: no          "
+                    		     echo
+                    		     echo "Before command completion, additional instructions may appear below"
+                    		     echo
+                    		     echo "File                                 Fileset                 Type"
+                    		     echo "-----------------------------------------------------------------"
+                    		     echo "/etc/init.d/nis                      bos.sysmgt.nis          exec"
+                    		     echo "Command run: /etc/init.d/nis restart"
+                    		     echo
+                    		     cat /var/log/smx-log/success.log | tail -n 6
+                    		     echo
+				                 read -p "Press [enter] to continue..." ReadDamKey
+                            else
+                                 clear
+                                 cat /proc/version | grep "SUSE" > /dev/null
+                                 if [ $? -eq 0 ]; then
+                                      clear
+					                  echo "OS = SuSE"
+                      				  echo "        COMMAND STATUS          "
+                      				  echo
+                      				  echo "$(date)                                     $(whoami)@$(hostname)"
+                      				  echo
+                      				  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                      				  echo
+                      				  echo "Before command completion, additional instructions may appear below"
+                      				  echo
+                      				  echo "File                                 Fileset                 Type"
+                      				  echo "-----------------------------------------------------------------"
+                      				  echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
+                      				  echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
+                      				  echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
+                      				  echo "Command run: /etc/init.d/rpcbind restart"
+                      				  echo "Command run: /etc/init.d/ypserv restart"
+                      				  echo "Command run: /etc/init.d/yppasswdd restart"
+                      				  sleep 3
+                      				  clear
+                      				  /etc/init.d/rpcbind restart
+                      				  /etc/init.d/ypserv restart
+                      				  /etc/init.d/yppasswdd restart
+					                  echo "##############################################" >> /var/log/smx-log/success.log
+                      				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      				  echo "Successfuly restarted nis on system: $(hostname)" >> /var/log/smx-log/success.log
+					                  echo "Command run: /etc/init.d/ypserv restart" >> /var/log/smx-log/success.log
+              				          echo "" >> /var/log/smx-log/success.log
+                					  echo "##############################################" >> /var/log/smx-log/success.log
+                					  echo "" >> /var/log/smx-log/success.log
+                      				  clear
+                      				  echo "        COMMAND STATUS          "
+                      				  echo
+                      				  echo "$(date)                                     $(whoami)@$(hostname)"
+                      				  echo
+                      				  echo "Command: OK    stdout: yes    stderr: no          "
+                      				  echo
+                      				  echo "Before command completion, additional instructions may appear below"
+                      				  echo
+                      				  echo "File                                 Fileset                 Type"
+                      				  echo "-----------------------------------------------------------------"
+                      				  echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
+                      				  echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
+                      				  echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
+                      				  echo "Command run: /etc/init.d/rpcbind restart"
+                      				  echo "Command run: /etc/init.d/ypserv restart"
+                      				  echo "Command run: /etc/init.d/yppasswdd restart"
+                      				  echo
+                      				  cat /var/log/smx-log/success.log | tail -n 6
+                      				  echo
+                      				  read -p "Press [enter] to continue..." ReadDamKey
+                                 fi
+                            fi 
+			           fi
+		          fi
+		          ;;
 	    exit)
         	   clear
-		   echo "######################################################" >> /var/log/smx-log/exit.log
+		       echo "######################################################" >> /var/log/smx-log/exit.log
         	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
         	   echo "Successfuly termiated $(basename $0)/srv_menu/nis_menu" >> /var/log/smx-log/exit.log
         	   echo "" >> /var/log/smx-log/exit.log
-		   echo "######################################################" >> /var/log/smx-log/exit.log
-		   echo "" >> /var/log/smx-log/exit.log
+    		   echo "######################################################" >> /var/log/smx-log/exit.log
+    		   echo "" >> /var/log/smx-log/exit.log
         	   srv_menu
         	   ;;
 	    exit-mas)
                        clear
                        echo "#################################" >> /var/log/smx-log/exit.log
-          	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
-          	       echo "Successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
-          	       echo "" >> /var/log/smx-log/exit.log
+              	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
+              	       echo "Successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
+              	       echo "" >> /var/log/smx-log/exit.log
                        echo "#################################" >> /var/log/smx-log/exit.log
                        echo "" >> /var/log/smx-log/exit.log
-          	       exit 0
-          	       ;;
+              	       exit 0
+              	       ;;
             *)        clear
                       echo "          COMMAND STATUS         "
                       echo
@@ -23480,14 +23480,14 @@ function nis_menu() {
                       echo
                       echo "Unkonwn command, please consult the command list, executed with pid - 5636 (0x1)"
                       read -p "Press [enter] to continue..." ReadDamKey;;
-	esac
+	  esac
   done
 }
 
 function dhcp_menu() {
     while :
     do
-	clear
+	    clear
       	echo "$(date)                                     $(whoami)@$(hostname)"
       	echo "+---------------------------+"
       	echo "|       DCHP MANAGEMENT     |"
@@ -23514,11 +23514,11 @@ function dhcp_menu() {
 
       	case "$choice_dhcp" in
       	    install)
-		      clear
+		              clear
                       cat /proc/version | grep "Red Hat" > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-			   echo "OS = Red Hat"
+			               echo "OS = Red Hat"
                       	   echo "$(date)                                     $(whoami)@$(hostname)"
                       	   echo "Domain name example: domain.local"
                       	   echo "DNS ip address example: 192.168.1.12"
@@ -23562,58 +23562,58 @@ function dhcp_menu() {
                       	   clear
                       	   $(which yum) -y install dhcp | $(which tee) /var/log/smx-log/yum.log
                       	   if [ $PIPESTATUS -eq 0 ]; then
-    			        echo "#################################################################################" >> /var/log/smx-log/success.log
-                      		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                      		echo "Successfuly installed DHCP on system: $(hostname)" >> /var/log/smx-log/success.log
-                      		echo "Command run: $(which yum) -y install dhcp | $(which tee) /var/log/smx-log/yum" >> /var/log/smx-log/success.log
-                      		echo "" >> /var/log/smx-log/success.log
-				echo "#################################################################################" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-                      		read -p "Press [enter] to continue..." ReadDamKey
-                      		clear
-                      		echo "        COMMAND STATUS          "
-                      		echo
-                      		echo "$(date)                                     $(whoami)@$(hostname)"
-                      		echo
-                      		echo "Command: OK    stdout: yes    stderr: no          "
-                      		echo
-                      		echo "Before command completion, additional instructions may appear below"
-                      		echo
-                      		echo "File                                 Fileset                 Type"
-                      		echo "-----------------------------------------------------------------"
-                      		echo "$(which yum)                         bos.pkgmgt.yum          exec"
-                      		echo "Command run: $(which yum) -y install dhcp | $(which tee) /var/log/smx-log/yum.log"
-                      		echo
-                      		cat /var/log/smx-log/success.log | tail -n 6
-                      		echo
-                      		read -p "Press [enter] to continue..." ReadDamKey
-    			   else
-    			        echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                      		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                      		echo "Not install DHCP on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-				echo "Command run: $(which yum) -y install dhcp | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
-                      		echo "" >> /var/log/smx-log/fail.log
-				echo "#####################################################################################" >> /var/log/smx-log/fail.log
-				echo "" >> /var/log/smx-log/fail.log
-                      		read -p "Press [enter] to continue..." ReadDamKey
-                      		clear
-                      		echo "        COMMAND STATUS          "
-                      		echo
-                      		echo "$(date)                                     $(whoami)@$(hostname)"
-                      		echo
-                      		echo "Command: FAIL    stdout: yes    stderr: no        "
-                      		echo
-                      		echo "Before command completion, additional instructions may appear below"
-                      		echo
-                      		echo "File                                 Fileset                 Type"
-                      		echo "-----------------------------------------------------------------"
-                      		echo "$(which yum)                         bos.pkgmgt.yum          exec"
-                      		echo "Command unsuccessful, check command variables and syntax"
-                      		echo
-                      		cat /var/log/smx-log/fail.log
-                      		echo
-                      		read -p "Press [enter] to continue..." ReadDamKey
-    			   fi
+    			                echo "#################################################################################" >> /var/log/smx-log/success.log
+                          		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                          		echo "Successfuly installed DHCP on system: $(hostname)" >> /var/log/smx-log/success.log
+                          		echo "Command run: $(which yum) -y install dhcp | $(which tee) /var/log/smx-log/yum" >> /var/log/smx-log/success.log
+                          		echo "" >> /var/log/smx-log/success.log
+                				echo "#################################################################################" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                          		read -p "Press [enter] to continue..." ReadDamKey
+                          		clear
+                          		echo "        COMMAND STATUS          "
+                          		echo
+                          		echo "$(date)                                     $(whoami)@$(hostname)"
+                          		echo
+                          		echo "Command: OK    stdout: yes    stderr: no          "
+                          		echo
+                          		echo "Before command completion, additional instructions may appear below"
+                          		echo
+                          		echo "File                                 Fileset                 Type"
+                          		echo "-----------------------------------------------------------------"
+                          		echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                          		echo "Command run: $(which yum) -y install dhcp | $(which tee) /var/log/smx-log/yum.log"
+                          		echo
+                          		cat /var/log/smx-log/success.log | tail -n 6
+                          		echo
+                          		read -p "Press [enter] to continue..." ReadDamKey
+    			           else
+    			                echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                          		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                          		echo "Not install DHCP on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+				                echo "Command run: $(which yum) -y install dhcp | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                      		    echo "" >> /var/log/smx-log/fail.log
+                				echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                				echo "" >> /var/log/smx-log/fail.log
+                          		read -p "Press [enter] to continue..." ReadDamKey
+                          		clear
+                          		echo "        COMMAND STATUS          "
+                          		echo
+                          		echo "$(date)                                     $(whoami)@$(hostname)"
+                          		echo
+                          		echo "Command: FAIL    stdout: yes    stderr: no        "
+                          		echo
+                          		echo "Before command completion, additional instructions may appear below"
+                          		echo
+                          		echo "File                                 Fileset                 Type"
+                          		echo "-----------------------------------------------------------------"
+                          		echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                          		echo "Command unsuccessful, check command variables and syntax"
+                          		echo
+                          		cat /var/log/smx-log/fail.log
+                          		echo
+                          		read -p "Press [enter] to continue..." ReadDamKey
+    			           fi
                            echo ""option domain-name=\"$dnsName"\";" >> /etc/dhcp/dhcpd.conf
                            echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcp/dhcpd.conf
                            echo "default-lease-time $defLease;" >> /etc/dhcp/dhcpd.conf
@@ -23629,365 +23629,365 @@ function dhcp_menu() {
                            clear
                            echo "System: $(hostname) successfuly configured as DHCP server"
                            echo "On your client, set this server as your DHCP server"
-			   read -p "Press [enter] to continue..." ReadDamKey
+			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-			        echo "OS = Debian"
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo "IP class example: 192.168.1.0"
-				echo "Netmask example: 255.255.255.0"
-				echo "Start IP example: 192.168.1.100"
-				echo "End IP example: 192.168.1.200"
-				echo "Broadcast address example: 192.168.1.255"
-				echo "Default (router address) gateway: 192.168.1.1"
-				echo "Default lease time (in mins) example: 600"
-				echo "Max lease time (in mins) example: 7200"
-				echo "Domain name example: domain.local"
-				echo "DNS server ip address example: 192.168.1.12"
-				echo "System interface example: eth0"
-				echo "[TOP]                                            [Entry Fields]"
-				read -p " Enter IP class ------------------------------ > " ipClass
-				read -p " Enter netmask ------------------------------- > " netmaskAddr
-				read -p " Enter start IP address ---------------------- > " startIP
-				read -p " Enter end IP address ------------------------ > " endIP
-				read -p " Enter broadcast addres ---------------------- > " bcastAddr
-				read -p " Enter default (router address) gateway ------ > " defAddr
-				read -p " Enter default lease time (in mins) ---------- > " defLease
-				read -p " Enter max lease time (in mins) -------------- > " maxLease
-				read -p " Enter domain name --------------------------- > " dnsName
-				read -p " Enter DNS server ip address ----------------- > " dnsSrvAddr
-				read -p " Enter system interface ---------------------- > " sysIntf
-				clear
-				echo "         COMMAND STATUS          "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: RUNNING    stdout: yes    stderr: no     "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                 Fileset                         Type"
-				echo "-------------------------------------------------------------------------"
-				echo "$(which apt-get)                     bos.pkgmgt.apt-get              exec"
-				echo "$(which sed)                         bos.sysmgt.sed                  exec"
-				echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
-				echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
-				echo "Command run: /etc/init.d/isc-dhcp-server start"
-				sleep 2
-				clear
-				$(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log
-				if [ $PIPESTATUS -eq 0 ]; then
-				     echo "########################################################################################################" >> /var/log/smx-log/success.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				     echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
-				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     echo "########################################################################################################" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     read -p "Press [enter] to continue..." ReadDamKey
-				     clear
-				     echo "        COMMAND STATUS          "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: OK    stdout: yes    stderr: no          "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                Fileset                 Type"
-				     echo "----------------------------------------------------------------"
-				     echo "$(which apt-get)                    bos.sysmgt.apt-get     exec"
-				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
-				     echo
-				     cat /var/log/smx-log/success.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
-                  		else
-				     echo "########################################################################################################" >> /var/log/smx-log/fai.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-				     echo "not installed dhcp server on system: $(hostname)" >> /var/log/smx-log/fail.log
-				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-				     echo "" >> /var/log/smx-log/fail.log
-				     echo "########################################################################################################" >> /var/log/smx-log/fail.log
-				     echo "" >> /var/log/smx-log/fail.log
-				     read -p "Press [enter] to continue..." ReadDamKey
-				     clear
-				     echo "        COMMAND STATUS          "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: FAIL    stdout: yes    stderr: no        "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                Fileset                 Type"
-				     echo "----------------------------------------------------------------"
-				     echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
-				     echo "Command unsuccessful, check command syntax and variables"
-				     echo
-				     cat /var/log/smx-log/fail.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
-				fi
-				echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcp/dhcpd.conf
-				echo "range $startIP $endIP;" >> /etc/dhcp/dhcpd.conf
-				echo "option broadcast-address $bcastAddr;" >> /etc/dhcp/dhcpd.conf
-				echo "option routers $defAddr;" >> /etc/dhcp/dhcpd.conf
-				echo "default-lease-time $defLease;" >> /etc/dhcp/dhcpd.conf
-				echo "max-lease-time $maxLease;" >> /etc/dhcp/dhcpd.conf
-				echo ""option domain-name=\"$dnsName"\";"  >> /etc/dhcp/dhcpd.conf
-				echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcp/dhcpd.conf
-				echo "}" >> /etc/dhcp/dhcpd.conf
-				$(which sed) -i 's/INTERFACE/#INTERFACE/g' /etc/default-isc-dhcp-server
-				echo ""INTERFACE=\"$sysIntf"\";" >> /etc/default/isc-dhcp-server
-				echo
-				echo "System now DHCP server"
-				echo "Set as DHCP server on clients"
-				read -p "Press [enter] to continue..." ReadDamKey
+			                    echo "OS = Debian"
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo "IP class example: 192.168.1.0"
+                				echo "Netmask example: 255.255.255.0"
+                				echo "Start IP example: 192.168.1.100"
+                				echo "End IP example: 192.168.1.200"
+                				echo "Broadcast address example: 192.168.1.255"
+                				echo "Default (router address) gateway: 192.168.1.1"
+                				echo "Default lease time (in mins) example: 600"
+                				echo "Max lease time (in mins) example: 7200"
+                				echo "Domain name example: domain.local"
+                				echo "DNS server ip address example: 192.168.1.12"
+                				echo "System interface example: eth0"
+                				echo "[TOP]                                            [Entry Fields]"
+                				read -p " Enter IP class ------------------------------ > " ipClass
+                				read -p " Enter netmask ------------------------------- > " netmaskAddr
+                				read -p " Enter start IP address ---------------------- > " startIP
+                				read -p " Enter end IP address ------------------------ > " endIP
+                				read -p " Enter broadcast addres ---------------------- > " bcastAddr
+                				read -p " Enter default (router address) gateway ------ > " defAddr
+                				read -p " Enter default lease time (in mins) ---------- > " defLease
+                				read -p " Enter max lease time (in mins) -------------- > " maxLease
+                				read -p " Enter domain name --------------------------- > " dnsName
+                				read -p " Enter DNS server ip address ----------------- > " dnsSrvAddr
+                				read -p " Enter system interface ---------------------- > " sysIntf
+                				clear
+                				echo "         COMMAND STATUS          "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                 Fileset                         Type"
+                				echo "-------------------------------------------------------------------------"
+                				echo "$(which apt-get)                     bos.pkgmgt.apt-get              exec"
+                				echo "$(which sed)                         bos.sysmgt.sed                  exec"
+                				echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
+                				echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
+                				echo "Command run: /etc/init.d/isc-dhcp-server start"
+                				sleep 2
+                				clear
+                				$(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log
+                				if [ $PIPESTATUS -eq 0 ]; then
+                				     echo "########################################################################################################" >> /var/log/smx-log/success.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     echo "########################################################################################################" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				     clear
+                				     echo "        COMMAND STATUS          "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: OK    stdout: yes    stderr: no          "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                Fileset                 Type"
+                				     echo "----------------------------------------------------------------"
+                				     echo "$(which apt-get)                    bos.sysmgt.apt-get     exec"
+                				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
+                				     echo
+                				     cat /var/log/smx-log/success.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                  		        else
+                				     echo "########################################################################################################" >> /var/log/smx-log/fai.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                				     echo "not installed dhcp server on system: $(hostname)" >> /var/log/smx-log/fail.log
+                				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                				     echo "" >> /var/log/smx-log/fail.log
+                				     echo "########################################################################################################" >> /var/log/smx-log/fail.log
+                				     echo "" >> /var/log/smx-log/fail.log
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				     clear
+                				     echo "        COMMAND STATUS          "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: FAIL    stdout: yes    stderr: no        "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                Fileset                 Type"
+                				     echo "----------------------------------------------------------------"
+                				     echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
+                				     echo "Command unsuccessful, check command syntax and variables"
+                				     echo
+                				     cat /var/log/smx-log/fail.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				fi
+                				echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcp/dhcpd.conf
+                				echo "range $startIP $endIP;" >> /etc/dhcp/dhcpd.conf
+                				echo "option broadcast-address $bcastAddr;" >> /etc/dhcp/dhcpd.conf
+                				echo "option routers $defAddr;" >> /etc/dhcp/dhcpd.conf
+                				echo "default-lease-time $defLease;" >> /etc/dhcp/dhcpd.conf
+                				echo "max-lease-time $maxLease;" >> /etc/dhcp/dhcpd.conf
+                				echo ""option domain-name=\"$dnsName"\";"  >> /etc/dhcp/dhcpd.conf
+                				echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcp/dhcpd.conf
+                				echo "}" >> /etc/dhcp/dhcpd.conf
+                				$(which sed) -i 's/INTERFACE/#INTERFACE/g' /etc/default-isc-dhcp-server
+                				echo ""INTERFACE=\"$sysIntf"\";" >> /etc/default/isc-dhcp-server
+                				echo
+                				echo "System now DHCP server"
+                				echo "Set as DHCP server on clients"
+                				read -p "Press [enter] to continue..." ReadDamKey
                            else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-				     echo "OS = Ubuntu"
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo "IP class example: 192.168.1.0"
-				     echo "Netmask example: 255.255.255.0"
-				     echo "Start IP example: 192.168.1.100"
-				     echo "End IP example: 192.168.1.200"
-				     echo "Broadcast address example: 192.168.1.255"
-				     echo "Default (router address) gateway: 192.168.1.1"
-				     echo "Default lease time (in mins) example: 600"
-				     echo "Max lease time (in mins) example: 7200"
-				     echo "Domain name example: domain.local"
-				     echo "DNS server ip address example: 192.168.1.12"
-				     echo "System interface example: eth0"
-				     echo "[TOP]                                            [Entry Fields]"
-				     read -p " Enter IP class ------------------------------ > " ipClass
-				     read -p " Enter netmask ------------------------------- > " netmaskAddr
-				     read -p " Enter start IP address ---------------------- > " startIP
-				     read -p " Enter end IP address ------------------------ > " endIP
-				     read -p " Enter broadcast addres ---------------------- > " bcastAddr
-				     read -p " Enter default (router address) gateway ------ > " defAddr
-				     read -p " Enter default lease time (in mins) ---------- > " defLease
-				     read -p " Enter max lease time (in mins) -------------- > " maxLease
-				     read -p " Enter domain name --------------------------- > " dnsName
-				     read -p " Enter DNS server ip address ----------------- > " dnsSrvAddr
-				     read -p " Enter system interface ---------------------- > " sysIntf
-				     clear
-				     echo "         COMMAND STATUS          "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: RUNNING    stdout: yes    stderr: no     "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                         Type"
-				     echo "-------------------------------------------------------------------------"
-				     echo "$(which apt-get)                     bos.pkgmgt.apt-get              exec"
-				     echo "$(which sed)                         bos.sysmgt.sed                  exec"
-				     echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
-				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
-				     echo "Command run: /etc/init.d/isc-dhcp-server start"
-				     sleep 2
-				     clear
-				     $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log
-				     if [ $PIPESTATUS -eq 0 ]; then
-					  echo "########################################################################################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					  echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "########################################################################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no          "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                Fileset                 Type"
-					  echo "----------------------------------------------------------------"
-					  echo "$(which apt-get)                    bos.sysmgt.apt-get     exec"
-					  echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
-					  echo
-					  cat /var/log/smx-log/success.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
-                  		     else
-					  echo "########################################################################################################" >> /var/log/smx-log/fai.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					  echo "not installed dhcp server on system: $(hostname)" >> /var/log/smx-log/fail.log
-					  echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-					  echo "########################################################################################################" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: FAIL    stdout: yes    stderr: no        "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                Fileset                 Type"
-					  echo "----------------------------------------------------------------"
-					  echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
-					  echo "Command unsuccessful, check command syntax and variables"
-					  echo
-					  cat /var/log/smx-log/fail.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
-				     fi
-				     echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcp/dhcpd.conf
-				     echo "range $startIP $endIP;" >> /etc/dhcp/dhcpd.conf
-				     echo "option broadcast-address $bcastAddr;" >> /etc/dhcp/dhcpd.conf
-				     echo "option routers $defAddr;" >> /etc/dhcp/dhcpd.conf
-				     echo "default-lease-time $defLease;" >> /etc/dhcp/dhcpd.conf
-				     echo "max-lease-time $maxLease;" >> /etc/dhcp/dhcpd.conf
-				     echo ""option domain-name=\"$dnsName"\";"  >> /etc/dhcp/dhcpd.conf
-				     echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcp/dhcpd.conf
-				     echo "}" >> /etc/dhcp/dhcpd.conf
-				     $(which sed) -i 's/INTERFACE/#INTERFACE/g' /etc/default-isc-dhcp-server
-				     echo ""INTERFACE=\"$sysIntf"\";" >> /etc/default/isc-dhcp-server
-				     echo
-				     echo "System now DHCP server"
-				     echo "Set as DHCP server on clients"
-				     read -p "Press [enter] to continue..." ReadDamKey
+                				     echo "OS = Ubuntu"
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo "IP class example: 192.168.1.0"
+                				     echo "Netmask example: 255.255.255.0"
+                				     echo "Start IP example: 192.168.1.100"
+                				     echo "End IP example: 192.168.1.200"
+                				     echo "Broadcast address example: 192.168.1.255"
+                				     echo "Default (router address) gateway: 192.168.1.1"
+                				     echo "Default lease time (in mins) example: 600"
+                				     echo "Max lease time (in mins) example: 7200"
+                				     echo "Domain name example: domain.local"
+                				     echo "DNS server ip address example: 192.168.1.12"
+                				     echo "System interface example: eth0"
+                				     echo "[TOP]                                            [Entry Fields]"
+                				     read -p " Enter IP class ------------------------------ > " ipClass
+                				     read -p " Enter netmask ------------------------------- > " netmaskAddr
+                				     read -p " Enter start IP address ---------------------- > " startIP
+                				     read -p " Enter end IP address ------------------------ > " endIP
+                				     read -p " Enter broadcast addres ---------------------- > " bcastAddr
+                				     read -p " Enter default (router address) gateway ------ > " defAddr
+                				     read -p " Enter default lease time (in mins) ---------- > " defLease
+                				     read -p " Enter max lease time (in mins) -------------- > " maxLease
+                				     read -p " Enter domain name --------------------------- > " dnsName
+                				     read -p " Enter DNS server ip address ----------------- > " dnsSrvAddr
+                				     read -p " Enter system interface ---------------------- > " sysIntf
+                				     clear
+                				     echo "         COMMAND STATUS          "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                         Type"
+                				     echo "-------------------------------------------------------------------------"
+                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get              exec"
+                				     echo "$(which sed)                         bos.sysmgt.sed                  exec"
+                				     echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
+                				     echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
+                				     echo "Command run: /etc/init.d/isc-dhcp-server start"
+                				     sleep 2
+                				     clear
+                				     $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log
+                				     if [ $PIPESTATUS -eq 0 ]; then
+                    					  echo "########################################################################################################" >> /var/log/smx-log/success.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  echo "########################################################################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  clear
+                    					  echo "        COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: OK    stdout: yes    stderr: no          "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                Fileset                 Type"
+                    					  echo "----------------------------------------------------------------"
+                    					  echo "$(which apt-get)                    bos.sysmgt.apt-get     exec"
+                    					  echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log"
+                    					  echo
+                    					  cat /var/log/smx-log/success.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                  		             else
+                    					  echo "########################################################################################################" >> /var/log/smx-log/fai.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    					  echo "not installed dhcp server on system: $(hostname)" >> /var/log/smx-log/fail.log
+                    					  echo "Command run: $(which apt-get) -y install isc-dhcp-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                    					  echo "########################################################################################################" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  clear
+                    					  echo "        COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: FAIL    stdout: yes    stderr: no        "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                Fileset                 Type"
+                    					  echo "----------------------------------------------------------------"
+                    					  echo "$(which apt-get)                    bos.pkgmgt.apt-get      exec"
+                    					  echo "Command unsuccessful, check command syntax and variables"
+                    					  echo
+                    					  cat /var/log/smx-log/fail.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+				                     fi
+                				     echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcp/dhcpd.conf
+                				     echo "range $startIP $endIP;" >> /etc/dhcp/dhcpd.conf
+                				     echo "option broadcast-address $bcastAddr;" >> /etc/dhcp/dhcpd.conf
+                				     echo "option routers $defAddr;" >> /etc/dhcp/dhcpd.conf
+                				     echo "default-lease-time $defLease;" >> /etc/dhcp/dhcpd.conf
+                				     echo "max-lease-time $maxLease;" >> /etc/dhcp/dhcpd.conf
+                				     echo ""option domain-name=\"$dnsName"\";"  >> /etc/dhcp/dhcpd.conf
+                				     echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcp/dhcpd.conf
+                				     echo "}" >> /etc/dhcp/dhcpd.conf
+                				     $(which sed) -i 's/INTERFACE/#INTERFACE/g' /etc/default-isc-dhcp-server
+                				     echo ""INTERFACE=\"$sysIntf"\";" >> /etc/default/isc-dhcp-server
+                				     echo
+                				     echo "System now DHCP server"
+                				     echo "Set as DHCP server on clients"
+                				     read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-					  echo "OS = SuSE"
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo "Domain name example: domain.local"
-					  echo "DNS server name (ip address) example: 192.168.1.12"
-					  echo "Default (router address) gateway example: 192.168.1.1"
-					  echo "Defualt lease time (in mins) 14400"
-					  echo "Max lease time (in mins) 172800"
-					  echo "IP class example: 192.168.1.0"
-					  echo "Subnet address example: 255.255.255.0"
-					  echo "Start IP address example: 192.168.1.100"
-					  echo "End IP address example: 192.168.1.200"
-					  echo "System interface example: eth0"
-					  echo "[TOP]                                             [Entry Fields]"
-					  read -p " Enter domain name ---------------------------- > " dnsName
-					  read -p " Enter DNS server ip address ------------------ > " dnsSrvAddr
-					  read -p " Enter default (router address) gateway ------- > " defGway
-					  read -p " Enter default lease time (in mins) ----------- > " defLease
-					  read -p " Enter max lease time (in mins) --------------- > " maxLease
-					  read -p " Enter IP class ------------------------------- > " ipClass
-					  read -p " Enter netmask address ------------------------ > " netmaskAddr
-					  read -p " Enter start IP address ----------------------- > " startIP
-					  read -p " Enter end IP address ------------------------- > " endIP
-					  read -p " Enter system interface ----------------------- > " sysIntf
-					  clear
-					  echo "         COMMAND STATUS         "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: RUNNING    stdout: yes    stderr: no     "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                Fileset                 Type"
-					  echo "----------------------------------------------------------------"
-					  echo "$(which zypper)                     bos.pkgmgt.zypper       exec"
-					  echo "$(which sed)                        bos.sysmgt.sed          exec"
-					  echo "/etc/init.d/dhcpd                   bos.sysmgt.dhcpd        exec"
-					  echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log"
-					  echo "Command run: /etc/init.d/dhcpd start"
-					  sleep 2
-					  $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log
-					  if [ $PIPESTATUS -eq 0 ]; then
-					       echo "################################################################################################################" >> /var/log/smx-log/success.log
-                  			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					       echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
-					       echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-					       echo "################################################################################################################" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-					       read -p "Press [enter] to continue..." ReadDamKey
-					       clear
-					       echo "        COMMAND STATUS          "
-					       echo
-					       echo "$(date)                                     $(whoami)@$(hostname)"
-					       echo
-					       echo "Command: OK    stdout: yes    stderr: no          "
-					       echo
-					       echo "Before command completion, additional instructions may appear below"
-					       echo
-					       echo "File                                 Fileset                 Type"
-					       echo "-----------------------------------------------------------------"
-					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-					       echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log"
-					       echo
-					       cat /var/log/smx-log/success.log | tail -n 6
-					       echo
-					       read -p "Press [enter] to continue..." ReadDamKey
-					  else
-					       echo "################################################"
-					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					       echo "Not installed dhcp server on system: $(hostname)" >> /var/log/smx-log/fail.log
-					       echo "" >> /var/log/smx-log/fail.log
-					       echo "################################################" >> /var/log/smx-log/fail.log
-					       echo "" >> /var/log/smx-log/fail.log
-					       clear
-					       echo "        COMMAND STATUS          "
-					       echo
-					       echo "$(date)                                     $(whoami)@$(hostname)"
-					       echo
-					       echo "Command: RUNNING    stdout: yes    stderr: no     "
-					       echo
-					       echo "Before command completion, additional instructions may appear below"
-					       echo
-					       echo "File                                 Fileset                 Type"
-					       echo "-----------------------------------------------------------------"
-					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-					       echo "Command unsuccessful, check command syntax and variables"
-					       echo
-					       cat /var/log/smx-log/fail.log | tail -n 6
-					       echo
-					       read -p "Press [enter] to continue..." ReadDamKey
-                    			  fi
-                    			  echo ""option domain-name \"$dnsName"\";" >> /etc/dhcpd.conf
-                    			  echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcpd.conf
-                    			  echo "option routers $defGway;" >> /etc/dhcpd.conf
-                    			  echo "default-lease-time $defLease;" >> /etc/dhcpd.conf
-                    			  echo "ddns-update-style none;" >> /etc/dhcpd.conf
-                    			  echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcpd.conf
-                    			  echo "range $startIP $endIP;" >> /etc/dhcpd.conf
-                    			  echo "default-lease-time $defLease;" >> /etc/dhcpd.conf
-                    			  echo "max-lease-time $maxLease;" >> /etc/dhcpd.conf
-                    			  echo "}" >> /etc/dhcpd.conf
-                    			  $(which sed) -i 's/DHCPD_INTERFACE/#DHCPD_INTEFACE/g' /etc/sysconfig/dhcpd
-                    			  echo ""DHCPD_INTERFACE=\"$sysIntf"\";" >> /etc/sysconfig/dhcpd
-                    			  /etc/init.d/dhcpd start
-					  echo
-					  echo "DHCP successfuly installed on system: $(hostname)"
-                    			  read -p "Press [enter] to continue..." ReadDamKey
+                    					  echo "OS = SuSE"
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo "Domain name example: domain.local"
+                    					  echo "DNS server name (ip address) example: 192.168.1.12"
+                    					  echo "Default (router address) gateway example: 192.168.1.1"
+                    					  echo "Defualt lease time (in mins) 14400"
+                    					  echo "Max lease time (in mins) 172800"
+                    					  echo "IP class example: 192.168.1.0"
+                    					  echo "Subnet address example: 255.255.255.0"
+                    					  echo "Start IP address example: 192.168.1.100"
+                    					  echo "End IP address example: 192.168.1.200"
+                    					  echo "System interface example: eth0"
+                    					  echo "[TOP]                                             [Entry Fields]"
+                    					  read -p " Enter domain name ---------------------------- > " dnsName
+                    					  read -p " Enter DNS server ip address ------------------ > " dnsSrvAddr
+                    					  read -p " Enter default (router address) gateway ------- > " defGway
+                    					  read -p " Enter default lease time (in mins) ----------- > " defLease
+                    					  read -p " Enter max lease time (in mins) --------------- > " maxLease
+                    					  read -p " Enter IP class ------------------------------- > " ipClass
+                    					  read -p " Enter netmask address ------------------------ > " netmaskAddr
+                    					  read -p " Enter start IP address ----------------------- > " startIP
+                    					  read -p " Enter end IP address ------------------------- > " endIP
+                    					  read -p " Enter system interface ----------------------- > " sysIntf
+                    					  clear
+                    					  echo "         COMMAND STATUS         "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                Fileset                 Type"
+                    					  echo "----------------------------------------------------------------"
+                    					  echo "$(which zypper)                     bos.pkgmgt.zypper       exec"
+                    					  echo "$(which sed)                        bos.sysmgt.sed          exec"
+                    					  echo "/etc/init.d/dhcpd                   bos.sysmgt.dhcpd        exec"
+                    					  echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log"
+                    					  echo "Command run: /etc/init.d/dhcpd start"
+                    					  sleep 2
+                    					  $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log
+                    					  if [ $PIPESTATUS -eq 0 ]; then
+                    					       echo "################################################################################################################" >> /var/log/smx-log/success.log
+                  			                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					       echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					       echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                    					       echo "################################################################################################################" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                    					       clear
+                    					       echo "        COMMAND STATUS          "
+                    					       echo
+                    					       echo "$(date)                                     $(whoami)@$(hostname)"
+                    					       echo
+                    					       echo "Command: OK    stdout: yes    stderr: no          "
+                    					       echo
+                    					       echo "Before command completion, additional instructions may appear below"
+                    					       echo
+                    					       echo "File                                 Fileset                 Type"
+                    					       echo "-----------------------------------------------------------------"
+                    					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                    					       echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log"
+                    					       echo
+                    					       cat /var/log/smx-log/success.log | tail -n 6
+                    					       echo
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+					                      else
+                    					       echo "################################################"
+                    					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    					       echo "Not installed dhcp server on system: $(hostname)" >> /var/log/smx-log/fail.log
+                    					       echo "" >> /var/log/smx-log/fail.log
+                    					       echo "################################################" >> /var/log/smx-log/fail.log
+                    					       echo "" >> /var/log/smx-log/fail.log
+                    					       clear
+                    					       echo "        COMMAND STATUS          "
+                    					       echo
+                    					       echo "$(date)                                     $(whoami)@$(hostname)"
+                    					       echo
+                    					       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					       echo
+                    					       echo "Before command completion, additional instructions may appear below"
+                    					       echo
+                    					       echo "File                                 Fileset                 Type"
+                    					       echo "-----------------------------------------------------------------"
+                    					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                    					       echo "Command unsuccessful, check command syntax and variables"
+                    					       echo
+                    					       cat /var/log/smx-log/fail.log | tail -n 6
+                    					       echo
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                            			  fi
+                            			  echo ""option domain-name \"$dnsName"\";" >> /etc/dhcpd.conf
+                            			  echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcpd.conf
+                            			  echo "option routers $defGway;" >> /etc/dhcpd.conf
+                            			  echo "default-lease-time $defLease;" >> /etc/dhcpd.conf
+                            			  echo "ddns-update-style none;" >> /etc/dhcpd.conf
+                            			  echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcpd.conf
+                            			  echo "range $startIP $endIP;" >> /etc/dhcpd.conf
+                            			  echo "default-lease-time $defLease;" >> /etc/dhcpd.conf
+                            			  echo "max-lease-time $maxLease;" >> /etc/dhcpd.conf
+                            			  echo "}" >> /etc/dhcpd.conf
+                            			  $(which sed) -i 's/DHCPD_INTERFACE/#DHCPD_INTEFACE/g' /etc/sysconfig/dhcpd
+                            			  echo ""DHCPD_INTERFACE=\"$sysIntf"\";" >> /etc/sysconfig/dhcpd
+                            			  /etc/init.d/dhcpd start
+                    					  echo
+                    					  echo "DHCP successfuly installed on system: $(hostname)"
+                            			  read -p "Press [enter] to continue..." ReadDamKey
                                      fi
                                 fi 
-			   fi
-		      fi
+			               fi
+		              fi
                       ;;
-	    start)
-          	    clear
+	        start)
+          	        clear
                     cat /proc/version | grep "Red Hat" > /dev/null
                     if [ $? -eq 0 ]; then
                          clear
-			 echo "OS = Red Hat"
+			             echo "OS = Red Hat"
                          echo "       COMMAND STATUS        "
                          echo
                          echo "$(date)                                     $(whoami)@$(hostname)"
@@ -24003,7 +24003,7 @@ function dhcp_menu() {
                          sleep 2
                          clear
                          /etc/rc.d/init.d/dhcpd start
-			 echo "################################################" >> /var/log/smx-log/success.log
+			             echo "################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Successfuly started dhcpd on system: $(hostname)" >> /var/log/smx-log/success.log
                          echo "Command run: $(which service) dhcpd start" >> /var/log/smx-log/success.log
@@ -24032,7 +24032,7 @@ function dhcp_menu() {
                          cat /proc/version | grep "Debian" > /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-			      echo "OS = Debian"
+			                  echo "OS = Debian"
                               echo "       COMMAND STATUS        "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -24048,7 +24048,7 @@ function dhcp_menu() {
                               sleep 2
                               clear
                               /etc/init.d/isc-dhcp-server start
-			      echo "###############################################" >> /var/log/smx-log/success.log
+			                  echo "###############################################" >> /var/log/smx-log/success.log
                               echo "$(date)@$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               echo "Successfuly started dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
                               echo "Command run: /etc/init.d/isc-dhcp-server start" >> /var/log/smx-log/success.log
@@ -24071,108 +24071,108 @@ function dhcp_menu() {
                               echo
                               cat /var/log/smx-log/success.log | tail -n 6
                               echo
-			      read -p "Press [enter] to continue..." ReadDamKey
+			                  read -p "Press [enter] to continue..." ReadDamKey
                          else
                               clear
                               cat /proc/version | grep "Ubuntu" > /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-				   echo "OS = Ubuntu"
-				   echo "       COMMAND STATUS        "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: RUNNING    stdout: yes    stderr: no     "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                        Type"
-				   echo "------------------------------------------------------------------------"
-				   echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
-				   echo "Command run: /etc/init.d/isc-dhcp-server start"
-				   sleep 2
-				   clear
-				   /etc/init.d/isc-dhcp-server start
-				   echo "###############################################" >> /var/log/smx-log/success.log
-				   echo "$(date)@$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				   echo "Successfuly started dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
-				   echo "Command run: /etc/init.d/isc-dhcp-server start" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   echo "###############################################" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   clear
-				   echo "       COMMAND STATUS        "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: OK    stdout: yes    stderr: no          "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                        Type"
-				   echo "------------------------------------------------------------------------"
-				   echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
-				   echo "Command run: /etc/init.d/isc-dhcp-server start"
-				   echo
-				   cat /var/log/smx-log/success.log | tail -n 6
-				   echo
-				   read -p "Press [enter] to continue..." ReadDamKey
+                				   echo "OS = Ubuntu"
+                				   echo "       COMMAND STATUS        "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                        Type"
+                				   echo "------------------------------------------------------------------------"
+                				   echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
+                				   echo "Command run: /etc/init.d/isc-dhcp-server start"
+                				   sleep 2
+                				   clear
+                				   /etc/init.d/isc-dhcp-server start
+                				   echo "###############################################" >> /var/log/smx-log/success.log
+                				   echo "$(date)@$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				   echo "Successfuly started dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
+                				   echo "Command run: /etc/init.d/isc-dhcp-server start" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   echo "###############################################" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   clear
+                				   echo "       COMMAND STATUS        "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: OK    stdout: yes    stderr: no          "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                        Type"
+                				   echo "------------------------------------------------------------------------"
+                				   echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
+                				   echo "Command run: /etc/init.d/isc-dhcp-server start"
+                				   echo
+                				   cat /var/log/smx-log/success.log | tail -n 6
+                				   echo
+                				   read -p "Press [enter] to continue..." ReadDamKey
                               else
                                    clear
                                    cat /proc/version | grep "SUSE" > /dev/null
                                    if [ $? -eq 0 ]; then
                                         clear
-				        echo "OS = SuSE"
-					echo "       COMMAND STATUS       "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: RUNNING    stdout: yes    stderr: no     "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
-					echo "Command run: /etc/init.d/dhcpd start"
-					sleep 2
-					clear
-					/etc/init.d/dhcpd start
-					echo "###############################################" >> /var/log/smx-log/success.log
-					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					echo "Successfuly started dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
-					echo "Command run: /etc/init.d/dhcpd start" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					echo "###############################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					clear
-					echo "       COMMAND STATUS       "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: OK    stdout: yes    stderr: no          "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
-					echo "Command run: /etc/init.d/dhcpd start"
-					echo
-					cat /var/log/smx-log/success.log | tail -n 6
-					echo
-					read -p "Press [enter] to continue..." ReadDamKey
+				                        echo "OS = SuSE"
+                    					echo "       COMMAND STATUS       "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
+                    					echo "Command run: /etc/init.d/dhcpd start"
+                    					sleep 2
+                    					clear
+                    					/etc/init.d/dhcpd start
+                    					echo "###############################################" >> /var/log/smx-log/success.log
+                    					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					echo "Successfuly started dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					echo "Command run: /etc/init.d/dhcpd start" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					echo "###############################################" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					clear
+                    					echo "       COMMAND STATUS       "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: OK    stdout: yes    stderr: no          "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
+                    					echo "Command run: /etc/init.d/dhcpd start"
+                    					echo
+                    					cat /var/log/smx-log/success.log | tail -n 6
+                    					echo
+                    					read -p "Press [enter] to continue..." ReadDamKey
                                    fi
                               fi 
-			 fi
-		    fi
-		    ;;
-	    stop)
-		   clear
+			             fi
+        		    fi
+        		    ;;
+	        stop)
+		           clear
                    cat /proc/version | grep "Red Hat" > /dev/null
                    if [ $? -eq 0 ]; then
                         clear
-			echo "OS = Red Hat"
+			            echo "OS = Red Hat"
                         echo "        COMMAND STATUS         "
                         echo
                         echo "$(date)                                     $(whoami)@$(hostname)"
@@ -24188,7 +24188,7 @@ function dhcp_menu() {
                         sleep 2
                         clear
                         $(which service) dhcpd stop 
-			echo "##############################################" >> /var/log/smx-log/success.log
+			            echo "##############################################" >> /var/log/smx-log/success.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                         echo "Successfuly stoped dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
                         echo "Command run: $(which service) dhcpd stop" >> /var/log/smx-log/success.log
@@ -24211,13 +24211,13 @@ function dhcp_menu() {
                         echo
                         cat /var/log/smx-log/success.log | tail -n 6
                         echo
-			read -p "Press [enter] to continue..." ReadDamKey
+			            read -p "Press [enter] to continue..." ReadDamKey
                    else
                         clear
                         cat /proc/version | grep "Debian" > /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-			     echo "OS = Debian"
+			                 echo "OS = Debian"
                              echo "        COMMAND STATUS         "
                              echo
                              echo "$(date)                                     $(whoami)@$(hostname)"
@@ -24233,7 +24233,7 @@ function dhcp_menu() {
                              sleep 2
                              clear
                              /etc/init.d/isc-dhcp-server stop
-			     echo "###############################################" >> /var/log/smx-log/success.log
+			                 echo "###############################################" >> /var/log/smx-log/success.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                              echo "Successfuly stopped dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
                              echo "Command run: /etc/init.d/isc-dhcp-server stop" >> /var/log/smx-log/success.log
@@ -24256,108 +24256,108 @@ function dhcp_menu() {
                              echo
                              cat /var/log/smx-log/success.log | tail -n 6
                              echo
-			     read -p "Press [enter] to continue..." ReadDamKey
+			                 read -p "Press [enter] to continue..." ReadDamKey
                         else
                              clear
                              cat /proc/version | grep "Ubuntu" > /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-				  echo "OS = Ubuntu"
-				  echo "        COMMAND STATUS         "
-				  echo
-				  echo "$(date)                                     $(whoami)@$(hostname)"
-				  echo
-				  echo "Command: RUNNING    stdout: yes    stderr: no     "
-				  echo
-				  echo "Before command completion, additional instructions may appear below"
-				  echo
-				  echo "File                                Fileset                           Type"
-				  echo "--------------------------------------------------------------------------"
-				  echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
-				  echo "Command run: /etc/init.d/isc-dhcp-server stop"
-				  sleep 2
-				  clear
-				  /etc/init.d/isc-dhcp-server stop
-				  echo "###############################################" >> /var/log/smx-log/success.log
-				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				  echo "Successfuly stopped dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
-				  echo "Command run: /etc/init.d/isc-dhcp-server stop" >> /var/log/smx-log/success.log
-				  echo "" >> /var/log/smx-log/success.log
-				  echo "###############################################" >> /var/log/smx-log/success.log
-				  echo "" >> /var/log/smx-log/success.log
-				  clear
-				  echo "        COMMAND STATUS         "
-				  echo
-				  echo "$(date)                                     $(whoami)@$(hostname)"
-				  echo
-				  echo "Command: OK    stdout: yes    stderr: no          "
-				  echo
-				  echo "Before command completion, additional instructions may appear below"
-				  echo
-				  echo "File                                Fileset                           Type"
-				  echo "--------------------------------------------------------------------------"
-				  echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
-				  echo "Command run: /etc/init.d/isc-dhcp-server stop"
-				  echo
-				  cat /var/log/smx-log/success.log | tail -n 6
-				  echo
-				  read -p "Press [enter] to continue..." ReadDamKey
+                				  echo "OS = Ubuntu"
+                				  echo "        COMMAND STATUS         "
+                				  echo
+                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                				  echo
+                				  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				  echo
+                				  echo "Before command completion, additional instructions may appear below"
+                				  echo
+                				  echo "File                                Fileset                           Type"
+                				  echo "--------------------------------------------------------------------------"
+                				  echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
+                				  echo "Command run: /etc/init.d/isc-dhcp-server stop"
+                				  sleep 2
+                				  clear
+                				  /etc/init.d/isc-dhcp-server stop
+                				  echo "###############################################" >> /var/log/smx-log/success.log
+                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				  echo "Successfuly stopped dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
+                				  echo "Command run: /etc/init.d/isc-dhcp-server stop" >> /var/log/smx-log/success.log
+                				  echo "" >> /var/log/smx-log/success.log
+                				  echo "###############################################" >> /var/log/smx-log/success.log
+                				  echo "" >> /var/log/smx-log/success.log
+                				  clear
+                				  echo "        COMMAND STATUS         "
+                				  echo
+                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                				  echo
+                				  echo "Command: OK    stdout: yes    stderr: no          "
+                				  echo
+                				  echo "Before command completion, additional instructions may appear below"
+                				  echo
+                				  echo "File                                Fileset                           Type"
+                				  echo "--------------------------------------------------------------------------"
+                				  echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
+                				  echo "Command run: /etc/init.d/isc-dhcp-server stop"
+                				  echo
+                				  cat /var/log/smx-log/success.log | tail -n 6
+                				  echo
+                				  read -p "Press [enter] to continue..." ReadDamKey
                              else
                                   clear
                                   cat /proc/version | grep "SUSE" > /dev/null
                                   if [ $? -eq 0 ]; then
                                        clear
-				       echo "OS = SuSE"
-				       echo "        COMMAND STATUS          "
-				       echo
-				       echo "$(date)                                     $(whoami)@$(hostname)"
-				       echo
-				       echo "Command: RUNNING    stdout: yes    stderr: no     "
-				       echo
-				       echo "Before command completion, additional instructions may appear below"
-				       echo
-				       echo "File                                 Fileset                 Type"
-				       echo "-----------------------------------------------------------------"
-				       echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
-				       echo "Command run: /etc/init.d/dhcpd stop"
-				       sleep 2
-				       clear
-				       /etc/init.d/dhcpd stop
-				       echo "###############################################" >> /var/log/smx-log/success.log
-				       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				       echo "Successfuly stopped dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
-				       echo "Command run: /etc/init.d/dhcpd stop" >> /var/log/smx-log/success.log
-				       echo "" >> /var/log/smx-log/success.log
-				       echo "###############################################" >> /var/log/smx-log/success.log
-				       echo "" >> /var/log/smx-log/success.log
-				       clear
-				       echo "        COMMAND STATUS          "
-				       echo
-				       echo "$(date)                                     $(whoami)@$(hostname)"
-				       echo
-				       echo "Command: OK    stdout: yes    stderr: no          "
-				       echo
-				       echo "Before command completion, additional instructions may appear below"
-				       echo
-				       echo "File                                 Fileset                 Type"
-				       echo "-----------------------------------------------------------------"
-				       echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
-				       echo "Command run: /etc/init.d/dhcpd stop"
-				       echo
-				       cat /var/log/smx-log/success.log | tail -n 6
-				       echo
-				       read -p "Press [enter] to continue..." ReadDamKey
+                				       echo "OS = SuSE"
+                				       echo "        COMMAND STATUS          "
+                				       echo
+                				       echo "$(date)                                     $(whoami)@$(hostname)"
+                				       echo
+                				       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				       echo
+                				       echo "Before command completion, additional instructions may appear below"
+                				       echo
+                				       echo "File                                 Fileset                 Type"
+                				       echo "-----------------------------------------------------------------"
+                				       echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
+                				       echo "Command run: /etc/init.d/dhcpd stop"
+                				       sleep 2
+                				       clear
+                				       /etc/init.d/dhcpd stop
+                				       echo "###############################################" >> /var/log/smx-log/success.log
+                				       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				       echo "Successfuly stopped dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
+                				       echo "Command run: /etc/init.d/dhcpd stop" >> /var/log/smx-log/success.log
+                				       echo "" >> /var/log/smx-log/success.log
+                				       echo "###############################################" >> /var/log/smx-log/success.log
+                				       echo "" >> /var/log/smx-log/success.log
+                				       clear
+                				       echo "        COMMAND STATUS          "
+                				       echo
+                				       echo "$(date)                                     $(whoami)@$(hostname)"
+                				       echo
+                				       echo "Command: OK    stdout: yes    stderr: no          "
+                				       echo
+                				       echo "Before command completion, additional instructions may appear below"
+                				       echo
+                				       echo "File                                 Fileset                 Type"
+                				       echo "-----------------------------------------------------------------"
+                				       echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
+                				       echo "Command run: /etc/init.d/dhcpd stop"
+                				       echo
+                				       cat /var/log/smx-log/success.log | tail -n 6
+                				       echo
+                				       read -p "Press [enter] to continue..." ReadDamKey
                                   fi
                              fi 
-			fi
-		   fi
-		   ;;
-	    restart)
-          	      clear
+			            fi
+        		   fi
+        		   ;;
+	        restart)
+          	          clear
                       cat /proc/version | grep "Red Hat" > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-			   echo "OS = Red Hat"
+			               echo "OS = Red Hat"
                            echo "        COMMAND STATUS        "
                            echo
                            echo "$(date)                                     $(whoami)@$(hostname)"
@@ -24373,7 +24373,7 @@ function dhcp_menu() {
                            sleep 2
                            clear
                            $(which service) dhcpd restart
-			   echo "##################################################" >> /var/log/smx-log/success.log
+			               echo "##################################################" >> /var/log/smx-log/success.log
                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                            echo "Successfuly restarted dhcpd on system: $(hostname)" >> /var/log/smx-log/success.log
                            echo "Command run: $(which service) dhcpd restart" >> /var/log/smx-log/success.log
@@ -24396,157 +24396,157 @@ function dhcp_menu() {
                            echo
                            cat /var/log/smx-log/success.log | tail -n 6
                            echo
-			   read -p "Press [enter] to continue..." ReadDamKey
+			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-			        echo "OS = Debian"
-				echo "        COMMAND STATUS         "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: RUNNING    stdout: yes    stderr: no     "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                Fileset                           Type"
-				echo "--------------------------------------------------------------------------"
-				echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
-				echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				sleep 2
-				clear
-				/etc/init.d/isc-dhcp-server restart
-				echo "#################################################" >> /var/log/smx-log/success.log
-				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				echo "Successfuly restarted dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
-				echo "Command run: /etc/init.d/isc-dhcp-server stop" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				echo "#################################################" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				clear
-				echo "        COMMAND STATUS         "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: OK    stdout: yes    stderr: no          "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                Fileset                           Type"
-				echo "--------------------------------------------------------------------------"
-				echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
-				echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				echo
-				cat /var/log/smx-log/success.log | tail -n 6
-				echo
-				read -p "Press [enter] to continue..." ReadDamKey
+			                    echo "OS = Debian"
+                				echo "        COMMAND STATUS         "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                Fileset                           Type"
+                				echo "--------------------------------------------------------------------------"
+                				echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
+                				echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				sleep 2
+                				clear
+                				/etc/init.d/isc-dhcp-server restart
+                				echo "#################################################" >> /var/log/smx-log/success.log
+                				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				echo "Successfuly restarted dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
+                				echo "Command run: /etc/init.d/isc-dhcp-server stop" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				echo "#################################################" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				clear
+                				echo "        COMMAND STATUS         "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: OK    stdout: yes    stderr: no          "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                Fileset                           Type"
+                				echo "--------------------------------------------------------------------------"
+                				echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
+                				echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				echo
+                				cat /var/log/smx-log/success.log | tail -n 6
+                				echo
+                				read -p "Press [enter] to continue..." ReadDamKey
                            else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-				     echo "OS = Ubuntu"
-				     echo "        COMMAND STATUS         "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: RUNNING    stdout: yes    stderr: no     "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                Fileset                           Type"
-				     echo "--------------------------------------------------------------------------"
-				     echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
-				     echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				     sleep 2
-				     clear
-				     /etc/init.d/isc-dhcp-server restart
-				     echo "#################################################" >> /var/log/smx-log/success.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				     echo "Successfuly restarted dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
-				     echo "Command run: /etc/init.d/isc-dhcp-server stop" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     echo "#################################################" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     clear
-				     echo "        COMMAND STATUS         "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: OK    stdout: yes    stderr: no          "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                Fileset                           Type"
-				     echo "--------------------------------------------------------------------------"
-				     echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
-				     echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				     echo
-				     cat /var/log/smx-log/success.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
+                				     echo "OS = Ubuntu"
+                				     echo "        COMMAND STATUS         "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                Fileset                           Type"
+                				     echo "--------------------------------------------------------------------------"
+                				     echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
+                				     echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				     sleep 2
+                				     clear
+                				     /etc/init.d/isc-dhcp-server restart
+                				     echo "#################################################" >> /var/log/smx-log/success.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Successfuly restarted dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Command run: /etc/init.d/isc-dhcp-server stop" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     echo "#################################################" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     clear
+                				     echo "        COMMAND STATUS         "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: OK    stdout: yes    stderr: no          "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                Fileset                           Type"
+                				     echo "--------------------------------------------------------------------------"
+                				     echo "/etc/init.d/isc-dhcp-server         bos.sysmgt.isc-dhcp-server        exec"
+                				     echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				     echo
+                				     cat /var/log/smx-log/success.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-					  echo "OS = SuSE"
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: RUNNING    stdout: yes    stderr: no     "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
-					  echo "Command run: /etc/init.d/dhcpd restart"
-					  sleep 2
-					  clear
-					  /etc/init.d/dhcpd restart
-					  echo "#################################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					  echo "Successfuly restarted dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "Command run: /etc/init.d/dhcpd stop" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "#################################################"
-					  echo "" >> /var/log/smx-log/success.log
-					  clear
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no          "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
-					  echo "Command run: /etc/init.d/dhcpd restart"
-					  echo
-					  cat /var/log/smx-log/success.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  echo "OS = SuSE"
+                    					  echo "        COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
+                    					  echo "Command run: /etc/init.d/dhcpd restart"
+                    					  sleep 2
+                    					  clear
+                    					  /etc/init.d/dhcpd restart
+                    					  echo "#################################################" >> /var/log/smx-log/success.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Successfuly restarted dhcp on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Command run: /etc/init.d/dhcpd stop" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  echo "#################################################"
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  clear
+                    					  echo "        COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: OK    stdout: yes    stderr: no          "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "/etc/init.d/dhcpd                    bos.sysmgt.dhcpd        exec"
+                    					  echo "Command run: /etc/init.d/dhcpd restart"
+                    					  echo
+                    					  cat /var/log/smx-log/success.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
                                      fi
                                 fi 
-			   fi
-		      fi
-		      ;;
-	    ch_lease)
-          	       clear
+			               fi
+        		      fi
+        		      ;;
+	        ch_lease)
+          	           clear
                        cat /proc/version | grep "Red Hat" > /dev/null
                        if [ $? -eq 0 ]; then
                             clear
-			    echo "OS = Red Hat"
+			                echo "OS = Red Hat"
                             echo "$(date)                                     $(whoami)@$(hostname)"
                             echo "[TOP]                                 [Entry Fields]"
                             read -p " Edit default or max lease time --- (default/max) > " ans
-			    if [ "$ans" = "default" ]; then
+			                if [ "$ans" = "default" ]; then
                                   clear
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "default lease time (in mins) example: 259200"
@@ -24572,7 +24572,7 @@ function dhcp_menu() {
                                   clear
                                   $(which sed) -i "s/default-lease-time $currdefLease/default-lease-time $newdefLease/g" /etc/dhcp/dhcp.conf
                                   $(which service) dhcpd restart
-				  echo "#######################################################################################################################" >> /var/log/smx-log/success.log
+				                  echo "#######################################################################################################################" >> /var/log/smx-log/success.log
                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                   echo "Successfuly changed default lease time from: $currdefLease to $newdefLease" >> /var/log/smx-log/success.log
                                   echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcp.conf" >> /var/log/smx-log/success.log
@@ -24598,7 +24598,7 @@ function dhcp_menu() {
                                   cat /var/log/smx-log/success.log | tail -n 6
                                   echo
                                   read -p "Press [enter] to continue..." ReadDamKey
-			    else
+			                else
                                   clear
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "max lease time (in mins) example: 604800"
@@ -24624,7 +24624,7 @@ function dhcp_menu() {
                                   clear
                                   $(which sed) -i "s/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g" /etc/dhcp/dhcp.conf
                                   $(which service) dhcp restart
-				  echo "#################################################################################################################" >> /var/log/smx-log/success.log
+				                  echo "#################################################################################################################" >> /var/log/smx-log/success.log
                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                   echo "Successfuly changed max lease time from $currmaxLease to $newmaxLease" >> /var/log/smx-log/success.log
                                   echo "Command run: $(which sed) -i 's/max-release-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcp.conf" >> /var/log/smx-log/success.log
@@ -24650,17 +24650,17 @@ function dhcp_menu() {
                                   cat /var/log/smx-log/success.log | tail -n 6
                                   echo
                                   read -p "Press [enter] to continue..." ReadDamKey
-			    fi
+			                fi
                        else
                             clear
                             cat /proc/version | grep "Debian" > /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-				 echo "OS = Debian"
-				 echo "$(date)                                     $(whoami)@$(hostname)"
-				 echo "[TOP]                                 [Entry Fields]"
-				 read -p " Edit default or max lease time --- (default/max) > " ans
-				 if [ "$ans" = "default" ]; then
+                				 echo "OS = Debian"
+                				 echo "$(date)                                     $(whoami)@$(hostname)"
+                				 echo "[TOP]                                 [Entry Fields]"
+                				 read -p " Edit default or max lease time --- (default/max) > " ans
+                				 if [ "$ans" = "default" ]; then
                                        clear
                                        echo "$(date)                                     $(whoami)@$(hostname)"
                                        echo "default lease time (in mins) example: 259200"
@@ -24686,7 +24686,7 @@ function dhcp_menu() {
                                        clear
                                        $(which sed) -i "s/default-lease-time $currdefLease/default-lease-time $newdefLease/g" /etc/dhcp/dhcpd.conf
                                        /etc/init.d/isc-dhcp-server restart
-				       echo "########################################################################################################################" >> /var/log/smx-log/success.log
+				                       echo "########################################################################################################################" >> /var/log/smx-log/success.log
                                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                        echo "Successfuly changed default lease time from: $currdefLease to: $newdefLease" >> /var/log/smx-log/success.log
                                        echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcpd.conf" >> /var/log/smx-log/success.log
@@ -24710,7 +24710,7 @@ function dhcp_menu() {
                                        cat /var/log/smx-log/success.log | tail -n 6
                                        echo
                                        read -p "Press [enter] to continue..." ReadDamKey
-				 else
+				                 else
                                        clear
                                        echo "$(date)                                     $(whoami)@$(hostname)"
                                        echo "max lease time (in mins) example: 236544"
@@ -24736,7 +24736,7 @@ function dhcp_menu() {
                                        clear
                                        $(which sed) -i "s/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g" /etc/dhcp/dhcpd.conf
                                        /etc/init.d/isc-dhcp-server restart
-				       echo "################################################################################################################" >> /var/log/smx-log/success.log
+				                       echo "################################################################################################################" >> /var/log/smx-log/success.log
                                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                        echo "Successfuly changed max lease time from: $currmaxLease to: $newmaxLease" >> /var/log/smx-log/success.log
                                        echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcpd.conf" >> /var/log/smx-log/success.log
@@ -24760,241 +24760,241 @@ function dhcp_menu() {
                                        cat /var/log/smx-log/success.log | tail -n 6
                                        echo
                                        read -p "Press [enter] to continue..." ReadDamKey
-				 fi
+				                 fi
                             else
                                  clear
                                  cat /proc/version | grep "Ubuntu" > /dev/null
                                  if [ $? -eq 0 ]; then
                                       clear
-				      echo "OS = Ubuntu"
-				      echo "$(date)                                     $(whoami)@$(hostname)"
-				      echo "[TOP]                                 [Entry Fields]"
-				      read -p " Edit default or max lease time --- (default/max) > " ans
-				      if [ "$ans" = "default" ]; then
-					    clear
-					    echo "$(date)                                     $(whoami)@$(hostname)"
-					    echo "default lease time (in mins) example: 259200"
-					    echo "[TOP]                                    [Entry Fields]"
-					    read -p " Enter current default lease time ---- > " currdefLease
-					    read -p " Enter new default lease time -------- > " newdefLease
-					    clear
-					    echo "         COMMAND STATUS         "
-					    echo
-					    echo "$(date)                                     $(whoami)@$(hostname)"
-					    echo
-					    echo "Command: RUNNING    stdout: yes    stderr: no     "
-					    echo
-					    echo "Before command completion, additional instructions may appear below"
-					    echo
-					    echo "File                                 Fileset                         Type"
-					    echo "-------------------------------------------------------------------------"
-					    echo "$(which sed)                         bos.sysmgt.sed                  exec"
-					    echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
-					    echo "Command run: (which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcpd.conf"
-					    echo "Command run: /etc/init.d/isc-dhcp-server restart"
-					    sleep 2
-					    clear
-					    $(which sed) -i "s/default-lease-time $currdefLease/default-lease-time $newdefLease/g" /etc/dhcp/dhcpd.conf
-					    /etc/init.d/isc-dhcp-server restart
-					    echo "########################################################################################################################" >> /var/log/smx-log/success.log
-					    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					    echo "Successfuly changed default lease time from: $currdefLease to: $newdefLease" >> /var/log/smx-log/success.log
-					    echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcpd.conf" >> /var/log/smx-log/success.log
-					    echo "" >> /var/log/smx-log/success.log
-					    echo "########################################################################################################################" >> /var/log/smx-log/success.log
-					    echo "" >> /var/log/smx-log/success.log
-					    clear
-					    echo "         COMMAND STATUS         "
-					    echo
-					    echo "$(date)                                     $(whoami)@$(hostname)"
-					    echo
-					    echo "Command: OK    stdout: yes    stderr: no          "
-					    echo
-					    echo "Before command completion, additional instructions may appear below"
-					    echo
-					    echo "File                                 Fileset                 Type"
-					    echo "-----------------------------------------------------------------"
-					    echo "$(which sed)                         bos.sysmgt.sed          exec"
-					    echo "Command run: (which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcpd.conf"
-					    echo
-					    cat /var/log/smx-log/success.log | tail -n 6
-					    echo
-					    read -p "Press [enter] to continue..." ReadDamKey
-				      else
-					    clear
-					    echo "$(date)                                     $(whoami)@$(hostname)"
-					    echo "max lease time (in mins) example: 236544"
-					    echo "[TOP]                                          [Entry Fields]"
-					    read -p " Enter current max lease time (in mins) ---- > " currmaxLease
-					    read -p " Enter new max lease time (in mins) -------- > " newmaxLease
-					    clear
-					    echo "         COMMAND STATUS            "
-					    echo
-					    echo "$(date)                                     $(whoami)@$(hostname)"
-					    echo
-					    echo "Command: RUNNING    stdout: yes    stderr: no     "
-					    echo
-					    echo "Before command completion, additional instructions may appear below"
-					    echo
-					    echo "File                                 Fileset                         Type"
-					    echo "-------------------------------------------------------------------------"
-					    echo "$(which sed)                         bos.sysmgt.sed                  exec"
-					    echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
-					    echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcpd.conf"
-					    echo "Command run: /etc/init.d/isc-dhcp-server restart"
-					    sleep 2
-					    clear
-					    $(which sed) -i "s/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g" /etc/dhcp/dhcpd.conf
-					    /etc/init.d/isc-dhcp-server restart
-					    echo "################################################################################################################" >> /var/log/smx-log/success.log
-					    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					    echo "Successfuly changed max lease time from: $currmaxLease to: $newmaxLease" >> /var/log/smx-log/success.log
-					    echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcpd.conf" >> /var/log/smx-log/success.log
-					    echo "" >> /var/log/smx-log/success.log
-					    echo "################################################################################################################" >> /var/log/smx-log/success.log
-					    echo "" >> /var/log/smx-log/success.log
-					    clear
-					    echo "         COMMAND STATUS            "
-					    echo
-					    echo "$(date)                                     $(whoami)@$(hostname)"
-					    echo
-					    echo "Command: OK    stdout: yes    stderr: no          "
-					    echo
-					    echo "Before command completion, additional instructions may appear below"
-					    echo
-					    echo "File                                 Fileset                 Type"
-					    echo "-----------------------------------------------------------------"
-					    echo "$(which sed)                         bos.sysmgt.sed          exec"
-					    echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcpd.conf"
-					    echo
-					    cat /var/log/smx-log/success.log | tail -n 6
-					    echo
-					    read -p "Press [enter] to continue..." ReadDamKey
-				      fi
+                				      echo "OS = Ubuntu"
+                				      echo "$(date)                                     $(whoami)@$(hostname)"
+                				      echo "[TOP]                                 [Entry Fields]"
+                				      read -p " Edit default or max lease time --- (default/max) > " ans
+                				      if [ "$ans" = "default" ]; then
+                    					    clear
+                    					    echo "$(date)                                     $(whoami)@$(hostname)"
+                    					    echo "default lease time (in mins) example: 259200"
+                    					    echo "[TOP]                                    [Entry Fields]"
+                    					    read -p " Enter current default lease time ---- > " currdefLease
+                    					    read -p " Enter new default lease time -------- > " newdefLease
+                    					    clear
+                    					    echo "         COMMAND STATUS         "
+                    					    echo
+                    					    echo "$(date)                                     $(whoami)@$(hostname)"
+                    					    echo
+                    					    echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					    echo
+                    					    echo "Before command completion, additional instructions may appear below"
+                    					    echo
+                    					    echo "File                                 Fileset                         Type"
+                    					    echo "-------------------------------------------------------------------------"
+                    					    echo "$(which sed)                         bos.sysmgt.sed                  exec"
+                    					    echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
+                    					    echo "Command run: (which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcpd.conf"
+                    					    echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                    					    sleep 2
+                    					    clear
+                    					    $(which sed) -i "s/default-lease-time $currdefLease/default-lease-time $newdefLease/g" /etc/dhcp/dhcpd.conf
+                    					    /etc/init.d/isc-dhcp-server restart
+                    					    echo "########################################################################################################################" >> /var/log/smx-log/success.log
+                    					    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					    echo "Successfuly changed default lease time from: $currdefLease to: $newdefLease" >> /var/log/smx-log/success.log
+                    					    echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcpd.conf" >> /var/log/smx-log/success.log
+                    					    echo "" >> /var/log/smx-log/success.log
+                    					    echo "########################################################################################################################" >> /var/log/smx-log/success.log
+                    					    echo "" >> /var/log/smx-log/success.log
+                    					    clear
+                    					    echo "         COMMAND STATUS         "
+                    					    echo
+                    					    echo "$(date)                                     $(whoami)@$(hostname)"
+                    					    echo
+                    					    echo "Command: OK    stdout: yes    stderr: no          "
+                    					    echo
+                    					    echo "Before command completion, additional instructions may appear below"
+                    					    echo
+                    					    echo "File                                 Fileset                 Type"
+                    					    echo "-----------------------------------------------------------------"
+                    					    echo "$(which sed)                         bos.sysmgt.sed          exec"
+                    					    echo "Command run: (which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcp/dhcpd.conf"
+                    					    echo
+                    					    cat /var/log/smx-log/success.log | tail -n 6
+                    					    echo
+                    					    read -p "Press [enter] to continue..." ReadDamKey
+				                      else
+                    					    clear
+                    					    echo "$(date)                                     $(whoami)@$(hostname)"
+                    					    echo "max lease time (in mins) example: 236544"
+                    					    echo "[TOP]                                          [Entry Fields]"
+                    					    read -p " Enter current max lease time (in mins) ---- > " currmaxLease
+                    					    read -p " Enter new max lease time (in mins) -------- > " newmaxLease
+                    					    clear
+                    					    echo "         COMMAND STATUS            "
+                    					    echo
+                    					    echo "$(date)                                     $(whoami)@$(hostname)"
+                    					    echo
+                    					    echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					    echo
+                    					    echo "Before command completion, additional instructions may appear below"
+                    					    echo
+                    					    echo "File                                 Fileset                         Type"
+                    					    echo "-------------------------------------------------------------------------"
+                    					    echo "$(which sed)                         bos.sysmgt.sed                  exec"
+                    					    echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server      exec"
+                    					    echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcpd.conf"
+                    					    echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                    					    sleep 2
+                    					    clear
+                    					    $(which sed) -i "s/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g" /etc/dhcp/dhcpd.conf
+                    					    /etc/init.d/isc-dhcp-server restart
+                    					    echo "################################################################################################################" >> /var/log/smx-log/success.log
+                    					    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					    echo "Successfuly changed max lease time from: $currmaxLease to: $newmaxLease" >> /var/log/smx-log/success.log
+                    					    echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcpd.conf" >> /var/log/smx-log/success.log
+                    					    echo "" >> /var/log/smx-log/success.log
+                    					    echo "################################################################################################################" >> /var/log/smx-log/success.log
+                    					    echo "" >> /var/log/smx-log/success.log
+                    					    clear
+                    					    echo "         COMMAND STATUS            "
+                    					    echo
+                    					    echo "$(date)                                     $(whoami)@$(hostname)"
+                    					    echo
+                    					    echo "Command: OK    stdout: yes    stderr: no          "
+                    					    echo
+                    					    echo "Before command completion, additional instructions may appear below"
+                    					    echo
+                    					    echo "File                                 Fileset                 Type"
+                    					    echo "-----------------------------------------------------------------"
+                    					    echo "$(which sed)                         bos.sysmgt.sed          exec"
+                    					    echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcp/dhcpd.conf"
+                    					    echo
+                    					    cat /var/log/smx-log/success.log | tail -n 6
+                    					    echo
+                    					    read -p "Press [enter] to continue..." ReadDamKey
+				                      fi
                                  else
                                       clear
                                       cat /proc/version | grep "SUSE" > /dev/null
                                       if [ $? -eq 0 ]; then
                                            clear
-					   echo "OS = SuSE"
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo "[TOP]                                      [Entry Fields]"
-					   read -p " Edit default or max lease times ------- (default/max) > " ans
-					   if [ "$ans" = "default" ]; then
-  					         clear
-                              			 echo "$(date)                                     $(whoami)@$(hostname)"
-						 echo "current default lease time (in mins) example: 103200"
-						 echo "new defult lease time (in mins example: 102400)"
-                              			 echo "[TOP]                                               [Entry Fields]"
-                              			 read -p " Enter current default lease time (in mins) ----- > " currdefLease
-                            			 read -p " Enter new defult lease time (in mins) ---------- > " newdefLease
-						 clear
-						 echo "         COMMAND STATUS            "
-                  				 echo
-                              			 echo "$(date)                                     $(whoami)@$(hostname)"
-                            			 echo
-						 echo "Command: RUNNING    stdout: yes    stderr: no     "
-						 echo
-						 echo "Before command completion, additional instructions may appear below"
-						 echo
-						 echo "File                                 Fileset                 Type"
-						 echo "-----------------------------------------------------------------"
-						 echo "$(which sed)                         bos.sysmgt.sed          exec"
-						 echo "/etc/init.d/dhcp                     bos.sysmgt.dhcp         exec"
-						 echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcpd.conf"
-						 echo "Command run: /etc/init.d/dhcp restart"
-						 sleep 2
-						 clear
-                              			 $(which sed) -i "s/default-lease-time $currdefLease/default-lease-time $newdefLease/g" /etc/dhcpd.conf
-                            			 /etc/init.d/dhcp restart
-						 echo "###################################################################################################################" >> /var/log/smx-log/success.log
-						 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-						 echo "Successfuly changed default lease time from: $currdefLease to: $newdefLease" >> /var/log/smx-log/success.log
-                  				 echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcpd.conf" >> /var/log/smx-log/success.log
-                              			 echo "" >> /var/log/smx-log/success.log
-						 echo "###################################################################################################################" >> /var/log/smx-log/success.log
-						 echo "" >> /var/log/smx-log/success.log
-                            			 clear
-						 echo "         COMMAND STATUS            "
-						 echo
-						 echo "$(date)                                     $(whoami)@$(hostname)"
-						 echo
-						 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                              			 echo
-                            			 echo "Before command completion, additional instructions may appear below"
-						 echo
-						 echo "File                                 Fileset                 Type"
-						 echo "-----------------------------------------------------------------"
-						 echo "$(which sed)                         bos.sysmgt.sed          exec"
-						 echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcpd.conf"
-                              			 echo
-                            			 cat /var/log/smx-log/success.log | tail -n 6
-                        			 echo
-						 read -p "Press [enter] to continue..." ReadDamKey
-					   else
-					         clear
-                            			 echo "$(date)                                     $(whoami)@$(hostname)"
-						 echo "max lease time (in mins) example: 124399"
-						 echo "[TOP]                                            [Entry Fields]"
-						 read -p " Enter current max lease time (in mins) ------ > " currmaxLease
-						 read -p " Enter new max lease time (in mins) ---------- > " newmaxLease
-                              			 clear
-						 echo "         COMMAND STATUS        "
-						 echo
-						 echo "$(date)                                     $(whoami)@$(hostname)"
-						 echo
-						 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                              			 echo
-                            			 echo "Before command completion, additional instructions may appear below"
-						 echo
-						 echo "File                                Fileset                 Type"
-						 echo "----------------------------------------------------------------"
-						 echo "$(which sed)                        bos.sysmgt.sed          exec"
-                              			 echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
-                            			 echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcpd.conf"
-						 echo "Command run: /etc/init.d/dhcp restart"
-						 sleep 2
-						 clear
-						 $(which sed) -i "s/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g" /etc/dhcpd.conf
-						 /etc/init.d/dhcp restart
-						 echo "###########################################################################################################" >> /var/log/smx-log/success.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            			 echo "Successfuly changed max lease time from: $currmaxLease to: $newmaxLease" >> /var/log/smx-log/success.log
-						 echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcpd.conf" >> /var/log/smx-log/success.log
-						 echo "" >> /var/log/smx-log/success.log
-						 echo "###########################################################################################################" >> /var/log/smx-log/success.log
-						 echo "" >> /var/log/smx-log/success.log
-						 clear
-						 echo "         COMMAND STATUS        "
-                              			 echo
-                            			 echo "$(date)                                     $(whoami)@$(hostname)"
-						 echo
-						 echo "Command: OK    stdout: yes    stderr: no          "
-						 echo
-						 echo "Before command completion, additional instructions may appear below"
-                              			 echo
-                            			 echo "File                                Fileset                 Type"
-						 echo "----------------------------------------------------------------"
-						 echo "$(which sed)                        bos.sysmgt.sed          exec"
-						 echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
-						 echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcpd.conf"
-                              			 echo "Command run: /etc/init.d/dhcp restart"
-                            			 echo
-						 cat /var/log/smx-log/success.log | tail -n 6
-						 echo
-						 read -p "Press [enter] to continue..." ReadDamKey
-					   fi
+                    					   echo "OS = SuSE"
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo "[TOP]                                      [Entry Fields]"
+                    					   read -p " Edit default or max lease times ------- (default/max) > " ans
+                    					   if [ "$ans" = "default" ]; then
+                      					         clear
+                              			         echo "$(date)                                     $(whoami)@$(hostname)"
+                        						 echo "current default lease time (in mins) example: 103200"
+                        						 echo "new defult lease time (in mins example: 102400)"
+                                      			 echo "[TOP]                                               [Entry Fields]"
+                                      			 read -p " Enter current default lease time (in mins) ----- > " currdefLease
+                                    			 read -p " Enter new defult lease time (in mins) ---------- > " newdefLease
+                        						 clear
+                        						 echo "         COMMAND STATUS            "
+                  				                 echo
+                                      			 echo "$(date)                                     $(whoami)@$(hostname)"
+                                    			 echo
+                        						 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        						 echo
+                        						 echo "Before command completion, additional instructions may appear below"
+                        						 echo
+                        						 echo "File                                 Fileset                 Type"
+                        						 echo "-----------------------------------------------------------------"
+                        						 echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        						 echo "/etc/init.d/dhcp                     bos.sysmgt.dhcp         exec"
+                        						 echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcpd.conf"
+                        						 echo "Command run: /etc/init.d/dhcp restart"
+                        						 sleep 2
+                        						 clear
+                                      			 $(which sed) -i "s/default-lease-time $currdefLease/default-lease-time $newdefLease/g" /etc/dhcpd.conf
+                                    			 /etc/init.d/dhcp restart
+                        						 echo "###################################################################################################################" >> /var/log/smx-log/success.log
+                        						 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						 echo "Successfuly changed default lease time from: $currdefLease to: $newdefLease" >> /var/log/smx-log/success.log
+                  				                 echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcpd.conf" >> /var/log/smx-log/success.log
+                              			         echo "" >> /var/log/smx-log/success.log
+                        						 echo "###################################################################################################################" >> /var/log/smx-log/success.log
+                        						 echo "" >> /var/log/smx-log/success.log
+                            			         clear
+                        						 echo "         COMMAND STATUS            "
+                        						 echo
+                        						 echo "$(date)                                     $(whoami)@$(hostname)"
+                        						 echo
+                        						 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                      			 echo
+                                    			 echo "Before command completion, additional instructions may appear below"
+                        						 echo
+                        						 echo "File                                 Fileset                 Type"
+                        						 echo "-----------------------------------------------------------------"
+                        						 echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        						 echo "Command run: $(which sed) -i 's/default-lease-time $currdefLease/default-lease-time $newdefLease/g' /etc/dhcpd.conf"
+                                      			 echo
+                                    			 cat /var/log/smx-log/success.log | tail -n 6
+                        			             echo
+						                         read -p "Press [enter] to continue..." ReadDamKey
+					                       else
+					                             clear
+                            			         echo "$(date)                                     $(whoami)@$(hostname)"
+                        						 echo "max lease time (in mins) example: 124399"
+                        						 echo "[TOP]                                            [Entry Fields]"
+                        						 read -p " Enter current max lease time (in mins) ------ > " currmaxLease
+                        						 read -p " Enter new max lease time (in mins) ---------- > " newmaxLease
+                              			         clear
+                        						 echo "         COMMAND STATUS        "
+                        						 echo
+                        						 echo "$(date)                                     $(whoami)@$(hostname)"
+                        						 echo
+                        						 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                      			 echo
+                                    			 echo "Before command completion, additional instructions may appear below"
+                        						 echo
+                        						 echo "File                                Fileset                 Type"
+                        						 echo "----------------------------------------------------------------"
+                        						 echo "$(which sed)                        bos.sysmgt.sed          exec"
+                                      			 echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
+                                    			 echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcpd.conf"
+                        						 echo "Command run: /etc/init.d/dhcp restart"
+                        						 sleep 2
+                        						 clear
+                        						 $(which sed) -i "s/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g" /etc/dhcpd.conf
+                        						 /etc/init.d/dhcp restart
+                        						 echo "###########################################################################################################" >> /var/log/smx-log/success.log
+                                      			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                    			 echo "Successfuly changed max lease time from: $currmaxLease to: $newmaxLease" >> /var/log/smx-log/success.log
+                        						 echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcpd.conf" >> /var/log/smx-log/success.log
+                        						 echo "" >> /var/log/smx-log/success.log
+                        						 echo "###########################################################################################################" >> /var/log/smx-log/success.log
+                        						 echo "" >> /var/log/smx-log/success.log
+                        						 clear
+                        						 echo "         COMMAND STATUS        "
+                                      			 echo
+                                    			 echo "$(date)                                     $(whoami)@$(hostname)"
+                        						 echo
+                        						 echo "Command: OK    stdout: yes    stderr: no          "
+                        						 echo
+                        						 echo "Before command completion, additional instructions may appear below"
+                                      			 echo
+                                    			 echo "File                                Fileset                 Type"
+                        						 echo "----------------------------------------------------------------"
+                        						 echo "$(which sed)                        bos.sysmgt.sed          exec"
+                        						 echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
+                        						 echo "Command run: $(which sed) -i 's/max-lease-time $currmaxLease/max-lease-time $newmaxLease/g' /etc/dhcpd.conf"
+                                      			 echo "Command run: /etc/init.d/dhcp restart"
+                                    			 echo
+                        						 cat /var/log/smx-log/success.log | tail -n 6
+                        						 echo
+                        						 read -p "Press [enter] to continue..." ReadDamKey
+					                       fi
                                       fi
                                  fi 
-			    fi
-		       fi
-		       ;;
-	    ip_range)
-		       clear
+			                fi
+        		       fi
+        		       ;;
+	        ip_range)
+		               clear
                        cat /proc/version | grep "Red Hat" > /dev/null
                        if [ $? -eq 0 ]; then
                             clear
-			    echo "OS = Red Hat"
+			                echo "OS = Red Hat"
                             echo "$(date)                                     $(whoami)@$(hostname)"
                             echo "Start IP address example: 192.168.1.10"
                             echo "End IP address example: 192.168.1.25"
@@ -25023,7 +25023,7 @@ function dhcp_menu() {
                             clear
                             $(which sed) -i "s/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g" /etc/dhcp/dhcp.conf
                             $(which service) dhcp restart
-			    echo "####################################################################################################################################" >> /var/log/smx-log/success.log
+			                echo "####################################################################################################################################" >> /var/log/smx-log/success.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             echo "Successfuly changed ip range from: $startIP - $endIP to: $newstartIP - $newendIP" >> /var/log/smx-log/success.log
                             echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf" >> /var/log/smx-log/success.log
@@ -25049,188 +25049,188 @@ function dhcp_menu() {
                             echo
                             cat /var/log/smx-log/success.log | tail -n 6
                             echo
-			    read -p "Press [enter] to continue..." ReadDamKey
+			                read -p "Press [enter] to continue..." ReadDamKey
                        else
                             clear
                             cat /proc/version | grep "Debian" > /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-				 echo "OS = Debian"
-				 echo "$(date)                                     $(whoami)@$(hostname)"
-				 echo "Start IP address example: 192.168.1.10"
-				 echo "End IP address example: 192.168.1.25"
-				 echo "[TOP]                                 [Entry Fields]"
-				 read -p " Enter current start IP address --- > " startIP
-				 read -p " Enter current end IP address ----- > " endIP
-				 read -p " Enter new start IP address ------- > " newstartIP
-				 read -p " Enter new end IP address --------- > " newendIP
-				 clear
-				 echo "         COMMAND STATUS          "
-				 echo
-				 echo "$(date)                                     $(whoami)@$(hostname)"
-				 echo
-				 echo "Command: RUNNING    stdout: yes    stderr: no     "
-				 echo
-				 echo "Before command completion, additional instructions may appear below"
-				 echo
-				 echo "File                                 Fileset                        Type"
-				 echo "------------------------------------------------------------------------"
-				 echo "$(which sed)                         bos.sysmgt.sed                 exec"
-				 echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
-				 echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
-				 echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				 sleep 2
-				 $(which sed) -i "s/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g" /etc/dhcp/dhcp.conf
-				 /etc/init.d/isc-dhcp-server restart
-				 echo "###################################################################################################################################" >> /var/log/smx-log/success.log
-				 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				 echo "Successfuly changed IP range from: $startIP - $endIP to: $newstartIP - $newendIP" >> /var/log/smx-log/success.log
-				 echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dyamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf" >> /var/log/smx-log/success.log
-				 echo "" >> /var/log/smx-log/success.log
-				 echo "###################################################################################################################################" >> /var/log/smx-log/success.log
-				 echo "" >> /var/log/smx-log/success.log
-				 clear
-				 echo "         COMMAND STATUS          "
-				 echo
-				 echo "$(date)                                     $(whoami)@$(hostname)"
-				 echo
-				 echo "Command: OK    stdout: yes    stderr: no          "
-				 echo
-				 echo "Before command completion, additional instructions may appear below"
-				 echo
-				 echo "File                                 Fileset                        Type"
-				 echo "------------------------------------------------------------------------"
-				 echo "$(which sed)                         bos.sysmgt.sed                 exec"
-				 echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
-				 echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
-				 echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				 echo
-				 cat /var/log/smx-log/success.log | tail -n 6
-				 echo
-				 read -p "Press [enter] to continue..." ReadDamKey
+                				 echo "OS = Debian"
+                				 echo "$(date)                                     $(whoami)@$(hostname)"
+                				 echo "Start IP address example: 192.168.1.10"
+                				 echo "End IP address example: 192.168.1.25"
+                				 echo "[TOP]                                 [Entry Fields]"
+                				 read -p " Enter current start IP address --- > " startIP
+                				 read -p " Enter current end IP address ----- > " endIP
+                				 read -p " Enter new start IP address ------- > " newstartIP
+                				 read -p " Enter new end IP address --------- > " newendIP
+                				 clear
+                				 echo "         COMMAND STATUS          "
+                				 echo
+                				 echo "$(date)                                     $(whoami)@$(hostname)"
+                				 echo
+                				 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				 echo
+                				 echo "Before command completion, additional instructions may appear below"
+                				 echo
+                				 echo "File                                 Fileset                        Type"
+                				 echo "------------------------------------------------------------------------"
+                				 echo "$(which sed)                         bos.sysmgt.sed                 exec"
+                				 echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
+                				 echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
+                				 echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				 sleep 2
+                				 $(which sed) -i "s/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g" /etc/dhcp/dhcp.conf
+                				 /etc/init.d/isc-dhcp-server restart
+                				 echo "###################################################################################################################################" >> /var/log/smx-log/success.log
+                				 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				 echo "Successfuly changed IP range from: $startIP - $endIP to: $newstartIP - $newendIP" >> /var/log/smx-log/success.log
+                				 echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dyamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf" >> /var/log/smx-log/success.log
+                				 echo "" >> /var/log/smx-log/success.log
+                				 echo "###################################################################################################################################" >> /var/log/smx-log/success.log
+                				 echo "" >> /var/log/smx-log/success.log
+                				 clear
+                				 echo "         COMMAND STATUS          "
+                				 echo
+                				 echo "$(date)                                     $(whoami)@$(hostname)"
+                				 echo
+                				 echo "Command: OK    stdout: yes    stderr: no          "
+                				 echo
+                				 echo "Before command completion, additional instructions may appear below"
+                				 echo
+                				 echo "File                                 Fileset                        Type"
+                				 echo "------------------------------------------------------------------------"
+                				 echo "$(which sed)                         bos.sysmgt.sed                 exec"
+                				 echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
+                				 echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
+                				 echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				 echo
+                				 cat /var/log/smx-log/success.log | tail -n 6
+                				 echo
+                				 read -p "Press [enter] to continue..." ReadDamKey
                             else
                                  clear
                                  cat /proc/version | grep "Ubuntu" > /dev/null
                                  if [ $? -eq 0 ]; then
                                       clear
-				      echo "OS = Ubuntu"
-				      echo "$(date)                                     $(whoami)@$(hostname)"
-				      echo "Start IP address example: 192.168.1.10"
-				      echo "End IP address example: 192.168.1.25"
-				      echo "[TOP]                                 [Entry Fields]"
-				      read -p " Enter current start IP address --- > " startIP
-				      read -p " Enter current end IP address ----- > " endIP
-				      read -p " Enter new start IP address ------- > " newstartIP
-				      read -p " Enter new end IP address --------- > " newendIP
-				      clear
-				      echo "         COMMAND STATUS          "
-				      echo
-				      echo "$(date)                                     $(whoami)@$(hostname)"
-				      echo
-				      echo "Command: RUNNING    stdout: yes    stderr: no     "
-				      echo
-				      echo "Before command completion, additional instructions may appear below"
-				      echo
-				      echo "File                                 Fileset                        Type"
-				      echo "------------------------------------------------------------------------"
-				      echo "$(which sed)                         bos.sysmgt.sed                 exec"
-				      echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
-				      echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
-				      echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				      sleep 2
-				      $(which sed) -i "s/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g" /etc/dhcp/dhcp.conf
-				      /etc/init.d/isc-dhcp-server restart
-				      echo "###################################################################################################################################" >> /var/log/smx-log/success.log
-				      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				      echo "Successfuly changed IP range from: $startIP - $endIP to: $newstartIP - $newendIP" >> /var/log/smx-log/success.log
-				      echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dyamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf" >> /var/log/smx-log/success.log
-				      echo "" >> /var/log/smx-log/success.log
-				      echo "###################################################################################################################################" >> /var/log/smx-log/success.log
-				      echo "" >> /var/log/smx-log/success.log
-				      clear
-				      echo "         COMMAND STATUS          "
-				      echo
-				      echo "$(date)                                     $(whoami)@$(hostname)"
-				      echo
-				      echo "Command: OK    stdout: yes    stderr: no          "
-				      echo
-				      echo "Before command completion, additional instructions may appear below"
-				      echo
-				      echo "File                                 Fileset                        Type"
-				      echo "------------------------------------------------------------------------"
-				      echo "$(which sed)                         bos.sysmgt.sed                 exec"
-				      echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
-				      echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
-				      echo "Command run: /etc/init.d/isc-dhcp-server restart"
-				      echo
-				      cat /var/log/smx-log/success.log | tail -n 6
-				      echo
-				      read -p "Press [enter] to continue..." ReadDamKey
+                				      echo "OS = Ubuntu"
+                				      echo "$(date)                                     $(whoami)@$(hostname)"
+                				      echo "Start IP address example: 192.168.1.10"
+                				      echo "End IP address example: 192.168.1.25"
+                				      echo "[TOP]                                 [Entry Fields]"
+                				      read -p " Enter current start IP address --- > " startIP
+                				      read -p " Enter current end IP address ----- > " endIP
+                				      read -p " Enter new start IP address ------- > " newstartIP
+                				      read -p " Enter new end IP address --------- > " newendIP
+                				      clear
+                				      echo "         COMMAND STATUS          "
+                				      echo
+                				      echo "$(date)                                     $(whoami)@$(hostname)"
+                				      echo
+                				      echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				      echo
+                				      echo "Before command completion, additional instructions may appear below"
+                				      echo
+                				      echo "File                                 Fileset                        Type"
+                				      echo "------------------------------------------------------------------------"
+                				      echo "$(which sed)                         bos.sysmgt.sed                 exec"
+                				      echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
+                				      echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
+                				      echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				      sleep 2
+                				      $(which sed) -i "s/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g" /etc/dhcp/dhcp.conf
+                				      /etc/init.d/isc-dhcp-server restart
+                				      echo "###################################################################################################################################" >> /var/log/smx-log/success.log
+                				      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				      echo "Successfuly changed IP range from: $startIP - $endIP to: $newstartIP - $newendIP" >> /var/log/smx-log/success.log
+                				      echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dyamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf" >> /var/log/smx-log/success.log
+                				      echo "" >> /var/log/smx-log/success.log
+                				      echo "###################################################################################################################################" >> /var/log/smx-log/success.log
+                				      echo "" >> /var/log/smx-log/success.log
+                				      clear
+                				      echo "         COMMAND STATUS          "
+                				      echo
+                				      echo "$(date)                                     $(whoami)@$(hostname)"
+                				      echo
+                				      echo "Command: OK    stdout: yes    stderr: no          "
+                				      echo
+                				      echo "Before command completion, additional instructions may appear below"
+                				      echo
+                				      echo "File                                 Fileset                        Type"
+                				      echo "------------------------------------------------------------------------"
+                				      echo "$(which sed)                         bos.sysmgt.sed                 exec"
+                				      echo "/etc/init.d/isc-dhcp-server          bos.sysmgt.isc-dhcp-server     exec"
+                				      echo "Command run: $(which sed) -i 's/range dynamic-bootp $startIP $endIP/range dynamic-bootp $newstartIP $newendIP/g' /etc/dhcp/dhcp.conf"
+                				      echo "Command run: /etc/init.d/isc-dhcp-server restart"
+                				      echo
+                				      cat /var/log/smx-log/success.log | tail -n 6
+                				      echo
+                				      read -p "Press [enter] to continue..." ReadDamKey
                                  else
                                       clear
                                       cat /proc/version | grep "SUSE" > /dev/null
                                       if [ $? -eq 0 ]; then
                                            clear
-					   echo "OS = SuSE"
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo "Start IP address example: 192.168.1.10"
-					   echo "End IP address example: 192.168.1.25"
-					   echo "[TOP]                                    [Entry Fields]"
-					   read -p " Enter current start IP address ------ > " startIP
-					   read -p " Enter current end IP address -------- > " endIP
-					   read -p " Enter new start IP address ---------- > " newstartIP
-					   read -p " Enter new end IP address ------------ > " newendIP
-					   clear
-					   echo "         COMMAND STATUS         "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: RUNNING    stdout: yes    stderr: no     "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                Fileset                 Type"
-					   echo "----------------------------------------------------------------"
-					   echo "$(which sed)                        bos.sysmgt.sed          exec"
-					   echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
-					   echo "Command run: $(which sed) -i 's/range $startIP $endIP/range $newstartIP $newendIP/g' /etc/dhcpd.conf"
-					   echo "Command run: /etc/init.d/dhcp restart"
-					   sleep 2
-					   clear
-					   $(which sed) -i "s/range $startIP $endIP/range $newstartIP $newendIP/g" /etc/dhcpd.conf
-					   /etc/init.d/dhcp restart
-					   echo "####################################################################################################" >> /var/log/smx-log/success.log
-					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					   echo "Successfuly changed IP range from: $startIP - $endIP to: $newstartIP - $newendIP" >> /var/log/smx-log/success.log
-					   echo "Command run: $(which sed) -i 's/range $startIP $endIP/range $newstartIP $newendIP/g' /etc/dhcpd.conf" >> /var/log/smx-log/success.log
-					   echo "" >> /var/log/smx-log/success.log
-					   echo "####################################################################################################" >> /var/log/smx-log/success.log
-					   echo "" >> /var/log/smx-log/success.log
-					   clear
-					   echo "         COMMAND STATUS         "
-					   echo
-					   echo "$(date)                                     $(whoami)@$(hostname)"
-					   echo
-					   echo "Command: RUNNING    stdout: yes    stderr: no     "
-					   echo
-					   echo "Before command completion, additional instructions may appear below"
-					   echo
-					   echo "File                                Fileset                 Type"
-					   echo "----------------------------------------------------------------"
-					   echo "$(which sed)                        bos.sysmgt.sed          exec"
-					   echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
-					   echo "Command run: $(which sed) -i 's/range $startIP $endIP/range $newstartIP $newendIP/g' /etc/dhcpd.conf"
-					   echo "Command run: /etc/init.d/dhcp restart"
-					   echo
-					   cat /var/log/smx-log/success.log | tail -n 6
-					   echo
-					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   echo "OS = SuSE"
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo "Start IP address example: 192.168.1.10"
+                    					   echo "End IP address example: 192.168.1.25"
+                    					   echo "[TOP]                                    [Entry Fields]"
+                    					   read -p " Enter current start IP address ------ > " startIP
+                    					   read -p " Enter current end IP address -------- > " endIP
+                    					   read -p " Enter new start IP address ---------- > " newstartIP
+                    					   read -p " Enter new end IP address ------------ > " newendIP
+                    					   clear
+                    					   echo "         COMMAND STATUS         "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                Fileset                 Type"
+                    					   echo "----------------------------------------------------------------"
+                    					   echo "$(which sed)                        bos.sysmgt.sed          exec"
+                    					   echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
+                    					   echo "Command run: $(which sed) -i 's/range $startIP $endIP/range $newstartIP $newendIP/g' /etc/dhcpd.conf"
+                    					   echo "Command run: /etc/init.d/dhcp restart"
+                    					   sleep 2
+                    					   clear
+                    					   $(which sed) -i "s/range $startIP $endIP/range $newstartIP $newendIP/g" /etc/dhcpd.conf
+                    					   /etc/init.d/dhcp restart
+                    					   echo "####################################################################################################" >> /var/log/smx-log/success.log
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "Successfuly changed IP range from: $startIP - $endIP to: $newstartIP - $newendIP" >> /var/log/smx-log/success.log
+                    					   echo "Command run: $(which sed) -i 's/range $startIP $endIP/range $newstartIP $newendIP/g' /etc/dhcpd.conf" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   echo "####################################################################################################" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   clear
+                    					   echo "         COMMAND STATUS         "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                Fileset                 Type"
+                    					   echo "----------------------------------------------------------------"
+                    					   echo "$(which sed)                        bos.sysmgt.sed          exec"
+                    					   echo "/etc/init.d/dhcp                    bos.sysmgt.dhcp         exec"
+                    					   echo "Command run: $(which sed) -i 's/range $startIP $endIP/range $newstartIP $newendIP/g' /etc/dhcpd.conf"
+                    					   echo "Command run: /etc/init.d/dhcp restart"
+                    					   echo
+                    					   cat /var/log/smx-log/success.log | tail -n 6
+                    					   echo
+                    					   read -p "Press [enter] to continue..." ReadDamKey
                                       fi
                                  fi 
-			    fi
-		       fi
-		       ;;
-	    exit)
+			                fi
+        		       fi
+        		       ;;
+	        exit)
                    clear
                    echo "####################################################" >> /var/log/smx-log/exit.log
             	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
@@ -25240,7 +25240,7 @@ function dhcp_menu() {
                    echo "" >> /var/log/smx-log/exit.log
             	   srv_menu
             	   ;;
-	    exit-mas)
+	        exit-mas)
                        clear
                        echo "#################################" >> /var/log/smx-log/exit.log
             	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
@@ -25250,7 +25250,7 @@ function dhcp_menu() {
                        echo "" >> /var/log/smx-log/exit.log
             	       exit 0
             	       ;;
-	    *)         clear
+	        *)         clear
             	       echo "        COMMAND STATUS        "
             	       echo
             	       echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25268,7 +25268,7 @@ function dhcp_menu() {
 function sql_menu () {
     while :
     do
-	clear
+	    clear
       	echo "$(date)                                     $(whoami)@$(hostname)"
       	echo "+-----------------------------+"
       	echo "|        SQL MANAGEMENT       |"
@@ -25291,12 +25291,12 @@ function sql_menu () {
       	echo "backup > Backup a SQL database to a .sql file"
       	echo
       	echo "restore > Restore a SQL database from a .sql file"
-	echo
-	echo "resetPwd > Reset SQL password"
-	echo
-	echo "resetRoot > Reset root SQL password"
-	echo
-	echo "session > Start SQL session"
+    	echo
+    	echo "resetPwd > Reset SQL password"
+    	echo
+    	echo "resetRoot > Reset root SQL password"
+    	echo
+    	echo "session > Start SQL session"
       	echo
       	echo "exit > Return to srv_menu"
       	echo
@@ -25307,11 +25307,11 @@ function sql_menu () {
 	
       	case "$choice_sql" in
       	    install)
-		      clear
+		              clear
                       cat /proc/version | grep "Red Hat" > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-			   echo "OS = Red Hat"
+			               echo "OS = Red Hat"
                            echo "        COMMAND STATUS          "
                            echo
                            echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25337,58 +25337,58 @@ function sql_menu () {
                            clear
                            $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log
                            if [ $PIPESTATUS -eq 0 ]; then
-			        echo "#############################################################################################" >> /var/log/smx-log/success.log
-				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				echo "Successfuly installed mysql on system: $(hostname)" >> /var/log/smx-log/success.log
-				echo "Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				echo "#############################################################################################" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				read -p "Press [enter] to continue..." ReadDamKey
-				clear
-				echo "        COMMAND STATUS          "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: OK    stdout: yes    stderr: no          "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo 
-				echo "File                                 Fileset                 Type"
-				echo "-----------------------------------------------------------------"
-				echo "$(which yum)                         bos.pkgmgt.yum          exec"
-				echo "Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/success.log"
-				echo
-				cat /var/log/smx-log/success.log | tail -n 6
-				echo
-				read -p "Press [enter] to continue..." ReadDamKey
-                  	   else
-			        echo "#############################################################################################" >> /var/log/smx-log/fail.log
-				echo "$(date)::$(whoami)@$(hosname)" >> /var/log/smx-log/fail.log
-				echo "Not installed mysql on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-				echo "Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log"
-				echo "" >> /var/log/smx-log/fail.log
-				echo "#############################################################################################" >> /var/log/smx-log/fail.log
-				echo "" >> /var/log/smx-log/fail.log
-				read -p "Press [enter] to continue..." ReadDamKey
-				clear
-				echo "        COMMAND STATUS          "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: FAIL    stdout: yes    stderr: no        "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                Fileset                 Type"
-				echo "----------------------------------------------------------------"
-				echo "$(which yum)                        bos.pkgmgt.yum          exec"
-				echo "Command unsuccessful, check command variables and syntax"
-				echo
-				cat /var/log/smx-log/fail.log | tail -n 6
-				echo
-				read -p "Press [enter] to continue..." ReadDamKey
-                  	   fi
+			                    echo "#############################################################################################" >> /var/log/smx-log/success.log
+                				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				echo "Successfuly installed mysql on system: $(hostname)" >> /var/log/smx-log/success.log
+                				echo "Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				echo "#############################################################################################" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				read -p "Press [enter] to continue..." ReadDamKey
+                				clear
+                				echo "        COMMAND STATUS          "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: OK    stdout: yes    stderr: no          "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo 
+                				echo "File                                 Fileset                 Type"
+                				echo "-----------------------------------------------------------------"
+                				echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                				echo "Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/success.log"
+                				echo
+                				cat /var/log/smx-log/success.log | tail -n 6
+                				echo
+                				read -p "Press [enter] to continue..." ReadDamKey
+                  	       else
+			                    echo "#############################################################################################" >> /var/log/smx-log/fail.log
+                				echo "$(date)::$(whoami)@$(hosname)" >> /var/log/smx-log/fail.log
+                				echo "Not installed mysql on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                				echo "Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log"
+                				echo "" >> /var/log/smx-log/fail.log
+                				echo "#############################################################################################" >> /var/log/smx-log/fail.log
+                				echo "" >> /var/log/smx-log/fail.log
+                				read -p "Press [enter] to continue..." ReadDamKey
+                				clear
+                				echo "        COMMAND STATUS          "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: FAIL    stdout: yes    stderr: no        "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                Fileset                 Type"
+                				echo "----------------------------------------------------------------"
+                				echo "$(which yum)                        bos.pkgmgt.yum          exec"
+                				echo "Command unsuccessful, check command variables and syntax"
+                				echo
+                				cat /var/log/smx-log/fail.log | tail -n 6
+                				echo
+                				read -p "Press [enter] to continue..." ReadDamKey
+                  	       fi
                            echo "character-set-server=utf8" >> /etc/my.cnf
                            $(which service) mysqld start
                            $(which chkconfig) mysqld on
@@ -25399,289 +25399,289 @@ function sql_menu () {
                            $(which mysql) -u root -p -e 'show databases;'
                            echo
                            echo "SQL successfuly installed on system: $(hostname)"
-			   read -p "Press [enter] to continue..." ReadDamKey
+			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-			        echo "OS = Debian"
-				echo "             COMMAND STATUS        "
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: RUNNING    stdout: yes    stderr: no     "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                 Fileset                                     Type"
-				echo "-------------------------------------------------------------------------------------"
-				echo "$(which apt-get)                     bos.pkgmgt.apt-get                          exec"
-				echo "/etc/init.d/mysqld                   bos.sysmgt.mysqld                           exec"
-				echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
-				echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
-				echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
-				echo "Command run: /etc/init.d/mysqld start"
-				echo "Command run: $(which mysql_secure_installation)"
-				echo "Command run: $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'"
-				echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
-				sleep 2
-				clear
-				$(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log
-				if [ $PIPESTATUS -eq 0 ]; then
-				     echo "#####################################################################################################" >> /var/log/smx-log/success.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				     echo "Successfuly installed mysql-server on: $(hostname)" >> /var/log/smx-log/success.log
-				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     echo "#####################################################################################################" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     read -p "Press [enter] to continue..." ReadDamKey
-				     clear
-				     echo "        COMMAND STATUS          "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: OK    stdout: yes    stderr: no          "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
-				     echo
-				     cat /var/log/smx-log/success.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
-      				else
-				     echo "#####################################################################################################" >> /var/log/smx-log/fail.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-				     echo "Not installed mysql-server on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-				     echo "" >> /var/log/smx-log/fail.log
-				     echo "#####################################################################################################" >> /var/log/smx-log/fail.log
-				     echo "" >> /var/log/smx-log/fail.log
-                  		     read -p "Press [enter] to continue..." ReadDamKey
-				     clear
-				     echo "        COMMAND STATUS          "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: FAIL    stdout: yes    stderr: no        "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-				     echo "Command unsuccessful, check command variables and syntax"
-				     echo
-				     cat /var/log/smx-log/fail.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
-				fi
-				/etc/init.d/mysqld start
-				$(which mysql_secure_installation)
-				echo "Enter SQL root password to list mysql.user..."
-				$(which mysql) -u root -p -e 'select user,host,password from mysql.user;'
-				echo "Enter SQL root password to show databases..."
-				$(which mysql) -u root -p -e 'show databases;'
-				echo
-				echo "SQL successfuly installed on system: $(hostname)"
-				read -p "Press [enter] to continue..." ReadDamKey
+			                    echo "OS = Debian"
+                				echo "             COMMAND STATUS        "
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                 Fileset                                     Type"
+                				echo "-------------------------------------------------------------------------------------"
+                				echo "$(which apt-get)                     bos.pkgmgt.apt-get                          exec"
+                				echo "/etc/init.d/mysqld                   bos.sysmgt.mysqld                           exec"
+                				echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
+                				echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
+                				echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
+                				echo "Command run: /etc/init.d/mysqld start"
+                				echo "Command run: $(which mysql_secure_installation)"
+                				echo "Command run: $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'"
+                				echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
+                				sleep 2
+                				clear
+                				$(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log
+                				if [ $PIPESTATUS -eq 0 ]; then
+                				     echo "#####################################################################################################" >> /var/log/smx-log/success.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Successfuly installed mysql-server on: $(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     echo "#####################################################################################################" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				     clear
+                				     echo "        COMMAND STATUS          "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: OK    stdout: yes    stderr: no          "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
+                				     echo
+                				     cat /var/log/smx-log/success.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
+      				            else
+                				     echo "#####################################################################################################" >> /var/log/smx-log/fail.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                				     echo "Not installed mysql-server on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                				     echo "" >> /var/log/smx-log/fail.log
+                				     echo "#####################################################################################################" >> /var/log/smx-log/fail.log
+                				     echo "" >> /var/log/smx-log/fail.log
+                  		             read -p "Press [enter] to continue..." ReadDamKey
+                				     clear
+                				     echo "        COMMAND STATUS          "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: FAIL    stdout: yes    stderr: no        "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                				     echo "Command unsuccessful, check command variables and syntax"
+                				     echo
+                				     cat /var/log/smx-log/fail.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				fi
+                				/etc/init.d/mysqld start
+                				$(which mysql_secure_installation)
+                				echo "Enter SQL root password to list mysql.user..."
+                				$(which mysql) -u root -p -e 'select user,host,password from mysql.user;'
+                				echo "Enter SQL root password to show databases..."
+                				$(which mysql) -u root -p -e 'show databases;'
+                				echo
+                				echo "SQL successfuly installed on system: $(hostname)"
+                				read -p "Press [enter] to continue..." ReadDamKey
                            else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-				     echo "OS = Ubuntu"
-				     echo "             COMMAND STATUS        "
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: RUNNING    stdout: yes    stderr: no     "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                                     Type"
-				     echo "-------------------------------------------------------------------------------------"
-				     echo "$(which apt-get)                     bos.pkgmgt.apt-get                          exec"
-				     echo "/etc/init.d/mysqld                   bos.sysmgt.mysqld                           exec"
-				     echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
-				     echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
-				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
-				     echo "Command run: /etc/init.d/mysqld start"
-				     echo "Command run: $(which mysql_secure_installation)"
-				     echo "Command run: $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'"
-				     echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
-				     sleep 2
-				     clear
-				     $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log
-				     if [ $PIPESTATUS -eq 0 ]; then
-					  echo "#####################################################################################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					  echo "Successfuly installed mysql-server on: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "#####################################################################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no          "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					  echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
-					  echo
-					  cat /var/log/smx-log/success.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
-      				     else
-					  echo "#####################################################################################################" >> /var/log/smx-log/fail.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					  echo "Not installed mysql-server on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-					  echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-					  echo "#####################################################################################################" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-                  			  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: FAIL    stdout: yes    stderr: no        "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					  echo "Command unsuccessful, check command variables and syntax"
-					  echo
-					  cat /var/log/smx-log/fail.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
-				     fi
-				     /etc/init.d/mysqld start
-				     $(which mysql_secure_installation)
-				     echo "Enter SQL root password to list mysql.user..."
-				     $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'
-				     echo "Enter SQL root password to show databases..."
-				     $(which mysql) -u root -p -e 'show databases;'
-				     echo
-				     echo "SQL successfuly installed on system: $(hostname)"
-				     read -p "Press [enter] to continue..." ReadDamKey
+                				     echo "OS = Ubuntu"
+                				     echo "             COMMAND STATUS        "
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                                     Type"
+                				     echo "-------------------------------------------------------------------------------------"
+                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get                          exec"
+                				     echo "/etc/init.d/mysqld                   bos.sysmgt.mysqld                           exec"
+                				     echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
+                				     echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
+                				     echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
+                				     echo "Command run: /etc/init.d/mysqld start"
+                				     echo "Command run: $(which mysql_secure_installation)"
+                				     echo "Command run: $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'"
+                				     echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
+                				     sleep 2
+                				     clear
+                				     $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log
+                				     if [ $PIPESTATUS -eq 0 ]; then
+                    					  echo "#####################################################################################################" >> /var/log/smx-log/success.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Successfuly installed mysql-server on: $(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  echo "#####################################################################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  clear
+                    					  echo "        COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: OK    stdout: yes    stderr: no          "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					  echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
+                    					  echo
+                    					  cat /var/log/smx-log/success.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+      				                 else
+                    					  echo "#####################################################################################################" >> /var/log/smx-log/fail.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    					  echo "Not installed mysql-server on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                    					  echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                    					  echo "#####################################################################################################" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                  			              read -p "Press [enter] to continue..." ReadDamKey
+                    					  clear
+                    					  echo "        COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: FAIL    stdout: yes    stderr: no        "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					  echo "Command unsuccessful, check command variables and syntax"
+                    					  echo
+                    					  cat /var/log/smx-log/fail.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                				     fi
+                				     /etc/init.d/mysqld start
+                				     $(which mysql_secure_installation)
+                				     echo "Enter SQL root password to list mysql.user..."
+                				     $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'
+                				     echo "Enter SQL root password to show databases..."
+                				     $(which mysql) -u root -p -e 'show databases;'
+                				     echo
+                				     echo "SQL successfuly installed on system: $(hostname)"
+                				     read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-					  echo "OS = SuSE"
-					  echo "         COMMAND STATUS           "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: RUNNING    stdout: yes    stderr: no     "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                                     Type"
-					  echo "-------------------------------------------------------------------------------------"
-					  echo "$(which zypper)                      bos.pkgmgt.zypper                           exec"
-					  echo "/etc/init.d/mysql                    bos.sysmgt.mysql                            exec"
-					  echo "$(which chkconfig)                   bos.sysmgt.chkconfig                        exec"
-					  echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
-					  echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
-					  echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log"
-					  echo "Command run: /etc/init.d/mysqld start"
-					  echo "Command run: $(which chkconfig) mysql on"
-					  echo "Command run: $(which mysql_secure_installation)"
-					  echo "Command run: $(which mysql) -u root -p -e 'list user,host,password from mysql.user;'"
-					  echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
-					  sleep 2
-					  clear
-					  $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log
-					  if [ $PIPESTATUS -eq 0 ]; then
-					       echo "#######################################################################################" >> /var/log/smx-log/success.log
-                  			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					       echo "Successfuly installed mysql on: $(hostname)" >> /var/log/smx-log/success.log
-					       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-					       echo "#######################################################################################" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-					       read -p "Press [enter] to continue..." ReadDamKey
-					       clear
-					       echo "        COMMAND STATUS          "
-					       echo
-					       echo "$(date)                                     $(whoami)@$(hostname)"
-					       echo
-					       echo "Command: OK    stdout: yes    stderr: no          "
-					       echo
-					       echo "Before command completion, additional instructions may appear below"
-					       echo
-					       echo "File                                 Fileset                 Type"
-					       echo "-----------------------------------------------------------------"
-					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-					       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log"
-					       echo
-					       cat /var/log/smx-log/success.log | tail -n 6
-					       echo
-					       read -p "Press [enter] to continue..." ReadDamKey
-      					  else
-					       echo "#######################################################################################" >> /var/log/smx-log/fail.log
-      					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					       echo "Not installed mysql on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-					       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-					       echo "" >> /var/log/smx-log/fail.log
-					       echo "#######################################################################################" >> /var/log/smx-log/fail.log
-					       echo "" >> /var/log/smx-log/fail.log
-					       read -p "Press [enter] to continue..." ReadDamKey
-					       clear
-					       echo "        COMMAND STATUS          "
-					       echo
-					       echo "$(date)                                     $(whoami)@$(hostname)"
-					       echo
-					       echo "Command: FAIL    stdout: yes    stderr: no        "
-					       echo
-					       echo "Before command completion, additional instructions may appear below"
-					       echo
-					       echo "File                                 Fileset                 Type"
-					       echo "-----------------------------------------------------------------"
-					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-					       echo "Command unsuccessful, check command variables and syntax"
-					       echo
-					       cat /var/log/smx-log/fail.log | tail -n 6
-					       echo
-					       read -p "Press [enter] to continue..." ReadDamKey
-					  fi
-					  /etc/init.d/mysql start
-					  $(which chkconfig) mysql on
-					  $(which mysql_secure_installation)
-					  echo "Enter SQL root password to list mysql.user..."
-					  $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'
-					  echo "Enter SQL root password to show databases..."
-					  $(which mysql) -u root -p -e 'show databases;'
-					  echo
-					  echo "SQL successfuly installed on system: $(hostname)"
-					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  echo "OS = SuSE"
+                    					  echo "         COMMAND STATUS           "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                                     Type"
+                    					  echo "-------------------------------------------------------------------------------------"
+                    					  echo "$(which zypper)                      bos.pkgmgt.zypper                           exec"
+                    					  echo "/etc/init.d/mysql                    bos.sysmgt.mysql                            exec"
+                    					  echo "$(which chkconfig)                   bos.sysmgt.chkconfig                        exec"
+                    					  echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
+                    					  echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
+                    					  echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log"
+                    					  echo "Command run: /etc/init.d/mysqld start"
+                    					  echo "Command run: $(which chkconfig) mysql on"
+                    					  echo "Command run: $(which mysql_secure_installation)"
+                    					  echo "Command run: $(which mysql) -u root -p -e 'list user,host,password from mysql.user;'"
+                    					  echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
+                    					  sleep 2
+                    					  clear
+                    					  $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log
+                    					  if [ $PIPESTATUS -eq 0 ]; then
+                    					       echo "#######################################################################################" >> /var/log/smx-log/success.log
+                  			                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					       echo "Successfuly installed mysql on: $(hostname)" >> /var/log/smx-log/success.log
+                    					       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                    					       echo "#######################################################################################" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                    					       clear
+                    					       echo "        COMMAND STATUS          "
+                    					       echo
+                    					       echo "$(date)                                     $(whoami)@$(hostname)"
+                    					       echo
+                    					       echo "Command: OK    stdout: yes    stderr: no          "
+                    					       echo
+                    					       echo "Before command completion, additional instructions may appear below"
+                    					       echo
+                    					       echo "File                                 Fileset                 Type"
+                    					       echo "-----------------------------------------------------------------"
+                    					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                    					       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log"
+                    					       echo
+                    					       cat /var/log/smx-log/success.log | tail -n 6
+                    					       echo
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+      					                 else
+					                           echo "#######################################################################################" >> /var/log/smx-log/fail.log
+      					                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    					       echo "Not installed mysql on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                    					       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                    					       echo "" >> /var/log/smx-log/fail.log
+                    					       echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                    					       echo "" >> /var/log/smx-log/fail.log
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                    					       clear
+                    					       echo "        COMMAND STATUS          "
+                    					       echo
+                    					       echo "$(date)                                     $(whoami)@$(hostname)"
+                    					       echo
+                    					       echo "Command: FAIL    stdout: yes    stderr: no        "
+                    					       echo
+                    					       echo "Before command completion, additional instructions may appear below"
+                    					       echo
+                    					       echo "File                                 Fileset                 Type"
+                    					       echo "-----------------------------------------------------------------"
+                    					       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                    					       echo "Command unsuccessful, check command variables and syntax"
+                    					       echo
+                    					       cat /var/log/smx-log/fail.log | tail -n 6
+                    					       echo
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                    					  fi
+                    					  /etc/init.d/mysql start
+                    					  $(which chkconfig) mysql on
+                    					  $(which mysql_secure_installation)
+                    					  echo "Enter SQL root password to list mysql.user..."
+                    					  $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'
+                    					  echo "Enter SQL root password to show databases..."
+                    					  $(which mysql) -u root -p -e 'show databases;'
+                    					  echo
+                    					  echo "SQL successfuly installed on system: $(hostname)"
+                    					  read -p "Press [enter] to continue..." ReadDamKey
                                      fi
                                 fi 
-			   fi
-		      fi
-		      ;;
-	    start)
-		    clear
+			               fi
+        		      fi
+        		      ;;
+	        start)
+		            clear
                     cat /proc/version | grep "Red Hat" > /dev/null
                     if [ $? -eq 0 ]; then
                          clear
-			 echo "OS = Red Hat"
+			             echo "OS = Red Hat"
                          echo "         COMMAND STATUS          "
                          echo
                          echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25697,7 +25697,7 @@ function sql_menu () {
                          sleep 2
                          clear
                          /etc/rc.d/init.d/mysqld start
-			 echo "##########################################" >> /var/log/smx-log/success.log
+			             echo "##########################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
                          echo "Command run: $(which service) mysqld start" >> /var/log/smx-log/success.log
@@ -25720,13 +25720,13 @@ function sql_menu () {
                          echo
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
-			 read -p "Press [enter] to continue..." ReadDamKey
+			             read -p "Press [enter] to continue..." ReadDamKey
                     else
                          clear
                          cat /proc/version | grep "Debian" > /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-			      echo "OS = Debian"
+			                  echo "OS = Debian"
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25742,7 +25742,7 @@ function sql_menu () {
                               sleep 2
                               clear
                               /etc/init.d/mysql start
-			      echo "##########################################" >> /var/log/smx-log/success.log
+			                  echo "##########################################" >> /var/log/smx-log/success.log
                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               echo "Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
                               echo "Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
@@ -25765,108 +25765,108 @@ function sql_menu () {
                               echo
                               cat /var/log/smx-log/success.log | tail -n 6
                               echo
-			      read -p "Press [enter] to continue..." ReadDamKey
+			                  read -p "Press [enter] to continue..." ReadDamKey
                          else
                               clear
                               cat /proc/version | grep "Ubuntu" > /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-				   echo "OS = Ubuntu"
-				   echo "         COMMAND STATUS          "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: RUNNING    stdout: yes    stderr: no     "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                 Type"
-				   echo "-----------------------------------------------------------------"
-				   echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				   echo "Command run: /etc/init.d/mysql start"
-				   sleep 2
-				   clear
-				   /etc/init.d/mysql start
-				   echo "##########################################" >> /var/log/smx-log/success.log
-				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				   echo "Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-				   echo "Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   echo "##########################################" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   clear
-				   echo "         COMMAND STATUS          "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: OK    stdout: yes    stderr: no          "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                 Type"
-				   echo "-----------------------------------------------------------------"
-				   echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				   echo "Command run: /etc/init.d/mysql start"
-				   echo
-				   cat /var/log/smx-log/success.log | tail -n 6
-				   echo
-				   read -p "Press [enter] to continue..." ReadDamKey
+                				   echo "OS = Ubuntu"
+                				   echo "         COMMAND STATUS          "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                 Type"
+                				   echo "-----------------------------------------------------------------"
+                				   echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				   echo "Command run: /etc/init.d/mysql start"
+                				   sleep 2
+                				   clear
+                				   /etc/init.d/mysql start
+                				   echo "##########################################" >> /var/log/smx-log/success.log
+                				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				   echo "Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                				   echo "Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   echo "##########################################" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   clear
+                				   echo "         COMMAND STATUS          "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: OK    stdout: yes    stderr: no          "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                 Type"
+                				   echo "-----------------------------------------------------------------"
+                				   echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				   echo "Command run: /etc/init.d/mysql start"
+                				   echo
+                				   cat /var/log/smx-log/success.log | tail -n 6
+                				   echo
+                				   read -p "Press [enter] to continue..." ReadDamKey
                               else
                                    clear
                                    cat /proc/version | grep "SUSE" > /dev/null
                                    if [ $? -eq 0 ]; then
                                         clear
-				        echo "OS = SuSE"
-					echo "         COMMAND STATUS          "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: RUNNING    stdout: yes    stderr: no     "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-					echo "Command run: /etc/init.d/mysql start"
-					sleep 2
-					clear
-					/etc/init.d/mysql start
-					echo "##########################################" >> /var/log/smx-log/success.log
-					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					echo "Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-					echo "Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					echo "##########################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					clear
-					echo "         COMMAND STATUS          "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: OK    stdout: yes    stderr: no          "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-					echo "Command run: /etc/init.d/mysql start"
-					echo
-					cat /var/log/smx-log/success.log | tail -n 6
-					echo
-					read -p "Press [enter] to continue..." ReadDamKey
+				                        echo "OS = SuSE"
+                    					echo "         COMMAND STATUS          "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                    					echo "Command run: /etc/init.d/mysql start"
+                    					sleep 2
+                    					clear
+                    					/etc/init.d/mysql start
+                    					echo "##########################################" >> /var/log/smx-log/success.log
+                    					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					echo "Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                    					echo "Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					echo "##########################################" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					clear
+                    					echo "         COMMAND STATUS          "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: OK    stdout: yes    stderr: no          "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                    					echo "Command run: /etc/init.d/mysql start"
+                    					echo
+                    					cat /var/log/smx-log/success.log | tail -n 6
+                    					echo
+                    					read -p "Press [enter] to continue..." ReadDamKey
                                    fi
                               fi 
-			 fi
-		    fi
-		    ;;
-	    stop)
-		   clear
+			             fi
+        		    fi
+        		    ;;
+	        stop)
+		           clear
                    cat /proc/version | grep "Red Hat" > /dev/null
                    if [ $? -eq 0 ]; then
                         clear
-		        echo "OS = Red Hat"
+		                echo "OS = Red Hat"
                         echo "         COMMAND STATUS          "
                         echo
                         echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25882,7 +25882,7 @@ function sql_menu () {
                         sleep 2
                         clear
                         /etc/init.d/mysqld stop
-			echo "##########################################" >> /var/log/smx-log/success.log
+			            echo "##########################################" >> /var/log/smx-log/success.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                         echo "Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
                         echo "Command run: $(which service) mysqld stop" >> /var/log/smx-log/success.log
@@ -25905,13 +25905,13 @@ function sql_menu () {
                         echo
                         cat /var/log/smx-log/success.log | tail -n 6
                         echo
-			read -p "Press [enter] to continue..." ReadDamKey
+			            read -p "Press [enter] to continue..." ReadDamKey
                    else
                         clear
                         cat /proc/version | grep "Debian" > /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-			     echo "OS = Debian"
+			                 echo "OS = Debian"
                              echo "         COMMAND STATUS          "
                              echo
                              echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25927,8 +25927,8 @@ function sql_menu () {
                              sleep 2
                              clear
                              /etc/init.d/mysql stop
-			     echo "##########################################" >> /var/log/smx-log/success.log
-			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            			     echo "##########################################" >> /var/log/smx-log/success.log
+            			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                              echo "Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
                              echo "Command run: /etc/init.d/mysql stop" >> /var/log/smx-log/success.log
                              echo "" >> /var/log/smx-log/success.log
@@ -25950,108 +25950,108 @@ function sql_menu () {
                              echo
                              cat /var/log/smx-log/success.log | tail -n 6
                              echo
-			     read -p "Press [enter] to continue..." ReadDamKey
+			                 read -p "Press [enter] to continue..." ReadDamKey
                         else
                              clear
                              cat /proc/version | grep "Ubuntu" > /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-				  echo "OS = Ubuntu"
-				  echo "         COMMAND STATUS          "
-				  echo
-				  echo "$(date)                                     $(whoami)@$(hostname)"
-				  echo
-				  echo "Command: RUNNING    stdout: yes    stderr: no     "
-				  echo
-				  echo "Before command completion, additional instructions may appear below"
-				  echo
-				  echo "File                                 Fileset                 Type"
-				  echo "-----------------------------------------------------------------"
-				  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				  echo "Command run: /etc/init.d/mysql stop"
-				  sleep 2
-				  clear
-				  /etc/init.d/mysql stop
-				  echo "##########################################" >> /var/log/smx-log/success.log
-				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				  echo "Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-				  echo "Command run: /etc/init.d/mysql stop" >> /var/log/smx-log/success.log
-				  echo "" >> /var/log/smx-log/success.log
-				  echo "##########################################" >> /var/log/smx-log/success.log
-				  echo "" >> /var/log/smx-log/success.log
-				  clear
-				  echo "         COMMAND STATUS          "
-				  echo
-				  echo "$(date)                                     $(whoami)@$(hostname)"
-				  echo
-				  echo "Command: OK    stdout: yes    stderr: no          "
-				  echo
-				  echo "Before command completion, additional instructions may appear below"
-				  echo
-				  echo "File                                 Fileset                 Type"
-				  echo "-----------------------------------------------------------------"
-				  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				  echo "Command run: /etc/init.d/mysql stop"
-				  echo
-				  cat /var/log/smx-log/success.log | tail -n 6
-				  echo
-				  read -p "Press [enter] to continue..." ReadDamKey
+                				  echo "OS = Ubuntu"
+                				  echo "         COMMAND STATUS          "
+                				  echo
+                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                				  echo
+                				  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				  echo
+                				  echo "Before command completion, additional instructions may appear below"
+                				  echo
+                				  echo "File                                 Fileset                 Type"
+                				  echo "-----------------------------------------------------------------"
+                				  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				  echo "Command run: /etc/init.d/mysql stop"
+                				  sleep 2
+                				  clear
+                				  /etc/init.d/mysql stop
+                				  echo "##########################################" >> /var/log/smx-log/success.log
+                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				  echo "Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                				  echo "Command run: /etc/init.d/mysql stop" >> /var/log/smx-log/success.log
+                				  echo "" >> /var/log/smx-log/success.log
+                				  echo "##########################################" >> /var/log/smx-log/success.log
+                				  echo "" >> /var/log/smx-log/success.log
+                				  clear
+                				  echo "         COMMAND STATUS          "
+                				  echo
+                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                				  echo
+                				  echo "Command: OK    stdout: yes    stderr: no          "
+                				  echo
+                				  echo "Before command completion, additional instructions may appear below"
+                				  echo
+                				  echo "File                                 Fileset                 Type"
+                				  echo "-----------------------------------------------------------------"
+                				  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				  echo "Command run: /etc/init.d/mysql stop"
+                				  echo
+                				  cat /var/log/smx-log/success.log | tail -n 6
+                				  echo
+                				  read -p "Press [enter] to continue..." ReadDamKey
                              else
                                   clear
                                   cat /proc/version | grep "SUSE" > /dev/null
                                   if [ $? -eq 0 ]; then
                                        clear
-				       echo "OS = SuSE"
-				       echo "         COMMAND STATUS          "
-				       echo
-				       echo "$(date)                                     $(whoami)@$(hostname)"
-				       echo
-				       echo "Command: RUNNING    stdout: yes    stderr: no     "
-				       echo
-				       echo "Before command completion, additional instructions may appear below"
-				       echo
-				       echo "File                                 Fileset                 Type"
-				       echo "-----------------------------------------------------------------"
-				       echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				       echo "Command run: /etc/init.d/mysql stop"
-				       sleep 2
-				       clear
-				       /etc/init.d/mysql stop
-				       echo "##########################################" >> /var/log/smx-log/succes.log
-				       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				       echo "Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-				       echo "Command run: /etc/init.d/mysql stop" >> /var/log/smx-log/success.log
-				       echo "" >> /var/log/smx-log/success.log
-				       echo "##########################################" >> /var/log/smx-log/success.log
-				       echo "" >> /var/log/smx-log/success.log
-				       clear
-				       echo "         COMMAND STATUS          "
-				       echo
-				       echo "$(date)                                     $(whoami)@$(hostname)"
-				       echo
-				       echo "Command: OK    stdout: yes    stderr: no          "
-				       echo
-				       echo "Before command completion, additional instructions may appear below"
-				       echo
-				       echo "File                                 Fileset                 Type"
-				       echo "-----------------------------------------------------------------"
-				       echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				       echo "Command run: /etc/init.d/mysql stop"
-				       echo
-				       cat /var/log/smx-log/success.log | tail -n 6
-				       echo
-				       read -p "Press [enter] to continue..." ReadDamKey
+                				       echo "OS = SuSE"
+                				       echo "         COMMAND STATUS          "
+                				       echo
+                				       echo "$(date)                                     $(whoami)@$(hostname)"
+                				       echo
+                				       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				       echo
+                				       echo "Before command completion, additional instructions may appear below"
+                				       echo
+                				       echo "File                                 Fileset                 Type"
+                				       echo "-----------------------------------------------------------------"
+                				       echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				       echo "Command run: /etc/init.d/mysql stop"
+                				       sleep 2
+                				       clear
+                				       /etc/init.d/mysql stop
+                				       echo "##########################################" >> /var/log/smx-log/succes.log
+                				       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				       echo "Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                				       echo "Command run: /etc/init.d/mysql stop" >> /var/log/smx-log/success.log
+                				       echo "" >> /var/log/smx-log/success.log
+                				       echo "##########################################" >> /var/log/smx-log/success.log
+                				       echo "" >> /var/log/smx-log/success.log
+                				       clear
+                				       echo "         COMMAND STATUS          "
+                				       echo
+                				       echo "$(date)                                     $(whoami)@$(hostname)"
+                				       echo
+                				       echo "Command: OK    stdout: yes    stderr: no          "
+                				       echo
+                				       echo "Before command completion, additional instructions may appear below"
+                				       echo
+                				       echo "File                                 Fileset                 Type"
+                				       echo "-----------------------------------------------------------------"
+                				       echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				       echo "Command run: /etc/init.d/mysql stop"
+                				       echo
+                				       cat /var/log/smx-log/success.log | tail -n 6
+                				       echo
+                				       read -p "Press [enter] to continue..." ReadDamKey
                                   fi
                              fi 
-			fi
-		   fi
-		   ;;
-	    restart)
-		      clear
+			            fi
+        		   fi
+        		   ;;
+	        restart)
+		              clear
                       cat /proc/version | grep "Red Hat" > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-			   echo "OS = Red Hat"
+			               echo "OS = Red Hat"
                            echo "         COMMAND STATUS          "
                            echo
                            echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26067,7 +26067,7 @@ function sql_menu () {
                            sleep 2
                            clear
                            $(which service) mysqld restart
-			   echo "############################################" >> /var/log/smx-log/success.log
+			               echo "############################################" >> /var/log/smx-log/success.log
                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                            echo "Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
                            echo "Command run: $(which service) mysqld restart" >> /var/log/smx-log/success.log
@@ -26090,149 +26090,149 @@ function sql_menu () {
                            echo
                            cat /var/log/smx-log/success.log | tail -n 6
                            echo
-			   read -p "Press [enter] to continue..." ReadDamKey
+			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-				echo "OS = Debian"
-				echo "         COMMAND STATUS          "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: RUNNING    stdout: yes    stderr: no     "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                 Fileset                 Type"
-				echo "-----------------------------------------------------------------"
-				echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				echo "Command run: /etc/init.d/mysql restart"
-				sleep 2
-				clear
-				/etc/rc.d/init.d/mysqld restart
-				echo "############################################" >> /var/log/smx-log/success.log
-				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				echo "Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-				echo "Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				echo "############################################" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				clear
-				echo "         COMMAND STATUS          "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: OK    stdout: yes    stderr: no          "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                 Fileset                 Type"
-				echo "-----------------------------------------------------------------"
-				echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				echo "Command run: /etc/init.d/mysql restart"
-				echo
-				cat /var/log/smx-log/success.log | tail -n 6
-				echo
-				read -p "Press [enter] to continue..." ReadDamKey
+                				echo "OS = Debian"
+                				echo "         COMMAND STATUS          "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                 Fileset                 Type"
+                				echo "-----------------------------------------------------------------"
+                				echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				echo "Command run: /etc/init.d/mysql restart"
+                				sleep 2
+                				clear
+                				/etc/rc.d/init.d/mysqld restart
+                				echo "############################################" >> /var/log/smx-log/success.log
+                				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				echo "Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                				echo "Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				echo "############################################" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				clear
+                				echo "         COMMAND STATUS          "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: OK    stdout: yes    stderr: no          "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                 Fileset                 Type"
+                				echo "-----------------------------------------------------------------"
+                				echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				echo "Command run: /etc/init.d/mysql restart"
+                				echo
+                				cat /var/log/smx-log/success.log | tail -n 6
+                				echo
+                				read -p "Press [enter] to continue..." ReadDamKey
                            else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-				     echo "OS = Ubuntu"
-				     echo "         COMMAND STATUS          "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: RUNNING    stdout: yes    stderr: no     "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				     echo "Command run: /etc/init.d/mysql restart"
-				     sleep 2
-				     clear
-				     /etc/rc.d/init.d/mysqld restart
-				     echo "############################################" >> /var/log/smx-log/success.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				     echo "Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-				     echo "Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     echo "############################################" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     clear
-				     echo "         COMMAND STATUS          "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: OK    stdout: yes    stderr: no          "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-				     echo "Command run: /etc/init.d/mysql restart"
-				     echo
-				     cat /var/log/smx-log/success.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
+                				     echo "OS = Ubuntu"
+                				     echo "         COMMAND STATUS          "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				     echo "Command run: /etc/init.d/mysql restart"
+                				     sleep 2
+                				     clear
+                				     /etc/rc.d/init.d/mysqld restart
+                				     echo "############################################" >> /var/log/smx-log/success.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     echo "############################################" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     clear
+                				     echo "         COMMAND STATUS          "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: OK    stdout: yes    stderr: no          "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                				     echo "Command run: /etc/init.d/mysql restart"
+                				     echo
+                				     cat /var/log/smx-log/success.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-					  echo "OS = SuSE"
-					  echo "         COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: RUNNING    stdout: yes    stderr: no     "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-					  echo "Command run: /etc/init.d/mysql restart"
-					  sleep 2
-					  clear
-					  /etc/rc.d/init.d/mysql restart
-					  echo "############################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					  echo "Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "############################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  clear
-					  echo "         COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no          "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-					  echo "Command run: /etc/init.d/mysql restart"
-					  echo
-					  cat /var/log/smx-log/success.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  echo "OS = SuSE"
+                    					  echo "         COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                    					  echo "Command run: /etc/init.d/mysql restart"
+                    					  sleep 2
+                    					  clear
+                    					  /etc/rc.d/init.d/mysql restart
+                    					  echo "############################################" >> /var/log/smx-log/success.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  echo "############################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  clear
+                    					  echo "         COMMAND STATUS          "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: OK    stdout: yes    stderr: no          "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                    					  echo "Command run: /etc/init.d/mysql restart"
+                    					  echo
+                    					  cat /var/log/smx-log/success.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
                                      fi
                                 fi 
-			   fi
-		      fi
-		      ;;
-	    addusr)
-		     clear
+			               fi
+        		      fi
+        		      ;;
+	        addusr)
+		             clear
             	     echo "$(date)                                     $(whoami)@$(hostname)"
             	     echo "[TOP]                                    [Entry Fields]"
             	     read -p " Enter username ---------------------- > " userName
@@ -26258,7 +26258,7 @@ function sql_menu () {
             	     echo "Enter SQL root password to add user: $userName @: $hostName..."
             	     $(which mysql) -u root -p -e "CREATE USER '$userName'@'$hostName' IDENTIFIED BY '$pwdWord';"
             	     if [ $? -eq 0 ]; then
-			  echo "#########################################################################################################" >> /var/log/smx-log/success.log
+			              echo "#########################################################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                           echo "Successfuly created user: $userName @: $hostName on SQL server" >> /var/log/smx-log/success.log
                           echo "Command run: $(which mysql) -u root -p -e 'CREATE USER '$userName'@'$hostName' IDENTIFIED BY '$pwdWord';'" >> /var/log/smx-log/success.log
@@ -26282,8 +26282,8 @@ function sql_menu () {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-      		     else
-			  echo "#########################################################################################################" >> /var/log/smx-log/fail.log
+      		         else
+			              echo "#########################################################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not created user: $userName @: $hostName on SQL server" >> /var/log/smx-log/fail.log
                           echo "Command run: $(which mysql) -u root -p -e 'CREATE USER '$userName'@'$hostName' IDENTIFIED BY '$pwdWord';'" >> /var/log/smx-log/fail.log
@@ -26307,16 +26307,16 @@ function sql_menu () {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-      		     fi
+      		         fi
             	     echo "Enter SQL root password to grant all privileges to: $userName..."
             	     $(which mysql) -u root -p -e "GRANT ALL PRIVILEGES ON * . * TO '$userName'@'$hostName';"
             	     echo "Enter SQL root password to flush privileges..."
             	     $(which mysql) -u root -p -e 'FLUSH PRIVILEGES;'
             	     read -p "Press [enter] to continue..." ReadDamKey
             	     ;;
-	    chpwd)
-		    clear
-        	    echo "$(date)                                     $(whoami)@$(hostname)"
+	        chpwd)
+		            clear
+        	        echo "$(date)                                     $(whoami)@$(hostname)"
               	    echo "[TOP]                                  [Entry Fields]"
               	    read -p " Enter new password ---------------- > " pwdWord
               	    read -p " Enter username -------------------- > " userName
@@ -26339,7 +26339,7 @@ function sql_menu () {
               	    echo "Enter SQL root password to change user: $userName password..."
               	    $(which mysql) -u root -p -e "UPDATE mysql.user SET Password=PASSWORD('$pwdWord') WHERE User='$userName' AND Host='$hostName';"
               	    if [ $? -eq 0 ]; then
-			 echo "###########################################################################################################################################" >> /var/log/smx-log/success.log
+			             echo "###########################################################################################################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Successfuly changed password for user: $userName @: $hostName" >> /var/log/smx-log/success.log
                          echo "Command run: $(which mysql) -u root -p -e 'UPDATE mysql.user SET Password=PASSWORD('$pwdWord) WHERE User='$userName' AND Host='$hostName';'" >> /var/log/smx-log/success.log
@@ -26363,8 +26363,8 @@ function sql_menu () {
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-      		    else
-			 echo "############################################################################################################################################" >> /var/log/smx-log/fail.log
+      		        else
+			             echo "############################################################################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not changed password for user: $userName @: $hostName, check command syntax" >> /var/log/smx-log/fail.log
                          echo "Command run: $(which mysql) -u root -p -e 'UPDATE mysql.user SET Password=PASSWORD('$pwdWord') WHERE User='$userName' AND Host='$hostName';'" >> /var/log/smx-log/fail.log
