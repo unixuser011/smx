@@ -28469,11 +28469,11 @@ function smb_menu() {
 		           fi
 	               ;;
 	        restart)
-		      clear
+		              clear
                       cat /proc/version | grep "Red Hat" > /dev/null
-		      if [ $? -eq 0 ]; then
+		              if [ $? -eq 0 ]; then
                            clear
-			   echo "OS = Red Hat"
+			               echo "OS = Red Hat"
                            echo "        COMMAND STATUS        "
                            echo
                            echo "$(date)                                     $(whoami)@$(hostname)"
@@ -28491,7 +28491,7 @@ function smb_menu() {
                            clear
                            $(which service) smb restart
                            $(which service) nmb restart
-			   echo "######################################################" >> /var/log/smx-log/success.log
+			               echo "######################################################" >> /var/log/smx-log/success.log
                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                            echo "Successfuly started smb and nmb on system: $(hostname)" >> /var/log/smx-log/success.log
                            echo "Command run: $(which service) smb restart" >> /var/log/smx-log/success.log
@@ -28515,147 +28515,147 @@ function smb_menu() {
                            echo
                            cat /var/log/smx-log/success.log | tail -n 6
                            echo
-			   read -p "Press [enter] to continue..." ReadDamKey
+			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-			        echo "OS = Debian"
-				echo "       COMMAND STATUS         "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: RUNNING    stdout: yes    stderr: no     "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                 Fileset                 Type"
-				echo "-----------------------------------------------------------------"
-				echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				echo "Command run: /etc/init.d/samba restart"
-				sleep 2
-				clear
-				/etc/init.d/samba restart
-				echo "################################################" >> /var/log/smx-log/success.log
-				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
-				echo "Command run: /etc/init.d/samba restart" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				echo "################################################" >> /var/log/smx-log/success.log
-				echo "" >> /var/log/smx-log/success.log
-				clear
-				echo "       COMMAND STATUS         "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: OK    stdout: yes    stderr: no          "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                 Fileset                 Type"
-				echo "-----------------------------------------------------------------"
-				echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				echo "Command run: /etc/init.d/samba restart"
-				echo
-				cat /var/log/smx-log/success.log | tail -n 6
-				echo
-				read -p "Press [enter] to continue..." ReadDamKey
+			                    echo "OS = Debian"
+                				echo "       COMMAND STATUS         "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                 Fileset                 Type"
+                				echo "-----------------------------------------------------------------"
+                				echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				echo "Command run: /etc/init.d/samba restart"
+                				sleep 2
+                				clear
+                				/etc/init.d/samba restart
+                				echo "################################################" >> /var/log/smx-log/success.log
+                				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                				echo "Command run: /etc/init.d/samba restart" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				echo "################################################" >> /var/log/smx-log/success.log
+                				echo "" >> /var/log/smx-log/success.log
+                				clear
+                				echo "       COMMAND STATUS         "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: OK    stdout: yes    stderr: no          "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                 Fileset                 Type"
+                				echo "-----------------------------------------------------------------"
+                				echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				echo "Command run: /etc/init.d/samba restart"
+                				echo
+                				cat /var/log/smx-log/success.log | tail -n 6
+                				echo
+                				read -p "Press [enter] to continue..." ReadDamKey
                            else
                                 clear
-				cat /proc/version | grep "Ubuntu" > /dev/null
+				                cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-				     echo "OS = Ubuntu"
-				     echo "       COMMAND STATUS         "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: RUNNING    stdout: yes    stderr: no     "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				     echo "Command run: /etc/init.d/samba restart"
-				     sleep 2
-				     clear
-				     /etc/init.d/samba restart
-				     echo "################################################" >> /var/log/smx-log/success.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				     echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
-				     echo "Command run: /etc/init.d/samba restart" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     echo "################################################" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     clear
-				     echo "       COMMAND STATUS         "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: OK    stdout: yes    stderr: no          "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
-				     echo "Command run: /etc/init.d/samba restart"
-				     echo
-				     cat /var/log/smx-log/success.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
+                				     echo "OS = Ubuntu"
+                				     echo "       COMMAND STATUS         "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				     echo "Command run: /etc/init.d/samba restart"
+                				     sleep 2
+                				     clear
+                				     /etc/init.d/samba restart
+                				     echo "################################################" >> /var/log/smx-log/success.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Command run: /etc/init.d/samba restart" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     echo "################################################" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     clear
+                				     echo "       COMMAND STATUS         "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: OK    stdout: yes    stderr: no          "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "/etc/init.d/samba                    bos.sysmgt.samba        exec"
+                				     echo "Command run: /etc/init.d/samba restart"
+                				     echo
+                				     cat /var/log/smx-log/success.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-					  echo "OS = SuSE"
-					  echo "       COMMAND STATUS         "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: RUNNING    stdout: yes    stderr: no     "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "/etc/init.d/smb                      bos.sysmgt.samba        exec"
-					  echo "Command run: /etc/init.d/smb restart"
-					  sleep 2
-					  clear
-					  /etc/init.d/smb restart
-					  echo "################################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					  echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "Command run: /etc/init.d/smb restart" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  clear
-					  echo "       COMMAND STATUS         "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no          "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "/etc/init.d/smb                      bos.sysmgt.samba        exec"
-					  echo "Command run: /etc/init.d/smb restart"
-					  echo
-					  cat /var/log/smx-log/success.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  echo "OS = SuSE"
+                    					  echo "       COMMAND STATUS         "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "/etc/init.d/smb                      bos.sysmgt.samba        exec"
+                    					  echo "Command run: /etc/init.d/smb restart"
+                    					  sleep 2
+                    					  clear
+                    					  /etc/init.d/smb restart
+                    					  echo "################################################" >> /var/log/smx-log/success.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Successfuly started samba on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Command run: /etc/init.d/smb restart" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  echo "################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  clear
+                    					  echo "       COMMAND STATUS         "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: OK    stdout: yes    stderr: no          "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "/etc/init.d/smb                      bos.sysmgt.samba        exec"
+                    					  echo "Command run: /etc/init.d/smb restart"
+                    					  echo
+                    					  cat /var/log/smx-log/success.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
                                      fi
                                 fi
-			   fi
-		      fi
-		      ;;
+			               fi
+        		      fi
+        		      ;;
             status)
                      clear
                      echo "        COMMAND STATUS        "
@@ -28674,7 +28674,7 @@ function smb_menu() {
                      clear
                      $(which smbstatus) -v | $(which tee) /var/log/smx-log/smbstatus.log
                      if [ $? -eq 0 ]; then
-			  echo "####################################################################################" >> /var/log/smx-log/success.log
+			              echo "####################################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                           echo "Successfuly displayed SMB status" >> /var/log/smx-log/success.log
                           echo "Command run: $(which smbstatus) -v | $(which tee) /var/log/smx-log/smbstatus.log" >> /var/log/smx-log/success.log
@@ -28700,7 +28700,7 @@ function smb_menu() {
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
                      else
-			  echo "####################################################################################" >> /var/log/smx-log/fail.log
+			              echo "####################################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed SMB status, check command syntax" >> /var/log/smx-log/fail.log
                           echo "Command run: $(which smbstatus) -v | $(which tee) /var/log/smx-log/smbstatus.log" >> /var/log/smx-log/fail.log
@@ -28727,8 +28727,8 @@ function smb_menu() {
                           read -p "Press [enter] to continue..." ReadDamKey
                      fi
                      ;;     
-	    exit)
-		   clear
+	        exit)
+		           clear
                    echo "#######################################################" >> /var/log/smx-log/exit.log
                    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                    echo "Successfuly terminated $(basename $0)/srv_menu/smb_menu" >> /var/log/smx-log/exit.log
@@ -28737,8 +28737,8 @@ function smb_menu() {
                    echo "" >> /var/log/smx-log/exit.log
                    srv_menu
                    ;;
-	    exit-mas)
-		       clear
+	        exit-mas)
+		              clear
                        echo "#####################################" >> /var/log/smx-log/exit.log
             	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
             	       echo "Successfuly terminated $(basename $0)" >> /var/log/smx-log/exit.log
@@ -28747,7 +28747,7 @@ function smb_menu() {
                        echo "" >> /var/log/smx-log/exit.log
             	       exit 0
             	       ;;
-	    *)         clear
+	        *)         clear
             	       echo "        COMMAND STATUS        "
             	       echo
             	       echo "$(date)                                     $(whoami)@$(hostname)"
@@ -28758,7 +28758,7 @@ function smb_menu() {
                        echo
                        echo "Unkonwn command, please consult the command list, executed with pid - 5632 (0x1)"
                        read -p "Press [enter] to continue..." ReadDamKey;;
-	esac
+	    esac
     done
 }
 
@@ -28772,11 +28772,7 @@ function ssh_menu() {
         echo "|            SSH MANAGEMENT        |"
         echo "+----------------------------------+"
         echo
-        echo "install_rhl > Install SSH on red hat linux"
-        echo
-        echo "install_deb > Install SSH on debian linux"
-        echo
-        echo "install_suse > Install SSH on suse linux"
+        echo "install > Install SSH server on system"
         echo
         echo "start > Start SSH server"
         echo
@@ -28793,11 +28789,11 @@ function ssh_menu() {
 
         case "$choice_ssh" in
             install)
-		      clear
+		              clear
                       cat /proc/version | grep "Red Hat" > /dev/null
-		      if [ $? -eq 0 ]; then
+		              if [ $? -eq 0 ]; then
                            clear
-			   echo "OS = Red Hat"
+			               echo "OS = Red Hat"
                            echo "$(date)                                     $(whoami)@$(hostname)"
                            echo "[TOP]                                     [Entry Fields]"
                            printf " Enter network interface [Default: eth0] > "
@@ -28858,280 +28854,280 @@ function ssh_menu() {
                            echo
                            echo
                            echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
-			   read -p "Press [enter] to continue..." ReadDamKey
+			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-			        echo "OS = Debian"
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo "[TOP]                                     [Entry Fields]"
-				printf " Enter network interface [Default: eth0] > "
-				if [ "$netIntf" = "" ]; then
+			                    echo "OS = Debian"
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo "[TOP]                                     [Entry Fields]"
+                				printf " Enter network interface [Default: eth0] > "
+                				if [ "$netIntf" = "" ]; then
                                       read $netIntf
                                       NET_INTF=$netIntf
-				fi
-				if [ "$netIntf" = "" ]; then
+                				fi
+                				if [ "$netIntf" = "" ]; then
                                       NET_INTF=eth0
-				fi            
-				clear
-				echo "             COMMAND STATUS              "
-				echo
-				echo "$(date)                                     $(whoami)@$(hostname)"
-				echo
-				echo "Command: RUNNING    stdout: yes    stderr: no    "
-				echo
-				echo "Before command completion, additional instructions may appear below"
-				echo
-				echo "File                                 Fileset                 Type"
-				echo "-----------------------------------------------------------------"
-				echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-				echo "$(which sed)                         bos.sysmgt.sed          exec"
-				echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-				echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
-				echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
-				echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
-				echo "Command run: /etc/init.d/ssh restart"
-				sleep 2
-				clear
-				$(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log
-				if [ $PIPESTATUS -eq 0 ]; then
-				     echo "############################################################################################" >> /var/log/smx-log/success.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				     echo "Successfuly installed ssh on system: $(hostname)" >> /var/log/smx-log/success.log
-				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     echo "############################################################################################" >> /var/log/smx-log/success.log
-				     echo "" >> /var/log/smx-log/success.log
-				     read -p "Press [enter] to continue..." ReadDamKey
-				     clear
-				     echo "        COMMAND STATUS                     "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: OK    stdout: yes    stderr: no          "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
-				     echo
-				     cat /var/log/smx-log/apt-get.log | tail -n 6
-				     echo
-				     echo
-				     echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
-				     read -p "Press [enter] to continue..." ReadDamKey
-				else
-				     echo "############################################################################################" >> /var/log/smx-log/fail.log
-				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-				     echo "Not installed ssh on system: $(hostname), check command syntax" >> /var/log/smx-log/ fail.log
-				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-				     echo "" >> /var/log/smx-log/fail.log 
-				     echo "############################################################################################" >> /var/log/smx-log/fail.log
-				     echo "" >> /var/log/smx-log/fail.log
-				     read -p "Press [enter] to continue..." ReadDamKey
-				     clear
-				     echo "        COMMAND STATUS                     "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: FAIL    stdout: yes    stderr: no        "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-				     echo "Command unsuccessful, check command variables and syntax"
-				     echo
-				     cat /var/log/smx-log/fail.log | tail -n 6
-				     echo
-				     read -p "Press [enter] to continue..." ReadDamKey
-				fi
-				$(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
-				$(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
-				/etc/init.d/ssh restart
-				echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
-				read -p "Press [enter] to continue..." ReadDamKey
+                				fi            
+                				clear
+                				echo "             COMMAND STATUS              "
+                				echo
+                				echo "$(date)                                     $(whoami)@$(hostname)"
+                				echo
+                				echo "Command: RUNNING    stdout: yes    stderr: no    "
+                				echo
+                				echo "Before command completion, additional instructions may appear below"
+                				echo
+                				echo "File                                 Fileset                 Type"
+                				echo "-----------------------------------------------------------------"
+                				echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                				echo "$(which sed)                         bos.sysmgt.sed          exec"
+                				echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                				echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
+                				echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
+                				echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
+                				echo "Command run: /etc/init.d/ssh restart"
+                				sleep 2
+                				clear
+                				$(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log
+                				if [ $PIPESTATUS -eq 0 ]; then
+                				     echo "############################################################################################" >> /var/log/smx-log/success.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Successfuly installed ssh on system: $(hostname)" >> /var/log/smx-log/success.log
+                				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     echo "############################################################################################" >> /var/log/smx-log/success.log
+                				     echo "" >> /var/log/smx-log/success.log
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				     clear
+                				     echo "        COMMAND STATUS                     "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: OK    stdout: yes    stderr: no          "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
+                				     echo
+                				     cat /var/log/smx-log/apt-get.log | tail -n 6
+                				     echo
+                				     echo
+                				     echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				else
+                				     echo "############################################################################################" >> /var/log/smx-log/fail.log
+                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                				     echo "Not installed ssh on system: $(hostname), check command syntax" >> /var/log/smx-log/ fail.log
+                				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                				     echo "" >> /var/log/smx-log/fail.log 
+                				     echo "############################################################################################" >> /var/log/smx-log/fail.log
+                				     echo "" >> /var/log/smx-log/fail.log
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				     clear
+                				     echo "        COMMAND STATUS                     "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: FAIL    stdout: yes    stderr: no        "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                				     echo "Command unsuccessful, check command variables and syntax"
+                				     echo
+                				     cat /var/log/smx-log/fail.log | tail -n 6
+                				     echo
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				fi
+                				$(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
+                				$(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
+                				/etc/init.d/ssh restart
+                				echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
+                				read -p "Press [enter] to continue..." ReadDamKey
                            else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-			             echo "OS = Ubuntu"
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo "[TOP]                                     [Entry Fields]"
-				     printf " Enter network interface [Default: eth0] > "
-				     if [ "$netIntf" = "" ]; then
-					   read $netIntf
-					   NET_INTF=$netIntf
-				     fi
-				     if [ "$netIntf" = "" ]; then
-					   NET_INTF=eth0
-				     fi            
-				     clear
-				     echo "             COMMAND STATUS              "
-				     echo
-				     echo "$(date)                                     $(whoami)@$(hostname)"
-				     echo
-				     echo "Command: RUNNING    stdout: yes    stderr: no    "
-				     echo
-				     echo "Before command completion, additional instructions may appear below"
-				     echo
-				     echo "File                                 Fileset                 Type"
-				     echo "-----------------------------------------------------------------"
-				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-				     echo "$(which sed)                         bos.sysmgt.sed          exec"
-				     echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
-				     echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
-				     echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
-				     echo "Command run: /etc/init.d/ssh restart"
-				     sleep 2
-				     clear
-				     $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log
-				     if [ $PIPESTATUS -eq 0 ]; then
-					  echo "############################################################################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					  echo "Successfuly installed ssh on system: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "############################################################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS                     "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no          "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					  echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
-					  echo
-					  cat /var/log/smx-log/apt-get.log | tail -n 6
-					  echo
-					  echo
-					  echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
-					  read -p "Press [enter] to continue..." ReadDamKey
-				     else
-					  echo "############################################################################################" >> /var/log/smx-log/fail.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					  echo "Not installed ssh on system: $(hostname), check command syntax" >> /var/log/smx-log/ fail.log
-					  echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log 
-					  echo "############################################################################################" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS                     "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: FAIL    stdout: yes    stderr: no        "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					  echo "Command unsuccessful, check command variables and syntax"
-					  echo
-					  cat /var/log/smx-log/fail.log | tail -n 6
-					  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
-				     fi
-				     $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
-				     $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
-				     /etc/init.d/ssh restart
-				     echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
-				     read -p "Press [enter] to continue..." ReadDamKey
+			                         echo "OS = Ubuntu"
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo "[TOP]                                     [Entry Fields]"
+                				     printf " Enter network interface [Default: eth0] > "
+                				     if [ "$netIntf" = "" ]; then
+                    					   read $netIntf
+                    					   NET_INTF=$netIntf
+                				     fi
+                				     if [ "$netIntf" = "" ]; then
+					                       NET_INTF=eth0
+                				     fi            
+                				     clear
+                				     echo "             COMMAND STATUS              "
+                				     echo
+                				     echo "$(date)                                     $(whoami)@$(hostname)"
+                				     echo
+                				     echo "Command: RUNNING    stdout: yes    stderr: no    "
+                				     echo
+                				     echo "Before command completion, additional instructions may appear below"
+                				     echo
+                				     echo "File                                 Fileset                 Type"
+                				     echo "-----------------------------------------------------------------"
+                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                				     echo "$(which sed)                         bos.sysmgt.sed          exec"
+                				     echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                				     echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
+                				     echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
+                				     echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
+                				     echo "Command run: /etc/init.d/ssh restart"
+                				     sleep 2
+                				     clear
+                				     $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log
+                				     if [ $PIPESTATUS -eq 0 ]; then
+                    					  echo "############################################################################################" >> /var/log/smx-log/success.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Successfuly installed ssh on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  echo "############################################################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  clear
+                    					  echo "        COMMAND STATUS                     "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: OK    stdout: yes    stderr: no          "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					  echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log"
+                    					  echo
+                    					  cat /var/log/smx-log/apt-get.log | tail -n 6
+                    					  echo
+                    					  echo
+                    					  echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+				                     else
+                    					  echo "############################################################################################" >> /var/log/smx-log/fail.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    					  echo "Not installed ssh on system: $(hostname), check command syntax" >> /var/log/smx-log/ fail.log
+                    					  echo "Command run: $(which apt-get) -y install ssh | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log 
+                    					  echo "############################################################################################" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  clear
+                    					  echo "        COMMAND STATUS                     "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: FAIL    stdout: yes    stderr: no        "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					  echo "Command unsuccessful, check command variables and syntax"
+                    					  echo
+                    					  cat /var/log/smx-log/fail.log | tail -n 6
+                    					  echo
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                				     fi
+                				     $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
+                				     $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
+                				     /etc/init.d/ssh restart
+                				     echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
+                				     read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-					  echo "OS = SuSE"
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo "[TOP]                                     [Entry Fields]"
-					  printf " Enter network interface [Default: eth0] > "
-					  if [ "$netIntf" = "" ]; then
-					        read netIntf
-						NET_INTF=$netIntf
-					  fi
-					  if [ "$netIntf" = "" ]; then
-					        NET_INTF=eth0
-					  fi 
-					  clear
-					  echo "              COMMAND STATUS               "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: RUNNING    stdout: yes    stderr: no     "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                Type"
-					  echo "----------------------------------------------------------------"
-					  echo "$(which sed)                         bos.sysmgt.sed         exec"
-					  echo "/etc/init.d/sshd                     bos.sysmgt.sshd        exec"
-					  echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
-					  echo "Command run: $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
-					  echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
-					  echo "Command run: /etc/init.d/sshd restart"
-					  sleep 2
-					  clear
-					  $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
-					  $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-					  $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
-					  /etc/init.d/sshd restart
-					  echo "################################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/sysExex-log/success.log
-					  echo "Successfuly installed ssh on system: $(hostname)" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  clear
-					  echo "              COMMAND STATUS               "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no          "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                Type"
-					  echo "----------------------------------------------------------------"
-					  echo "$(which sed)                         bos.sysmgt.sed         exec"
-					  echo "/etc/init.d/sshd                     bos.sysmgt.sshd        exec"
-					  echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
-					  echo "Command run: $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
-					  echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
-					  echo "Command run: /etc/init.d/sshd restart"
-					  echo
-					  cat /var/log/smx-log/success.log | tail -n 6
-					  echo
-					  echo
-					  echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
-					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  echo "OS = SuSE"
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo "[TOP]                                     [Entry Fields]"
+                    					  printf " Enter network interface [Default: eth0] > "
+                    					  if [ "$netIntf" = "" ]; then
+                    					        read netIntf
+						                        NET_INTF=$netIntf
+                    					  fi
+                    					  if [ "$netIntf" = "" ]; then
+                    					        NET_INTF=eth0
+                    					  fi 
+                    					  clear
+                    					  echo "              COMMAND STATUS               "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                Type"
+                    					  echo "----------------------------------------------------------------"
+                    					  echo "$(which sed)                         bos.sysmgt.sed         exec"
+                    					  echo "/etc/init.d/sshd                     bos.sysmgt.sshd        exec"
+                    					  echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
+                    					  echo "Command run: $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
+                    					  echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
+                    					  echo "Command run: /etc/init.d/sshd restart"
+                    					  sleep 2
+                    					  clear
+                    					  $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
+                    					  $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+                    					  $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
+                    					  /etc/init.d/sshd restart
+                    					  echo "################################################" >> /var/log/smx-log/success.log
+                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/sysExex-log/success.log
+                    					  echo "Successfuly installed ssh on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  echo "################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                    					  clear
+                    					  echo "              COMMAND STATUS               "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: OK    stdout: yes    stderr: no          "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                Type"
+                    					  echo "----------------------------------------------------------------"
+                    					  echo "$(which sed)                         bos.sysmgt.sed         exec"
+                    					  echo "/etc/init.d/sshd                     bos.sysmgt.sshd        exec"
+                    					  echo "Command run: $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config"
+                    					  echo "Command run: $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
+                    					  echo "Command run: $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config"
+                    					  echo "Command run: /etc/init.d/sshd restart"
+                    					  echo
+                    					  cat /var/log/smx-log/success.log | tail -n 6
+                    					  echo
+                    					  echo
+                    					  echo "SSH successfuly installed on system, ssh to root@$(ifconfig $NET_INTF | awk '/inet / { print $2 }' | sed 's/addr://')"
+                    					  read -p "Press [enter] to continue..." ReadDamKey
                                      fi
                                 fi
-			   fi
-		      fi
-		      ;;
+			               fi
+        		      fi
+        		      ;;
             start)
                     clear
                     cat /proc/version | grep "Red Hat" > /dev/null
-		    if [ $? -eq 0 ]; then
+		            if [ $? -eq 0 ]; then
                          clear
-			 echo "OS = Red Hat"
+			             echo "OS = Red Hat"
                          echo "             COMMAND STATUS               "
                          echo
                          echo "$(date)                                     $(whoami)@$(hostname)"
@@ -29170,13 +29166,13 @@ function ssh_menu() {
                          echo
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
-			 read -p "Press [enter] to continue..." ReadDamKey
+			             read -p "Press [enter] to continue..." ReadDamKey
                     else
                          clear
                          cat /proc/version | grep "Debian" > /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-			      echo "OS = Debian"
+			                  echo "OS = Debian"
                               echo "             COMMAND STATUS               "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -29215,364 +29211,470 @@ function ssh_menu() {
                               echo
                               cat /var/log/smx-log/success.log | tail -n 6
                               echo
-			      read -p "Press [enter] to continue..." ReadDamKey
+			                  read -p "Press [enter] to continue..." ReadDamKey
                          else
                               clear
                               cat /proc/version | grep "Ubuntu" > /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-				   echo "OS = Ubuntu"
-				   echo "             COMMAND STATUS               "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: RUNNING    stdout: yes    stderr: no     "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                 Type"
-				   echo "-----------------------------------------------------------------"
-				   echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-				   echo "Command run: /etc/init.d/ssh start"
-				   sleep 2
-				   clear
-				   /etc/init.d/ssh start
-				   echo "##############################################" >> /var/log/smx-log/success.log
-				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				   echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
-				   echo "Command run: /etc/init.d/ssh start" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   echo "##############################################" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-				   clear
-				   echo "             COMMAND STATUS               "
-				   echo
-				   echo "$(date)                                     $(whoami)@$(hostname)"
-				   echo
-				   echo "Command: OK    stdout: yes    stderr: no          "
-				   echo
-				   echo "Before command completion, additional instructions may appear below"
-				   echo
-				   echo "File                                 Fileset                 Type"
-				   echo "-----------------------------------------------------------------"
-				   echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-				   echo "Command run: /etc/init.d/ssh start"
-				   echo
-				   cat /var/log/smx-log/success.log | tail -n 6
-				   echo
-				   read -p "Press [enter] to continue..." ReadDamKey
+                				   echo "OS = Ubuntu"
+                				   echo "             COMMAND STATUS               "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                 Type"
+                				   echo "-----------------------------------------------------------------"
+                				   echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                				   echo "Command run: /etc/init.d/ssh start"
+                				   sleep 2
+                				   clear
+                				   /etc/init.d/ssh start
+                				   echo "##############################################" >> /var/log/smx-log/success.log
+                				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				   echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
+                				   echo "Command run: /etc/init.d/ssh start" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   echo "##############################################" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                				   clear
+                				   echo "             COMMAND STATUS               "
+                				   echo
+                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                				   echo
+                				   echo "Command: OK    stdout: yes    stderr: no          "
+                				   echo
+                				   echo "Before command completion, additional instructions may appear below"
+                				   echo
+                				   echo "File                                 Fileset                 Type"
+                				   echo "-----------------------------------------------------------------"
+                				   echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                				   echo "Command run: /etc/init.d/ssh start"
+                				   echo
+                				   cat /var/log/smx-log/success.log | tail -n 6
+                				   echo
+                				   read -p "Press [enter] to continue..." ReadDamKey
                               else
                                    clear
                                    cat /proc/version | grep "SUSE" > /dev/null
                                    if [ $? -eq 0 ]; then
                                         clear
-				        echo "OS = SuSE"
-					echo "             COMMAND STATUS               "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: RUNNING    stdout: yes    stderr: no     "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/sshd                     bos.sysmgt.sshd         exec"
-					echo "Command run: /etc/init.d/sshd start"
-					sleep 2
-					clear
-					/etc/init.d/sshd start
-					echo "##############################################" >> /var/log/smx-log/success.log
-					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
-					echo "Command run: /etc/init.d/sshd start" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					echo "##############################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-					clear
-					echo "             COMMAND STATUS               "
-					echo
-					echo "$(date)                                     $(whoami)@$(hostname)"
-					echo
-					echo "Command: OK    stdout: yes    stderr: no          "
-					echo
-					echo "Before command completion, additional instructions may appear below"
-					echo
-					echo "File                                 Fileset                 Type"
-					echo "-----------------------------------------------------------------"
-					echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-					echo "Command run: /etc/init.d/ssh start"
-					echo
-					cat /var/log/smx-log/success.log | tail -n 6
-					echo
-					read -p "Press [enter] to continue..." ReadDamKey
+				                        echo "OS = SuSE"
+                    					echo "             COMMAND STATUS               "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/sshd                     bos.sysmgt.sshd         exec"
+                    					echo "Command run: /etc/init.d/sshd start"
+                    					sleep 2
+                    					clear
+                    					/etc/init.d/sshd start
+                    					echo "##############################################" >> /var/log/smx-log/success.log
+                    					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
+                    					echo "Command run: /etc/init.d/sshd start" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					echo "##############################################" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                    					clear
+                    					echo "             COMMAND STATUS               "
+                    					echo
+                    					echo "$(date)                                     $(whoami)@$(hostname)"
+                    					echo
+                    					echo "Command: OK    stdout: yes    stderr: no          "
+                    					echo
+                    					echo "Before command completion, additional instructions may appear below"
+                    					echo
+                    					echo "File                                 Fileset                 Type"
+                    					echo "-----------------------------------------------------------------"
+                    					echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                    					echo "Command run: /etc/init.d/ssh start"
+                    					echo
+                    					cat /var/log/smx-log/success.log | tail -n 6
+                    					echo
+                    					read -p "Press [enter] to continue..." ReadDamKey
                                    fi
                               fi
-			 fi
-		    fi
-		    ;;
+			             fi
+        		    fi
+        		    ;;
             stop)
                    clear
-                   echo "$(date)                                     $(whoami)@$(hostname)"
-                    echo "[TOP]                                           [Entry Fields]"
-                    read -p " Enter OS type --------------- (rhl/deb/suse) > " ans
-                    if [ "$ans" = "rhl" ]; then
-                          clear
-                          echo "             COMMAND STATUS               "
-                          echo
-                          echo "$(date)                                     $(whoami)@$(hostname)"
-                          echo
-                          echo "Command: RUNNING    stdout: yes    stderr: no     "
-                          echo
-                          echo "Before command completion, additional instructions may appear below"
-                          echo
-                          echo "File                                 Fileset                 Type"
-                          echo "-----------------------------------------------------------------"
-                          echo "$(which service)                     bos.sysmgt.service      exec"
-                          echo "Command run: $(which service) sshd stop"
-                          sleep 2
-                          clear
-                          $(which service) sshd stop
-                          echo "###############################################" >> /var/log/smx-log/success.log
-                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                          echo "Successfuly started sshd on system: $(hostname)" >> /var/log/smx-log/success.log
-                          echo "Command run: $(which service) sshd stop" >> /var/log/smx-log/success.log
-                          echo "" >> /var/log/smx-log/success.log
-                          echo "###############################################" >> /var/log/smx-log/success.log
-                          echo "" >> /var/log/smx-log/success.log
-                          clear
-                          echo "             COMMAND STATUS               "
-                          echo
-                          echo "$(date)                                     $(whoami)@$(hostname)"
-                          echo
-                          echo "Command: OK    stdout: yes    stderr: no          "
-                          echo
-                          echo "Before command completion, additional instructions may appear below"
-                          echo
-                          echo "File                                 Fileset                 Type"
-                          echo "-----------------------------------------------------------------"
-                          echo "$(which service)                     bos.sysmgt.service      exec"
-                          echo "Command run: $(which service) sshd stop"
-                          echo
-                          cat /var/log/smx-log/success.log | tail -n 6
-                          echo
-                          read -p "Press [enter] to continue..." ReadDamKey
-                    fi
-                    if [ "$ans" = "deb" ]; then
-                          clear
-                          echo "             COMMAND STATUS               "
-                          echo
-                          echo "$(date)                                     $(whoami)@$(hostname)"
-                          echo
-                          echo "Command: RUNNING    stdout: yes    stderr: no     "
-                          echo
-                          echo "Before command completion, additional instructions may appear below"
-                          echo
-                          echo "File                                 Fileset                 Type"
-                          echo "-----------------------------------------------------------------"
-                          echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-                          echo "Command run: /etc/init.d/ssh stop"
-                          sleep 2
-                          clear
-                          /etc/init.d/ssh stop
-                          echo "##############################################" >> /var/log/smx-log/success.log
-                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                          echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
-                          echo "Command run: /etc/init.d/ssh stop" >> /var/log/smx-log/success.log
-                          echo "" >> /var/log/smx-log/success.log
-                          echo "##############################################" >> /var/log/smx-log/success.log
-                          echo "" >> /var/log/smx-log/success.log
-                          clear
-                          echo "             COMMAND STATUS               "
-                          echo
-                          echo "$(date)                                     $(whoami)@$(hostname)"
-                          echo
-                          echo "Command: OK    stdout: yes    stderr: no          "
-                          echo
-                          echo "Before command completion, additional instructions may appear below"
-                          echo
-                          echo "File                                 Fileset                 Type"
-                          echo "-----------------------------------------------------------------"
-                          echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-                          echo "Command run: /etc/init.d/ssh stop"
-                          echo
-                          cat /var/log/smx-log/success.log | tail -n 6
-                          echo
-                          read -p "Press [enter] to continue..." ReadDamKey
-                    fi
-                    if [ "$ans" = "suse" ]; then
-                          clear
-                          echo "             COMMAND STATUS               "
-                          echo
-                          echo "$(date)                                     $(whoami)@$(hostname)"
-                          echo
-                          echo "Command: RUNNING    stdout: yes    stderr: no     "
-                          echo
-                          echo "Before command completion, additional instructions may appear below"
-                          echo
-                          echo "File                                 Fileset                 Type"
-                          echo "-----------------------------------------------------------------"
-                          echo "/etc/init.d/sshd                     bos.sysmgt.sshd         exec"
-                          echo "Command run: /etc/init.d/sshd stop"
-                          sleep 2
-                          clear
-                          /etc/init.d/sshd start
-                          echo "##############################################" >> /var/log/smx-log/success.log
-                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                          echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
-                          echo "Command run: /etc/init.d/sshd stop" >> /var/log/smx-log/success.log
-                          echo "" >> /var/log/smx-log/success.log
-                          echo "##############################################" >> /var/log/smx-log/success.log
-                          echo "" >> /var/log/smx-log/success.log
-                          clear
-                          echo "             COMMAND STATUS               "
-                          echo
-                          echo "$(date)                                     $(whoami)@$(hostname)"
-                          echo
-                          echo "Command: OK    stdout: yes    stderr: no          "
-                          echo
-                          echo "Before command completion, additional instructions may appear below"
-                          echo
-                          echo "File                                 Fileset                 Type"
-                          echo "-----------------------------------------------------------------"
-                          echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
-                          echo "Command run: /etc/init.d/ssh stop"
-                          echo
-                          cat /var/log/smx-log/success.log | tail -n 6
-                          echo
-                          read -p "Press [enter] to continue..." ReadDamKey
-                    fi
-                    ;;
+                   cat /proc/version | grep "Red Hat" > /dev/null
+                   if [ $? -eq 0 ]; then
+                        clear
+                        echo "OS = Red Hat"
+                        echo "             COMMAND STATUS               "
+                        echo
+                        echo "$(date)                                     $(whoami)@$(hostname)"
+                        echo
+                        echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        echo
+                        echo "Before command completion, additional instructions may appear below"
+                        echo
+                        echo "File                                 Fileset                 Type"
+                        echo "-----------------------------------------------------------------"
+                        echo "$(which service)                     bos.sysmgt.service      exec"
+                        echo "Command run: $(which service) sshd stop"
+                        sleep 2
+                        clear
+                        $(which service) sshd stop
+                        echo "###############################################" >> /var/log/smx-log/success.log
+                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        echo "Successfuly started sshd on system: $(hostname)" >> /var/log/smx-log/success.log
+                        echo "Command run: $(which service) sshd stop" >> /var/log/smx-log/success.log
+                        echo "" >> /var/log/smx-log/success.log
+                        echo "###############################################" >> /var/log/smx-log/success.log
+                        echo "" >> /var/log/smx-log/success.log
+                        clear
+                        echo "             COMMAND STATUS               "
+                        echo
+                        echo "$(date)                                     $(whoami)@$(hostname)"
+                        echo
+                        echo "Command: OK    stdout: yes    stderr: no          "
+                        echo
+                        echo "Before command completion, additional instructions may appear below"
+                        echo
+                        echo "File                                 Fileset                 Type"
+                        echo "-----------------------------------------------------------------"
+                        echo "$(which service)                     bos.sysmgt.service      exec"
+                        echo "Command run: $(which service) sshd stop"
+                        echo
+                        cat /var/log/smx-log/success.log | tail -n 6
+                        echo
+                        read -p "Press [enter] to continue..." ReadDamKey
+                   else
+                        clear
+                        cat /proc/version | grep "Debian" > /dev/null
+                        if [ $? -eq 0 ]; then
+                             clear
+                             echo "OS = Debian"
+                             echo "             COMMAND STATUS               "
+                             echo
+                             echo "$(date)                                     $(whoami)@$(hostname)"
+                             echo
+                             echo "Command: RUNNING    stdout: yes    stderr: no     "
+                             echo
+                             echo "Before command completion, additional instructions may appear below"
+                             echo
+                             echo "File                                 Fileset                 Type"
+                             echo "-----------------------------------------------------------------"
+                             echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                             echo "Command run: /etc/init.d/ssh stop"
+                             sleep 2
+                             clear
+                             /etc/init.d/ssh stop
+                             echo "##############################################" >> /var/log/smx-log/success.log
+                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                             echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
+                             echo "Command run: /etc/init.d/ssh stop" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/success.log
+                             echo "##############################################" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/success.log
+                             clear
+                             echo "             COMMAND STATUS               "
+                             echo
+                             echo "$(date)                                     $(whoami)@$(hostname)"
+                             echo
+                             echo "Command: OK    stdout: yes    stderr: no          "
+                             echo
+                             echo "Before command completion, additional instructions may appear below"
+                             echo
+                             echo "File                                 Fileset                 Type"
+                             echo "-----------------------------------------------------------------"
+                             echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                             echo "Command run: /etc/init.d/ssh stop"
+                             echo
+                             cat /var/log/smx-log/success.log | tail -n 6
+                             echo
+                             read -p "Press [enter] to continue..." ReadDamKey
+                        else    
+                             clear
+                             cat /proc/version | grep "Ubuntu" > /dev/null
+                             if [ $? -eq 0 ]; then
+                                  clear
+                                  echo "OS = Ubuntu"
+                                  echo "             COMMAND STATUS               "
+                                  echo
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                 Type"
+                                  echo "-----------------------------------------------------------------"
+                                  echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                                  echo "Command run: /etc/init.d/ssh stop"
+                                  sleep 2
+                                  clear
+                                  /etc/init.d/ssh stop
+                                  echo "##############################################" >> /var/log/smx-log/success.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
+                                  echo "Command run: /etc/init.d/ssh stop" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  echo "##############################################" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  clear
+                                  echo "             COMMAND STATUS               "
+                                  echo
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: OK    stdout: yes    stderr: no          "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                 Type"
+                                  echo "-----------------------------------------------------------------"
+                                  echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                                  echo "Command run: /etc/init.d/ssh stop"
+                                  echo
+                                  cat /var/log/smx-log/success.log | tail -n 6
+                                  echo
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                             else
+                                  clear
+                                  cat /proc/version | grep "SUSE" > /dev/null
+                                  if [ $? -eq 0 ]; then
+                                       clear
+                                       echo "OS = SuSE"
+                                       echo "             COMMAND STATUS               "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "/etc/init.d/sshd                     bos.sysmgt.sshd         exec"
+                                       echo "Command run: /etc/init.d/sshd stop"
+                                       sleep 2
+                                       clear
+                                       /etc/init.d/sshd start
+                                       echo "##############################################" >> /var/log/smx-log/success.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                       echo "Successfuly started ssh on system: $(hostName)" >> /var/log/smx-log/success.log
+                                       echo "Command run: /etc/init.d/sshd stop" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       echo "##############################################" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       clear
+                                       echo "             COMMAND STATUS               "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: OK    stdout: yes    stderr: no          "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "/etc/init.d/ssh                      bos.sysmgt.ssh          exec"
+                                       echo "Command run: /etc/init.d/ssh stop"
+                                       echo
+                                       cat /var/log/smx-log/success.log | tail -n 6
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                  fi
+                             fi
+                        fi
+                   fi
+                   ;;
             restart)
                       clear
-                      echo "$(date)                                     $(whoami)@$(hostname)"
-                      echo "[TOP]                                                [Entry Fields]"
-                      read -p " Enter OS type -------------------- (rhl/deb/suse) > " ans
-                      if [ "$ans" = "rhl" ]; then
-                            clear
-                            echo "              COMMAND STATUS               "
-                            echo
-                            echo "$(date)                                     $(whoami)@$(hostname)"
-                            echo
-                            echo "Command: RUNNING    stdout: yes    stderr: no     "
-                            echo
-                            echo "Before command completion, additional instructions may appear below"
-                            echo
-                            echo "File                                  Fileset                Type"
-                            echo "-----------------------------------------------------------------"
-                            echo "$(which service)                      bos.sysmgt.service     exec"
-                            echo "Command run: $(which service) sshd restart"
-                            sleep 2
-                            clear
-                            $(which service) sshd restart
-                            echo "#################################################" >> /var/log/smx-log/success.log
-                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            echo "Successfuly restarted sshd on system: $(hostname)" >> /var/log/smx-log/success.log
-                            echo "Command run: $(which service) sshd restart" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                            echo "#################################################" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                            clear
-                            echo "              COMMAND STATUS               "
-                            echo
-                            echo "$(date)                                     $(whoami)@$(hostname)"
-                            echo
-                            echo "Command: OK    stdout: yes    stderr: no          "
-                            echo
-                            echo "Before command completion, additional instructions may appear below"
-                            echo
-                            echo "File                                  Fileset                Type"
-                            echo "-----------------------------------------------------------------"
-                            echo "$(which service)                      bos.sysmgt.service     exec"
-                            echo "Command run: $(which service) sshd restart"
-                            echo
-                            cat /var/log/smx-log/success.log | tail -n 6
-                            echo
-                            read -p "Press [enter] to continue..." ReadDamKey
-                      fi
-                      if [ "$ans" = "deb" ]; then
-                            clear
-                            echo "              COMMAND STATUS               "
-                            echo
-                            echo "$(date)                                     $(whoami)@$(hostname)"
-                            echo
-                            echo "Command: RUNNING    stdout: yes    stderr: no     "
-                            echo
-                            echo "Before command completion, additional instructions may appear below"
-                            echo
-                            echo "File                                  Fileset                Type"
-                            echo "-----------------------------------------------------------------"
-                            echo "/etc/init.d/ssh                       bos.sysmgt.ssh         exec"
-                            echo "Command run: /etc/init.d/ssh restart"
-                            sleep 2
-                            clear
-                            /etc/init.d/ssh restart
-                            echo "################################################" >> /var/log/smx-log/success.log
-                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            echo "Successfuly restarted ssh on system: $(hostname)" >> /var/log/smx-log/success.log
-                            echo "Command run: /etc/init.d/ssh restart" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                            echo "################################################" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                            clear
-                            echo "              COMMAND STATUS               "
-                            echo
-                            echo "$(date)                                     $(whoami)@$(hostname)"
-                            echo
-                            echo "Command: OK    stdout: yes    stderr: no          "
-                            echo
-                            echo "Before command completion, additional instructions may appear below"
-                            echo
-                            echo "File                                  Fileset                Type"
-                            echo "-----------------------------------------------------------------"
-                            echo "/etc/init.d/ssh                       bos.sysmgt.ssh         exec"
-                            echo "Command run: /etc/init.d/ssh restart"
-                            echo
-                            cat /var/log/smx-log/success.log | tail -n 6
-                            echo
-                            read -p "Press [enter] to continue..." ReadDamKey
-                      fi
-                      if [ "$ans" = "suse" ]; then
-                            clear
-                            echo "              COMMAND STATUS               "
-                            echo
-                            echo "$(date)                                     $(whoami)@$(hostname)"
-                            echo
-                            echo "Command: RUNNING    stdout: yes    stderr: no     "
-                            echo
-                            echo "Before command completion, additional instructions may appear below"
-                            echo
-                            echo "File                                  Fileset                Type"
-                            echo "-----------------------------------------------------------------"
-                            echo "/etc/init.d/sshd                      bos.sysmgt.sshd        exec"
-                            echo "Command run: /etc/init.d/sshd restart"
-                            sleep 2
-                            clear
-                            /etc/init.d/sshd restart
-                            echo "#################################################" >> /var/log/smx-log/success.log
-                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            echo "Successfuly restarted sshd on system: $(hostname)" >> /var/log/smx-log/success.log
-                            echo "Command run: /etc/init.d/sshd restart" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                            echo "#################################################" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                            clear
-                            echo "              COMMAND STATUS               "
-                            echo
-                            echo "$(date)                                     $(whoami)@$(hostname)"
-                            echo
-                            echo "Command: OK    stdout: yes    stderr: no          "
-                            echo
-                            echo "Before command completion, additional instructions may appear below"
-                            echo
-                            echo "File                                  Fileset                Type"
-                            echo "-----------------------------------------------------------------"
-                            echo "/etc/init.d/sshd                      bos.sysmgt.sshd        exec"
-                            echo "Command run: /etc/init.d/sshd restart"
-                            echo
-                            cat /var/log/smx-log/success.log | tail -n 6
-                            echo
-                            read -p "Press [enter] to continue..." ReadDamKey
+                      cat /proc/version | grep "Red Hat" > /dev/null
+                      if [ $? -eq 0 ]; then
+                           clear
+                           echo "OS = Red Hat"
+                           echo "              COMMAND STATUS               "
+                           echo
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo
+                           echo "Command: RUNNING    stdout: yes    stderr: no     "
+                           echo
+                           echo "Before command completion, additional instructions may appear below"
+                           echo
+                           echo "File                                  Fileset                Type"
+                           echo "-----------------------------------------------------------------"
+                           echo "$(which service)                      bos.sysmgt.service     exec"
+                           echo "Command run: $(which service) sshd restart"
+                           sleep 2
+                           clear
+                           $(which service) sshd restart
+                           echo "#################################################" >> /var/log/smx-log/success.log
+                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                           echo "Successfuly restarted sshd on system: $(hostname)" >> /var/log/smx-log/success.log
+                           echo "Command run: $(which service) sshd restart" >> /var/log/smx-log/success.log
+                           echo "" >> /var/log/smx-log/success.log
+                           echo "#################################################" >> /var/log/smx-log/success.log
+                           echo "" >> /var/log/smx-log/success.log
+                           clear
+                           echo "              COMMAND STATUS               "
+                           echo
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo
+                           echo "Command: OK    stdout: yes    stderr: no          "
+                           echo
+                           echo "Before command completion, additional instructions may appear below"
+                           echo
+                           echo "File                                  Fileset                Type"
+                           echo "-----------------------------------------------------------------"
+                           echo "$(which service)                      bos.sysmgt.service     exec"
+                           echo "Command run: $(which service) sshd restart"
+                           echo
+                           cat /var/log/smx-log/success.log | tail -n 6
+                           echo
+                           read -p "Press [enter] to continue..." ReadDamKey
+                      else
+                           clear
+                           cat /proc/version | grep "Debian" > /dev/null
+                           if [ $? -eq 0 ]; then
+                                clear
+                                echo "OS = Debian"
+                                echo "              COMMAND STATUS               "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                  Fileset                Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "/etc/init.d/ssh                       bos.sysmgt.ssh         exec"
+                                echo "Command run: /etc/init.d/ssh restart"
+                                sleep 2
+                                clear
+                                /etc/init.d/ssh restart
+                                echo "################################################" >> /var/log/smx-log/success.log
+                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                echo "Successfuly restarted ssh on system: $(hostname)" >> /var/log/smx-log/success.log
+                                echo "Command run: /etc/init.d/ssh restart" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                echo "################################################" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                clear
+                                echo "              COMMAND STATUS               "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: OK    stdout: yes    stderr: no          "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                  Fileset                Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "/etc/init.d/ssh                       bos.sysmgt.ssh         exec"
+                                echo "Command run: /etc/init.d/ssh restart"
+                                echo
+                                cat /var/log/smx-log/success.log | tail -n 6
+                                echo
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else    
+                                clear
+                                cat /proc/version | grep "Ubuntu" > /dev/null
+                                if [ $? -eq 0 ]; then
+                                     clear
+                                     echo "OS = Ubuntu"
+                                     echo "              COMMAND STATUS               "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                  Fileset                Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "/etc/init.d/ssh                       bos.sysmgt.ssh         exec"
+                                     echo "Command run: /etc/init.d/ssh restart"
+                                     sleep 2
+                                     clear
+                                     /etc/init.d/ssh restart
+                                     echo "################################################" >> /var/log/smx-log/success.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Successfuly restarted ssh on system: $(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Command run: /etc/init.d/ssh restart" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     echo "################################################" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     clear
+                                     echo "              COMMAND STATUS               "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: OK    stdout: yes    stderr: no          "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                  Fileset                Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "/etc/init.d/ssh                       bos.sysmgt.ssh         exec"
+                                     echo "Command run: /etc/init.d/ssh restart"
+                                     echo
+                                     cat /var/log/smx-log/success.log | tail -n 6
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                else
+                                     clear
+                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     if [ $? -eq 0 ]; then
+                                          clear
+                                          echo "OS = SuSE"
+                                          echo "              COMMAND STATUS               "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                  Fileset                Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "/etc/init.d/sshd                      bos.sysmgt.sshd        exec"
+                                          echo "Command run: /etc/init.d/sshd restart"
+                                          sleep 2
+                                          clear
+                                          /etc/init.d/sshd restart
+                                          echo "#################################################" >> /var/log/smx-log/success.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Successfuly restarted sshd on system: $(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Command run: /etc/init.d/sshd restart" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          echo "#################################################" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          clear
+                                          echo "              COMMAND STATUS               "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: OK    stdout: yes    stderr: no          "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                  Fileset                Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "/etc/init.d/sshd                      bos.sysmgt.sshd        exec"
+                                          echo "Command run: /etc/init.d/sshd restart"
+                                          echo
+                                          cat /var/log/smx-log/success.log | tail -n 6
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                fi
+                           fi
                       fi
                       ;;
             exit)
@@ -29615,435 +29717,593 @@ function vnc_menu() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-	echo "+-----------------------------------+"
-	echo "|            VNC MANAGEMENT         |"
-	echo "+-----------------------------------+"
-	echo
-	echo "install_rhl > Install VNC on redhat linux"
-	echo
-	echo "install_deb > Install VNC on debian linux"
-	echo
-	echo "install_suse > Install VNC on suse linux"
-	echo
-	echo "start > Start VNC"
-	echo
-	echo "stop > Stop VNC"
-	echo
-	echo "restart > Restart VNC"
-	echo
-	echo "exit > Exit back to srv_menu"
-	echo
-	echo "exit-mas > Exit back to shell"
-	echo
-	read -p "(config-vnc)#" choice_vnc
-	echo
+    	echo "+-----------------------------------+"
+    	echo "|            VNC MANAGEMENT         |"
+    	echo "+-----------------------------------+"
+    	echo
+    	echo "install > Install VNC server on system"
+    	echo
+    	echo "start > Start VNC"
+    	echo
+    	echo "stop > Stop VNC"
+    	echo
+    	echo "restart > Restart VNC"
+    	echo
+    	echo "exit > Exit back to srv_menu"
+    	echo
+    	echo "exit-mas > Exit back to shell"
+    	echo
+    	read -p "(config-vnc)#" choice_vnc
+    	echo
 
-	case "$choice_vnc" in
-	    install_rhl)
-		          clear
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo "[TOP]                                    [Entry Fields]"
-			  read -p " Enter user to configure VNC --------- > " userName
-		          clear
-			  echo "           COMMAND STATUS           "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no     "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "$(which yum)                         bos.pkgmgt.yum          exec"
-			  echo "$(which su)                          bos.sysmgt.su           exec"
-			  echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
-			  echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-			  echo "$(which sed)                         bos.sysmgt.sed          exec"
-			  echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log"
-			  echo "Command run: $(which su) -l $userName"
-			  echo "Command run: $(which vncpasswd)"
-			  echo "Command run: $(which vncserver) :1"
-			  echo "Command run: $(which vncserver) -kill :1"
-			  echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
-			  echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
-			  echo "Command run: $(which vncserver) :1 -geometry 800x600 -depth 24"
-			  sleep 2
-			  clear
-			  $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log
-			  if [ $? -eq 0 ]; then
-			       echo "################################################################################################" >> /var/log/smx-log/success.log
-			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			       echo "Successfuly installed vnc on system: $(hostname)" >> /var/log/smx-log/success.log
-			       echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
-			       echo "" >> /var/log/smx-log/yum.log
-			       echo "################################################################################################" >> /var/log/smx-log/success.log
-			       echo "" >> /var/log/smx-log/yum.log
-			       read -p "Press [enter] to continue..." ReadDamKey
-			       clear
-			       echo "           COMMAND STATUS           "
-			       echo
-			       echo "$(date)                                     $(whoami)@$(hostname)"
-			       echo
-			       echo "Command: OK    stdout: yes    stderr: no          "
-			       echo
-			       echo "Before command completion, additional instructions may appear below"
-			       echo
-			       echo "File                                 Fileset                 Type"
-			       echo "-----------------------------------------------------------------"
-			       echo "$(which yum)                         bos.pkgmgt.yum          exec"
-			       echo "$(which su)                          bos.sysmgt.su           exec"
-			       echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
-			       echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-			       echo "$(which sed)                         bos.sysmgt.sed          exec"
-			       echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log"
-			       echo "Command run: $(which su) -l $userName"
-			       echo "Command run: $(which vncpasswd)"
-			       echo "Command run: $(which vncserver) :1"
-			       echo "Command run: $(which vncserver) -kill :1"
-			       echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
-			       echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
-			       echo "Command run: $(which vncserver) :1 -geometry 800x600 -depth 24"
-			       echo
-			       cat /var/log/smx-log/success.log | tail -n 6
-			       echo
-			       echo "Successfuly installed vnc on system: $(hostname)"
-			       read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			       echo "#################################################################################################" >> /var/log/smx-log/fail.log
-			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-			       echo "Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-			       echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/fail.log" >> /var/log/smx-log/fail.log
-			       echo "" >> /var/log/smx-log/fail.log
-			       echo "#################################################################################################" >> /var/log/smx-log/fail.log
-			       echo "" >> /var/log/smx-log/fail.log
-			       read -p "Press [enter] to continue..." ReadDamKey
-			       clear
-			       echo "           COMMAND STATUS           "
-			       echo
-			       echo "$(date)                                     $(whoami)@$(hostname)"
-			       echo
-			       echo "Command: RUNNING    stdout: yes    stderr: no     "
-			       echo
-			       echo "Before command completion, additional instructions may appear below"
-			       echo
-			       echo "File                                 Fileset                 Type"
-			       echo "-----------------------------------------------------------------"
-			       echo "$(which yum)                         bos.pkgmgt.yum          exec"
-			       echo "$(which su)                          bos.sysmgt.su           exec"
-			       echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
-			       echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-			       echo "$(which sed)                         bos.sysmgt.sed          exec"
-			       echo "Command unsuccessful, check command variables and syntax"
-			       echo
-			       cat /var/log/smx-log/fail.log | tail -n 6
-			       echo
-			       read -p "Press [enter] to continue..." ReadDamKey
-			  fi
-			  $(which su) -l $userName -c "$(which vncpasswd)"
-			  $(which su) -l $userName -c "$(which vncserver) :1"
-			  $(which su) -l $userName -c "$(which vncserver) -kill :1"
-			  $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
-			  echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
-			  $(which su) -l $userName -c "$(which vncserver) :1 -geometry 800x600 -depth 24"
-			  echo
-			  echo "Successfuly configured VNC on system: $(hostname)"
-			  echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to /etc/rc.local or other startup file"
-			  read -p "Press [enter] to continue..." ReadDamKey
-			  ;;
-	    install_deb)
-		          clear
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo "[TOP]                                   [Entry Fields]"
-			  read -p " Enter user to configure VNC -------- > " userName
-			  clear
-			  echo "         COMMAND STATUS        "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stder: no      "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-			  echo "$(which su)                          bos.sysmgt.su           exec"
-			  echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
-			  echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-			  echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
-			  echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
-			  echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
-			  echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
-			  echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
-			  echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1 -geometry 800x600 -depth 24'"
-			  sleep 2
-			  clear
-			  $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log
-			  if [ $PIPESTATUS -eq 0 ]; then
-			       echo "###################################################################################################" >> /var/log/smx-log/success.log
-			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			       echo "Successfuly installed VNC server on system: $(hostname)" >> /var/log/smx-log/success.log
-			       echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-			       echo "" >> /var/log/smx-log/success.log
-			       echo "###################################################################################################" >> /var/log/smx-log/success.log
-			       echo "" >> /var/log/smx-log/success.log
-			       read -p "Press [enter] to continue..." ReadDamKey
-			       clear
-			       echo "        COMMAND STATUS          "
-			       echo
-			       echo "$(date)                                    $(whoami)@$(hostname)"
-			       echo
-			       echo "Command: OK    stdout: yes    stderr: no         "
-			       echo
-			       echo "Before command completion, additional instructions may appear below"
-			       echo
-			       echo "File                                 Fileset                 Type"
-			       echo "-----------------------------------------------------------------"
-			       echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-			       echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
-			       echo
-			       cat /var/log/smx-log/success.log | tail -n 6
-			       echo
-			       read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			       echo "###################################################################################################" >> /var/log/smx-log/exit.log
-			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
-			       echo "Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/exit.log
-			       echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/exit.log
-			       echo "" >> /var/log/smx-log/exit.log
-			       echo "###################################################################################################" >> /var/log/smx-log/exit.log
-			       echo "" >> /var/log/smx-log/exit.log
-			       read -p "Press [enter] to continue..." ReadDamKey
-			       clear
-			       echo "        COMMAND STATUS          "
-			       echo
-			       echo "$(date)                                     $(whoami)@$(hostname)"
-			       echo
-			       echo "Command: FAIL    stdout: yes    stderr: no        "
-			       echo
-			       echo "Before command completion, additional instructions may appear below"
-			       echo
-			       echo "File                                 Fileset                 Type"
-			       echo "-----------------------------------------------------------------"
-			       echo "$(which apt-get)                     bos.sysmgt.apt-get      exec"
-			       echo "Command successful, check command varibles and sytax"
-			       echo
-			       cat /var/log/smx-log/exit.log | tail -n 6
-			       echo
-			       read -p "Press [enter] to continue..." ReadDamKey
-			  fi
-			  $(which su) -l $userName -c "$(which vncpasswd)"
-			  $(which su) -l $userName -c "$(which vncserver) :1"
-			  $(which su) -l $userName -c "$(which vncserver) -kill :1"
-			  echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
-			  $(which su) -l $userName -c "$(which vncserver) :1 -geometry 800x600 -depth 24"
-			  echo
-			  echo "Successfuly configured VNC on system: $(hostname)"
-			  echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to startup file"
-			  read -p "Press [enter] to continue..." ReadDamKey
-			  ;;
-	    install_suse)
-		           clear
-			   echo "$(date)                                     $(whoami)@$(hostname)"
-			   echo "[TOP]                                    [Entry Fields]"
-			   read -p " Enter username to configure VNC ---- > " userName
-			   clear
-			   echo "         COMMAND STATUS            "
-			   echo
-			   echo "$(date)                                     $(whoami)@$(hostname)"
-			   echo
-			   echo "Command: RUNNING    stdout: yes    stderr: no     "
-			   echo
-			   echo "Before command completion, additional instructions may appear below"
-			   echo
-			   echo "File                                 Fileset                 Type"
-			   echo "-----------------------------------------------------------------"
-			   echo "$(which su)                          bos.sysmgt.su           exec"
-			   echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
-			   echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-			   echo "$(which sed)                         bos.sysmgt.sed          exec"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
-			   echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
-			   echo "Command run: echo 'exec gnome-session & >> /home/$userName/.vnc/xstartup"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'"
-			   sleep 2
-			   clear
-			   $(which su) -l $userName -c "$(which vncpasswd)"
-			   $(which su) -l $userName -c "$(which vncserver) :1"
-			   $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
-			   echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
-			   $(which su) -l $userName -c "$(which vncserver) -kill :1"
-			   $(which su) -l $userName -c "$(which vncserver) -geometry 800x600 :1"
-			   echo "##################################################################################" >> /var/log/smx-log/success.log
-			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			   echo "Successfuly installed VNC on system: $(hostname)" >> /var/log/smx-log/success.log
-			   echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'" >> /var/log/smx-log/success.log
-			   echo "" >> /var/log/smx-log/success.log
-			   echo "##################################################################################" >> /var/log/smx-log/success.log
-			   echo "" >> /var/log/smx-log/success.log
-			   clear
-			   echo "         COMMAND STATUS            "
-			   echo
-			   echo "$(date)                                     $(whoami)@$(hostname)"
-			   echo
-			   echo "Command: OK    stdout: yes    stderr: no          "
-			   echo
-			   echo "Before command completion, additional instructions may appear below"
-			   echo
-			   echo "File                                 Fileset                 Type"
-			   echo "-----------------------------------------------------------------"
-			   echo "$(which su)                          bos.sysmgt.su           exec"
-			   echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
-			   echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-			   echo "$(which sed)                         bos.sysmgt.sed          exec"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
-			   echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
-			   echo "Command run: echo 'exec gnome-session & >> /home/$userName/.vnc/xstartup"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
-			   echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'"
-			   echo
-			   cat /var/log/smx-log/success.log | tail -n 6
-			   echo
-			   echo "Successfuly configured VNC on system: $(hostname)"
-			   echo "Add: $(which su) -l $userName -c 'vncserver -geometry 800x600 :1' to startup file"
-			   read -p "Press [enter] to continue..." ReadDamKey
-			   ;;
-	    start)
-		    clear
-		    echo "$(date)                                     $(whoami)@$(hostname)"
-		    echo "[TOP]                                           [Entry Fields]"
-		    read -p " Enter OS type --------------- (rhl/deb/suse) > " osType
-		    if [ "$osType" = "rhl" ]; then
-			  clear
-			  echo "         COMMAND STATUS            "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no     "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "$(which service)                     bos.sysmgt.service      exec"
-			  echo "Command run: $(which service) vncserver start"
-			  sleep 2
-			  clear
-			  $(which service) vncserver start
-			  echo "####################################################" >> /var/log/smx-log/success.log
-			  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			  echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			  echo "Command run: $(which service) vncserver start" >> /var/log/smx-log/success.log
-			  echo "" >> /var/log/smx-log/success.log
-			  echo "####################################################" >> /var/log/smx-log/success.log
-			  echo "" >> /var/log/smx-log/success.log
-			  clear
-			  echo "         COMMAND STATUS            "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: OK    stdout: yes    stderr: no          "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "$(which service)                     bos.sysmgt.service      exec"
-			  echo "Command run: $(which service) vncserver start"
-			  echo
-			  cat /var/log/smx-log/success.log | tail -n 6
-			  echo
-			  read -p "Press [enter] to conitnue..." ReadDamKey
-		    fi
-		    if [ "$osType" = "deb" ]; then
-			  clear
-			  echo "         COMMAND STATUS            "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no     "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			  echo "Command run: /etc/init.d/vncserver start"
-			  sleep 2
-			  clear
-			  $(which service) vncserver start
-			  echo "####################################################" >> /var/log/smx-log/success.log
-			  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			  echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			  echo "Command run: /etc/init.d/vncserver start" >> /var/log/smx-log/success.log
-			  echo "" >> /var/log/smx-log/success.log
-			  echo "####################################################" >> /var/log/smx-log/success.log
-			  echo "" >> /var/log/smx-log/success.log
-			  clear
-			  echo "         COMMAND STATUS            "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: OK    stdout: yes    stderr: no          "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			  echo "Command run: /etc/init.d/vncserver start"
-			  echo
-			  cat /var/log/smx-log/success.log | tail -n 6
-			  echo
-			  read -p "Press [enter] to conitnue..." ReadDamKey
-		    fi
-		    if [ "$osType" = "suse" ]; then
-			  clear
-			  echo "         COMMAND STATUS            "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no     "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			  echo "Command run: /etc/init.d/vncserver start"
-			  sleep 2
-			  clear
-			  $(which service) vncserver start
-			  echo "####################################################" >> /var/log/smx-log/success.log
-			  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			  echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			  echo "Command run: /etc/init.d/vncserver start" >> /var/log/smx-log/success.log
-			  echo "" >> /var/log/smx-log/success.log
-			  echo "####################################################" >> /var/log/smx-log/success.log
-			  echo "" >> /var/log/smx-log/success.log
-			  clear
-			  echo "         COMMAND STATUS            "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: OK    stdout: yes    stderr: no          "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			  echo "Command run: /etc/init.d/vncserver start"
-			  echo
-			  cat /var/log/smx-log/success.log | tail -n 6
-			  echo
-			  read -p "Press [enter] to conitnue..." ReadDamKey
-		    fi
-		    ;;
+    	case "$choice_vnc" in
+    	    install)	    
+                      clear
+                      cat /proc/version | grep "Red Hat" > /dev/null
+                      if [ $? -eq 0 ]; then
+                           clear
+                           echo "OS = Red Hat"
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo "[TOP]                                    [Entry Fields]"
+                           read -p " Enter user to configure VNC --------- > " userName
+                           clear
+                           echo "           COMMAND STATUS           "
+                           echo
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo
+                           echo "Command: RUNNING    stdout: yes    stderr: no     "
+                           echo
+                           echo "Before command completion, additional instructions may appear below"
+                           echo
+                           echo "File                                 Fileset                 Type"
+                           echo "-----------------------------------------------------------------"
+                           echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                           echo "$(which su)                          bos.sysmgt.su           exec"
+                           echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                           echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                           echo "$(which sed)                         bos.sysmgt.sed          exec"
+                           echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log"
+                           echo "Command run: $(which su) -l $userName"
+                           echo "Command run: $(which vncpasswd)"
+                           echo "Command run: $(which vncserver) :1"
+                           echo "Command run: $(which vncserver) -kill :1"
+                           echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
+                           echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
+                           echo "Command run: $(which vncserver) :1 -geometry 800x600 -depth 24"
+                           sleep 2
+                           clear
+                           $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log
+                           if [ $? -eq 0 ]; then
+                                echo "################################################################################################" >> /var/log/smx-log/success.log
+                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                echo "Successfuly installed vnc on system: $(hostname)" >> /var/log/smx-log/success.log
+                                echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/yum.log
+                                echo "################################################################################################" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/yum.log
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                clear
+                                echo "           COMMAND STATUS           "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: OK    stdout: yes    stderr: no          "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                 Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                                echo "$(which su)                          bos.sysmgt.su           exec"
+                                echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                                echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                                echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log"
+                                echo "Command run: $(which su) -l $userName"
+                                echo "Command run: $(which vncpasswd)"
+                                echo "Command run: $(which vncserver) :1"
+                                echo "Command run: $(which vncserver) -kill :1"
+                                echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
+                                echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
+                                echo "Command run: $(which vncserver) :1 -geometry 800x600 -depth 24"
+                                echo
+                                cat /var/log/smx-log/success.log | tail -n 6
+                                echo
+                                echo "Successfuly installed vnc on system: $(hostname)"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else
+                                echo "#################################################################################################" >> /var/log/smx-log/fail.log
+                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                echo "Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                                echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/fail.log" >> /var/log/smx-log/fail.log
+                                echo "" >> /var/log/smx-log/fail.log
+                                echo "#################################################################################################" >> /var/log/smx-log/fail.log
+                                echo "" >> /var/log/smx-log/fail.log
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                clear
+                                echo "           COMMAND STATUS           "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                 Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                                echo "$(which su)                          bos.sysmgt.su           exec"
+                                echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                                echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                                echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                echo "Command unsuccessful, check command variables and syntax"
+                                echo
+                                cat /var/log/smx-log/fail.log | tail -n 6
+                                echo
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                           fi
+                           $(which su) -l $userName -c "$(which vncpasswd)"
+                           $(which su) -l $userName -c "$(which vncserver) :1"
+                           $(which su) -l $userName -c "$(which vncserver) -kill :1"
+                           $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
+                           echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
+                           $(which su) -l $userName -c "$(which vncserver) :1 -geometry 800x600 -depth 24"
+                           echo
+                           echo "Successfuly configured VNC on system: $(hostname)"
+                           echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to /etc/rc.local or other startup file"
+                           read -p "Press [enter] to continue..." ReadDamKey
+                      else
+                           clear
+                           cat /proc/version | grep "Debian" > /dev/null
+                           if [ $? -eq 0 ]; then
+                                clear
+                                echo "OS = Debian"
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo "[TOP]                                   [Entry Fields]"
+                                read -p " Enter user to configure VNC -------- > " userName
+                                clear
+                                echo "         COMMAND STATUS        "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: RUNNING    stdout: yes    stder: no      "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                 Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                                echo "$(which su)                          bos.sysmgt.su           exec"
+                                echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                                echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                                echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
+                                echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
+                                echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
+                                echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
+                                echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
+                                echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1 -geometry 800x600 -depth 24'"
+                                sleep 2
+                                clear
+                                $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log
+                                 if [ $PIPESTATUS -eq 0 ]; then
+                                     echo "###################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Successfuly installed VNC server on system: $(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     echo "###################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     clear
+                                     echo "        COMMAND STATUS          "
+                                     echo
+                                     echo "$(date)                                    $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: OK    stdout: yes    stderr: no         "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                                     echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
+                                     echo
+                                     cat /var/log/smx-log/success.log | tail -n 6
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                 else
+                                     echo "###################################################################################################" >> /var/log/smx-log/exit.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
+                                     echo "Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/exit.log
+                                     echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/exit.log
+                                     echo "" >> /var/log/smx-log/exit.log
+                                     echo "###################################################################################################" >> /var/log/smx-log/exit.log
+                                     echo "" >> /var/log/smx-log/exit.log
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     clear
+                                     echo "        COMMAND STATUS          "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: FAIL    stdout: yes    stderr: no        "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "$(which apt-get)                     bos.sysmgt.apt-get      exec"
+                                     echo "Command successful, check command varibles and sytax"
+                                     echo
+                                     cat /var/log/smx-log/exit.log | tail -n 6
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                fi
+                                $(which su) -l $userName -c "$(which vncpasswd)"
+                                $(which su) -l $userName -c "$(which vncserver) :1"
+                                $(which su) -l $userName -c "$(which vncserver) -kill :1"
+                                echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
+                                $(which su) -l $userName -c "$(which vncserver) :1 -geometry 800x600 -depth 24"
+                                echo
+                                echo "Successfuly configured VNC on system: $(hostname)"
+                                echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to startup file"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else    
+                                clear
+                                cat /proc/version | grep "Ubuntu" > /dev/null
+                                if [ $? -eq 0 ]; then
+                                     clear
+                                     echo "OS = Ubuntu"
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo "[TOP]                                   [Entry Fields]"
+                                     read -p " Enter user to configure VNC -------- > " userName
+                                     clear
+                                     echo "         COMMAND STATUS        "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: RUNNING    stdout: yes    stder: no      "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                                     echo "$(which su)                          bos.sysmgt.su           exec"
+                                     echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                                     echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                                     echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
+                                     echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
+                                     echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
+                                     echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
+                                     echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
+                                     echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1 -geometry 800x600 -depth 24'"
+                                     sleep 2
+                                     clear
+                                     $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log
+                                     if [ $PIPESTATUS -eq 0 ]; then
+                                          echo "###################################################################################################" >> /var/log/smx-log/success.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Successfuly installed VNC server on system: $(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          echo "###################################################################################################" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          clear
+                                          echo "        COMMAND STATUS          "
+                                          echo
+                                          echo "$(date)                                    $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: OK    stdout: yes    stderr: no         "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                                          echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
+                                          echo
+                                          cat /var/log/smx-log/success.log | tail -n 6
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+                                          echo "###################################################################################################" >> /var/log/smx-log/exit.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
+                                          echo "Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/exit.log
+                                          echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/exit.log
+                                          echo "" >> /var/log/smx-log/exit.log
+                                          echo "###################################################################################################" >> /var/log/smx-log/exit.log
+                                          echo "" >> /var/log/smx-log/exit.log
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          clear
+                                          echo "        COMMAND STATUS          "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: FAIL    stdout: yes    stderr: no        "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "$(which apt-get)                     bos.sysmgt.apt-get      exec"
+                                          echo "Command successful, check command varibles and sytax"
+                                          echo
+                                          cat /var/log/smx-log/exit.log | tail -n 6
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                     $(which su) -l $userName -c "$(which vncpasswd)"
+                                     $(which su) -l $userName -c "$(which vncserver) :1"
+                                     $(which su) -l $userName -c "$(which vncserver) -kill :1"
+                                     echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
+                                     $(which su) -l $userName -c "$(which vncserver) :1 -geometry 800x600 -depth 24"
+                                     echo
+                                     echo "Successfuly configured VNC on system: $(hostname)"
+                                     echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to startup file"
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                else
+                                     clear
+                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     if [ $? -eq 0 ]; then
+                                          clear
+                                          echo "OS = SuSE"
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo "[TOP]                                    [Entry Fields]"
+                                          read -p " Enter username to configure VNC ---- > " userName
+                                          clear
+                                          echo "         COMMAND STATUS            "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "$(which su)                          bos.sysmgt.su           exec"
+                                          echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                                          echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                                          echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
+                                          echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
+                                          echo "Command run: echo 'exec gnome-session & >> /home/$userName/.vnc/xstartup"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'"
+                                          sleep 2
+                                          clear
+                                          $(which su) -l $userName -c "$(which vncpasswd)"
+                                          $(which su) -l $userName -c "$(which vncserver) :1"
+                                          $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
+                                          echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
+                                          $(which su) -l $userName -c "$(which vncserver) -kill :1"
+                                          $(which su) -l $userName -c "$(which vncserver) -geometry 800x600 :1"
+                                          echo "##################################################################################" >> /var/log/smx-log/success.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Successfuly installed VNC on system: $(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          echo "##################################################################################" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          clear
+                                          echo "         COMMAND STATUS            "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: OK    stdout: yes    stderr: no          "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "$(which su)                          bos.sysmgt.su           exec"
+                                          echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                                          echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                                          echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
+                                          echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
+                                          echo "Command run: echo 'exec gnome-session & >> /home/$userName/.vnc/xstartup"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'"
+                                          echo
+                                          cat /var/log/smx-log/success.log | tail -n 6
+                                          echo
+                                          echo "Successfuly configured VNC on system: $(hostname)"
+                                          echo "Add: $(which su) -l $userName -c 'vncserver -geometry 800x600 :1' to startup file"
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                fi
+                           fi
+                      fi
+                      ;;
+            start)
+		            clear
+                    cat /proc/version | grep "Red Hat" > /dev/null
+                    if [ $? -eq 0 ]; then
+                         clear
+                         echo "OS = Red Hat"
+                         echo "         COMMAND STATUS            "
+                         echo
+                         echo "$(date)                                     $(whoami)@$(hostname)"
+                         echo
+                         echo "Command: RUNNING    stdout: yes    stderr: no     "
+                         echo
+                         echo "Before command completion, additional instructions may appear below"
+                         echo
+                         echo "File                                 Fileset                 Type"
+                         echo "-----------------------------------------------------------------"
+                         echo "$(which service)                     bos.sysmgt.service      exec"
+                         echo "Command run: $(which service) vncserver start"
+                         sleep 2
+                         clear
+                         $(which service) vncserver start
+                         echo "####################################################" >> /var/log/smx-log/success.log
+                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                         echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                         echo "Command run: $(which service) vncserver start" >> /var/log/smx-log/success.log
+                         echo "" >> /var/log/smx-log/success.log
+                         echo "####################################################" >> /var/log/smx-log/success.log
+                         echo "" >> /var/log/smx-log/success.log
+                         clear
+                         echo "         COMMAND STATUS            "
+                         echo
+                         echo "$(date)                                     $(whoami)@$(hostname)"
+                         echo
+                         echo "Command: OK    stdout: yes    stderr: no          "
+                         echo
+                         echo "Before command completion, additional instructions may appear below"
+                         echo
+                         echo "File                                 Fileset                 Type"
+                         echo "-----------------------------------------------------------------"
+                         echo "$(which service)                     bos.sysmgt.service      exec"
+                         echo "Command run: $(which service) vncserver start"
+                         echo
+                         cat /var/log/smx-log/success.log | tail -n 6
+                         echo
+                         read -p "Press [enter] to conitnue..." ReadDamKey
+                    else
+                         clear
+                         cat /proc/version | grep "Debian" > /dev/null
+                         if [ $? -eq 0 ]; then
+                              clear
+                              echo "OS = Debian"
+                              echo "         COMMAND STATUS            "
+                              echo
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              echo
+                              echo "Command: RUNNING    stdout: yes    stderr: no     "
+                              echo
+                              echo "Before command completion, additional instructions may appear below"
+                              echo
+                              echo "File                                 Fileset                 Type"
+                              echo "-----------------------------------------------------------------"
+                              echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                              echo "Command run: /etc/init.d/vncserver start"
+                              sleep 2
+                              clear
+                              $(which service) vncserver start
+                              echo "####################################################" >> /var/log/smx-log/success.log
+                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                              echo "Command run: /etc/init.d/vncserver start" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              echo "####################################################" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              clear
+                              echo "         COMMAND STATUS            "
+                              echo
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              echo
+                              echo "Command: OK    stdout: yes    stderr: no          "
+                              echo
+                              echo "Before command completion, additional instructions may appear below"
+                              echo
+                              echo "File                                 Fileset                 Type"
+                              echo "-----------------------------------------------------------------"
+                              echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                              echo "Command run: /etc/init.d/vncserver start"
+                              echo
+                              cat /var/log/smx-log/success.log | tail -n 6
+                              echo
+                              read -p "Press [enter] to conitnue..." ReadDamKey
+                         else    
+                              clear
+                              cat /proc/version | grep "Ubuntu" > /dev/null
+                              if [ $? -eq 0 ]; then
+                                   clear
+                                   echo "OS = Ubuntu"
+                                   echo "         COMMAND STATUS            "
+                                   echo
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                 Type"
+                                   echo "-----------------------------------------------------------------"
+                                   echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                   echo "Command run: /etc/init.d/vncserver start"
+                                   sleep 2
+                                   clear
+                                   $(which service) vncserver start
+                                   echo "####################################################" >> /var/log/smx-log/success.log
+                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                   echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                                   echo "Command run: /etc/init.d/vncserver start" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   echo "####################################################" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   clear
+                                   echo "         COMMAND STATUS            "
+                                   echo
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: OK    stdout: yes    stderr: no          "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                 Type"
+                                   echo "-----------------------------------------------------------------"
+                                   echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                   echo "Command run: /etc/init.d/vncserver start"
+                                   echo
+                                   cat /var/log/smx-log/success.log | tail -n 6
+                                   echo
+                                   read -p "Press [enter] to conitnue..." ReadDamKey
+                             else
+                                   clear
+                                   cat /proc/version | grep "SUSE" > /dev/null
+                                   if [ $? -eq 0 ]; then
+                                        clear
+                                        echo "OS = SuSE"
+                                        echo "         COMMAND STATUS            "
+                                        echo
+                                        echo "$(date)                                     $(whoami)@$(hostname)"
+                                        echo
+                                        echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                        echo
+                                        echo "Before command completion, additional instructions may appear below"
+                                        echo
+                                        echo "File                                 Fileset                 Type"
+                                        echo "-----------------------------------------------------------------"
+                                        echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                        echo "Command run: /etc/init.d/vncserver start"
+                                        sleep 2
+                                        clear
+                                        $(which service) vncserver start
+                                        echo "####################################################" >> /var/log/smx-log/success.log
+                                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                        echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                                        echo "Command run: /etc/init.d/vncserver start" >> /var/log/smx-log/success.log
+                                        echo "" >> /var/log/smx-log/success.log
+                                        echo "####################################################" >> /var/log/smx-log/success.log
+                                        echo "" >> /var/log/smx-log/success.log
+                                        clear
+                                        echo "         COMMAND STATUS            "
+                                        echo
+                                        echo "$(date)                                     $(whoami)@$(hostname)"
+                                        echo
+                                        echo "Command: OK    stdout: yes    stderr: no          "
+                                        echo
+                                        echo "Before command completion, additional instructions may appear below"
+                                        echo
+                                        echo "File                                 Fileset                 Type"
+                                        echo "-----------------------------------------------------------------"
+                                        echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                        echo "Command run: /etc/init.d/vncserver start"
+                                        echo
+                                        cat /var/log/smx-log/success.log | tail -n 6
+                                        echo
+                                        read -p "Press [enter] to conitnue..." ReadDamKey
+                                   fi
+                             fi
+                         fi
+                    fi 
+                    ;;
 	    stop)
 		   clear
 		   echo "$(date)                                     $(whoami)@$(hostname)"
