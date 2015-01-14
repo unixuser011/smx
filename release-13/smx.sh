@@ -30304,271 +30304,376 @@ function vnc_menu() {
                          fi
                     fi 
                     ;;
-	    stop)
-		   clear
-		   echo "$(date)                                     $(whoami)@$(hostname)"
-		   echo "[TOP]                                           [Entry Fields]"
-		   read -p " Enter OS type --------------- (rhl/deb/suse) > " osType
-		   if [ "$osType" = "rhl" ]; then
-		         clear
-			 echo "         COMMAND STATUS            "
-			 echo
-			 echo "$(date)                                     $(whoami)@$(hostname)"
-			 echo
-			 echo "Command: RUNNING    stdout: yes    stderr: no     "
-			 echo
-			 echo "Before command completion, additional instructions may appear below"
-			 echo
-			 echo "File                                 Fileset                 Type"
-			 echo "-----------------------------------------------------------------"
-			 echo "$(which service)                     bos.sysmgt.service      exec"
-			 echo "Command run: $(which service) vncserver stop"
-			 sleep 2
-			 clear
-			 $(which service) vncserver stop
-			 echo "####################################################" >> /var/log/smx-log/success.log
-			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			 echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			 echo "Command run: $(which service) vncserver stop" >> /var/log/smx-log/success.log
-			 echo "" >> /var/log/smx-log/success.log
-			 echo "####################################################" >> /var/log/smx-log/success.log
-			 echo "" >> /var/log/smx-log/success.log
-			 clear
-			 echo "         COMMAND STATUS            "
-			 echo
-			 echo "$(date)                                     $(whoami)@$(hostname)"
-			 echo
-			 echo "Command: OK    stdout: yes    stderr: no          "
-			 echo
-			 echo "Before command completion, additional instructions may appear below"
-			 echo
-			 echo "File                                 Fileset                 Type"
-			 echo "-----------------------------------------------------------------"
-			 echo "$(which service)                     bos.sysmgt.service      exec"
-			 echo "Command run: $(which service) vncserver stop"
-			 echo
-			 cat /var/log/smx-log/success.log | tail -n 6
-			 echo
-			 read -p "Press [enter] to conitnue..." ReadDamKey
-		   fi
-		   if [ "$osType" = "deb" ]; then
-		         clear
-			 echo "         COMMAND STATUS            "
-			 echo
-			 echo "$(date)                                     $(whoami)@$(hostname)"
-			 echo
-			 echo "Command: RUNNING    stdout: yes    stderr: no     "
-			 echo
-			 echo "Before command completion, additional instructions may appear below"
-			 echo
-			 echo "File                                 Fileset                 Type"
-			 echo "-----------------------------------------------------------------"
-			 echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			 echo "Command run: /etc/init.d/vncserver stop"
-			 sleep 2
-			 clear
-			 $(which service) vncserver stop
-			 echo "####################################################" >> /var/log/smx-log/success.log
-			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			 echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			 echo "Command run: /etc/init.d/vncserver stop" >> /var/log/smx-log/success.log
-			 echo "" >> /var/log/smx-log/success.log
-			 echo "####################################################" >> /var/log/smx-log/success.log
-			 echo "" >> /var/log/smx-log/success.log
-			 clear
-			 echo "         COMMAND STATUS            "
-			 echo
-			 echo "$(date)                                     $(whoami)@$(hostname)"
-			 echo
-			 echo "Command: OK    stdout: yes    stderr: no          "
-			 echo
-			 echo "Before command completion, additional instructions may appear below"
-			 echo
-			 echo "File                                 Fileset                 Type"
-			 echo "-----------------------------------------------------------------"
-			 echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			 echo "Command run: /etc/init.d/vncserver stop"
-			 echo
-			 cat /var/log/smx-log/success.log | tail -n 6
-			 echo
-			 read -p "Press [enter] to conitnue..." ReadDamKey
-		   fi
-		   if [ "$osType" = "suse" ]; then
-		         clear
-			 echo "         COMMAND STATUS            "
-			 echo
-			 echo "$(date)                                     $(whoami)@$(hostname)"
-			 echo
-			 echo "Command: RUNNING    stdout: yes    stderr: no     "
-			 echo
-			 echo "Before command completion, additional instructions may appear below"
-			 echo
-			 echo "File                                 Fileset                 Type"
-			 echo "-----------------------------------------------------------------"
-			 echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			 echo "Command run: /etc/init.d/vncserver stop"
-			 sleep 2
-			 clear
-			 $(which service) vncserver stop
-			 echo "####################################################" >> /var/log/smx-log/success.log
-			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			 echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			 echo "Command run: /etc/init.d/vncserver stop" >> /var/log/smx-log/success.log
-			 echo "" >> /var/log/smx-log/success.log
-			 echo "####################################################" >> /var/log/smx-log/success.log
-			 echo "" >> /var/log/smx-log/success.log
-			 clear
-			 echo "         COMMAND STATUS            "
-			 echo
-			 echo "$(date)                                     $(whoami)@$(hostname)"
-			 echo
-			 echo "Command: OK    stdout: yes    stderr: no          "
-			 echo
-			 echo "Before command completion, additional instructions may appear below"
-			 echo
-			 echo "File                                 Fileset                 Type"
-			 echo "-----------------------------------------------------------------"
-			 echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			 echo "Command run: /etc/init.d/vncserver stop"
-			 echo
-			 cat /var/log/smx-log/success.log | tail -n 6
-			 echo
-			 read -p "Press [enter] to conitnue..." ReadDamKey
-		   fi
-		   ;;
-	    restart)
-		      clear
-		      echo "$(date)                                     $(whoami)@$(hostname)"
-		      echo "[TOP]                                           [Entry Fields]"
-		      read -p " Enter OS type --------------- (rhl/deb/suse) > " osType
-		      if [ "$osType" = "rhl" ]; then
-			    clear
-			    echo "         COMMAND STATUS            "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: RUNNING    stdout: yes    stderr: no     "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "$(which service)                     bos.sysmgt.service      exec"
-			    echo "Command run: $(which service) vncserver restart"
-			    sleep 2
-			    clear
-			    $(which service) vncserver restart
-			    echo "####################################################" >> /var/log/smx-log/success.log
-			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			    echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			    echo "Command run: $(which service) vncserver restart" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    echo "####################################################" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    clear
-			    echo "         COMMAND STATUS            "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: OK    stdout: yes    stderr: no          "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "$(which service)                     bos.sysmgt.service      exec"
-			    echo "Command run: $(which service) vncserver restart"
-			    echo
-			    cat /var/log/smx-log/success.log | tail -n 6
-			    echo
-			    read -p "Press [enter] to conitnue..." ReadDamKey
-		      fi
-		      if [ "$osType" = "deb" ]; then
-			    clear
-			    echo "         COMMAND STATUS            "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: RUNNING    stdout: yes    stderr: no     "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			    echo "Command run: /etc/init.d/vncserver restart"
-			    sleep 2
-			    clear
-			    $(which service) vncserver restart
-			    echo "####################################################" >> /var/log/smx-log/success.log
-			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			    echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			    echo "Command run: /etc/init.d/vncserver restart" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    echo "####################################################" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    clear
-			    echo "         COMMAND STATUS            "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: OK    stdout: yes    stderr: no          "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			    echo "Command run: /etc/init.d/vncserver restart"
-			    echo
-			    cat /var/log/smx-log/success.log | tail -n 6
-			    echo
-			    read -p "Press [enter] to conitnue..." ReadDamKey
-		      fi
-		      if [ "$osType" = "suse" ]; then
-			    clear
-			    echo "         COMMAND STATUS            "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: RUNNING    stdout: yes    stderr: no     "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			    echo "Command run: /etc/init.d/vncserver restart"
-			    sleep 2
-			    clear
-			    $(which service) vncserver restart
-			    echo "####################################################" >> /var/log/smx-log/success.log
-			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			    echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
-			    echo "Command run: /etc/init.d/vncserver restart" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    echo "####################################################" >> /var/log/smx-log/success.log
-			    echo "" >> /var/log/smx-log/success.log
-			    clear
-			    echo "         COMMAND STATUS            "
-			    echo
-			    echo "$(date)                                     $(whoami)@$(hostname)"
-			    echo
-			    echo "Command: OK    stdout: yes    stderr: no          "
-			    echo
-			    echo "Before command completion, additional instructions may appear below"
-			    echo
-			    echo "File                                 Fileset                 Type"
-			    echo "-----------------------------------------------------------------"
-			    echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
-			    echo "Command run: /etc/init.d/vncserver restart"
-			    echo
-			    cat /var/log/smx-log/success.log | tail -n 6
-			    echo
-			    read -p "Press [enter] to conitnue..." ReadDamKey
-		      fi
-		      ;;
-	    exit)
+	        stop)
+                   clear
+                   cat /proc/version | grep "Red Hat" > /dev/null
+                   if [ $? -eq 0 ]; then
+                        clear
+                        echo "OS = Red Hat"
+                        echo "         COMMAND STATUS            "
+                        echo
+                        echo "$(date)                                     $(whoami)@$(hostname)"
+                        echo
+                        echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        echo
+                        echo "Before command completion, additional instructions may appear below"
+                        echo
+                        echo "File                                 Fileset                 Type"
+                        echo "-----------------------------------------------------------------"
+                        echo "$(which service)                     bos.sysmgt.service      exec"
+                        echo "Command run: $(which service) vncserver stop"
+                        sleep 2
+                        clear
+                        $(which service) vncserver stop
+                        echo "####################################################" >> /var/log/smx-log/success.log
+                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                        echo "Command run: $(which service) vncserver stop" >> /var/log/smx-log/success.log
+                        echo "" >> /var/log/smx-log/success.log
+                        echo "####################################################" >> /var/log/smx-log/success.log
+                        echo "" >> /var/log/smx-log/success.log
+                        clear
+                        echo "         COMMAND STATUS            "
+                        echo
+                        echo "$(date)                                     $(whoami)@$(hostname)"
+                        echo
+                        echo "Command: OK    stdout: yes    stderr: no          "
+                        echo
+                        echo "Before command completion, additional instructions may appear below"
+                        echo
+                        echo "File                                 Fileset                 Type"
+                        echo "-----------------------------------------------------------------"
+                        echo "$(which service)                     bos.sysmgt.service      exec"
+                        echo "Command run: $(which service) vncserver stop"
+                        echo
+                        cat /var/log/smx-log/success.log | tail -n 6
+                        echo
+                        read -p "Press [enter] to conitnue..." ReadDamKey
+                   else
+                        clear
+                        cat /proc/version | grep "Debian" > /dev/null
+                        if [ $? -eq 0 ]; then
+                             clear
+                             echo "OS = Debian"
+                             echo "         COMMAND STATUS            "
+                             echo
+                             echo "$(date)                                     $(whoami)@$(hostname)"
+                             echo
+                             echo "Command: RUNNING    stdout: yes    stderr: no     "
+                             echo
+                             echo "Before command completion, additional instructions may appear below"
+                             echo
+                             echo "File                                 Fileset                 Type"
+                             echo "-----------------------------------------------------------------"
+                             echo "$(which service)                     bos.sysmgt.service      exec"
+                             echo "Command run: $(which service) vncserver stop"
+                             sleep 2
+                             clear
+                             $(which service) vncserver stop
+                             echo "####################################################" >> /var/log/smx-log/success.log
+                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                             echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                             echo "Command run: $(which service) vncserver stop" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/success.log
+                             echo "####################################################" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/success.log
+                             clear
+                             echo "         COMMAND STATUS            "
+                             echo
+                             echo "$(date)                                     $(whoami)@$(hostname)"
+                             echo
+                             echo "Command: OK    stdout: yes    stderr: no          "
+                             echo
+                             echo "Before command completion, additional instructions may appear below"
+                             echo
+                             echo "File                                 Fileset                 Type"
+                             echo "-----------------------------------------------------------------"
+                             echo "$(which service)                     bos.sysmgt.service      exec"
+                             echo "Command run: $(which service) vncserver stop"
+                             echo
+                             cat /var/log/smx-log/success.log | tail -n 6
+                             echo
+                             read -p "Press [enter] to conitnue..." ReadDamKey
+                        else    
+                             clear
+                             cat /proc/version | grep "Ubuntu" > /dev/null
+                             if [ $? -eq 0 ]; then
+                                  clear
+                                  echo "OS = Ubuntu"
+                                  echo "         COMMAND STATUS            "
+                                  echo
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                 Type"
+                                  echo "-----------------------------------------------------------------"
+                                  echo "$(which service)                     bos.sysmgt.service      exec"
+                                  echo "Command run: $(which service) vncserver stop"
+                                  sleep 2
+                                  clear
+                                  $(which service) vncserver stop
+                                  echo "####################################################" >> /var/log/smx-log/success.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                                  echo "Command run: $(which service) vncserver stop" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  echo "####################################################" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  clear
+                                  echo "         COMMAND STATUS            "
+                                  echo
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: OK    stdout: yes    stderr: no          "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                 Type"
+                                  echo "-----------------------------------------------------------------"
+                                  echo "$(which service)                     bos.sysmgt.service      exec"
+                                  echo "Command run: $(which service) vncserver stop"
+                                  echo
+                                  cat /var/log/smx-log/success.log | tail -n 6
+                                  echo
+                                  read -p "Press [enter] to conitnue..." ReadDamKey
+                             else
+                                  clear
+                                  cat /proc/version | grep "SUSE" > /dev/null
+                                  if [ $? -eq 0 ]; then
+                                       clear
+                                       echo "         COMMAND STATUS            "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                       echo "Command run: /etc/init.d/vncserver stop"
+                                       sleep 2
+                                       clear
+                                       $(which service) vncserver stop
+                                       echo "####################################################" >> /var/log/smx-log/success.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                       echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                                       echo "Command run: /etc/init.d/vncserver stop" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       echo "####################################################" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       clear
+                                       echo "         COMMAND STATUS            "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: OK    stdout: yes    stderr: no          "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                       echo "Command run: /etc/init.d/vncserver stop"
+                                       echo
+                                       cat /var/log/smx-log/success.log | tail -n 6
+                                       echo
+                                       read -p "Press [enter] to conitnue..." ReadDamKey
+                                  fi
+                             fi
+                        fi
+                   fi
+                   ;;
+	        restart)
+		              clear
+                      cat /proc/version | grep "Red Hat" > /dev/null
+                      if [ $? -eq 0 ]; then
+                           clear
+                           echo "OS = Red Hat"
+                           echo "         COMMAND STATUS            "
+                           echo
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo
+                           echo "Command: RUNNING    stdout: yes    stderr: no     "
+                           echo
+                           echo "Before command completion, additional instructions may appear below"
+                           echo
+                           echo "File                                 Fileset                 Type"
+                           echo "-----------------------------------------------------------------"
+                           echo "$(which service)                     bos.sysmgt.service      exec"
+                           echo "Command run: $(which service) vncserver restart"
+                           sleep 2
+                           clear
+                           $(which service) vncserver restart
+                           echo "####################################################" >> /var/log/smx-log/success.log
+                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                           echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                           echo "Command run: $(which service) vncserver restart" >> /var/log/smx-log/success.log
+                           echo "" >> /var/log/smx-log/success.log
+                           echo "####################################################" >> /var/log/smx-log/success.log
+                           echo "" >> /var/log/smx-log/success.log
+                           clear
+                           echo "         COMMAND STATUS            "
+                           echo
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo
+                           echo "Command: OK    stdout: yes    stderr: no          "
+                           echo
+                           echo "Before command completion, additional instructions may appear below"
+                           echo
+                           echo "File                                 Fileset                 Type"
+                           echo "-----------------------------------------------------------------"
+                           echo "$(which service)                     bos.sysmgt.service      exec"
+                           echo "Command run: $(which service) vncserver restart"
+                           echo
+                           cat /var/log/smx-log/success.log | tail -n 6
+                           echo
+                           read -p "Press [enter] to conitnue..." ReadDamKey
+                      else
+                           clear
+                           cat /proc/version | grep "Debian" > /dev/null
+                           if [ $? -eq 0 ]; then
+                                clear
+                                echo "OS = Debian"
+                                echo "         COMMAND STATUS            "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                 Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                echo "Command run: /etc/init.d/vncserver restart"
+                                sleep 2
+                                clear
+                                $(which service) vncserver restart
+                                echo "####################################################" >> /var/log/smx-log/success.log
+                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                                echo "Command run: /etc/init.d/vncserver restart" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                echo "####################################################" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                clear
+                                echo "         COMMAND STATUS            "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: OK    stdout: yes    stderr: no          "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                 Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                echo "Command run: /etc/init.d/vncserver restart"
+                                echo
+                                cat /var/log/smx-log/success.log | tail -n 6
+                                echo
+                                read -p "Press [enter] to conitnue..." ReadDamKey
+                           else    
+                                clear
+                                cat /proc/version | grep "Ubuntu" > /dev/null
+                                if [ $? -eq 0 ]; then
+                                     clear
+                                     echo "OS = Ubuntu"
+                                     echo "         COMMAND STATUS            "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                     echo "Command run: /etc/init.d/vncserver restart"
+                                     sleep 2
+                                     clear
+                                     $(which service) vncserver restart
+                                     echo "####################################################" >> /var/log/smx-log/success.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Command run: /etc/init.d/vncserver restart" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     echo "####################################################" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     clear
+                                     echo "         COMMAND STATUS            "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: OK    stdout: yes    stderr: no          "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                     echo "Command run: /etc/init.d/vncserver restart"
+                                     echo
+                                     cat /var/log/smx-log/success.log | tail -n 6
+                                     echo
+                                     read -p "Press [enter] to conitnue..." ReadDamKey
+                                else
+                                     clear
+                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     if [ $? -eq 0 ]; then
+                                          clear
+                                          echo "OS = SuSE"
+                                          echo "         COMMAND STATUS            "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                          echo "Command run: /etc/init.d/vncserver restart"
+                                          sleep 2
+                                          clear
+                                          $(which service) vncserver restart
+                                          echo "####################################################" >> /var/log/smx-log/success.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Successfuly started vncserver on system: $(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Command run: /etc/init.d/vncserver restart" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          echo "####################################################" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          clear
+                                          echo "         COMMAND STATUS            "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: OK    stdout: yes    stderr: no          "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "/etc/init.d/vncserver                bos.sysmgt.vncserver    exec"
+                                          echo "Command run: /etc/init.d/vncserver restart"
+                                          echo
+                                          cat /var/log/smx-log/success.log | tail -n 6
+                                          echo
+                                          read -p "Press [enter] to conitnue..." ReadDamKey
+                                     fi
+                                fi
+                           fi
+                      fi
+                      ;;
+	        exit)
                    clear
                    echo "#######################################################" >> /var/log/smx-log/exit.log
                    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
@@ -30599,7 +30704,7 @@ function vnc_menu() {
                        echo
                        echo "Unkonwn command, please consult the command list, executed with pid - 3525 (0x1)"
                        read -p "Press [enter] to continue..." ReadDamKey;;
-	esac
+	    esac
     done
 }
 
@@ -30630,7 +30735,7 @@ case "$1" in
     --softmgt-osx) pkg_menuosx;;
     --ipmgt-osx) ip_menuosx;;
     --feedback)
-	         clear
+	             clear
               	 read -p "Enter subject: " mail_sub
               	 read -p "Enter main text: " mail_text
               	 echo "$mail_text" | mail -s $mail_sub d.anderson1147@gmail.com
