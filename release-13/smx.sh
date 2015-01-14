@@ -199,7 +199,7 @@ function main_menu() {
                      echo "" >> /var/log/smx-log/success.log
                      sys_menu
                      ;;
-	    srvmgt)
+	        srvmgt)
                      clear
                      echo "####################################" >> /var/log/smx-log/success.log
                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -540,6 +540,7 @@ function usr_menu() {
                     	 cat /var/log/smx-log/fail.log | tail -n 6
                     	 echo
                     	 read -p "Press [enter] to continue..." ReadDamKey
+                         exit 1
                     fi
                     $(which gpasswd) -a $USER_NAME $USER_NAME
                     if [ $? -eq 0 ]; then
@@ -591,6 +592,7 @@ function usr_menu() {
                     	 cat /var/log/smx-log/fail.log | tail -n 6
                     	 echo
                          read -p "Press [enter] to continue..." ReadDamKey
+                         exit 1
                     fi
                     if [ "$ans2" = "True" ]; then
                           clear
@@ -637,7 +639,6 @@ function usr_menu() {
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
                           else
-                               clear
                                echo "#############################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "User: $USER_NAME expire date not set, check syntax of command" >> /var/log/smx-log/fail.log
@@ -646,6 +647,7 @@ function usr_menu() {
                                echo "#############################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                read -p "Press [enter] to continue..." ReadDamKey
+                               clear   
                                echo "             COMMAND STATUS          "
                                echo "$(date)                                      $(whoami)@$(hostname)"
                                echo
@@ -660,6 +662,7 @@ function usr_menu() {
                                cat /var/log/smx-log/fail.log | tail -n 6
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
                           fi
                     else
                          echo "User will not have expire date"
