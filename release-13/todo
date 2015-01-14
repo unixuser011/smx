@@ -9,16 +9,16 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 
 7 - May change log system to create seperate folder for programs as /var/log/unixadmin/program/ []
 
-8 - May change code layout so that if a command is unsuccessful, it won't run the next command [*]*
+8 - May change code layout so that if a command is unsuccessful, it won't run the next command (Give exit 0, and reason) [*]*
 
-11 - For unmount, add eject using udisks (udisks --eject <diskName>) [*]*
+11 - For unmount, add eject using udisks (udisks --eject <diskName>) []
 
 14 - May add kill sequence after package management, to make sure the system kills package program, and not slowing down
      system operations []
 
 15 - Add support for systemd using systemctl to start, stop and restart services [X]
 
-16 - May combine OS X disk mount and unmount [*]
+16 - May combine OS X disk mount and unmount []
 
 17 - May rename linux unmount option from umount to unmount [*]
 
@@ -28,7 +28,7 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 
 21 - For bos.sysmgt.<deamon>, replace with bos.deamon.<deamon_name> []
 
-22 - May use trap to usr CTRL-C to exit back to menu [*]*
+22 - May use trap to usr CTRL-C to exit back to menu []
 
 23 - May include support for systemd by using /sbin/service [X]
 
@@ -52,4 +52,4 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 
 36 - Remove centos and fedora from os detection script [X]
 
-37 - Extend os detection script for server management and service management (start, stop, restart) [*]*
+37 - Extend os detection script for server management and service management (start, stop, restart) [X]
