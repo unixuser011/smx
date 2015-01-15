@@ -53,3 +53,5 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 36 - Remove centos and fedora from os detection script [X]
 
 37 - Extend os detection script for server management and service management (start, stop, restart) [X]
+
+38 - Add snmp server support to server management []
