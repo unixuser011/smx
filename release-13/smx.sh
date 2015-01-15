@@ -800,6 +800,7 @@ function usr_menu() {
                          cat /var/log/smx-log/fail.log | tail -n 6
 						 echo
                          read -p "Press [enter] to continue..." ReadDamKey
+                         exit 1
                     fi
                     $(which gpasswd) -a $sysUser $sysGroup
                     if [ $? -eq 0 ]; then
@@ -1087,17 +1088,25 @@ function usr_menu() {
            grpmgt)
                     clear
                     sleep 2
+                    echo "" >> /var/log/smx-log/success.log
+                    echo "#####################################################" >> /var/log/smx-log/success.log
                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    echo "Successfuly executed $(basename $0)/usr_menu#grp_menu" >> /var/log/smx-log/success.log
+                    echo "Successfuly executed $(basename $0)/usr_menu/grp_menu" >> /var/log/smx-log/success.log
+                    echo "" >> /var/log/smx-log/success.log
+                    echo "#####################################################" >> /var/log/smx-log/success.log
                     echo "" >> /var/log/smx-log/success.log
                     grp_menu
                     ;;
            passmgt)
                      clear
                      sleep 2
+                     echo "" >> /var/log/smx-log/success.log
+                     echo "########################################################" >> /var/log/smx-log/success.log
                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                     echo "Successfuly executed $(basename $0)/usr_menu#passwd_menu" >> /var/log/smx-log/success.log
-                     echo "" >> /var/log/smx-log/success
+                     echo "Successfuly executed $(basename $0)/usr_menu/passwd_menu" >> /var/log/smx-log/success.log
+                     echo "" >> /var/log/smx-log/success.log
+                     echo "########################################################" >> /var/log/smx-log/success.log
+                     echo "" >> /var/log/smx-log/success.log
                      passwd_menu
                      ;;
            delusr)
@@ -1966,6 +1975,7 @@ function dsk_menu() {
                         cat /var/log/smx-log/fail.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
                    fi
                    $(which mkfs) -t $FSYS_NAME $DISK_NAME
                    if [ $? -eq 0 ]; then
@@ -2020,6 +2030,7 @@ function dsk_menu() {
                         cat /var/log/smx-log/fail.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
                    fi
                    $(which mkdir) -p $mntPoint
                    $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint
@@ -2075,6 +2086,7 @@ function dsk_menu() {
                         cat /var/log/smx-log/fail.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
                    fi
                    echo '$DISK_NAME $mntPoint $FSYS_NAME defaults 1 2' >> /etc/fstab
                    $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
@@ -2511,6 +2523,7 @@ function dsk_menu() {
                                cat /var/log/smx-log/fail.log | tail -n 6
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
                           fi
                           clear
                           $(which df) -a -H $DISK_NAME
@@ -2646,6 +2659,7 @@ function dsk_menu() {
                                cat /var/log/smx-log/fail.log | tail -n 6
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
 			              fi
 			              $(which rm) -rf $MNT_POINT
         		    fi
@@ -2766,6 +2780,7 @@ function dsk_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
+                          exit 1
 		             fi  
             	     clear
             	     $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
@@ -2915,6 +2930,7 @@ function dsk_menu() {
                         cat /var/log/smx-log/fail.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
 		           fi
                    clear
                    $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
@@ -3137,6 +3153,7 @@ function dsk_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
+                          exit 1
 		             fi 
                      clear
                      $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
@@ -3309,6 +3326,7 @@ function dsk_menu() {
                             cat /var/log/smx-log/fail.log | tail -n 6
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
+                            exit 1
           	           fi
               	       clear
               	       $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
@@ -3529,6 +3547,7 @@ function sys_menu() {
                            cat /var/log/smx-log/fail.log | tail -n 6
                            echo
                            read -p "Press [enter] to continue..." ReadDamKey
+                           exit 1
 		              fi
                       read -p "Kill Process ... Y / N > " ans
                       if [ "$ans" == "Y" ]; then
@@ -4233,9 +4252,12 @@ function sys_menu() {
                      ;;
 	        software)
                        clear
+                       echo "#############################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "Successfuly entered pkg_menu" >> /var/log/smx-log/success.log
-                       echo "Command run: $(basename $0)/sys_menu#pkg_menu" >> /var/log/smx-log/success.log
+                       echo "Command run: $(basename $0)/sys_menu/pkg_menu" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       echo "#############################################" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
                        sleep 2
                        pkg_menu
@@ -4352,6 +4374,7 @@ function sys_menu() {
                                 cat /var/log/smx-log/fail.log | tail -n 6
                                 echo
                                 read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
             		       fi
             		       $(which rm) $bakName
 		             else
@@ -4670,26 +4693,35 @@ function sys_menu() {
                         ;;
  	        systemupd)
                         clear
+                        echo "#######################################################" >> /var/log/smx-log/success.log
                     	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    	echo "Successfuly executed $(basename $0)/sys_menu#system_upd" >> /var/log/smx-log/success.log
+                    	echo "Successfuly executed $(basename $0)/sys_menu/system_upd" >> /var/log/smx-log/success.log
                     	echo "" >> /var/log/smx-log/success.log
+                        echo "#######################################################" >> /var/log/smx-log/success.log
+                        echo "" >> /var/log/smx-log/success.log
                     	sleep 2
                     	system_upd
                     	;;
 	        ifconfig)
 		               clear
+                       echo "####################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                       echo "Successfuly executed $(basename $0)/sys_menu#ip_menu" >> /var/log/smx-log/success.log
+                       echo "Successfuly executed $(basename $0)/sys_menu/ip_menu" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       echo "####################################################" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
                        sleep 2
                        ip_menu
                        ;;
 	        firewall)
 		               clear
-                       sleep 2
+                       echo "######################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                       echo "Successfuly executed $(basename $0)/sys_menu#fire_menu" >> /var/log/smx-log/success.log
+                       echo "Successfuly executed $(basename $0)/sys_menu/fire_menu" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
+                       echo "######################################################" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       sleep 2
                        fire_menu
                        ;;
 	        nmap)
@@ -4732,10 +4764,10 @@ function sys_menu() {
                    printf " Enter IP address [Default: 127.0.0.1] > "
                    if [ "$ipAddr" = "" ]; then
                          read ipAddr
-                         IPADDR=$ipAddr
+                         IP_ADDR=$ipAddr
                    fi
                    if [ "$ipAddr" = "" ]; then
-                         IPADDR=127.0.0.1
+                         IP_ADDR=127.0.0.1
                    fi          
                    clear
                    echo "        COMMAND STATUS                 "
@@ -4750,18 +4782,18 @@ function sys_menu() {
                    echo "-----------------------------------------------------------------"
                    echo "$(which ping)                         bos.sysmgt.ping        exec"
                    echo "$(which nmap)                         bos.sysmgt.nmap        exec"
-                   echo "Command run: $(which ping) -c 5 $IPADDR"
-                   echo "Command run: $(which nmap) -sV -T4 -O -A -v $IPADDR | $(which tee) /var/log/smx-log/nmap.log"
+                   echo "Command run: $(which ping) -c 5 $IP_ADDR"
+                   echo "Command run: $(which nmap) -sV -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log"
                    sleep 2
-                   $(which ping) -c 5 $IPADDR > /dev/null
+                   $(which ping) -c 5 $IP_ADDR > /dev/null
                    if [ $? -eq 0 ]; then
                         clear
-                        $(which nmap) -A -T4 -O -A -v $IPADDR | $(which tee) /var/log/smx-log/nmap.log
+                        $(which nmap) -A -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log
           		        if [ $PIPESTATUS -eq 0 ]; then
                              echo "################################################################################################" >> /var/log/smx-log/success.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                             echo "Successfuly scanned ip address: $IPADDR" >> /var/log/smx-log/success.log
-                             echo "Command run: $(which nmap) -sV -T4 -O -A -v $IPADDR | $(which tee) /var/log/smx-log/nmap.log" >> /var/log/smx-log/success.log
+                             echo "Successfuly scanned ip address: $IP_ADDR" >> /var/log/smx-log/success.log
+                             echo "Command run: $(which nmap) -sV -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log" >> /var/log/smx-log/success.log
                              echo "" >> /var/log/smx-log/success.log
                              echo "################################################################################################" >> /var/log/smx-log/success.log
                              echo "" >> /var/log/smx-log/success.log
@@ -4776,7 +4808,7 @@ function sys_menu() {
                              echo "File                                 Fileset                 Type"
                              echo "-----------------------------------------------------------------"
                              echo "$(which nmap)                        bos.sysmgt.nmap         exec"
-                             echo "Command run: $(which nmap) -sV -T4 -O -A -v $IPADDR | $(which tee) /var/log/smx-log/nmap.log"
+                             echo "Command run: $(which nmap) -sV -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log"
                              echo
                              cat /var/log/smx-log/success.log | tail -n 6
                              echo
@@ -4784,8 +4816,8 @@ function sys_menu() {
 			            else
                              echo "#################################################################################################" >> /var/log/smx-log/fail.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                             echo "Not scanned ip address: $IPADDR, check command syntax" >> /var/log/smx-log/fail.log
-                             echo "Command run: $(which nmap) -sV -T4 -O -A -v $IPADDR | $(which tee) /var/log/smx-log/nmap.log" >> /var/log/smx-log/fail.log
+                             echo "Not scanned ip address: $IP_ADDR, check command syntax" >> /var/log/smx-log/fail.log
+                             echo "Command run: $(which nmap) -sV -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log" >> /var/log/smx-log/fail.log
                              echo "" >> /var/log/smx-log/fail.log
                              echo "################################################################################################" >> /var/log/smx-log/fail.log
                              echo "" >> /var/log/smx-log/fail.log
@@ -4806,6 +4838,9 @@ function sys_menu() {
                              echo
                              read -p "Press [enter] to continue..." ReadDamKey
 			            fi
+                   else
+                        echo "Ping to host: $IP_ADDR fail %100"
+                        read -p "Press [enter] to continue..." ReadDamKey     
                    fi
                    ;;
 	        netmap)
@@ -4960,7 +4995,7 @@ function ip_menu() {
        clear
        echo "$(date)                                     $(whoami)@$(hostname)"
        echo "+----------------------------------+"
-       echo "|            IP MANAGEMENT          |"
+       echo "|            IP MANAGEMENT         |"
        echo "+----------------------------------+"
        echo
        echo "list > List network adaptor"
@@ -5224,6 +5259,7 @@ function ip_menu() {
                     	     cat /var/log/smx-log/fail.log | tail -n 6
                     	     echo
                     	     read -p "Press [enter] to continue..." ReadDamKey
+                             exit 1
             		    fi
                     	$(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
                     	if [ $? -eq 0 ]; then
@@ -5365,6 +5401,7 @@ function ip_menu() {
                     	     cat /var/log/smx-log/fail.log | tail -n 6
                     	     echo
                     	     read -p "Press [enter] to continue..." ReadDamKey
+                             exit 1
 			            fi
                        $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
             	       if [ $? -eq 0 ]; then
@@ -5419,6 +5456,7 @@ function ip_menu() {
                             cat /var/log/smx-log/fail.log | tail -n 6
                     	    echo
                     	    read -p "Press [enter] to continue..." ReadDamKey
+                            exit 1
 		               fi
                        $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
             	       if [ $? -eq 0 ]; then
@@ -5551,6 +5589,7 @@ function ip_menu() {
                               echo "----------------------------------------------------------------"
                               echo "$(which sed)                         bos.sysmgt.sed         exec"
                               read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
                          fi
                          $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
                          if [ $? -eq 0 ]; then
@@ -5624,10 +5663,10 @@ function ip_menu() {
             	  printf " Enter network interface [Default: eth0] > "
                   if [ "$netIntf" = "" ]; then
                         read netIntf
-                        NETINTF=$netIntf
+                        NET_INTF=$netIntf
                   fi
                   if [ "$netIntf" = "" ]; then
-                        NETINTF=eth0
+                        NET_INTF=eth0
                   fi        
             	  clear
             	  echo "      COMMAND STATUS                        "
@@ -5643,19 +5682,19 @@ function ip_menu() {
             	  echo "$(which ifdown)                      bos.ipmgt.ifdown        exec"
             	  echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
             	  echo "$(which ifup)                        bos.ipmgt.ifup          exec"
-            	  echo "Command run: $(which ifdown) $NETINTF"
-            	  echo "Command run: $(which ifconfig) $NETINTF $ipAddr $netMask"
-            	  echo "Command run: $(which ifup) $NETINTF"
+            	  echo "Command run: $(which ifdown) $NET_INTF"
+            	  echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask"
+            	  echo "Command run: $(which ifup) $NET_INTF"
             	  sleep 2
-            	  $(which ifdown) $INTF
-            	  $(which ifconfig) $INTF $ipAddr $netMask
+            	  $(which ifdown) $NET_INTF
+            	  $(which ifconfig) $NET_INTF $ipAddr $netMask
             	  if [ $? -eq 0 ]; then
-		               echo "###################################################################" >> /var/log/smx-log/success.log
+		               echo "#######################################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                       echo "Successfuly changed ip address of $INTF, ip address set to: $ipAddr" >> /var/log/smx-log/success.log
-                       echo "Command run: $(which ifconfig) $INTF $ipAddr $netMask" >> /var/log/smx-log/success.log
+                       echo "Successfuly changed ip address of $NET_INTF, ip address set to: $ipAddr" >> /var/log/smx-log/success.log
+                       echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
-                       echo "###################################################################" >> /var/log/smx-log/success.log
+                       echo "#######################################################################" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
                        read -p "Press [enter] to continue..." ReadDamKey
                        clear
@@ -5670,18 +5709,18 @@ function ip_menu() {
                        echo "File                                 Fileset                 Type"
                        echo "-----------------------------------------------------------------"
                        echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
-                       echo "Command run: $(which ifconfig) $NETINTF $ipAddr $netMask"
+                       echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask"
             	       echo
             	       cat /var/log/smx-log/success.log | tail -n 6
             	       echo
                        read -p "Press [enter] to continue..." ReadDamKey
 		          else
-		               echo "########################################################################################" >> /var/log/smx-log/fail.log
+		               echo "#########################################################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                       echo "Not changed ip address of $NETINTF, ip address not set to: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-		               echo "Command run: $(which ifconfig) $NETINTF $ipAddr $netMask" >> /var/log/smx-log/fail.log
+                       echo "Not changed ip address of $NET_INTF, ip address not set to: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+		               echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
-                       echo "########################################################################################" >> /var/log/smx-log/fail.log
+                       echo "#########################################################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
                        read -p "Press [enter] to continue..." ReadDamKey
                        clear
@@ -5985,6 +6024,7 @@ function ip_menu() {
                         cat /var/log/smx-log/fail.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
 		           fi
             	   clear
             	   $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log
@@ -6040,6 +6080,7 @@ function ip_menu() {
                         cat /var/log/smx-log/fail.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
 		           fi
             	   clear
             	   $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup.log
@@ -6096,6 +6137,7 @@ function ip_menu() {
                         cat /var/log/smx-log/fail.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
             	   fi
             	   clear
             	   $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log
@@ -6370,6 +6412,7 @@ function fire_menu() {
                     	     cat /var/log/smx-log/fail.log | tail -n 6
                     	     echo
                              read -p "Press [enter] to continue..." ReadDamKey
+                             exit 1
                         fi
                         $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                         ;;
@@ -6455,6 +6498,7 @@ function fire_menu() {
                     	      cat /var/log/smx-log/fail.log | tail -n 6
                     	      echo
                               read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
                          fi
                          $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                          ;;
@@ -6541,6 +6585,7 @@ function fire_menu() {
                             	cat /var/log/smx-log/fail.log | tail -n 6
                             	echo
                                 read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
                            fi
                            $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                            ;;
@@ -6626,6 +6671,7 @@ function fire_menu() {
                     	    cat /var/log/smx-log/fail.log | tail -n 6
                     	    echo
                             read -p "Press [enter] to continue..." ReadDamKey
+                            exit 1
                        fi
                        $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                        ;;
@@ -6658,7 +6704,7 @@ function fire_menu() {
               	  echo "Command run: $(which iptables) -A INPUT -i $NETINTF -s $ipAddr -j LOG --log-prefix 'IP_SPOOF A: '"
               	  echo "Command run: $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log"
 		          sleep 2
-                  $(which iptables) -A INPUT -i $netApt -s $ipAddr -j LOG --log-prefix "IP_SPOOF A: "
+                  $(which iptables) -A INPUT -i $NETINTF -s $ipAddr -j LOG --log-prefix "IP_SPOOF A: "
                   if [ $? -eq 0 ]; then
 		               echo "###################################################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -6711,6 +6757,7 @@ function fire_menu() {
               	       cat /var/log/smx-log/fail.log | tail -n 6
               	       echo
                        read -p "Press [enter] to continue..." ReadDamKey
+                       exit 1
                   fi
                   $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                   ;;
@@ -6872,6 +6919,7 @@ function pkg_menu() {
                     	      cat /var/log/smx-log/fail.log | tail -n 6
                     	      echo
                     	      read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
                     	 fi
                          if [ "$ans" = "Y" ]; then
 			                   clear
@@ -7020,6 +7068,7 @@ function pkg_menu() {
                     	      cat /var/log/smx-log/fail.log | tail -n 6
                     	      echo
                     	      read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
 			             fi
                          if [ "$ans" = "Y" ]; then
                                clear
@@ -7169,6 +7218,7 @@ function pkg_menu() {
                     	       cat /var/log/smx-log/fail.log | tail -n 6
                     	       echo
                     	       read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
                     	  fi
                     	  if [ "$ans" = "Y" ]; then
 			                    clear
@@ -7769,6 +7819,7 @@ function pkg_menu() {
                     	      cat /var/log/smx-log/fail.log | tail -n 6
                     	      echo
                     	      read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
                     	 fi
                     	 clear
                     	 $(which yum) update | $(which tee) /var/log/smx-log/yum.log
@@ -7897,6 +7948,7 @@ function pkg_menu() {
                     	      cat /var/log/smx-log/fail.log | tail -n 6
                     	      echo
                     	      read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
 			              fi
                     	 clear
                     	 $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
@@ -7952,6 +8004,7 @@ function pkg_menu() {
                     	      cat /var/log/smx-log/fail.log | tail -n 6
                     	      echo
                     	      read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
                     	 fi
                     	 clear
                     	 $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
@@ -8080,6 +8133,7 @@ function pkg_menu() {
                     	       cat /var/log/smx-log/fail.log | tail -n 6
                     	       echo
                     	       read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
                           fi
                     	  clear
                     	  $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log
@@ -8135,6 +8189,7 @@ function pkg_menu() {
                     	       cat /var/log/smx-log/fail.log | tail -n 6
                     	       echo
                     	       read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
                     	  fi
                     	  clear
                     	  $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log
@@ -8271,6 +8326,7 @@ function pkg_menu() {
                             	     cat /var/log/smx-log/fail.log | tail -n 6
                             	     echo
                             	     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
 				                fi
                                 $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log
                                 if [ $? -eq 0 ]; then
@@ -8481,6 +8537,7 @@ function pkg_menu() {
                             	     cat /var/log/smx-log/fail.log | tail -n 6
                             	     echo
                             	     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                           	    fi
 				                clear
                                 $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
@@ -8536,6 +8593,7 @@ function pkg_menu() {
                                      cat /var/log/smx-log/fail.log | tail -n 6
                                      echo
                                      read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
 				                fi
           		          else
 			                    clear
@@ -8611,6 +8669,7 @@ function pkg_menu() {
                             	     cat /var/log/smx-log/fail.log | tail -n 6
                             	     echo
                             	     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                 				fi
                 				$(which apt-get) -y update | $(which tee) /var/log/smx-log/apt-get.log
                              	if [ $PIPESTATUS -eq 0 ]; then
@@ -8750,6 +8809,7 @@ function pkg_menu() {
                               	      cat /var/log/smx-log/fail.log | tail -n 6
                               	      echo
                               	      read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
 				                 fi
                                  clear
                                  $(which zypper) update all | $(which tee) /var/log/smx-log/zypper.log
@@ -8879,6 +8939,7 @@ function pkg_menu() {
                               	      cat /var/log/smx-log/fail.log | tail -n 6
                               	      echo
                               	      read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
 				                 fi
                                  clear
                                  $(which zypper) update all | $(which tee) /var/log/smx-log/zypper.log
@@ -9979,6 +10040,7 @@ function system_upd() {
                     	     cat /var/log/smx-log/fail.log | tail -n 6
                     	     echo
                              read -p "press [enter] to continue..." ReadDamKey
+                             exit 1
                         fi
 			            clear
                         $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
@@ -10034,6 +10096,7 @@ function system_upd() {
                     	     cat /var/log/smx-log/fail.log | tail -n 6
                     	     echo
                              read -p "Press [enter] to continue..." ReadDamKey
+                             exit 1
                         fi
 			            clear
                         $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log
@@ -10249,6 +10312,7 @@ function system_upd() {
                     	     cat /var/log/smx-log/fail.log | tail -n 6
                     	     echo
                              read -p "Press [enter] to continue..." ReadDamKey
+                             exit 1
                         fi
                     	clear
                     	$(which fedora-upgrade) | $(which tee) /var/log/smx-log/fedora-upgrade.log
@@ -10475,6 +10539,7 @@ function system_upd() {
                             	 cat /var/log/smx-log/fail.log | tail -n 6
                             	 echo
                                  read -p "Press [enter] to continue..." ReadDamKey
+                                 exit 1
                             fi
 			                clear
                             $(which apt-get) -y install $linuxHeaders | $(which tee) /var/log/smx-log/apt-get.log
@@ -10530,6 +10595,7 @@ function system_upd() {
                 				 cat /var/log/smx-log/fail.log | tail -n 6
                 				 echo
                                  read -p "Press [enter] to continue..." ReadDamKey
+                                 exit 1
                             fi
                             echo "The system must now reboot, you can choose not to, however the update will not be appled until next reboot"
                             read -p "Reboot system (Y/N) > " rebootSys
@@ -10693,6 +10759,7 @@ function system_upd() {
                             	  cat /var/log/smx-log/fail.log | tail -n 6
                             	  echo
                                   read -p "Press [enter] to continue..." ReadDamKey
+                                  exit 1
                              fi
 			                 clear
                              $(which zypper) dub -f kernel | $(which tee) /var/log/smx-log/zypper.log
@@ -11082,6 +11149,7 @@ function usr_menuosx() {
                            cat /var/log/smx-log/success.log | tail -n 3
                            echo
                            read -p "Press [enter] to continue..." ReadDamKey
+                           exit 1
                      fi
                      if [ "$ans_mail" = "True" ]; then
                            clear
@@ -11518,10 +11586,13 @@ function usr_menuosx() {
                    ;;
             grpmgt/osx)
                          clear
-                         sleep 2
+                         echo "###########################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                         echo "Successfuly executed $(basename $0)/usr_menuosx#grp_menuosx" >> /var/log/smx-log/success.log
+                         echo "Successfuly executed $(basename $0)/usr_menuosx/grp_menuosx" >> /var/log/smx-log/success.log
                          echo "" >> /var/log/smx-log/success.log
+                         echo "###########################################################" >> /var/log/smx-log/success.log
+                         echo "" >> /var/log/smx-log/success.log
+                         sleep 2
                          grp_menuosx
                          ;;
             passwd)
@@ -11973,6 +12044,7 @@ function usr_menuosx() {
                     	  cat /var/log/smx-log/fail.log | tail -n 6
                     	  echo
                           read -p "Press [enter] to continue..." ReadDamKey
+                          exit 1
                      fi
                      $(which rm) -rf /Users/$userName
                      ;;
@@ -12269,6 +12341,7 @@ function grp_menuosx() {
                     	  cat /var/log/smx-log/fail.log | tail -n 6
                     	  echo
                           read -p "Press [enter] to continue..." ReadDamKey
+                          exit 1
                      fi
                      $(which dscl) . -create /Groups/$grpName gid $grpId
                      if [ $? -eq 0 ]; then
@@ -13477,6 +13550,7 @@ function dsk_menuosx() {
                     	 cat /var/log/smx-log/success.log | tail -n 6
                     	 echo
                          read -p "Press [enter] to continue..." ReadDamKey
+                         exit 1
                    fi
                    $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint
                    if [ $? -eq 0 ]; then
@@ -13531,6 +13605,7 @@ function dsk_menuosx() {
                     	cat /var/log/smx-log/fail.log | tail -n 6
                     	echo
                         read -p "Press [enter] to continue..." ReadDamKey
+                        exit 1
                    fi
 		           clear
                    $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log
@@ -13674,6 +13749,7 @@ function dsk_menuosx() {
                     	   cat /var/log/smx-log/fail.log | tail -n 6
                     	   echo
                            read -p "Press [enter] to continue..." ReadDamKey
+                           exit 1
                       fi
                       $(which rm) -rf $mntPoint
                       if [ $? -eq 0 ]; then
@@ -14492,6 +14568,7 @@ function sys_menuosx() {
                     	   cat /var/log/smx-log/fail.log | tail -n 6
                     	   echo
                            read -p "Press [enter] to continue..." ReadDamKey
+                           exit 2
                       fi
                       read -p "Kill Process (Y/N) --- > " ans
                       if [ "$ans" == "Y" ]; then
@@ -14938,18 +15015,24 @@ function sys_menuosx() {
            	         ;;
             software)
                        clear
+                       echo "###################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "Successfuly entered pkg_menuosx" >> /var/log/smx-log/success.log
-                       echo "Command run: $(basename $0)/sys_menuosx#pkg_menuosx" >> /var/log/smx-log/success.log
+                       echo "Command run: $(basename $0)/sys_menuosx/pkg_menuosx" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       echo "###################################################" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
                        sleep 2
                        pkg_menuosx
                        ;;
             ipmgt)
                     clear
+                    echo "##################################################" >> /var/log/smx-log/success.log
                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                     echo "Successfuly entered ip_menuosx" >> /var/log/smx-log/success.log
-                    echo "Command run: $(basename $0)/sys_menuosx#ip_menuosx" >> /var/log/smx-log/success.log
+                    echo "Command run: $(basename $0)/sys_menuosx/ip_menuosx" >> /var/log/smx-log/success.log
+                    echo "" >> /var/log/smx-log/success.log
+                    echo "##################################################" >> /var/log/smx-log/success.log
                     echo "" >> /var/log/smx-log/success.log
                     sleep 2
                     ip_menuosx
@@ -15044,7 +15127,7 @@ function sys_menuosx() {
                              fi
                         else
                              echo "Host: $remSys offline, ping FAIL 100%"
-                             sys_menuosx
+                             read -p "Press [enter] to continue..." ReadDamKey
                         fi
                         ;;
             backup)
@@ -15132,6 +15215,7 @@ function sys_menuosx() {
                             	cat /var/log/smx-log/fail.log | tail -n 6
                             	echo
                                 read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
                            fi
                            $(which rm) -rf $bakName
                      else
@@ -15295,7 +15379,7 @@ function sys_menuosx() {
                              fi
                         else
                              echo "Host: $IP_ADDR offline, ping FAIL 100%"
-                             sys_menuosx
+                             read -p "Press [enter] to continue..." ReadDamKey
                         fi
                     else
                         echo "nmap not found in path"
@@ -15533,6 +15617,7 @@ function pkg_menuosx() {
                     	       cat /var/log/smx-log/fail.log | tail -n 6
                     	       echo
                                read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
                           fi
                           $(which cp) -R "$mountPath/$softName" "$softPath"
                           $(which hdiutil) unmount "$mountPath"
@@ -16018,6 +16103,7 @@ function ip_menuosx() {
                     	     cat /var/log/smx-log/fail.log | tail -n 6
                     	     echo
                              read -p "Press [enter] to continue..." ReadDamKey
+                             exit 1
                         fi
                         $(which ifconfig) $NET_INTF up
                         clear
@@ -17328,6 +17414,7 @@ function apache_menu(){
                 				cat /var/log/smx-log/fail.log | tail -n 6
                 				echo
                 				read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
                            fi
                            $(which rm) -rf /etc/httpd/conf.d/welcome.conf
                            $(which rm) -rf /var/www/error/noindex.html
@@ -17454,6 +17541,7 @@ function apache_menu(){
                                       cat /var/log/smx-log/fail.log | tail -n 6
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
                                  fi
                                  $(which sed) -i 's/Options Indexes FollowSymLinks/Options FollowSymLinks ExecCGI/g' /etc/httpd/conf/httpd.conf
                                  $(which sed) -i 's/DirectoryIndex index.html index.htm/DirectoryIndex index.html index.htm index.cgi/g' /etc/httpd/conf/httpd.conf
@@ -17571,6 +17659,7 @@ function apache_menu(){
                             	      cat /var/log/smx-log/fail.log | tail -n 6
                             	      echo
                             	      read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
 				                 fi
                                  if [ "$ansPerl" = "Y" ]; then
                                        $(which sed) -i 's/DirectoryIndex index.html index.htm index.cgi/DirectoryIndex index.html index.htm index.cgi index.php/g' /etc/httpd/conf/httpd.conf
@@ -17705,6 +17794,7 @@ function apache_menu(){
                                       cat /var/log/smx-log/fail.log | tail -n 6
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
 				                 fi
                                  $(which sed) -i 's/#DocumentRoot/DocumentRoot/g' /etc/httpd/conf.d/ssl.conf
                                  $(which sed) -i "s/#ServerName www.example.com:443/ServerName $IP_ADDR:443/g" /etc/httpd/conf.d/ssl.conf
@@ -17857,6 +17947,7 @@ function apache_menu(){
                 				     cat /var/log/smx-log/fail.log | tail -n 6
                 				     echo
                 				     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                 				fi
                 				$(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf.d/security
                 				$(which sed) -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf.d/security
@@ -18031,6 +18122,7 @@ function apache_menu(){
                     					   cat /var/log/smx-log/fail.log | tail -n 6
                     					   echo
                     					   read -p "Press [enter] to continue..." ReadDamKey
+                                           exit 1
                                       fi
                                       echo "AddHandler php5-script .php" >> /etc/apache2/mods-enabled/mime.conf
                                       /etc/init.d/apache2 restart
@@ -18262,6 +18354,7 @@ function apache_menu(){
                     					  cat /var/log/smx-log/fail.log | tail -n 6
                     					  echo
                     					  read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
                     				 fi
                     				 $(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf.d/security
                     			     $(which sed) -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf.d/security
@@ -18436,6 +18529,7 @@ function apache_menu(){
                         						cat /var/log/smx-log/fail.log | tail -n 6
                         						echo
                         						read -p "Press [enter] to continue..." ReadDamKey
+                                                exit 1
 					                       fi
                     					   echo "AddHandler php5-script .php" >> /etc/apache2/mods-enabled/mime.conf
                     					   /etc/init.d/apache2 restart
@@ -18667,6 +18761,7 @@ function apache_menu(){
                     					       cat /var/log/smx-log/fail.log | tail -n 6
                     					       echo
                     					       read -p "Press [enter] to continue..." ReadDamKey
+                                               exit 1
                     					  fi
                     					  $(which sed) -i 's/ServerSignature on/ServerSignature off/g' /etc/apache2/sysconfig.d/global.conf
                     					  $(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/sysconfig.d/global.conf
@@ -18779,6 +18874,7 @@ function apache_menu(){
                         						     cat /var/log/smx-log/fail.log | tail -n 6
                         						     echo
                         						     read -p "Press [enter] to continue..." ReadDamKey
+                                                     exit 1
                         						fi
                         						$(which sed) -i 's/Options FollowSymLinks/Options FollowSymLinks ExecCGI/g' /etc/apache2/default-server.conf
                         						$(which sed) -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.cgi/g' /etc/apache2/httpd.conf
@@ -18904,6 +19000,7 @@ function apache_menu(){
                         						     cat /var/log/smx-log/fail.log | tail -n 6
                         						     echo
                         						     read -p "Press [enter] to continue..." ReadDamKey
+                                                     exit 1
                         						fi
                         						if [ "$ansPerl" = "Y" ]; then
                         						      $(which sed) -i 's/DirectoryIndex index.html index.cgi/DirectoryIndex index.html index.cgi index.php/g' /etc/apache2/httpd.conf
