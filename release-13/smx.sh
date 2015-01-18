@@ -5002,11 +5002,7 @@ function ip_menu() {
        echo
        echo "ifstats > Advanced network status"
        echo
-       echo "change_rhl > Change hostname address (rhel based)"
-       echo
-       echo "change_deb > Change hostname address (debian based)"
-       echo
-       echo "change_suse > Change hostname address (SuSE based)"
+       echo "change > Change hostname address on system"
        echo
        echo "chip > Change ip address"
        echo
@@ -5182,353 +5178,19 @@ function ip_menu() {
                           read -p "Press [enter] to continue..." ReadDamKey
                      fi
                      ;;
-           change_rhl)
-                        clear
-                    	echo "$(date)                                     $(whoami)@$(hostname)"
-                    	CURR_HOST=`hostname`
-                    	echo "[TOP]                                     [Entry Fields]"
-                    	read -p " Enter new hostname ------------------- > " hostName
-                    	read -p " Reboot after completion -------- (Y/N) > " ans
-                    	clear
-                    	echo "         COMMAND STATUS                       "
-                    	echo
-                    	echo "$(date)                                     $(whoami)@$(hostname)"
-                    	echo
-                    	echo "Command: RUNNING    stdout: yes    stderr: no     "
-                    	echo
-                    	echo "Before command completion, additional instructions may appear below"
-                    	echo
-                    	echo "File                                 Fileset                 Type"
-                    	echo "-----------------------------------------------------------------"
-                    	echo "$(which sed)                         bos.sysmgt.sed          exec"
-                    	echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                    	echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network"
-                    	echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
-                    	echo "Command run: $(which reboot) -f now --verbose; exit"
-                    	sleep 2
-                    	$(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/sysconfig/network
-                    	if [ $? -eq 0 ]; then
-			                 echo "##############################################################################" >> /var/log/smx-log/success.log
-            		         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    	     echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
-                    	     echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network" >> /var/log/smx-log/success.log
-                    	     echo "" >> /var/log/smx-log/success.log
-                             echo "##############################################################################" >> /var/log/smx-log/success.log
-                             echo "" >> /var/log/smx-log/success.log
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                    	     clear
-                    	     echo "        COMMAND STATUS          "
-                    	     echo
-                    	     echo "$(date)                                     $(whoami)@$(hostname)"
-                    	     echo
-                    	     echo "Command: OK    stdout: yes    stderr: no          "
-                    	     echo
-                    	     echo "Before command completion, additional instructions may appear below"
-                    	     echo
-                    	     echo "File                                 Fileset                Type"
-                    	     echo "----------------------------------------------------------------"
-                    	     echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	     echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network"
-                    	     echo
-                    	     cat /var/log/smx-log/success.log | tail -n 6
-                    	     echo
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-            		    else
-			                 echo "##############################################################################" >> /var/log/smx-log/fail.log
-                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    	     echo "Not changed hostname from: $CURR_HOST to: $hostName, check command syntax" >> /var/log/smx-log/fail.log
-			                 echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network" >> /var/log/smx-log/fail.log
-                    	     echo "" >> /var/log/smx-log/fail.log
-                             echo "##############################################################################" >> /var/log/smx-log/fail.log
-                             echo "" >> /var/log/smx-log/fail.log
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                    	     clear
-                    	     echo "        COMMAND STATUS          "
-                    	     echo
-                    	     echo "$(date)                                    $(whoami)@$(hostname)"
-                    	     echo
-                    	     echo "Command: FAIL    stdout: yes    stderr: no       "
-                    	     echo
-                    	     echo "Before command completion, additional instructions may appear below"
-                    	     echo
-                    	     echo "File                                 Fileset                Type"
-                    	     echo "----------------------------------------------------------------"
-                    	     echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	     echo "Command unsuccessful, check command variables and syntax"
-                    	     echo
-                    	     cat /var/log/smx-log/fail.log | tail -n 6
-                    	     echo
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                             exit 1
-            		    fi
-                    	$(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
-                    	if [ $? -eq 0 ]; then
-			                 echo "##################################################################" >> /var/log/smx-log/success.log
-            	     	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    	     echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
-                    	     echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
-                    	     echo "" >> /var/log/smx-log/success.log
-                             echo "##################################################################" >> /var/log/smx-log/success.log
-                             echo "" >> /var/log/smx-log/success.log
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                    	     clear
-                    	     echo "        COMMAND STATUS          "
-                    	     echo
-                    	     echo "$(date)                                    $(whoami)@$(hostname)"
-                    	     echo
-                    	     echo "Command: OK    stdout: yes    stderr: no         "
-                    	     echo
-                    	     echo "Before command completion, additional instructions may appear below"
-                    	     echo
-                    	     echo "File                                 Fileset                Type"
-                    	     echo "----------------------------------------------------------------"
-                    	     echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	     echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
-                    	     echo
-                    	     cat /var/log/smx-log/success.log | tail -n 6
-                    	     echo
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-            		    else
-			                 echo "##################################################################" >> /var/log/smx-log/fail.log
-                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    	     echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
-			                 echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
-                    	     echo "" >> /var/log/smx-log/fail.log
-                             echo "##################################################################" >> /var/log/smx-log/fail.log
-                             echo "" >> /var/log/smx-log/fail.log
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                    	     clear
-                    	     echo "        COMMAND STATUS          "
-                    	     echo
-                    	     echo "$(date)                                     $(whoami)@$(hostname)"
-                    	     echo
-                    	     echo "Command: FAIL    stdout: yes    stderr: no        "
-                    	     echo
-                    	     echo "Before command completion, additional instructions may appear below"
-                    	     echo
-                    	     echo "File                                 Fileset                Type"
-                    	     echo "----------------------------------------------------------------"
-                    	     echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	     echo "Command unsuccessful, check variables and syntax"
-                    	     echo
-                    	     cat /var/log/smx-log/fail.log | tail -n 6
-                    	     echo
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                  		fi
-                  		if [ "$ans" = "Y" ]; then
-                    	      echo "Rebooting system now..."
-                      	      read -p "Press [enter] to continue..." ReadDamKey
-                      	      $(which reboot) -f now --verbose; exit
-              		    else
-                     	      echo "System will not reboot"
-                	          read -p "Press [enter] to continue..." ReadDamKey
-              		    fi
-			            ;;
-           change_deb)
-                        clear
-                    	echo "$(date)                                     $(whoami)@$(hostname)"
-                    	CURR_HOST=`hostname`
-                    	echo "[TOP]                                    [Entry Fields]"
-                    	read -p " Enter new hostname ------------------ > " hostName
-                    	read -p " Reboot after completion ------------- (Y/N) > " ans
-                    	clear
-                    	echo "         COMMAND STATUS                      "
-                    	echo
-                    	echo "$(date)                                     $(whoami)@$(hostname)"
-                    	echo
-                    	echo "Command: RUNNING    stdout: yes    stderr: no     "
-                    	echo
-                    	echo "Before command completion, additional instructions may appear below"
-                    	echo
-                    	echo "File                                 Fileset                Type"
-                    	echo "----------------------------------------------------------------"
-                    	echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	echo "$(which reboot)                      bos.sysmgt.reboot      exec"
-                    	echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname"
-                    	echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
-                    	echo "Command run: $(which reboot) -f now --verbose; exit"
-                    	sleep 2
-                    	$(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hostname
-                    	if [ $? -eq 0 ]; then
-			                 echo "#####################################################################" >> /var/log/smx-log/success.log
-                    	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    	     echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
-                    	     echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname" >> /var/log/smx-log/success.log
-                    	     echo "" >> /var/log/smx-log/success.log
-                             echo "#####################################################################" >> /var/log/smx-log/success.log
-                             echo "" >> /var/log/smx-log/success.log
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                    	     clear
-                    	     echo "        COMMAND STATUS          "
-                    	     echo
-                    	     echo "$(date)                                    $(whoami)@$(hostname)"
-                    	     echo
-                    	     echo "Command: OK    stdout: yes    stderr: no         "
-                    	     echo
-                    	     echo "Before command completion, additional instructions may appear below"
-                    	     echo
-                    	     echo "File                                 Fileset                 Type"
-                    	     echo "-----------------------------------------------------------------"
-                    	     echo "$(which sed)                         bos.sysmgt.sed          exex"
-                    	     echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname"
-                    	     echo
-                    	     cat /var/log/smx-log/success.log | tail -n 6
-                    	     echo
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-			            else
-			                 echo "#####################################################################" >> /var/log/smx-log/fail.log
-                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    	     echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
-			                 echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname" >> /var/log/smx-log/fail.log
-                    	     echo "" >> /var/log/smx-log/fail.log
-                             echo "#####################################################################" >> /var/log/smx-log/fail.log
-                             echo "" >> /var/log/smx-log/fail.log
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                    	     clear
-                    	     echo "        COMMAND STATUS          "
-                    	     echo
-                    	     echo "$(date)                                    $(whoami)@$(hostname)"
-                    	     echo
-                    	     echo "Command: FAIL    stdout: yes    stderr: no       "
-                    	     echo
-                    	     echo "Before command completion, additional instructions may appear below"
-                    	     echo
-                    	     echo "File                                 Fileset                Type"
-                    	     echo "----------------------------------------------------------------"
-                    	     echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	     echo "Command unsuccessful, check variables and syntax"
-                    	     echo
-                    	     cat /var/log/smx-log/fail.log | tail -n 6
-                    	     echo
-                    	     read -p "Press [enter] to continue..." ReadDamKey
-                             exit 1
-			            fi
-                       $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
-            	       if [ $? -eq 0 ]; then
-            			    echo "##################################################################" >> /var/log/smx-log/success.log
-            			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    	    echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
-                    	    echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
-                    	    echo "" >> /var/log/smx-log/success.log
-                            echo "##################################################################" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                    	    read -p "Press [enter] to continue..." ReadDamKey
-                    	    clear
-                    	    echo "        COMMAND STATUS          "
-                    	    echo
-                    	    echo "$(date)                                    $(whoami)@$(hostname)"
-                    	    echo
-                    	    echo "Command: OK    stdout: yes    stderr: no         "
-                    	    echo
-                    	    echo "Before command completion, additional instructions may appear below"
-                    	    echo
-                    	    echo "File                                 Fileset                Type"
-                    	    echo "----------------------------------------------------------------"
-                    	    echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	    echo "Command unsuccessful, check variables and syntax"
-                    	    echo
-                    	    cat /var/log/smx-log/success.log | tail -n 6
-                    	    echo
-                    	    read -p "Press [enter] to continue..." ReadDamKey
-            	       else
-			                echo "###################################################################" >> /var/log/smx-log/fail.log
-                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    	    echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
-                    	    echo "" >> /var/log/smx-log/fail.log
-            			    echo "##################################################################" >> /var/log/smx-log/fail.log
-            			    echo "" >> /var/log/smx-log/fail.log
-                    	    read -p "Press [enter] to continue..." ReadDamKey
-                    	    clear
-                    	    echo "        COMMAND STATUS          "
-                    	    echo
-                    	    echo "$(date)                                    $(whoami)@$(hostname)"
-                    	    echo
-                    	    echo "Command: FAIL    stdout: yes    stderr: no        "
-                    	    echo
-                    	    echo "Before command completion, additional instructions may appear below"
-                            echo
-            			    echo "File                                 Fileset                Type"
-            			    echo "----------------------------------------------------------------"
-            			    echo "$(which sed)                         bos.sysmgt.sed         exec"
-            			    echo "Command unsuccessful, check variables and syntax"
-            			    echo
-                            cat /var/log/smx-log/fail.log | tail -n 6
-                    	    echo
-                    	    read -p "Press [enter] to continue..." ReadDamKey
-                            exit 1
-		               fi
-                       $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
-            	       if [ $? -eq 0 ]; then
-            			    echo "##################################################################" >> /var/log/smx-log/success.log
-            			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    	    echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
-                    	    echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
-                    	    echo "" >> /var/log/smx-log/success.log
-                            echo "##################################################################" >> /var/log/smx-log/success.log
-                            echo "" >> /var/log/smx-log/success.log
-                    	    read -p "Press [enter] to continue..." ReadDamKey
-                    	    clear
-                    	    echo "        COMMAND STATUS          "
-                    	    echo
-                    	    echo "$(date)                                    $(whoami)@$(hostname)"
-                    	    echo
-                    	    echo "Command: OK      stdout: yes    stderr: no       "
-                    	    echo
-                    	    echo "Before command completion, additional instructions may appear below"
-                    	    echo
-                    	    echo "File                                 Fileset                Type"
-                    	    echo "----------------------------------------------------------------"
-                    	    echo "$(which sed)                         bos.sysmgt.sed         exec"
-                    	    echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
-                    	    echo
-                    	    cat /var/log/smx-log/success.log | tail -n 6
-                    	    echo
-                    	    read -p "Press [enter] to continue..." ReadDamKey
-            	       else
-			                echo "##################################################################" >> /var/log/smx-log/fail.log
-                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                            echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
-                            echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
-                            echo "" >> /var/log/smx-log/fail.log
-                            echo "##################################################################" >> /var/log/smx-log/fail.log
-                            echo "" >> /var/log/smx-log/fail.log
-                            read -p "Press [enter] to continue..." ReadDamKey
-                            clear
-                            echo "        COMMAND STATUS          "
-                            echo
-                            echo "$(date)                                    $(whoami)@$(hostname)"
-                            echo
-                            echo "Command: FAIL    stdout: yes    stderr: no       "
-                            echo
-                            echo "Before command completion, additional instructions may appear below"
-                            echo
-                            echo "File                                 Fileset                Type"
-                            echo "----------------------------------------------------------------"
-                            echo "$(which sed)                         bos.sysmgt.sed         exec"
-                            echo "Command unsuccessful, check variables and syntax"
-                            echo
-                            cat /var/log/smx-log/fail.log | tail -n 6
-                            echo
-                            read -p "Press [enter] to continue..." ReadDamKey
-                       fi
-                       if [ "$ans" = "Y" ]; then
-                             echo "Rebooting system now..."
-                             read -p "Press [enter] to continue..." ReadDamKey
-                             $(which reboot) -f now --verbose; exit
-            	       else
-			                 echo "System will not reboot"
-            	       fi
-          	           ;;
-           change_suse)
+           change)
+                    clear
+                    cat /proc/version | grep "Red Hat" > /dev/null
+                    if [ $? -eq 0 ]; then
                          clear
+                         echo "OS = Red Hat"
                          echo "$(date)                                     $(whoami)@$(hostname)"
                          CURR_HOST=`hostname`
-                         echo "[TOP]                                    [Entry Fields]"
-                         read -p " Enter new hostname ------------------ > " hostName
-                         read -p " Reboot after completion ------------- (Y/N) > " ans
+                         echo "[TOP]                                     [Entry Fields]"
+                         read -p " Enter new hostname ------------------- > " hostName
+                         read -p " Reboot after completion -------- (Y/N) > " ans
                          clear
-                         echo "         COMMAND STATUS                      "
+                         echo "         COMMAND STATUS                       "
                          echo
                          echo "$(date)                                     $(whoami)@$(hostname)"
                          echo
@@ -5536,22 +5198,22 @@ function ip_menu() {
                          echo
                          echo "Before command completion, additional instructions may appear below"
                          echo
-                         echo "File                                 Fileset                Type"
-                         echo "----------------------------------------------------------------"
-                         echo "$(which sed)                         bos.sysmgt.sed         exec"
-                         echo "$(which reboot)                      bos.sysmgt.reboot      exec"
-                         echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME"
+                         echo "File                                 Fileset                 Type"
+                         echo "-----------------------------------------------------------------"
+                         echo "$(which sed)                         bos.sysmgt.sed          exec"
+                         echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+                         echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network"
                          echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
                          echo "Command run: $(which reboot) -f now --verbose; exit"
                          sleep 2
-                         $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/HOSTNAME
+                         $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/sysconfig/network
                          if [ $? -eq 0 ]; then
-                              echo "#####################################################################" >> /var/log/smx-log/success.log
-                              echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              echo "##############################################################################" >> /var/log/smx-log/success.log
+                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
-                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME" >> /var/log/smx-log/success.log
+                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network" >> /var/log/smx-log/success.log
                               echo "" >> /var/log/smx-log/success.log
-                              echo "#####################################################################" >> /var/log/smx-log/success.log
+                              echo "##############################################################################" >> /var/log/smx-log/success.log
                               echo "" >> /var/log/smx-log/success.log
                               read -p "Press [enter] to continue..." ReadDamKey
                               clear
@@ -5566,15 +5228,19 @@ function ip_menu() {
                               echo "File                                 Fileset                Type"
                               echo "----------------------------------------------------------------"
                               echo "$(which sed)                         bos.sysmgt.sed         exec"
-                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME"
+                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network"
+                              echo
+                              cat /var/log/smx-log/success.log | tail -n 6
+                              echo
                               read -p "Press [enter] to continue..." ReadDamKey
-			             else
-			                  echo "#########################################################################" >> /var/log/smx-log/fail.log
+                         else
+                              echo "##############################################################################" >> /var/log/smx-log/fail.log
                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                               echo "Not changed hostname from: $CURR_HOST to: $hostName, check command syntax" >> /var/log/smx-log/fail.log
-                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME" >> /var/log/smx-log/fail.log
+                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/sysconfig/network" >> /var/log/smx-log/fail.log
                               echo "" >> /var/log/smx-log/fail.log
-                              echo "#########################################################################" >> /var/log/smx-log/fail.log
+                              echo "##############################################################################" >> /var/log/smx-log/fail.log
+                              echo "" >> /var/log/smx-log/fail.log
                               read -p "Press [enter] to continue..." ReadDamKey
                               clear
                               echo "        COMMAND STATUS          "
@@ -5588,6 +5254,10 @@ function ip_menu() {
                               echo "File                                 Fileset                Type"
                               echo "----------------------------------------------------------------"
                               echo "$(which sed)                         bos.sysmgt.sed         exec"
+                              echo "Command unsuccessful, check command variables and syntax"
+                              echo
+                              cat /var/log/smx-log/fail.log | tail -n 6
+                              echo
                               read -p "Press [enter] to continue..." ReadDamKey
                               exit 1
                          fi
@@ -5606,7 +5276,7 @@ function ip_menu() {
                               echo
                               echo "$(date)                                    $(whoami)@$(hostname)"
                               echo
-                              echo "Command: OK      stdout: yes    stderr: no       "
+                              echo "Command: OK    stdout: yes    stderr: no         "
                               echo
                               echo "Before command completion, additional instructions may appear below"
                               echo
@@ -5619,20 +5289,20 @@ function ip_menu() {
                               echo
                               read -p "Press [enter] to continue..." ReadDamKey
                          else
-                              echo "#########################################################################" >> /var/log/smx-log/fail.log
+                              echo "##################################################################" >> /var/log/smx-log/fail.log
                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              echo "Not changed hostname from: $CURR_HOST to: $hostName, check command syntax" >> /var/log/smx-log/fail.log
+                              echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
                               echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
                               echo "" >> /var/log/smx-log/fail.log
-                              echo "#########################################################################" >> /var/log/smx-log/fail.log
+                              echo "##################################################################" >> /var/log/smx-log/fail.log
                               echo "" >> /var/log/smx-log/fail.log
                               read -p "Press [enter] to continue..." ReadDamKey
                               clear
                               echo "        COMMAND STATUS          "
                               echo
-                              echo "$(date)                                    $(whoami)@$(hostname)"
+                              echo "$(date)                                     $(whoami)@$(hostname)"
                               echo
-                              echo "Command: FAIL    stdout: yes    stderr: no       "
+                              echo "Command: FAIL    stdout: yes    stderr: no        "
                               echo
                               echo "Before command completion, additional instructions may appear below"
                               echo
@@ -5646,14 +5316,553 @@ function ip_menu() {
                               read -p "Press [enter] to continue..." ReadDamKey
                          fi
                          if [ "$ans" = "Y" ]; then
-                               echo "System rebooting now..."
+                               echo "Rebooting system now..."
                                read -p "Press [enter] to continue..." ReadDamKey
                                $(which reboot) -f now --verbose; exit
-			             else
-                               echo "The system will not reboot..."
+                         else
+                               echo "System will not reboot"
                                read -p "Press [enter] to continue..." ReadDamKey
                          fi
-                         ;;
+                    else
+                         clear
+                         cat /proc/version | grep "Debian" > /dev/null
+                         if [ $? -eq 0 ]; then
+                              clear
+                              echo "OS = Debian"
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              CURR_HOST=`hostname`
+                              echo "[TOP]                                    [Entry Fields]"
+                              read -p " Enter new hostname ------------------ > " hostName
+                              read -p " Reboot after completion ------------- (Y/N) > " ans
+                              clear
+                              echo "         COMMAND STATUS                      "
+                              echo
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              echo
+                              echo "Command: RUNNING    stdout: yes    stderr: no     "
+                              echo
+                              echo "Before command completion, additional instructions may appear below"
+                              echo
+                              echo "File                                 Fileset                Type"
+                              echo "----------------------------------------------------------------"
+                              echo "$(which sed)                         bos.sysmgt.sed         exec"
+                              echo "$(which reboot)                      bos.sysmgt.reboot      exec"
+                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname"
+                              echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
+                              echo "Command run: $(which reboot) -f now --verbose; exit"
+                              sleep 2
+                              $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hostname
+                              if [ $? -eq 0 ]; then
+                                   echo "#####################################################################" >> /var/log/smx-log/success.log
+                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                   echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                   echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   echo "#####################################################################" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   clear
+                                   echo "        COMMAND STATUS          "
+                                   echo
+                                   echo "$(date)                                    $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: OK    stdout: yes    stderr: no         "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                 Type"
+                                   echo "-----------------------------------------------------------------"
+                                   echo "$(which sed)                         bos.sysmgt.sed          exex"
+                                   echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname"
+                                   echo
+                                   cat /var/log/smx-log/success.log | tail -n 6
+                                   echo
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                              else
+                                   echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                   echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
+                                   echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname" >> /var/log/smx-log/fail.log
+                                   echo "" >> /var/log/smx-log/fail.log
+                                   echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                   echo "" >> /var/log/smx-log/fail.log
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   clear
+                                   echo "        COMMAND STATUS          "
+                                   echo
+                                   echo "$(date)                                    $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: FAIL    stdout: yes    stderr: no       "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                Type"
+                                   echo "----------------------------------------------------------------"
+                                   echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                   echo "Command unsuccessful, check variables and syntax"
+                                   echo
+                                   cat /var/log/smx-log/fail.log | tail -n 6
+                                   echo
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   exit 1
+                              fi
+                             $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
+                             if [ $? -eq 0 ]; then
+                                  echo "##################################################################" >> /var/log/smx-log/success.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                  echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  echo "##################################################################" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  clear
+                                  echo "        COMMAND STATUS          "
+                                  echo
+                                  echo "$(date)                                    $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: OK    stdout: yes    stderr: no         "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                Type"
+                                  echo "----------------------------------------------------------------"
+                                  echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                  echo "Command unsuccessful, check variables and syntax"
+                                  echo
+                                  cat /var/log/smx-log/success.log | tail -n 6
+                                  echo
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                             else
+                                  echo "###################################################################" >> /var/log/smx-log/fail.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
+                                  echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
+                                  echo "" >> /var/log/smx-log/fail.log
+                                  echo "##################################################################" >> /var/log/smx-log/fail.log
+                                  echo "" >> /var/log/smx-log/fail.log
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  clear
+                                  echo "        COMMAND STATUS          "
+                                  echo
+                                  echo "$(date)                                    $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: FAIL    stdout: yes    stderr: no        "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                Type"
+                                  echo "----------------------------------------------------------------"
+                                  echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                  echo "Command unsuccessful, check variables and syntax"
+                                  echo
+                                  cat /var/log/smx-log/fail.log | tail -n 6
+                                  echo
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  exit 1
+                             fi
+                             $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
+                             if [ $? -eq 0 ]; then
+                                  echo "##################################################################" >> /var/log/smx-log/success.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                  echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  echo "##################################################################" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  clear
+                                  echo "        COMMAND STATUS          "
+                                  echo
+                                  echo "$(date)                                    $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: OK      stdout: yes    stderr: no       "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                Type"
+                                  echo "----------------------------------------------------------------"
+                                  echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                  echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
+                                  echo
+                                  cat /var/log/smx-log/success.log | tail -n 6
+                                  echo
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                             else
+                                  echo "##################################################################" >> /var/log/smx-log/fail.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
+                                  echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
+                                  echo "" >> /var/log/smx-log/fail.log
+                                  echo "##################################################################" >> /var/log/smx-log/fail.log
+                                  echo "" >> /var/log/smx-log/fail.log
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  clear
+                                  echo "        COMMAND STATUS          "
+                                  echo
+                                  echo "$(date)                                    $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: FAIL    stdout: yes    stderr: no       "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                Type"
+                                  echo "----------------------------------------------------------------"
+                                  echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                  echo "Command unsuccessful, check variables and syntax"
+                                  echo
+                                  cat /var/log/smx-log/fail.log | tail -n 6
+                                  echo
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                             fi
+                             if [ "$ans" = "Y" ]; then
+                                   echo "Rebooting system now..."
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   $(which reboot) -f now --verbose; exit
+                             else
+                                   echo "System will not reboot"
+                             fi
+                         else
+                             clear
+                             cat /proc/version | grep "Ubuntu" > /dev/null
+                             if [ $? -eq 0 ]; then
+                                  clear
+                                  echo "OS = Ubuntu"
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  CURR_HOST=`hostname`
+                                  echo "[TOP]                                    [Entry Fields]"
+                                  read -p " Enter new hostname ------------------ > " hostName
+                                  read -p " Reboot after completion ------------- (Y/N) > " ans
+                                  clear
+                                  echo "         COMMAND STATUS                      "
+                                  echo
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                Type"
+                                  echo "----------------------------------------------------------------"
+                                  echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                  echo "$(which reboot)                      bos.sysmgt.reboot      exec"
+                                  echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname"
+                                  echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
+                                  echo "Command run: $(which reboot) -f now --verbose; exit"
+                                  sleep 2
+                                  $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hostname
+                                  if [ $? -eq 0 ]; then
+                                       echo "#####################################################################" >> /var/log/smx-log/success.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                       echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                       echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       echo "#####################################################################" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       clear
+                                       echo "        COMMAND STATUS          "
+                                       echo
+                                       echo "$(date)                                    $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: OK    stdout: yes    stderr: no         "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "$(which sed)                         bos.sysmgt.sed          exex"
+                                       echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname"
+                                       echo
+                                       cat /var/log/smx-log/success.log | tail -n 6
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                  else
+                                       echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                       echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
+                                       echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hostname" >> /var/log/smx-log/fail.log
+                                       echo "" >> /var/log/smx-log/fail.log
+                                       echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                       echo "" >> /var/log/smx-log/fail.log
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       clear
+                                       echo "        COMMAND STATUS          "
+                                       echo
+                                       echo "$(date)                                    $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: FAIL    stdout: yes    stderr: no       "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                Type"
+                                       echo "----------------------------------------------------------------"
+                                       echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                       echo "Command unsuccessful, check variables and syntax"
+                                       echo
+                                       cat /var/log/smx-log/fail.log | tail -n 6
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       exit 1
+                                  fi
+                                 $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
+                                 if [ $? -eq 0 ]; then
+                                      echo "##################################################################" >> /var/log/smx-log/success.log
+                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                      echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                      echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
+                                      echo "" >> /var/log/smx-log/success.log
+                                      echo "##################################################################" >> /var/log/smx-log/success.log
+                                      echo "" >> /var/log/smx-log/success.log
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                      clear
+                                      echo "        COMMAND STATUS          "
+                                      echo
+                                      echo "$(date)                                    $(whoami)@$(hostname)"
+                                      echo
+                                      echo "Command: OK    stdout: yes    stderr: no         "
+                                      echo
+                                      echo "Before command completion, additional instructions may appear below"
+                                      echo
+                                      echo "File                                 Fileset                Type"
+                                      echo "----------------------------------------------------------------"
+                                      echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                      echo "Command unsuccessful, check variables and syntax"
+                                      echo
+                                      cat /var/log/smx-log/success.log | tail -n 6
+                                      echo
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                  else
+                                      echo "###################################################################" >> /var/log/smx-log/fail.log
+                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                      echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
+                                      echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
+                                      echo "" >> /var/log/smx-log/fail.log
+                                      echo "##################################################################" >> /var/log/smx-log/fail.log
+                                      echo "" >> /var/log/smx-log/fail.log
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                      clear
+                                      echo "        COMMAND STATUS          "
+                                      echo
+                                      echo "$(date)                                    $(whoami)@$(hostname)"
+                                      echo
+                                      echo "Command: FAIL    stdout: yes    stderr: no        "
+                                      echo
+                                      echo "Before command completion, additional instructions may appear below"
+                                      echo
+                                      echo "File                                 Fileset                Type"
+                                      echo "----------------------------------------------------------------"
+                                      echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                      echo "Command unsuccessful, check variables and syntax"
+                                      echo
+                                      cat /var/log/smx-log/fail.log | tail -n 6
+                                      echo
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
+                                 fi
+                                 $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
+                                 if [ $? -eq 0 ]; then
+                                      echo "##################################################################" >> /var/log/smx-log/success.log
+                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                      echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                      echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
+                                      echo "" >> /var/log/smx-log/success.log
+                                      echo "##################################################################" >> /var/log/smx-log/success.log
+                                      echo "" >> /var/log/smx-log/success.log
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                      clear
+                                      echo "        COMMAND STATUS          "
+                                      echo
+                                      echo "$(date)                                    $(whoami)@$(hostname)"
+                                      echo
+                                      echo "Command: OK      stdout: yes    stderr: no       "
+                                      echo
+                                      echo "Before command completion, additional instructions may appear below"
+                                      echo
+                                      echo "File                                 Fileset                Type"
+                                      echo "----------------------------------------------------------------"
+                                      echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                      echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
+                                      echo
+                                      cat /var/log/smx-log/success.log | tail -n 6
+                                      echo
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                 else
+                                      echo "##################################################################" >> /var/log/smx-log/fail.log
+                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                      echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
+                                      echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
+                                      echo "" >> /var/log/smx-log/fail.log
+                                      echo "##################################################################" >> /var/log/smx-log/fail.log
+                                      echo "" >> /var/log/smx-log/fail.log
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                      clear
+                                      echo "        COMMAND STATUS          "
+                                      echo
+                                      echo "$(date)                                    $(whoami)@$(hostname)"
+                                      echo
+                                      echo "Command: FAIL    stdout: yes    stderr: no       "
+                                      echo
+                                      echo "Before command completion, additional instructions may appear below"
+                                      echo
+                                      echo "File                                 Fileset                Type"
+                                      echo "----------------------------------------------------------------"
+                                      echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                      echo "Command unsuccessful, check variables and syntax"
+                                      echo
+                                      cat /var/log/smx-log/fail.log | tail -n 6
+                                      echo
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                 fi
+                                 if [ "$ans" = "Y" ]; then
+                                       echo "Rebooting system now..."
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       $(which reboot) -f now --verbose; exit
+                                 else
+                                       echo "System will not reboot"
+                                 fi
+                             else
+                                 clear
+                                 cat /proc/version | grep "SUSE" > /dev/null
+                                 if [ $? -eq 0 ]; then
+                                      clear
+                                      echo "OS = SuSE"
+                                      echo "$(date)                                     $(whoami)@$(hostname)"
+                                      CURR_HOST=`hostname`
+                                      echo "[TOP]                                    [Entry Fields]"
+                                      read -p " Enter new hostname ------------------ > " hostName
+                                      read -p " Reboot after completion ------------- (Y/N) > " ans
+                                      clear
+                                      echo "         COMMAND STATUS                      "
+                                      echo
+                                      echo "$(date)                                     $(whoami)@$(hostname)"
+                                      echo
+                                      echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                      echo
+                                      echo "Before command completion, additional instructions may appear below"
+                                      echo
+                                      echo "File                                 Fileset                Type"
+                                      echo "----------------------------------------------------------------"
+                                      echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                      echo "$(which reboot)                      bos.sysmgt.reboot      exec"
+                                      echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME"
+                                      echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
+                                      echo "Command run: $(which reboot) -f now --verbose; exit"
+                                      sleep 2
+                                      $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/HOSTNAME
+                                      if [ $? -eq 0 ]; then
+                                           echo "#####################################################################" >> /var/log/smx-log/success.log
+                                           echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                           echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                           echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           echo "#####################################################################" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                                           echo "        COMMAND STATUS          "
+                                           echo
+                                           echo "$(date)                                     $(whoami)@$(hostname)"
+                                           echo
+                                           echo "Command: OK    stdout: yes    stderr: no          "
+                                           echo
+                                           echo "Before command completion, additional instructions may appear below"
+                                           echo
+                                           echo "File                                 Fileset                Type"
+                                           echo "----------------------------------------------------------------"
+                                           echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                           echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME"
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                      else
+                                           echo "#########################################################################" >> /var/log/smx-log/fail.log
+                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                           echo "Not changed hostname from: $CURR_HOST to: $hostName, check command syntax" >> /var/log/smx-log/fail.log
+                                           echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/HOSTNAME" >> /var/log/smx-log/fail.log
+                                           echo "" >> /var/log/smx-log/fail.log
+                                           echo "#########################################################################" >> /var/log/smx-log/fail.log
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                                           echo "        COMMAND STATUS          "
+                                           echo
+                                           echo "$(date)                                    $(whoami)@$(hostname)"
+                                           echo
+                                           echo "Command: FAIL    stdout: yes    stderr: no       "
+                                           echo
+                                           echo "Before command completion, additional instructions may appear below"
+                                           echo
+                                           echo "File                                 Fileset                Type"
+                                           echo "----------------------------------------------------------------"
+                                           echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           exit 1
+                                      fi
+                                      $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
+                                      if [ $? -eq 0 ]; then
+                                           echo "##################################################################" >> /var/log/smx-log/success.log
+                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                           echo "Successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                           echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           echo "##################################################################" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                                           echo "        COMMAND STATUS          "
+                                           echo
+                                           echo "$(date)                                    $(whoami)@$(hostname)"
+                                           echo
+                                           echo "Command: OK      stdout: yes    stderr: no       "
+                                           echo
+                                           echo "Before command completion, additional instructions may appear below"
+                                           echo
+                                           echo "File                                 Fileset                Type"
+                                           echo "----------------------------------------------------------------"
+                                           echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                           echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts"
+                                           echo
+                                           cat /var/log/smx-log/success.log | tail -n 6
+                                           echo
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+                                           echo "#########################################################################" >> /var/log/smx-log/fail.log
+                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                           echo "Not changed hostname from: $CURR_HOST to: $hostName, check command syntax" >> /var/log/smx-log/fail.log
+                                           echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
+                                           echo "" >> /var/log/smx-log/fail.log
+                                           echo "#########################################################################" >> /var/log/smx-log/fail.log
+                                           echo "" >> /var/log/smx-log/fail.log
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                                           echo "        COMMAND STATUS          "
+                                           echo
+                                           echo "$(date)                                    $(whoami)@$(hostname)"
+                                           echo
+                                           echo "Command: FAIL    stdout: yes    stderr: no       "
+                                           echo
+                                           echo "Before command completion, additional instructions may appear below"
+                                           echo
+                                           echo "File                                 Fileset                Type"
+                                           echo "----------------------------------------------------------------"
+                                           echo "$(which sed)                         bos.sysmgt.sed         exec"
+                                           echo "Command unsuccessful, check variables and syntax"
+                                           echo
+                                           cat /var/log/smx-log/fail.log | tail -n 6
+                                           echo
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                     if [ "$ans" = "Y" ]; then
+                                           echo "System rebooting now..."
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           $(which reboot) -f now --verbose; exit
+                                     else
+                                           echo "The system will not reboot..."
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                 fi
+                             fi
+                         fi
+                    fi
+                    ;;
 	       chip)
                   clear
             	  echo "$(date)                                     $(whoami)@$(hostname)"
@@ -14568,7 +14777,7 @@ function sys_menuosx() {
                     	   cat /var/log/smx-log/fail.log | tail -n 6
                     	   echo
                            read -p "Press [enter] to continue..." ReadDamKey
-                           exit 2
+                           exit 1
                       fi
                       read -p "Kill Process (Y/N) --- > " ans
                       if [ "$ans" == "Y" ]; then
@@ -14756,7 +14965,7 @@ function sys_menuosx() {
                     	    cat /var/log/smx-log/success.log | tail -n 6
                     	    echo
                     	    read -p "Press [enter] to continue..." ReadDamKey
-          	       else
+          	           else
 			                echo "####################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                     	    echo "Not displayed virtual memory status, check command syntax" >> /var/log/smx-log/fail.log
@@ -20492,6 +20701,7 @@ function nfs_menu(){
                                cat /var/log/smx-log/fail.log | tail -n 6
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
                           fi
                           $(which mkdir) -p $shareLoc/
                           $(which chown) -R nobody:nobody $shareLoc/
@@ -20596,6 +20806,7 @@ function nfs_menu(){
                 				    cat /var/log/smx-log/fail.log | tail -n 6
                 				    echo
                 				    read -p "Press [enter] to continue..." ReadDamKey
+                                    exit 1
                                fi
                                $(which mkdir) -p $shareLoc/
                                $(which chown) -R nobody:nobody $shareLoc/
@@ -20696,6 +20907,7 @@ function nfs_menu(){
                     					 cat /var/log/smx-log/fail.log | tail -n 6
                     					 echo
                     					 read -p "Press [enter] to continue..." ReadDamKey
+                                         exit 1
                 				    fi
                 				    $(which mkdir) -p $shareLoc/
                 				    $(which chown) -R nobody:nobody $shareLoc/
@@ -20808,6 +21020,7 @@ function nfs_menu(){
                     					      cat /var/log/smx-log/fail.log | tail -n 6
                     					      echo
                     					      read -p "Press [enter] to continue..." ReadDamKey
+                                              exit 1
                     					 fi
                     					 $(which mkdir) -p $shareLoc/
                     					 $(which chown) -R nobody:nobody $shareLoc/
@@ -22134,6 +22347,7 @@ function nis_menu() {
                       		      cat /var/log/smx-log/fail.log | tail -n 6
                       		      echo
                       		      read -p "Press [enter] to continue..." ReadDamKey
+                                  exit 1
 				             fi
                       		 $(which ypdomainname) $dnsName
                       		 echo "NISDOMAIN=$dnsName" >> /etc/sysconfig/network
@@ -22238,6 +22452,7 @@ function nis_menu() {
                       		      cat /var/log/smx-log/fail.log
                       		      echo
                       		      read -p "Press [enter] to continue..." ReadDamKey
+                                  exit 1
 				             fi
                       		 echo "NISDOMAIN=$dnsName" >> /etc/sysconfig/network
                       		 $(which sed) -i 's/USENIS=no/USENIS=yes/g' >> /etc/sysconfig/authconfig
@@ -22377,6 +22592,7 @@ function nis_menu() {
                               			   cat /var/log/smx-log/fail.log | tail -n 6
                               			   echo
                               			   read -p "Press [enter] to continue..." ReadDamKey
+                                           exit 1
 				                      fi
                           		      $(which sed) -i 's/NISSERVER=false/NISSERVER=true/g' /etc/default/nis
                           		      $(which sed) -i 's/0.0.0.0/#0.0.0.0/g' /etc/ypserv.securenets
@@ -22470,6 +22686,7 @@ function nis_menu() {
                               			   cat /var/log/smx-log/fail.log | tail -n 6
                               			   echo
                               			   read -p "Press [enter] to continue..." ReadDamKey
+                                           exit 1
                 				      fi
                 				      echo "domain $dnsName server $nisSrvName" >> /etc/yp.conf
                 				      $(which sed) -i 's/passwd:/#passwd:/g' /etc/nsswitch.conf
@@ -22608,6 +22825,7 @@ function nis_menu() {
                                   				cat /var/log/smx-log/fail.log | tail -n 6
                                   				echo
                                   				read -p "Press [enter] to continue..." ReadDamKey
+                                                exit 1
 					                       fi
                               			   $(which sed) -i 's/NISSERVER=false/NISSERVER=true/g' /etc/default/nis
                               			   $(which sed) -i 's/0.0.0.0/#0.0.0.0/g' /etc/ypserv.securenets
@@ -22701,6 +22919,7 @@ function nis_menu() {
                                   				cat /var/log/smx-log/fail.log | tail -n 6
                                   				echo
                                   				read -p "Press [enter] to continue..." ReadDamKey
+                                                exit 1
                     					   fi
                     					   echo "domain $dnsName server $nisSrvName" >> /etc/yp.conf
                     					   $(which sed) -i 's/passwd:/#passwd:/g' /etc/nsswitch.conf
@@ -22822,6 +23041,7 @@ function nis_menu() {
                                   				     cat /var/log/smx-log/fail.log | tail -n 6
                                   				     echo
                                   				     read -p "Press [enter] to continue..." ReadDamKey
+                                                     exit 1
 						                        fi
                                   				$(which ypdomainname) $dnsName
                                   				echo "$dnsName" >> /etc/defaultdomain
@@ -22920,6 +23140,7 @@ function nis_menu() {
                                   				     cat /var/log/smx-log/fail.log | tail -n 6
                                   				     echo
                                   				     read -p "Press [enter] to continue..." ReadDamKey
+                                                     exit 1
 						                        fi
                                   				echo "$dnsName" >> /etc/defaultdomain
                                   				echo "domain $dnsName server $nisSrvName" >> /etc/yp.conf
@@ -23713,6 +23934,7 @@ function dhcp_menu() {
                           		cat /var/log/smx-log/fail.log
                           		echo
                           		read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
     			           fi
                            echo ""option domain-name=\"$dnsName"\";" >> /etc/dhcp/dhcpd.conf
                            echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcp/dhcpd.conf
@@ -23831,6 +24053,7 @@ function dhcp_menu() {
                 				     cat /var/log/smx-log/fail.log | tail -n 6
                 				     echo
                 				     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                 				fi
                 				echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcp/dhcpd.conf
                 				echo "range $startIP $endIP;" >> /etc/dhcp/dhcpd.conf
@@ -23948,6 +24171,7 @@ function dhcp_menu() {
                     					  cat /var/log/smx-log/fail.log | tail -n 6
                     					  echo
                     					  read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
 				                     fi
                 				     echo "subnet $ipClass netmask $netmaskAddr {" >> /etc/dhcp/dhcpd.conf
                 				     echo "range $startIP $endIP;" >> /etc/dhcp/dhcpd.conf
@@ -24060,6 +24284,7 @@ function dhcp_menu() {
                     					       cat /var/log/smx-log/fail.log | tail -n 6
                     					       echo
                     					       read -p "Press [enter] to continue..." ReadDamKey
+                                               exit 1
                             			  fi
                             			  echo ""option domain-name \"$dnsName"\";" >> /etc/dhcpd.conf
                             			  echo "option domain-name-servers $dnsSrvAddr;" >> /etc/dhcpd.conf
@@ -25488,6 +25713,7 @@ function sql_menu () {
                 				cat /var/log/smx-log/fail.log | tail -n 6
                 				echo
                 				read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
                   	       fi
                            echo "character-set-server=utf8" >> /etc/my.cnf
                            $(which service) mysqld start
@@ -25579,6 +25805,7 @@ function sql_menu () {
                 				     cat /var/log/smx-log/fail.log | tail -n 6
                 				     echo
                 				     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                 				fi
                 				/etc/init.d/mysqld start
                 				$(which mysql_secure_installation)
@@ -25668,6 +25895,7 @@ function sql_menu () {
                     					  cat /var/log/smx-log/fail.log | tail -n 6
                     					  echo
                     					  read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
                 				     fi
                 				     /etc/init.d/mysqld start
                 				     $(which mysql_secure_installation)
@@ -25760,6 +25988,7 @@ function sql_menu () {
                     					       cat /var/log/smx-log/fail.log | tail -n 6
                     					       echo
                     					       read -p "Press [enter] to continue..." ReadDamKey
+                                               exit 1
                     					  fi
                     					  /etc/init.d/mysql start
                     					  $(which chkconfig) mysql on
@@ -26407,6 +26636,7 @@ function sql_menu () {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
+                          exit 1
       		         fi
             	     echo "Enter SQL root password to grant all privileges to: $userName..."
             	     $(which mysql) -u root -p -e "GRANT ALL PRIVILEGES ON * . * TO '$userName'@'$hostName';"
@@ -26573,6 +26803,7 @@ function sql_menu () {
                                  cat /var/log/smx-log/fail.log | tail -n 6
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
+                                 exit 1
                             fi
                             echo "Enter SQL root password to flush privildges..."
                             $(which mysql) -u root -p -e 'FLUSH PRIVILEGES;'
@@ -26654,6 +26885,7 @@ function sql_menu () {
                                  cat /var/log/smx-log/fail.log | tail -n 6
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
+                                 exit 1
       			            fi
                             echo "Enter SQL root password to flush privileges..."
                             $(which mysql) -u root -p -e 'FLUSH PRIVILEGES;'
@@ -26899,6 +27131,7 @@ function sql_menu () {
             			    cat /var/log/smx-log/fail.log | tail -n 6
             			    echo
             			    read -p "Press [enter] to conitnue..." ReadDamKey
+                            exit 1
         		       fi
         		       echo "Enter mysql root password to flush privilege tables..."
         		       $(which mysql) -u root -p -e "flush privileges;"
@@ -26906,16 +27139,14 @@ function sql_menu () {
         		       ;;
 	        resetRoot)
 		                clear
-            			echo "$(date)                                     $(whoami)@$(hostname)"
-            			echo "WARNING: Please close ALL connections to SQL server"
-		                echo "[TOP]                                                [Entry Fields]"
-            			read -p " Enter OS type -------------------- (rhl/deb/suse) > " osType
-            			if [ "$osType" = "rhl" ]; then
-            			      clear
-            			      echo "$(date)                                     $(whoami)@$(hostname)"
-            			      echo "[TOP]                                  [Entry Fields]"
-            			      read -p " Enter new SQL root password ------- > " rootPwd
-            			      clear
+                        cat /proc/version | grep "Red Hat" > /dev/null
+                         if [ $? -eq 0 ]; then
+                              clear
+                              echo "OS = Red Hat"
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              echo "[TOP]                                  [Entry Fields]"
+                              read -p " Enter new SQL root password ------- > " rootPwd
+                              clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26926,30 +27157,30 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-            			      echo "$(which service)                     bos.sysmgt.service      exec"
-            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-            			      echo "Command run: $(which service) mysqld stop"
-            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-            			      echo "Command run: $(which service) mysqld restart"
-            			      sleep 2
-            			      clear
-            			      $(which service) mysqld stop
-            			      $(which mysqld_safe) --skip-grant-tables &
-            			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
-            			      $(which mysql) -u root -c "flush privileges;"
-            			      $(which service) mysqld restart
-            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-            			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-            			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
-            			      echo "" >> /var/log/smx-log/success.log
-            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-            			      echo "" >> /var/log/smx-log/success.log
-            			      read -p "Press [enter] to conitnue..." ReadDamKey
-            			      clear
+                              echo "$(which service)                     bos.sysmgt.service      exec"
+                              echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                              echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                              echo "Command run: $(which service) mysqld stop"
+                              echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                              echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                              echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                              echo "Command run: $(which service) mysqld restart"
+                              sleep 2
+                              clear
+                              $(which service) mysqld stop
+                              $(which mysqld_safe) --skip-grant-tables &
+                              $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
+                              $(which mysql) -u root -c "flush privileges;"
+                              $(which service) mysqld restart
+                              echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
+                              echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              read -p "Press [enter] to conitnue..." ReadDamKey
+                              clear
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26960,146 +27191,221 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-            			      echo "$(which service)                     bos.sysmgt.service      exec"
-            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-            			      echo "Command run: $(which service) mysqld stop"
-            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-            			      echo "Command run: $(which service) mysqld restart"
-            			      echo
-            			      cat /var/log/smx-log/success.log | tail -n 6
-            			      echo
-            			      read -p "Press [enter] to continue..." ReadDamKey
-            			fi
-            			if [ "$osType" = "deb" ]; then
-            			      clear
-            			      echo "$(date)                                     $(whoami)@$(hostname)"
-            			      echo "[TOP]                                  [Entry Fields]"
-            			      read -p " Enter new SQL root password ------- > " rootPwd
-            			      clear
-                              echo "         COMMAND STATUS          "
+                              echo "$(which service)                     bos.sysmgt.service      exec"
+                              echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                              echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                              echo "Command run: $(which service) mysqld stop"
+                              echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                              echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                              echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                              echo "Command run: $(which service) mysqld restart"
                               echo
-                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              cat /var/log/smx-log/success.log | tail -n 6
                               echo
-                              echo "Command: RUNNING    stdout: yes    stderr: no     "
-                              echo
-                              echo "Before command completion, additional instructions may appear below"
-                              echo
-                              echo "File                                 Fileset                 Type"
-                              echo "-----------------------------------------------------------------"
-            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-            			      echo "Command run: /etc/init.d/mysql stop"
-            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-            			      echo "Command run: $(which service) mysqld restart"
-            			      sleep 2
-            			      clear
-            			      /etc/init.d/mysql stop
-            			      $(which mysqld_safe) --skip-grant-tables &
-            			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
-            			      $(which mysql) -u root -c "flush privileges;"
-            			      $(which service) mysqld restart
-            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-            			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-            			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
-            			      echo "" >> /var/log/smx-log/success.log
-            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-            			      echo "" >> /var/log/smx-log/success.log
-            			      read -p "Press [enter] to conitnue..." ReadDamKey
-            			      clear
-                              echo "         COMMAND STATUS          "
-                              echo
-                              echo "$(date)                                     $(whoami)@$(hostname)"
-                              echo
-                              echo "Command: OK    stdout: yes    stderr: no          "
-                              echo
-                              echo "Before command completion, additional instructions may appear below"
-                              echo
-                              echo "File                                 Fileset                 Type"
-                              echo "-----------------------------------------------------------------"
-            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-            			      echo "Command run: /etc/init.d/mysql stop"
-            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-            			      echo "Command run: /etc/init.d/mysql restart"
-            			      echo
-            			      cat /var/log/smx-log/success.log | tail -n 6
-            			      echo
-            			      read -p "Press [enter] to continue..." ReadDamKey
-            			fi
-            			if [ "$osType" = "suse" ]; then
-            			      clear
-            			      echo "$(date)                                     $(whoami)@$(hostname)"
-            			      echo "[TOP]                                  [Entry Fields]"
-            			      read -p " Enter new SQL root password ------- > " rootPwd
-            			      clear
-                              echo "         COMMAND STATUS          "
-                              echo
-                              echo "$(date)                                     $(whoami)@$(hostname)"
-                              echo
-                              echo "Command: RUNNING    stdout: yes    stderr: no     "
-                              echo
-                              echo "Before command completion, additional instructions may appear below"
-                              echo
-                              echo "File                                 Fileset                 Type"
-                              echo "-----------------------------------------------------------------"
-            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-            			      echo "Command run: /etc/init.d/mysql stop"
-            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-            			      echo "Command run: $(which service) mysqld restart"
-            			      sleep 2
-            			      clear
-            			      /etc/init.d/mysql stop
-            			      $(which mysqld_safe) --skip-grant-tables &
-            			      $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
-            			      $(which mysql) -u root -c "flush privileges;"
-            			      $(which service) mysqld restart
-            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-            			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-            			      echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
-            			      echo "" >> /var/log/smx-log/success.log
-            			      echo "###############################################################################################################" >> /var/log/smx-log/success.log
-            			      echo "" >> /var/log/smx-log/success.log
-            			      read -p "Press [enter] to conitnue..." ReadDamKey
-            			      clear
-                              echo "         COMMAND STATUS          "
-                              echo
-                              echo "$(date)                                     $(whoami)@$(hostname)"
-                              echo
-                              echo "Command: OK    stdout: yes    stderr: no          "
-                              echo
-                              echo "Before command completion, additional instructions may appear below"
-                              echo
-                              echo "File                                 Fileset                 Type"
-                              echo "-----------------------------------------------------------------"
-            			      echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-            			      echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
-            			      echo "$(which mysql)                       bos.sysmgt.mysql        exec"
-            			      echo "Command run: /etc/init.d/mysql stop"
-            			      echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
-            			      echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
-            			      echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
-            			      echo "Command run: /etc/init.d/mysql restart"
-            			      echo
-            			      cat /var/log/smx-log/success.log | tail -n 6
-            			      echo
-            			      read -p "Press [enter] to continue..." ReadDamKey
-            			fi
-            			;;
+                              read -p "Press [enter] to continue..." ReadDamKey
+                         else
+                              clear
+                              cat /proc/version | grep "Debian" > /dev/null
+                              if [ $? -eq 0 ]; then
+                                   clear
+                                   echo "OS = Debian"
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo "[TOP]                                  [Entry Fields]"
+                                   read -p " Enter new SQL root password ------- > " rootPwd
+                                   clear
+                                   echo "         COMMAND STATUS          "
+                                   echo
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                 Type"
+                                   echo "-----------------------------------------------------------------"
+                                   echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                   echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                                   echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                                   echo "Command run: /etc/init.d/mysql stop"
+                                   echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                                   echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                                   echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                                   echo "Command run: $(which service) mysqld restart"
+                                   sleep 2
+                                   clear
+                                   /etc/init.d/mysql stop
+                                   $(which mysqld_safe) --skip-grant-tables &
+                                   $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
+                                   $(which mysql) -u root -c "flush privileges;"
+                                   $(which service) mysqld restart
+                                   echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                   echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
+                                   echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   read -p "Press [enter] to conitnue..." ReadDamKey
+                                   clear
+                                   echo "         COMMAND STATUS          "
+                                   echo
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: OK    stdout: yes    stderr: no          "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                 Type"
+                                   echo "-----------------------------------------------------------------"
+                                   echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                   echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                                   echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                                   echo "Command run: /etc/init.d/mysql stop"
+                                   echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                                   echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                                   echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                                   echo "Command run: /etc/init.d/mysql restart"
+                                   echo
+                                   cat /var/log/smx-log/success.log | tail -n 6
+                                   echo
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                              else
+                                   clear
+                                   cat /proc/version | grep "Ubuntu" > /dev/null
+                                   if [ $? -eq 0 ]; then
+                                        clear
+                                        echo "OS = Ubuntu"
+                                        echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo "[TOP]                                  [Entry Fields]"
+                                       read -p " Enter new SQL root password ------- > " rootPwd
+                                       clear
+                                       echo "         COMMAND STATUS          "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                       echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                                       echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                                       echo "Command run: /etc/init.d/mysql stop"
+                                       echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                                       echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                                       echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                                       echo "Command run: $(which service) mysqld restart"
+                                       sleep 2
+                                       clear
+                                       /etc/init.d/mysql stop
+                                       $(which mysqld_safe) --skip-grant-tables &
+                                       $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
+                                       $(which mysql) -u root -c "flush privileges;"
+                                       $(which service) mysqld restart
+                                       echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                       echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
+                                       echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       read -p "Press [enter] to conitnue..." ReadDamKey
+                                       clear
+                                       echo "         COMMAND STATUS          "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: OK    stdout: yes    stderr: no          "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                       echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                                       echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                                       echo "Command run: /etc/init.d/mysql stop"
+                                       echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                                       echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                                       echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                                       echo "Command run: /etc/init.d/mysql restart"
+                                       echo
+                                       cat /var/log/smx-log/success.log | tail -n 6
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                   else
+                                        clear
+                                        cat /proc/version | grep "SUSE" > /dev/null
+                                       if [ $? -eq 0 ]; then
+                                            clear
+                                            echo "OS = SuSE"
+                                            echo "$(date)                                     $(whoami)@$(hostname)"
+                                            echo "[TOP]                                  [Entry Fields]"
+                                            read -p " Enter new SQL root password ------- > " rootPwd
+                                            clear
+                                           echo "         COMMAND STATUS          "
+                                           echo
+                                           echo "$(date)                                     $(whoami)@$(hostname)"
+                                           echo
+                                           echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                           echo
+                                           echo "Before command completion, additional instructions may appear below"
+                                           echo
+                                           echo "File                                 Fileset                 Type"
+                                           echo "-----------------------------------------------------------------"
+                                           echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                           echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                                           echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                                           echo "Command run: /etc/init.d/mysql stop"
+                                           echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                                           echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                                           echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                                           echo "Command run: $(which service) mysqld restart"
+                                           sleep 2
+                                           clear
+                                           /etc/init.d/mysql stop
+                                           $(which mysqld_safe) --skip-grant-tables &
+                                           $(which mysql) -u root -c 'update mysql.user set password=PASSWORD("$rootPwd") where User="root";'
+                                           $(which mysql) -u root -c "flush privileges;"
+                                           $(which service) mysqld restart
+                                           echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                           echo "Successfuly reset SQL root password to: $rootPwd" >> /var/log/smx-log/success.log
+                                           echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           echo "###############################################################################################################" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           read -p "Press [enter] to conitnue..." ReadDamKey
+                                           clear
+                                           echo "         COMMAND STATUS          "
+                                           echo
+                                           echo "$(date)                                     $(whoami)@$(hostname)"
+                                           echo
+                                           echo "Command: OK    stdout: yes    stderr: no          "
+                                           echo
+                                           echo "Before command completion, additional instructions may appear below"
+                                           echo
+                                           echo "File                                 Fileset                 Type"
+                                           echo "-----------------------------------------------------------------"
+                                           echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                           echo "$(which mysqld_safe)                 bos.sysmgt.mysqld_safe  exec"
+                                           echo "$(which mysql)                       bos.sysmgt.mysql        exec"
+                                           echo "Command run: /etc/init.d/mysql stop"
+                                           echo "Command run: $(which mysqld_safe) --skip-grant-tables &"
+                                           echo "Command run: $(which mysql) -u root -c 'update mysql.user set password=PASSWORD('$rootPwd') where User='root';'"
+                                           echo "Command run: $(which mysql) -u root -c 'flush priviliges;'"
+                                           echo "Command run: /etc/init.d/mysql restart"
+                                           echo
+                                           cat /var/log/smx-log/success.log | tail -n 6
+                                           echo
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                       fi
+                                   fi
+                              fi
+                         fi
+                         ;;
 	        session)
 		              clear
         		      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -27334,6 +27640,7 @@ function smb_menu() {
                                       cat /var/log/smx-log/fail.log | tail -n 6
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
                                  fi
                                  $(which mkdir) -p $folderShare
                                  $(which chmod) 777 $folderShare
@@ -27455,6 +27762,7 @@ function smb_menu() {
                                       cat /var/log/smx-log/fail.log | tail -n 6
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
+                                      exit 1
                                  fi
                                  $(which groupadd) samba
                                  $(which mkdir) -p $folderName
@@ -27580,6 +27888,7 @@ function smb_menu() {
                     					   cat /var/log/smx-log/fail.log | tail -n 6
                     					   echo
                     					   read -p "Press [enter] to continue..." ReadDamKey
+                                           exit 1
                                       fi
                                       $(which mkdir) -p $folderName
                                       $(which chmod) 777 $folderName
@@ -27694,6 +28003,7 @@ function smb_menu() {
                     					   cat /var/log/smx-log/fail.log | tail -n 6
                     					   echo
                     					   read -p "Press [enter] to continue..." ReadDamKey
+                                           exit 1
                                       fi
                                       $(which groupadd) samba
                                       $(which mkdir) -p $folderName
@@ -27816,6 +28126,7 @@ function smb_menu() {
                         						cat /var/log/smx-log/fail.log | tail -n 6
                         						echo
                         						read -p "Press [enter] to continue..." ReadDamKey
+                                                exit 1
                     					   fi
                     					   $(which mkdir) -p $folderName
                     					   $(which chmod) 777 $folderName
@@ -27930,6 +28241,7 @@ function smb_menu() {
                         						cat /var/log/smx-log/fail.log | tail -n 6
                         						echo
                         						read -p "Press [enter] to continue..." ReadDamKey
+                                                exit 1
                     					   fi
                     					   $(which groupadd) samba
                     					   $(which mkdir) -p $folderName
@@ -28049,6 +28361,7 @@ function smb_menu() {
                         						     cat /var/log/smx-log/fail.log | tail -n 6
                         						     echo
                         						     read -p "Press [enter] to continue..." ReadDamKey
+                                                     exit 1
                         						fi
                         						$(which mkdir) -p $folderName
                         						$(which chmod) 777 $folderName
@@ -28165,6 +28478,7 @@ function smb_menu() {
                         						     cat /var/log/smx-log/fail.log | tail -n 6
                         						     echo
                         						     read -p "Press [enter] to continue..." ReadDamKey
+                                                     exit 1
                         						fi
                         						$(which mkdir) -p $folderName
                         						$(which chmod) 777 $folderName
@@ -29046,6 +29360,7 @@ function ssh_menu() {
                 				     cat /var/log/smx-log/fail.log | tail -n 6
                 				     echo
                 				     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                 				fi
                 				$(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
                 				$(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
@@ -29143,6 +29458,7 @@ function ssh_menu() {
                     					  cat /var/log/smx-log/fail.log | tail -n 6
                     					  echo
                     					  read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
                 				     fi
                 				     $(which sed) -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config
                 				     $(which sed) -i 's/#PermitEmptyPasswords/PermitEmptyPasswords/g' /etc/ssh/sshd_config
@@ -29940,7 +30256,8 @@ function vnc_menu() {
                                 echo
                                 cat /var/log/smx-log/fail.log | tail -n 6
                                 echo
-                                 read -p "Press [enter] to continue..." ReadDamKey
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
                            fi
                            $(which su) -l $userName -c "$(which vncpasswd)"
                            $(which su) -l $userName -c "$(which vncserver) :1"
@@ -30037,6 +30354,7 @@ function vnc_menu() {
                                      cat /var/log/smx-log/exit.log | tail -n 6
                                      echo
                                      read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                                 fi
                                 $(which su) -l $userName -c "$(which vncpasswd)"
                                 $(which su) -l $userName -c "$(which vncserver) :1"
@@ -30132,6 +30450,7 @@ function vnc_menu() {
                                           cat /var/log/smx-log/exit.log | tail -n 6
                                           echo
                                           read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
                                      fi
                                      $(which su) -l $userName -c "$(which vncpasswd)"
                                      $(which su) -l $userName -c "$(which vncserver) :1"
