@@ -55,3 +55,5 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 37 - Extend os detection script for server management and service management (start, stop, restart) [X]
 
 38 - Add snmp server support to server management []
+
+39 - May add SUCCESS or FAIL message in ASCII art form and add spinning cursor (See spin.sh) []
