@@ -2424,8 +2424,8 @@ function dsk_menu() {
             mount)
                     clear
               	    echo "$(date)                                     $(whoami)@$(hostname)"
-              	    echo "[TOP]                                 [Entry Fields]"
-              	    read -p " Mount or unmount disk ------------ (mount/umount) > " ans
+              	    echo "[TOP]                                                 [Entry Fields]"
+              	    read -p " Mount or unmount disk ------------ (mount/unmount) > " ans
               	    if [ "$ans" = "mount" ]; then
                           clear
                           echo "$(date)                                     $(whoami)@$(hostname)"
