@@ -11560,7 +11560,7 @@ function system_upd() {
 			      echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log"
 			      echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
 			      echo "Command run: cd /tmp"
-			      echo "Command run: $(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz"
+			      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 			      echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
 			      echo "Command run: cd /usr/src/$krnlMinor"
 			      echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
@@ -11573,14 +11573,14 @@ function system_upd() {
 			      echo "" >> /var/log/smx-log/yum.log
 			      echo "#############################################" >> /var/log/smx-log/yum.log
 			      echo "" >> /var/log/smx-log/yum.log
-			      $(which yum) -y install ncurses-devel | $(which tee) /var/log/smx-log/yum.log
+			      $(which yum) -y install ncurses-devel wget | $(which tee) /var/log/smx-log/yum.log
 			      echo "" >> /var/log/smx-log/yum.log
 			      echo "#############################################" >> /var/log/smx-log/yum.log
 			      echo "" >> /var/log/smx-log/yum.log
 			      $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log
 			      $(which mkdir) -p /usr/src/$krnlMinor
 			      cd /tmp
-			      $(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz
+			      $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 			      $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
 			      cd /usr/src/$krnlMinor
 			      $(which sh) -c 'yes "" | make oldconfig'
@@ -11621,13 +11621,13 @@ function system_upd() {
 				   echo "$(which sh)                          bos.sysmgt.sh           exec"
 				   echo "$(which make)                        bos.sysmgt.make         exec"
 				   echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-				   echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake | $(which tee) /var/log/smx-log/apt-get.log"
+				   echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
 				   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
 				   echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
 				   echo "Command run: $(which apt-get) clean"
 				   echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
 				   echo "Command run: cd /tmp"
-				   echo "Command run: $(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz"
+				   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 				   echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
 				   echo "Command run: cd /usr/src/$krnlMinor"
 				   echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
@@ -11636,7 +11636,7 @@ function system_upd() {
 				   echo "Command run: $(which reboot) -f --verbose; exit"
 				   sleep 2
 				   clear
-				   $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake | $(which tee) /var/log/smx-log/apt-get.log
+				   $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log
 				   echo "" >> /var/log/smx-log/apt-get.log
 				   echo "#############################################" >> /var/log/smx-log/apt-get.log
 				   echo "" >> /var/log/smx-log/apt-get.log
@@ -11651,7 +11651,7 @@ function system_upd() {
 				   $(which apt-get) clean
 				   $(which mkdir) -p /usr/src/$krnlMinor
 				   cd /tmp
-				   $(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz
+				   $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 				   $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
 				   cd /usr/src/$krnlMinor
 				   $(which sh) -c 'yes "" | make oldconfig'
@@ -11692,13 +11692,13 @@ function system_upd() {
 					echo "$(which sh)                          bos.sysmgt.sh           exec"
 					echo "$(which make)                        bos.sysmgt.make         exec"
 					echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-					echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake | $(which tee) /var/log/smx-log/apt-get.log"
+					echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
 					echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
 					echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
 					echo "Command run: $(which apt-get) clean"
 					echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
 					echo "Command run: cd /tmp"
-					echo "Command run: $(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz"
+					echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 					echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
 					echo "Command run: cd /usr/src/$krnlMinor"
 					echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
@@ -11707,7 +11707,7 @@ function system_upd() {
 					echo "Command run: $(which reboot) -f --verbose; exit"
 					sleep 2
 					clear
-					$(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake | $(which tee) /var/log/smx-log/apt-get.log
+					$(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log
 					echo "" >> /var/log/smx-log/apt-get.log
 					echo "#############################################" >> /var/log/smx-log/apt-get.log
 					echo "" >> /var/log/smx-log/apt-get.log
@@ -11722,7 +11722,7 @@ function system_upd() {
 					$(which apt-get) clean
 					$(which mkdir) -p /usr/src/$krnlMinor
 					cd /tmp
-					$(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz
+					$(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 					$(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
 					cd /usr/src/$krnlMinor
 					$(which sh) -c 'yes "" | make oldconfig'
@@ -11764,10 +11764,11 @@ function system_upd() {
 					     echo "$(which make)                        bos.sysmgt.make         exec"
 					     echo "$(which reboot)                      bos.sysmgt.reboot       exec"
 					     echo "Command run: $(which zypper) ref | $(which tee) /var/log/smx-log/zypper.log"
+					     echo "Command run: $(which zypper) -y in wget | $(which tee) /var/log/smx-log/zypper.log"
 					     echo "Command run: $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log"
 					     echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
 					     echo "Command run: cd /tmp"
-					     echo "Command run: $(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz"
+					     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 					     echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
 					     echo "Command run: cd /usr/src/$krnlMinor"
 					     echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
@@ -11780,10 +11781,11 @@ function system_upd() {
 					     echo "" >> /var/log/smx-log/zypper.log
 					     echo "#############################################" >> /var/log/smx-log/zypper.log
 					     echo "" >> /var/log/smx-log/zypper.log
+					     $(which zypper) in -y wget | $(which tee) /var/log/smx-log/zypper.log
 					     $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log
 					     $(which mkdir) -p /usr/src/$krnlMinor
 					     cd /tmp
-					     $(which wget) https://kernel.org/pub/linux/kernel/$krnlMajor/$krnlMinor.tar.gz
+					     $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 					     $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
 					     cd /usr/src/$krnlMinor
 					     $(which sh) -c 'yes "" | make oldconfig'
