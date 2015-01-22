@@ -9,7 +9,7 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 
 7 - May change log system to create seperate folder for programs as /var/log/unixadmin/program/ []
 
-8 - May change code layout so that if a command is unsuccessful, it won't run the next command (Give exit 0, and reason) [*]*
+8 - May change code layout so that if a command is unsuccessful, it won't run the next command (Give exit 0, and reason) [X]
 
 11 - For unmount, add eject using udisks (udisks --eject <diskName>) []
 
@@ -20,7 +20,7 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 
 16 - May combine OS X disk mount and unmount []
 
-17 - May rename linux unmount option from umount to unmount [*]
+17 - May rename linux unmount option from umount to unmount [X]
 
 18 - May remove underline in command names (example: change add_usr to add-usr, etc) []
 
