@@ -57,3 +57,7 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 38 - Add snmp server support to server management []
 
 39 - May add SUCCESS or FAIL message in ASCII art form and add spinning cursor (See spin.sh) []
+
+40 - For updatekrnl change kernel major version to example, same with minor []
+
+41 - Show current running kernel using uname -r []
