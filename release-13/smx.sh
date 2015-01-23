@@ -11549,7 +11549,6 @@ function system_upd() {
 			      echo "File                                 Fileset                 Type"
 			      echo "-----------------------------------------------------------------"
 			      echo "$(which yum)                         bos.pkgmgt.yum          exec"
-			      echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
 			      echo "$(which wget)                        bos.sysmgt.wget         exec"
 			      echo "$(which tar)                         bos.sysmgt.tar          exec"
 			      echo "$(which sh)                          bos.sysmgt.sh           exec"
@@ -11558,11 +11557,10 @@ function system_upd() {
 			      echo "Command run: $(which yum) -y groupinstall 'Development Tools' | $(which tee) /var/log/smx-log/yum.log"
 			      echo "Command run: $(which yum) -y install ncurses-devel | $(which tee) /var/log/smx-log/yum.log"
 			      echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log"
-			      echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
 			      echo "Command run: cd /tmp"
 			      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-			      echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
-			      echo "Command run: cd /usr/src/$krnlMinor"
+			      echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+			      echo "Command run: cd /usr/src/linux-$krnlMinor"
 			      echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
 			      echo "Command run: $(which make)"
 			      echo "Command run: $(which make) modules_install install"
@@ -11578,11 +11576,10 @@ function system_upd() {
 			      echo "#############################################" >> /var/log/smx-log/yum.log
 			      echo "" >> /var/log/smx-log/yum.log
 			      $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log
-			      $(which mkdir) -p /usr/src/$krnlMinor
 			      cd /tmp
 			      $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
-			      $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
-			      cd /usr/src/$krnlMinor
+			      $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
+			      cd /usr/src/linux-$krnlMinor
 			      $(which sh) -c 'yes "" | make oldconfig'
 			      $(which make)
 			      $(which make) modules_install install
@@ -11615,7 +11612,6 @@ function system_upd() {
 				   echo "File                                 Fileset                 Type"
 				   echo "-----------------------------------------------------------------"
 				   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-				   echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
 				   echo "$(which wget)                        bos.sysmgt.wget         exec"
 				   echo "$(which tar)                         bos.sysmgt.tar          exec"
 				   echo "$(which sh)                          bos.sysmgt.sh           exec"
@@ -11625,11 +11621,10 @@ function system_upd() {
 				   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
 				   echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
 				   echo "Command run: $(which apt-get) clean"
-				   echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
 				   echo "Command run: cd /tmp"
 				   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-				   echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
-				   echo "Command run: cd /usr/src/$krnlMinor"
+				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+				   echo "Command run: cd /usr/src/linux-$krnlMinor"
 				   echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
 				   echo "Command run: $(which make)"
 				   echo "Command run: $(which make) modules_install install"
@@ -11649,11 +11644,10 @@ function system_upd() {
 				   echo "#############################################" >> /var/log/smx-log/apt-get.log
 				   echo "" >> /var/log/smx-log/apt-get.log
 				   $(which apt-get) clean
-				   $(which mkdir) -p /usr/src/$krnlMinor
 				   cd /tmp
 				   $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
-				   $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
-				   cd /usr/src/$krnlMinor
+				   $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
+				   cd /usr/src/linux-$krnlMinor
 				   $(which sh) -c 'yes "" | make oldconfig'
 				   $(which make)
 				   $(which make) modules_install install
@@ -11686,7 +11680,6 @@ function system_upd() {
 					echo "File                                 Fileset                 Type"
 					echo "-----------------------------------------------------------------"
 					echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
 					echo "$(which wget)                        bos.sysmgt.wget         exec"
 					echo "$(which tar)                         bos.sysmgt.tar          exec"
 					echo "$(which sh)                          bos.sysmgt.sh           exec"
@@ -11696,11 +11689,10 @@ function system_upd() {
 					echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
 					echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
 					echo "Command run: $(which apt-get) clean"
-					echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
 					echo "Command run: cd /tmp"
 					echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-					echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
-					echo "Command run: cd /usr/src/$krnlMinor"
+					echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					echo "Command run: cd /usr/src/linux-$krnlMinor"
 					echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
 					echo "Command run: $(which make)"
 					echo "Command run: $(which make) modules_install install"
@@ -11720,11 +11712,10 @@ function system_upd() {
 					echo "#############################################" >> /var/log/smx-log/apt-get.log
 					echo "" >> /var/log/smx-log/apt-get.log
 					$(which apt-get) clean
-					$(which mkdir) -p /usr/src/$krnlMinor
 					cd /tmp
 					$(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
-					$(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
-					cd /usr/src/$krnlMinor
+					$(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
+					cd /usr/src/linux-$krnlMinor
 					$(which sh) -c 'yes "" | make oldconfig'
 					$(which make)
 					$(which make) modules_install install
@@ -11757,7 +11748,6 @@ function system_upd() {
 					     echo "File                                 Fileset                 Type"
 					     echo "-----------------------------------------------------------------"
 					     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-					     echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
 					     echo "$(which wget)                        bos.sysmgt.wget         exec"
 					     echo "$(which tar)                         bos.sysmgt.tar          exec"
 					     echo "$(which sh)                          bos.sysmgt.sh           exec"
@@ -11766,11 +11756,10 @@ function system_upd() {
 					     echo "Command run: $(which zypper) ref | $(which tee) /var/log/smx-log/zypper.log"
 					     echo "Command run: $(which zypper) -y in wget | $(which tee) /var/log/smx-log/zypper.log"
 					     echo "Command run: $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log"
-					     echo "Command run: $(which mkdir) -p /usr/src/$krnlMinor"
-					     echo "Command run: cd /tmp"
+					     echo "Command run: /tmp"
 					     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-					     echo "Command run: $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor"
-					     echo "Command run: cd /usr/src/$krnlMinor"
+					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					     echo "Command run: cd /usr/src/linux-$krnlMinor"
 					     echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
 					     echo "Command run: $(which make)"
 					     echo "Command run: $(which make) modules_install install"
@@ -11783,11 +11772,10 @@ function system_upd() {
 					     echo "" >> /var/log/smx-log/zypper.log
 					     $(which zypper) in -y wget | $(which tee) /var/log/smx-log/zypper.log
 					     $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log
-					     $(which mkdir) -p /usr/src/$krnlMinor
 					     cd /tmp
 					     $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
-					     $(which tar) -zxvf /tmp/$krnlMinor.tar.gz -C /usr/src/$krnlMinor
-					     cd /usr/src/$krnlMinor
+					     $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
+					     cd /usr/src/linux-$krnlMinor
 					     $(which sh) -c 'yes "" | make oldconfig'
 					     $(which make)
 					     $(which make) modules_install install
