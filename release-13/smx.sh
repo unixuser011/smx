@@ -11532,8 +11532,9 @@ function system_upd() {
                          if [ $? -eq 0 ]; then
                               clear
 			      echo "OS = Red Hat"
-			      echo "Kernel major version: v3.x"
-			      echo "Kernel minor version: 3.18.3"
+			      echo "WARNING: this update process will take a while, it took up to an hour on my system"                 # But you know that
+			      echo "Kernel major version example: v3.x"
+			      echo "Kernel minor version example: 3.18.3"
 			      echo "$(date)                                     $(whoami)@$(hostname)"
 			      echo "[TOP]                                            [Entry Fields]"
 			      read -p " Enter kernel major version ------------------ > " krnlMajor
@@ -11542,7 +11543,9 @@ function system_upd() {
 			      clear
 			      echo "         COMMAND STATUS               "
 			      echo
-			      echo "Command: RUNNING    stdout: yes    stderr: no   "
+			      echo "$(date)                                     $(whoami)@$(hostname)"
+			      echo
+			      echo "Command: RUNNING    stdout: yes    stderr: no     "
 			      echo
 			      echo "Before command completion, additional instructions may appear below"
 			      echo
@@ -11561,9 +11564,9 @@ function system_upd() {
 			      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 			      echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
 			      echo "Command run: cd /usr/src/linux-$krnlMinor"
-			      echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
-			      echo "Command run: $(which make)"
-			      echo "Command run: $(which make) modules_install install"
+			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
 			      echo "Command run: $(which reboot) -f --verbose; exit"
 			      sleep 2
 			      clear
@@ -11580,14 +11583,56 @@ function system_upd() {
 			      $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 			      $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
 			      cd /usr/src/linux-$krnlMinor
-			      $(which sh) -c 'yes "" | make oldconfig'
+			      $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
 			      $(which make)
 			      $(which make) modules_install install
+			      echo "######################################################################################################" >> /var/log/smx-log/success.log
+			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+			      echo "Successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+			      echo "" >> /var/log/smx-log/success.log
+			      echo "###################################################################################################" >> /var/log/smx-log/success.log
+			      echo "" >> /var/log/smx-log/success.log
+			      clear
+			      echo "         COMMAND STATUS               "
+			      echo
+			      echo "$(date)                                     $(whoami)@$(hostname)"
+			      echo
+			      echo "Command: OK    stdout: yes    stderr: no          "
+			      echo
+			      echo "Before command completion, additional instructions may appear below"
+			      echo
+			      echo "File                                 Fileset                 Type"
+			      echo "-----------------------------------------------------------------"
+			      echo "$(which yum)                         bos.pkgmgt.yum          exec"
+			      echo "$(which wget)                        bos.sysmgt.wget         exec"
+			      echo "$(which tar)                         bos.sysmgt.tar          exec"
+			      echo "$(which sh)                          bos.sysmgt.sh           exec"
+			      echo "$(which make)                        bos.sysmgt.make         exec"
+			      echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+			      echo "Command run: $(which yum) -y groupinstall 'Development Tools' | $(which tee) /var/log/smx-log/yum.log"
+			      echo "Command run: $(which yum) -y install ncurses-devel | $(which tee) /var/log/smx-log/yum.log"
+			      echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log"
+			      echo "Command run: cd /tmp"
+			      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+			      echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+			      echo "Command run: cd /usr/src/linux-$krnlMinor"
+			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+			      echo "Command run: $(which reboot) -f --verbose; exit"
+			      echo
+			      cat /var/log/smx-log/success.log | tail -n 8
+			      echo
+			      read -p "Press [enter] to continue..." ReadDamKey
 			      if [ "$rebootSys" = "Y" ]; then
 				    echo "System will now reboot!!"
 				    $(which reboot) -f --verbose; exit
 			      else
 				    echo "System will not reboot, reboot to use new kernel"
+				    read -p "Press [enter] to continue..." ReadDamKey
 			      fi
                          else
                               clear
@@ -11595,8 +11640,8 @@ function system_upd() {
                               if [ $? -eq 0 ]; then
                                    clear
 				   echo "OS = Debian"
-				   echo "Kernel major version: v3.x"
-				   echo "Kernel minor version: 3.18.3"
+				   echo "Kernel major version example: v3.x"
+				   echo "Kernel minor version example: 3.18.3"
 				   echo "$(date)                                     $(whoami)@$(hostname)"
 				   echo "[TOP]                                            [Entry Fields]"
 				   read -p " Enter kernel major version ------------------ > " krnlMajor
@@ -11604,6 +11649,8 @@ function system_upd() {
 				   read -p " Reboot after completion --------------- (Y/N) > " rebootSys
 				   clear
 				   echo "         COMMAND STATUS               "
+				   echo
+				   echo "$(date)                                     $(whoami)@$(hostname)"
 				   echo
 				   echo "Command: RUNNING    stdout: yes    stderr: no   "
 				   echo
@@ -11625,9 +11672,9 @@ function system_upd() {
 				   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
 				   echo "Command run: cd /usr/src/linux-$krnlMinor"
-				   echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
-				   echo "Command run: $(which make)"
-				   echo "Command run: $(which make) modules_install install"
+				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+				   echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+				   echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
 				   echo "Command run: $(which reboot) -f --verbose; exit"
 				   sleep 2
 				   clear
@@ -11648,14 +11695,57 @@ function system_upd() {
 				   $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 				   $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
 				   cd /usr/src/linux-$krnlMinor
-				   $(which sh) -c 'yes "" | make oldconfig'
-				   $(which make)
-				   $(which make) modules_install install
+				   $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
+				   $(which make) | $(which tee) /var/log/smx-log/kernel_build.log
+				   $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log
+				   echo "######################################################################################################" >> /var/log/smx-log/success.log
+				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+				   echo "Successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+				   echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+				   echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+				   echo "" >> /var/log/smx-log/success.log
+				   echo "######################################################################################################" >> /var/log/smx-log/success.log
+				   echo "" >> /var/log/smx-log/success.log
+				   clear
+				   echo "         COMMAND STATUS               "
+				   echo
+				   echo "$(date)                                     $(whoami)@$(hostname)"
+				   echo
+				   echo "Command: OK    stdout: yes    stderr: no   "
+				   echo
+				   echo "Before command completion, additional instructions may appear below"
+				   echo
+				   echo "File                                 Fileset                 Type"
+				   echo "-----------------------------------------------------------------"
+				   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+				   echo "$(which wget)                        bos.sysmgt.wget         exec"
+				   echo "$(which tar)                         bos.sysmgt.tar          exec"
+				   echo "$(which sh)                          bos.sysmgt.sh           exec"
+				   echo "$(which make)                        bos.sysmgt.make         exec"
+				   echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+				   echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
+				   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+				   echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+				   echo "Command run: $(which apt-get) clean"
+				   echo "Command run: cd /tmp"
+				   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+				   echo "Command run: cd /usr/src/linux-$krnlMinor"
+				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+				   echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+				   echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+				   echo "Command run: $(which reboot) -f --verbose; exit"
+				   echo
+				   cat /var/log/smx-log/success.log | tail -n 8
+				   echo
+				   read -p "Press [enter] to continue..." ReadDamKey
 				   if [ "$rebootSys" = "Y" ]; then
 				         echo "System will now reboot!!"
 					 $(which reboot) -f --verbose; exit
 				   else
 				         echo "System will not reboot, reboot to use new kernel"
+				         read -p "Press [enter] to continue..." ReadDamKey
 				   fi
                               else
                                    clear
@@ -11663,8 +11753,8 @@ function system_upd() {
                                    if [ $? -eq 0 ]; then
                                         clear
 					echo "OS = Ubuntu"
-					echo "Kernel major version: v3.x"
-					echo "Kernel minor version: 3.18.3"
+					echo "Kernel major version example: v3.x"
+					echo "Kernel minor version example: 3.18.3"
 					echo "$(date)                                     $(whoami)@$(hostname)"
 					echo "[TOP]                                            [Entry Fields]"
 					read -p " Enter kernel major version ------------------ > " krnlMajor
@@ -11672,6 +11762,8 @@ function system_upd() {
 					read -p " Reboot after completion --------------- (Y/N) > " rebootSys
 					clear
 					echo "         COMMAND STATUS               "
+					echo
+					echo "$(date)                                     $(whoami)@$(hostname)"
 					echo
 					echo "Command: RUNNING    stdout: yes    stderr: no   "
 					echo
@@ -11693,9 +11785,9 @@ function system_upd() {
 					echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 					echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
 					echo "Command run: cd /usr/src/linux-$krnlMinor"
-					echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
-					echo "Command run: $(which make)"
-					echo "Command run: $(which make) modules_install install"
+					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+					echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+					echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
 					echo "Command run: $(which reboot) -f --verbose; exit"
 					sleep 2
 					clear
@@ -11716,14 +11808,57 @@ function system_upd() {
 					$(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 					$(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
 					cd /usr/src/linux-$krnlMinor
-					$(which sh) -c 'yes "" | make oldconfig'
-					$(which make)
-					$(which make) modules_install install
+					$(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
+					$(which make) | $(which tee) /var/log/smx-log/kernel_build.log
+					$(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log
+					echo "######################################################################################################" >> /var/log/smx-log/success.log
+					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+					echo "Successfuly build new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+					echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+					echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+					echo "" >> /var/log/smx-log/success.log
+					echo "######################################################################################################" >> /var/log/smx-log/success.log
+					echo "" >> /var/log/smx-log/success.log
+					clear
+					echo "         COMMAND STATUS               "
+					echo
+					echo "$(date)                                     $(whoami)@$(hostname)"
+					echo
+					echo "Command: OK    stdout: yes    stderr: no          "
+					echo
+					echo "Before command completion, additional instructions may appear below"
+					echo
+					echo "File                                 Fileset                 Type"
+					echo "-----------------------------------------------------------------"
+					echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+					echo "$(which wget)                        bos.sysmgt.wget         exec"
+					echo "$(which tar)                         bos.sysmgt.tar          exec"
+					echo "$(which sh)                          bos.sysmgt.sh           exec"
+					echo "$(which make)                        bos.sysmgt.make         exec"
+					echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+					echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
+					echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+					echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+					echo "Command run: $(which apt-get) clean"
+					echo "Command run: cd /tmp"
+					echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+					echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					echo "Command run: cd /usr/src/linux-$krnlMinor"
+					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+					echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+					echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+					echo "Command run: $(which reboot) -f --verbose; exit"
+					echo
+					cat /var/log/smx-log/success.log | tail -n 8
+					echo
+					read -p "Press [enter] to continue..." ReadDamKey
 					if [ "$rebootSys" = "Y" ]; then
 				              echo "System will now reboot!!"
 					      $(which reboot) -f --verbose; exit
 					else
 				              echo "System will not reboot, reboot to use new kernel"
+					      read -p "Press [enter] to continue..." ReadDamKey
 					fi
                                    else
                                         clear
@@ -11731,8 +11866,8 @@ function system_upd() {
                                         if [ $? -eq 0 ]; then
                                              clear
 					     echo "OS = SuSE"
-					     echo "Kernel major version: v3.x"
-					     echo "Kernel minor version: 3.18.3"
+					     echo "Kernel major version example: v3.x"
+					     echo "Kernel minor version example: 3.18.3"
 					     echo "$(date)                                     $(whoami)@$(hostname)"
 					     echo "[TOP]                                            [Entry Fields]"
 					     read -p " Enter kernel major version ------------------ > " krnlMajor
@@ -11740,6 +11875,8 @@ function system_upd() {
 					     read -p " Reboot after completion --------------- (Y/N) > " rebootSys
 					     clear
 					     echo "         COMMAND STATUS               "
+					     echo
+					     echo "$(date)                                     $(whoami)@$(hostname)"
 					     echo
 					     echo "Command: RUNNING    stdout: yes    stderr: no   "
 					     echo
@@ -11760,9 +11897,9 @@ function system_upd() {
 					     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
 					     echo "Command run: cd /usr/src/linux-$krnlMinor"
-					     echo "Command run: $(which sh) -c 'yes "" | make oldconfig'"
-					     echo "Command run: $(which make)"
-					     echo "Command run: $(which make) modules_install install"
+					     echo "Command run: $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+					     echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+					     echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
 					     echo "Command run: $(which reboot) -f --verbose; exit"
 					     sleep 2
 					     clear
@@ -11776,14 +11913,55 @@ function system_upd() {
 					     $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 					     $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
 					     cd /usr/src/linux-$krnlMinor
-					     $(which sh) -c 'yes "" | make oldconfig'
-					     $(which make)
-					     $(which make) modules_install install
+					     $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
+					     $(which make) | $(which tee) /var/log/smx-log/kernel_build.log
+					     $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log
+					     echo "######################################################################################################" >> /var/log/smx-log/success.log
+					     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+					     echo "Successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+					     echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+					     echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+					     echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+					     echo "" >> /var/log/smx-log/success.log
+					     echo "######################################################################################################" >> /var/log/smx-log/success.log
+					     echo "" >> /var/log/smx-log/success.log
+					     clear
+					     echo "         COMMAND STATUS               "
+					     echo
+					     echo "$(date)                                     $(whoami)@$(hostname)"
+					     echo
+					     echo "Command: OK    stdout: yes    stderr: no   "
+					     echo
+					     echo "Before command completion, additional instructions may appear below"
+					     echo
+					     echo "File                                 Fileset                 Type"
+					     echo "-----------------------------------------------------------------"
+					     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+					     echo "$(which wget)                        bos.sysmgt.wget         exec"
+					     echo "$(which tar)                         bos.sysmgt.tar          exec"
+					     echo "$(which sh)                          bos.sysmgt.sh           exec"
+					     echo "$(which make)                        bos.sysmgt.make         exec"
+					     echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+					     echo "Command run: $(which zypper) ref | $(which tee) /var/log/smx-log/zypper.log"
+					     echo "Command run: $(which zypper) -y in wget | $(which tee) /var/log/smx-log/zypper.log"
+					     echo "Command run: $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log"
+					     echo "Command run: /tmp"
+					     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					     echo "Command run: cd /usr/src/linux-$krnlMinor"
+					     echo "Command run: $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
+					     echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
+					     echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+					     echo "Command run: $(which reboot) -f --verbose; exit"
+					     echo
+					     cat /var/log/smx-log/success.log | tail -n 8
+					     echo
 					     if [ "$rebootSys" = "Y" ]; then
 						   echo "System will now reboot!!"
 						   $(which reboot) -f --verbose; exit
 					     else
 						   echo "System will not reboot, reboot to use new kernel"
+						   read -p "Press [enter] to continue..." ReadDamKey
 					     fi
                                         fi
                                    fi
