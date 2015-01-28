@@ -129,3 +129,6 @@ $PIPESTATUS
 	  added option to modify /etc/inittab, added option to use vmstat
 10/12/2014
           sysExec 12.0 completed, created OS detection script for program install, passed -y to package management install, added seperator to log files
+28/01/2015
+          smx 13.0 completed, included os detection for server management and starting/stoping services, changed code layout so that if a command is unsuccessful
+          (exit code: 0x1) it won't run the next code in line, added defaults for sertan variables
