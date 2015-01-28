@@ -1284,7 +1284,7 @@ function usr_menu() {
                                        cat /proc/version | grep "SUSE" > /dev/null
                                        if [ $? -eq 0 ]; then
                                             echo "OS = SuSE"
-                                            $(which zypper) -y in finger | $(which tee) /var/log/smx-log/finger-install-suse.log
+                                            $(which zypper) in -y finger | $(which tee) /var/log/smx-log/finger-install-suse.log
                                        fi
                                   fi
 			     fi
@@ -2250,7 +2250,7 @@ function dsk_menu() {
                                            cat /proc/version | grep "SUSE" > /dev/null
                                            if [ $? -eq 0 ]; then
                                                 echo "OS = SuSE"
-                                                $(which zypper) -y in udisks | $(which tee) /var/log/sysExec-install-udisks-suse.log
+                                                $(which zypper) in -y udisks | $(which tee) /var/log/sysExec-install-udisks-suse.log
                                            fi
                                       fi
 				 fi
@@ -2691,7 +2691,7 @@ function dsk_menu() {
                                          cat /proc/version | grep "SUSE" > /dev/null
                                          if [ $? -eq 0 ]; then
                                               echo "OS = SuSE"
-                                              $(which zypper) -y in mlabel | $(which tee) /var/log/smx-log/mlabel-install-suse.log
+                                              $(which zypper) in -y mlabel | $(which tee) /var/log/smx-log/mlabel-install-suse.log
                                          fi
 				    fi
 			       fi
@@ -3238,7 +3238,7 @@ function dsk_menu() {
                                            cat /proc/version | grep "SUSE" > /dev/null
                                            if [ $? -eq 0 ]; then
                                                 echo "OS = SuSE"
-                                                $(which zypper) -y in shred | $(which tee) /var/log/smx-log/shred-install-suse.log
+                                                $(which zypper) in -y shred | $(which tee) /var/log/smx-log/shred-install-suse.log
                                            fi
                                       fi
                                  fi
@@ -3650,7 +3650,7 @@ function sys_menu() {
                                         cat /proc/version | grep "SUSE" > /dev/null
                                         if [ $? -eq 0 ]; then
                                              echo "OS = SuSE"
-                                             $(which zypper) -y in sysstat | $(which tee) /var/log/smx-log/sysstat-install-suse.log
+                                             $(which zypper) in -y sysstat | $(which tee) /var/log/smx-log/sysstat-install-suse.log
                                         fi
                                    fi 
 			      fi
@@ -3753,7 +3753,7 @@ function sys_menu() {
                                            cat /proc/version | grep "SUSE" > /dev/null
                                            if [ $? -eq 0 ]; then
                                                 echo "OS = SuSE"
-                                                $(which zypper) -y in sysstat | $(which tee) /var/log/smx-log/sysstat-install-suse.log
+                                                $(which zypper) in -y sysstat | $(which tee) /var/log/smx-log/sysstat-install-suse.log
                                            fi
                                       fi
                                  fi
@@ -4289,7 +4289,7 @@ function sys_menu() {
                                          cat /proc/version | grep "SUSE" > /dev/null
                                          if [ $? -eq 0 ]; then
                                               echo "OS = SuSE"
-                                              $(which zypper) -y in pax | $(which tee) /var/log/smx-log/pax-install-suse.log
+                                              $(which zypper) in -y pax | $(which tee) /var/log/smx-log/pax-install-suse.log
                                          fi
                                     fi
                                fi
@@ -4751,7 +4751,7 @@ function sys_menu() {
                                        cat /proc/version | grep "SUSE" > /dev/null
                                        if [ $? -eq 0 ]; then
                                             echo "OS = SuSE"
-                                            $(which zypper) -y in nmap | $(which tee) /var/log/smx-log/nmap-install-suse.log
+                                            $(which zypper) in -y nmap | $(which tee) /var/log/smx-log/nmap-install-suse.log
                                        fi
                                   fi
                              fi
@@ -4870,7 +4870,7 @@ function sys_menu() {
                                          cat /proc/version | grep "SUSE" > /dev/null
                                          if [ $? -eq 0 ]; then
                                               echo "OS = SuSE"
-					      $(which zypper) -y in nmap | $(which tee) /var/log/smx-log/nmap-install-suse.log
+					      $(which zypper) in -y nmap | $(which tee) /var/log/smx-log/nmap-install-suse.log
                                          fi
                                     fi
                                fi
@@ -6149,7 +6149,7 @@ function ip_menu() {
                                        cat /proc/version | grep "SUSE" > /dev/null
                                        if [ $? -eq 0 ]; then
                                             echo "OS = SuSE"
-                                            $(which zypper) -y in whois | $(which tee) /var/log/smx-log/whois-install-suse.log
+                                            $(which zypper) in -y whois | $(which tee) /var/log/smx-log/whois-install-suse.log
                                        fi
                                   fi
                              fi
@@ -7586,14 +7586,14 @@ function pkg_menu() {
                                                echo "File                                 Fileset                 Type"
                                                echo "-----------------------------------------------------------------"
                                                echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                               echo "Command run: $(which zypper) -y in $pkgName | $(which tee) /var/log/smx-log/zypper.log"
+                                               echo "Command run: $(which zypper) in -y $pkgName | $(which tee) /var/log/smx-log/zypper.log"
                                                sleep 2
-                                               $(which zypper) -y in $pkgName | $(which tee) /var/log/smx-log/zypper.log
+                                               $(which zypper) in -y $pkgName | $(which tee) /var/log/smx-log/zypper.log
                                                if [ $PIPESTATUS -eq 0 ]; then
                                                     echo "##########################################################################################" >> /var/log/smx-log/success.log
                                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                                     echo "Successfuly installed package: $pkgName on system" >> /var/log/smx-log/success.log
-                                                    echo "Command run: $(which zypper) -y in $pkgName | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                                    echo "Command run: $(which zypper) in -y $pkgName | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                                                     echo "" >> /var/log/smx-log/success.log
                                                     echo "##########################################################################################" >> /var/log/smx-log/success.log
                                                     echo "" >> /var/log/smx-log/success.log
@@ -7610,7 +7610,7 @@ function pkg_menu() {
                                                     echo "File                                 Fileset                Type"
                                                     echo "----------------------------------------------------------------"
                                                     echo "$(which zypper)                      bos.pkgmgt.zypper      exec"
-                                                    echo "Command run: $(which zypper) -y in $pkgName | $(which tee) /var/log/smx-log/zypper.log"
+                                                    echo "Command run: $(which zypper) in -y $pkgName | $(which tee) /var/log/smx-log/zypper.log"
                                                     echo
                                                     cat /var/log/smx-log/zypper.log | tail -n 6
                                                     echo
@@ -7619,7 +7619,7 @@ function pkg_menu() {
                                                     echo "##########################################################################################" >> /var/log/smx-log/fail.log
                                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                                     echo "Not installed package: $pkgName on system, check command syntax" >> /var/log/smx-log/fail.log
-                                                    echo "Command run: $(which zypper) -y in $pkgName | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                                                    echo "Command run: $(which zypper) in -y $pkgName | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                                                     echo "" >> /var/log/smx-log/fail.log
                                                     echo "##########################################################################################" >> /var/log/smx-log/fail.log
                                                     echo "" >> /var/log/smx-log/fail.log
@@ -11535,6 +11535,7 @@ function system_upd() {
 			      echo "WARNING: this update process will take a while, it took up to an hour on my system"                 # But you know that
 			      echo "Kernel major version example: v3.x"
 			      echo "Kernel minor version example: 3.18.3"
+			      echo "Current running kernel: $(which uname) -r"
 			      echo "$(date)                                     $(whoami)@$(hostname)"
 			      echo "[TOP]                                            [Entry Fields]"
 			      read -p " Enter kernel major version ------------------ > " krnlMajor
@@ -11564,9 +11565,9 @@ function system_upd() {
 			      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 			      echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
 			      echo "Command run: cd /usr/src/linux-$krnlMinor"
-			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
+			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
+			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
 			      echo "Command run: $(which reboot) -f --verbose; exit"
 			      sleep 2
 			      clear
@@ -11583,9 +11584,12 @@ function system_upd() {
 			      $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 			      $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
 			      cd /usr/src/linux-$krnlMinor
-			      $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
-			      $(which make)
-			      $(which make) modules_install install
+			      $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+			      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+			      $(which make) | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+			      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+			      $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+			      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
 			      echo "######################################################################################################" >> /var/log/smx-log/success.log
 			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
 			      echo "Successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
@@ -11619,9 +11623,9 @@ function system_upd() {
 			      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
 			      echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
 			      echo "Command run: cd /usr/src/linux-$krnlMinor"
-			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
+			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
+			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
 			      echo "Command run: $(which reboot) -f --verbose; exit"
 			      echo
 			      cat /var/log/smx-log/success.log | tail -n 8
@@ -11642,17 +11646,20 @@ function system_upd() {
 				   echo "OS = Debian"
 				   echo "Kernel major version example: v3.x"
 				   echo "Kernel minor version example: 3.18.3"
+				   echo "Current running kernel: $(which uname) -r"
 				   echo "$(date)                                     $(whoami)@$(hostname)"
 				   echo "[TOP]                                            [Entry Fields]"
-				   read -p " Enter kernel major version ------------------ > " krnlMajor
-				   read -p " Enter kernel minor version ------------------ > " krnlMinor
-				   read -p " Reboot after completion --------------- (Y/N) > " rebootSys
+				   read -p " Enter kernel major version -------------------- > " krnlMajor
+				   read -p " Enter kernel minor version -------------------- > " krnlMinor
+				   echo "System concurrency level is the number of processor cores in the system + 1, example: 5 cores = concurrency level of 6"
+				   read -p " Enter system concurrency level ---------------- > " conLevel
+				   read -p " Reboot after completion ----------------- (Y/N) > " rebootSys
 				   clear
-				   echo "         COMMAND STATUS               "
+				   echo "          COMMAND STATUS               "
 				   echo
 				   echo "$(date)                                     $(whoami)@$(hostname)"
 				   echo
-				   echo "Command: RUNNING    stdout: yes    stderr: no   "
+				   echo "Command: RUNNING    stdout: yes    stderr: no     "
 				   echo
 				   echo "Before command completion, additional instructions may appear below"
 				   echo
@@ -11662,57 +11669,55 @@ function system_upd() {
 				   echo "$(which wget)                        bos.sysmgt.wget         exec"
 				   echo "$(which tar)                         bos.sysmgt.tar          exec"
 				   echo "$(which sh)                          bos.sysmgt.sh           exec"
-				   echo "$(which make)                        bos.sysmgt.make         exec"
+				   echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
+				   echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
+				   echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
 				   echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-				   echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
-				   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-				   echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-				   echo "Command run: $(which apt-get) clean"
+				   echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
 				   echo "Command run: cd /tmp"
 				   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src"
 				   echo "Command run: cd /usr/src/linux-$krnlMinor"
-				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-				   echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-				   echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+				   echo "Command run: cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config"
+				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+				   echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+				   echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
+				   echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customKernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+				   echo "Command run: cd /usr/src"
+				   echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
 				   echo "Command run: $(which reboot) -f --verbose; exit"
 				   sleep 2
-				   clear
-				   $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log
-				   echo "" >> /var/log/smx-log/apt-get.log
-				   echo "#############################################" >> /var/log/smx-log/apt-get.log
-				   echo "" >> /var/log/smx-log/apt-get.log
-				   $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-				   echo "" >> /var/log/smx-log/apt-get.log
-				   echo "#############################################" >> /var/log/smx-log/apt-get.log
-				   echo "" >> /var/log/smx-log/apt-get.log
-				   $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
-				   echo "" >> /var/log/smx-log/apt-get.log
-				   echo "#############################################" >> /var/log/smx-log/apt-get.log
-				   echo "" >> /var/log/smx-log/apt-get.log
-				   $(which apt-get) clean
+				   clean
+				   $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log
 				   cd /tmp
 				   $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 				   $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
 				   cd /usr/src/linux-$krnlMinor
-				   $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
-				   $(which make) | $(which tee) /var/log/smx-log/kernel_build.log
-				   $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log
-				   echo "######################################################################################################" >> /var/log/smx-log/success.log
+				   cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config
+				   $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log
+				   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+				   $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log
+				   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+				   export CONCURRENCY_LEVEL=$conLevel
+				   $(which fakeroot) make-kpkg --append-to-version "-customKernel" --revision "1" --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log
+				   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+				   cd /usr/src
+				   $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log
+				   echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
 				   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-				   echo "Successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
-				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-				   echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-				   echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+				   echo "Successfuly build new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+				   echo "Command run: $(which kpkg-make) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+				   echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customKernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
 				   echo "" >> /var/log/smx-log/success.log
-				   echo "######################################################################################################" >> /var/log/smx-log/success.log
+				   echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
 				   echo "" >> /var/log/smx-log/success.log
 				   clear
-				   echo "         COMMAND STATUS               "
+				   echo "          COMMAND STATUS               "
 				   echo
 				   echo "$(date)                                     $(whoami)@$(hostname)"
 				   echo
-				   echo "Command: OK    stdout: yes    stderr: no   "
+				   echo "Command: OK    stdout: yes    stderr: no          "
 				   echo
 				   echo "Before command completion, additional instructions may appear below"
 				   echo
@@ -11722,19 +11727,22 @@ function system_upd() {
 				   echo "$(which wget)                        bos.sysmgt.wget         exec"
 				   echo "$(which tar)                         bos.sysmgt.tar          exec"
 				   echo "$(which sh)                          bos.sysmgt.sh           exec"
-				   echo "$(which make)                        bos.sysmgt.make         exec"
+				   echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
+				   echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
+				   echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
 				   echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-				   echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
-				   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-				   echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-				   echo "Command run: $(which apt-get) clean"
+				   echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
 				   echo "Command run: cd /tmp"
 				   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src"
 				   echo "Command run: cd /usr/src/linux-$krnlMinor"
-				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-				   echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-				   echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+				   echo "Command run: cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config"
+				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+				   echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+				   echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
+				   echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customKernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+				   echo "Command run: cd /usr/src"
+				   echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
 				   echo "Command run: $(which reboot) -f --verbose; exit"
 				   echo
 				   cat /var/log/smx-log/success.log | tail -n 8
@@ -11755,17 +11763,20 @@ function system_upd() {
 					echo "OS = Ubuntu"
 					echo "Kernel major version example: v3.x"
 					echo "Kernel minor version example: 3.18.3"
+					echo "Current running kernel: $(which uname) -r"
 					echo "$(date)                                     $(whoami)@$(hostname)"
 					echo "[TOP]                                            [Entry Fields]"
-					read -p " Enter kernel major version ------------------ > " krnlMajor
-					read -p " Enter kernel minor version ------------------ > " krnlMinor
-					read -p " Reboot after completion --------------- (Y/N) > " rebootSys
+					read -p " Enter kernel major version -------------------- > " krnlMajor
+					read -p " Enter kernel minor version -------------------- > " krnlMinor
+					echo "System concurrency level is the number of processor cores in the system + 1, example: 5 cores = concurrency level of 6"
+					read -p " Enter system concurrency level ---------------- > " conLevel
+					read -p " Reboot after completion ----------------- (Y/N) > " rebootSys
 					clear
-					echo "         COMMAND STATUS               "
+					echo "          COMMAND STATUS               "
 					echo
 					echo "$(date)                                     $(whoami)@$(hostname)"
 					echo
-					echo "Command: RUNNING    stdout: yes    stderr: no   "
+					echo "Command: RUNNING    stdout: yes    stderr: no     "
 					echo
 					echo "Before command completion, additional instructions may appear below"
 					echo
@@ -11775,53 +11786,51 @@ function system_upd() {
 					echo "$(which wget)                        bos.sysmgt.wget         exec"
 					echo "$(which tar)                         bos.sysmgt.tar          exec"
 					echo "$(which sh)                          bos.sysmgt.sh           exec"
-					echo "$(which make)                        bos.sysmgt.make         exec"
+					echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
+					echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
+					echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
 					echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-					echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
-					echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-					echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-					echo "Command run: $(which apt-get) clean"
+					echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
 					echo "Command run: cd /tmp"
 					echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-					echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src"
 					echo "Command run: cd /usr/src/linux-$krnlMinor"
-					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-					echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-					echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+					echo "Command run: cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config"
+					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+					echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+					echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
+					echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customKernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+					echo "Command run: cd /usr/src"
+					echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
 					echo "Command run: $(which reboot) -f --verbose; exit"
 					sleep 2
-					clear
-					$(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log
-					echo "" >> /var/log/smx-log/apt-get.log
-					echo "#############################################" >> /var/log/smx-log/apt-get.log
-					echo "" >> /var/log/smx-log/apt-get.log
-					$(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-					echo "" >> /var/log/smx-log/apt-get.log
-					echo "#############################################" >> /var/log/smx-log/apt-get.log
-					echo "" >> /var/log/smx-log/apt-get.log
-					$(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
-					echo "" >> /var/log/smx-log/apt-get.log
-					echo "#############################################" >> /var/log/smx-log/apt-get.log
-					echo "" >> /var/log/smx-log/apt-get.log
-					$(which apt-get) clean
+					clean
+					$(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log
 					cd /tmp
 					$(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
 					$(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
 					cd /usr/src/linux-$krnlMinor
-					$(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
-					$(which make) | $(which tee) /var/log/smx-log/kernel_build.log
-					$(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log
-					echo "######################################################################################################" >> /var/log/smx-log/success.log
+					cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config
+					$(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log
+					echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+					$(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log
+					echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+					export CONCURRENCY_LEVEL=$conLevel
+					$(which fakeroot) make-kpkg --append-to-version "-customKernel" --revision "1" --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log
+					echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+					cd /usr/src
+					$(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log
+					echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
 					echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
 					echo "Successfuly build new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
-					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-					echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-					echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+					echo "Command run: $(which kpkg-make) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+					echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customKernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
 					echo "" >> /var/log/smx-log/success.log
-					echo "######################################################################################################" >> /var/log/smx-log/success.log
+					echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
 					echo "" >> /var/log/smx-log/success.log
 					clear
-					echo "         COMMAND STATUS               "
+					echo "          COMMAND STATUS               "
 					echo
 					echo "$(date)                                     $(whoami)@$(hostname)"
 					echo
@@ -11835,19 +11844,22 @@ function system_upd() {
 					echo "$(which wget)                        bos.sysmgt.wget         exec"
 					echo "$(which tar)                         bos.sysmgt.tar          exec"
 					echo "$(which sh)                          bos.sysmgt.sh           exec"
-					echo "$(which make)                        bos.sysmgt.make         exec"
+					echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
+					echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
+					echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
 					echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-					echo "Command run: $(which apt-get) -y install gcc libncurses5-dev bc ca-certificates pkg-config make flex bison build-essential autoconf automake wget | $(which tee) /var/log/smx-log/apt-get.log"
-					echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-					echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-					echo "Command run: $(which apt-get) clean"
+					echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
 					echo "Command run: cd /tmp"
 					echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-					echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src"
 					echo "Command run: cd /usr/src/linux-$krnlMinor"
-					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-					echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-					echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+					echo "Command run: cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config"
+					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+					echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+					echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
+					echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customKernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+					echo "Command run: cd /usr/src"
+					echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
 					echo "Command run: $(which reboot) -f --verbose; exit"
 					echo
 					cat /var/log/smx-log/success.log | tail -n 8
@@ -11858,7 +11870,7 @@ function system_upd() {
 					      $(which reboot) -f --verbose; exit
 					else
 				              echo "System will not reboot, reboot to use new kernel"
-					      read -p "Press [enter] to continue..." ReadDamKey
+				              read -p "Press [enter] to continue..." ReadDamKey
 					fi
                                    else
                                         clear
@@ -11868,6 +11880,7 @@ function system_upd() {
 					     echo "OS = SuSE"
 					     echo "Kernel major version example: v3.x"
 					     echo "Kernel minor version example: 3.18.3"
+					     echo "Current running kernel: $(which uname) -r"
 					     echo "$(date)                                     $(whoami)@$(hostname)"
 					     echo "[TOP]                                            [Entry Fields]"
 					     read -p " Enter kernel major version ------------------ > " krnlMajor
@@ -11884,78 +11897,66 @@ function system_upd() {
 					     echo
 					     echo "File                                 Fileset                 Type"
 					     echo "-----------------------------------------------------------------"
-					     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+					     echo "$(which zypper)                      bos.sysmgt.zypper       exec"
 					     echo "$(which wget)                        bos.sysmgt.wget         exec"
 					     echo "$(which tar)                         bos.sysmgt.tar          exec"
-					     echo "$(which sh)                          bos.sysmgt.sh           exec"
 					     echo "$(which make)                        bos.sysmgt.make         exec"
+					     echo "$(which sh)                          bos.sysmgt.sh           exec"
+					     echo "$(which rpm)                         bos.sysmgt.rpm          exec"
+					     echo "$(which mkinitrd)                    bos.sysmgt.mkinitrd     exec"
 					     echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-					     echo "Command run: $(which zypper) ref | $(which tee) /var/log/smx-log/zypper.log"
-					     echo "Command run: $(which zypper) -y in wget | $(which tee) /var/log/smx-log/zypper.log"
-					     echo "Command run: $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log"
-					     echo "Command run: /tmp"
+					     echo "Command run: $(which zypper) in -y ncurses-devel make gcc | $(which tee) /var/log/smx-log/zypper.log"
+					     echo "Command run: cd /tmp"
 					     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src"
 					     echo "Command run: cd /usr/src/linux-$krnlMinor"
-					     echo "Command run: $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-					     echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-					     echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+					     echo "Command run: $(which make) mrproper"
+					     echo "Command run: cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config"
+					     echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_suse.log"
+					     echo "Command run: $(which make) rpm | $(which tee) /var/log/smx-log/kernel_build_suse.log"
+					     echo "Command run: $(which rpm) -ivh /usr/src/packages/RPMS/`uname -m`/kernel-3.18.3* | $(which tee) /var/log/smx-log/kernel_build_suse.log"
 					     echo "Command run: $(which reboot) -f --verbose; exit"
 					     sleep 2
 					     clear
-					     $(which zypper) ref | $(which tee) /var/log/smx-log/zypper.log
-					     echo "" >> /var/log/smx-log/zypper.log
-					     echo "#############################################" >> /var/log/smx-log/zypper.log
-					     echo "" >> /var/log/smx-log/zypper.log
-					     $(which zypper) in -y wget | $(which tee) /var/log/smx-log/zypper.log
-					     $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log
+					     $(which zypper) in -y ncurses-devel make gcc | $(which tee) /var/log/smx-log/zypper.log
 					     cd /tmp
 					     $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz
-					     $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/
+					     $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src
 					     cd /usr/src/linux-$krnlMinor
-					     $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log
-					     $(which make) | $(which tee) /var/log/smx-log/kernel_build.log
-					     $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log
-					     echo "######################################################################################################" >> /var/log/smx-log/success.log
-					     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					     echo "Successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
-					     echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-					     echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-					     echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-					     echo "" >> /var/log/smx-log/success.log
-					     echo "######################################################################################################" >> /var/log/smx-log/success.log
-					     echo "" >> /var/log/smx-log/success.log
+					     cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config
+					     $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_suse.log
+					     $(which make) rpm | $(which tee) /var/log/smx-log/kernel_build_suse.log
+					     $(which rpm) -ivh /usr/src/packages/RPMS/`uname -m`/kernel-3.18.3* | $(which tee) /var/log/smx-log/kernel_build_suse.log
 					     clear
 					     echo "         COMMAND STATUS               "
 					     echo
 					     echo "$(date)                                     $(whoami)@$(hostname)"
 					     echo
-					     echo "Command: OK    stdout: yes    stderr: no   "
+					     echo "Command: OK    stdout: yes    stderr: no          "
 					     echo
 					     echo "Before command completion, additional instructions may appear below"
 					     echo
 					     echo "File                                 Fileset                 Type"
 					     echo "-----------------------------------------------------------------"
-					     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+					     echo "$(which zypper)                      bos.sysmgt.zypper       exec"
 					     echo "$(which wget)                        bos.sysmgt.wget         exec"
 					     echo "$(which tar)                         bos.sysmgt.tar          exec"
-					     echo "$(which sh)                          bos.sysmgt.sh           exec"
 					     echo "$(which make)                        bos.sysmgt.make         exec"
+					     echo "$(which sh)                          bos.sysmgt.sh           exec"
+					     echo "$(which rpm)                         bos.sysmgt.rpm          exec"
+					     echo "$(which mkinitrd)                    bos.sysmgt.mkinitrd     exec"
 					     echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-					     echo "Command run: $(which zypper) ref | $(which tee) /var/log/smx-log/zypper.log"
-					     echo "Command run: $(which zypper) -y in wget | $(which tee) /var/log/smx-log/zypper.log"
-					     echo "Command run: $(which zypper) up | $(which tee) /var/log/smx-log/zypper.log"
-					     echo "Command run: /tmp"
+					     echo "Command run: $(which zypper) in -y ncurses-devel make gcc | $(which tee) /var/log/smx-log/zypper.log"
+					     echo "Command run: cd /tmp"
 					     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src/"
+					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C /usr/src"
 					     echo "Command run: cd /usr/src/linux-$krnlMinor"
-					     echo "Command run: $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log"
-					     echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log"
-					     echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log"
+					     echo "Command run: $(which make) mrproper"
+					     echo "Command run: cp /boot/config-`uname -r` /usr/src/linux-$krnlMinor/.config"
+					     echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_suse.log"
+					     echo "Command run: $(which make) rpm | $(which tee) /var/log/smx-log/kernel_build_suse.log"
+					     echo "Command run: $(which rpm) -ivh /usr/src/packages/RPMS/`uname -m`/kernel-3.18.3* | $(which tee) /var/log/smx-log/kernel_build_suse.log"
 					     echo "Command run: $(which reboot) -f --verbose; exit"
-					     echo
-					     cat /var/log/smx-log/success.log | tail -n 8
-					     echo
 					     if [ "$rebootSys" = "Y" ]; then
 						   echo "System will now reboot!!"
 						   $(which reboot) -f --verbose; exit
@@ -19848,16 +19849,16 @@ function apache_menu(){
                     			  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
                     			  echo "$(which sed)                         bos.sysmgt.sed          exec"
                     			  echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                    			  echo "Command run: $(which zypper) -y in apache2 | $(which tee) /var/log/smx-log/zypper.log"
+                    			  echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log"
                     			  echo "Command run: /etc/init.d/apache2 start"
                     			  sleep 2
                     			  clear
-                    			  $(which zypper) -y in apache2 | $(which tee) /var/log/smx-log/zypper.log
+                    			  $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log
                     			  if [ $PIPESTATUS -eq 0 ]; then
                     			       echo "#########################################################################################" >> /var/log/smx-log/success.log
                     			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                     			       echo "Successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
-                    			       echo "Command run: $(which zypper) -y in apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                    			       echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                     			       echo "" >> /var/log/smx-log/success.log
                     			       echo "#########################################################################################" >> /var/log/smx-log/success.log
                     			       echo "" >> /var/log/smx-log/success.log
@@ -19874,7 +19875,7 @@ function apache_menu(){
                     			       echo "File                                 Fileset                 Type"
                     			       echo "-----------------------------------------------------------------"
                     			       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    			       echo "Command run: $(which zypper) -y in apache2 | $(which tee) /var/log/smx-log/zypper.log"
+                    			       echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log"
                     			       echo
                     			       cat /var/log/smx-log/success.log | tail -n 6
                     			       echo
@@ -19883,7 +19884,7 @@ function apache_menu(){
                     			       echo "#########################################################################################" >> /var/log/smx-log/fail.log
                     			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                     			       echo "Not installed apache on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                    			       echo "Command run: $(which zypper) -y in apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                    			       echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                     			       echo "" >> /var/log/smx-log/fail.log
                     			       echo "#########################################################################################" >> /var/log/smx-log/fail.log
                     			       echo "" >> /var/log/smx-log/fail.log
@@ -19937,7 +19938,7 @@ function apache_menu(){
                     			  echo "-----------------------------------------------------------------"
                     			  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
                     			  echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                    			  echo "Command run: $(which zypper) -y in apache2 | $(which tee) /var/log/smx-log/zypper.log"
+                    			  echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log"
                     			  echo "Command run: /etc/init.d/apache2 start"
                             		  echo
                             		  echo "Apache has been successfuly install on system, goto: http://$(hostname)/index.html"
@@ -19959,18 +19960,18 @@ function apache_menu(){
                         			echo "$(which ln)                          bos.sysmgt.ln           exec"
                                     		echo "$(which chmod)                       bos.sysmgt.chmod        exec"
                                     		echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-						echo "Command run: $(which zypper) -y in apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log"
+						echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log"
                                     		echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
                                     		echo "Command run: $(which chmod) 705 /srv/www/htdocs/index.cgi"
                                     		echo "/etc/init.d/apache2 restart"
                                     		sleep 2
                                     		clear
-                                    		$(which zypper) -y in apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log
+                                    		$(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log
                                     		if [ $PIPESTATUS -eq 0 ]; then
                         			      echo "##################################################################################################" >> /var/log/smx-log/success.log
                         			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                     		      echo "Successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
-                                    		      echo "Command run: $(which zypper) -y in apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                    		      echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                                     		      echo "" >> /var/log/smx-log/success.log
                         			      echo "##################################################################################################" >> /var/log/smx-log/success.log
                         			      echo "" >> /var/log/smx-log/success.log
@@ -19987,7 +19988,7 @@ function apache_menu(){
                                     		      echo "File                                 Fileset                 Type"
                                     		      echo "-----------------------------------------------------------------"
                                     		      echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                    		      echo "Command run: $(which zypper) -y in apache2-mod_perl | $(which tee) /var/log/smx-log/yum.log"
+                                    		      echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/yum.log"
                                     		      echo
                                     		      cat /var/log/smx-log/success.log | tail -n 6
                                     		      echo
@@ -19996,7 +19997,7 @@ function apache_menu(){
                         			      echo "##################################################################################################" >> /var/log/smx-log/fail.log
                         			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         			      echo "Not installed perl on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                        			      echo "Command run: $(which zypper) -y in apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        			      echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                         			      echo "" >> /var/log/smx-log/fail.log
                         			      echo "##################################################################################################" >> /var/log/smx-log/fail.log
                         			      echo "" >> /var/log/smx-log/fail.log
@@ -20057,7 +20058,7 @@ function apache_menu(){
                         			echo "$(which ln)                          bos.sysmgt.ln           exec"
                                     		echo "$(which chmod)                       bos.sysmgt.chmod        exec"
                                     		echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-						echo "Command run: $(which zypper) -y in apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log"
+						echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log"
                                     		echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
                                     		echo "Command run: $(which chmod) 705 /srv/www/htdocs/index.cgi"
                                     		echo "/etc/init.d/apache2 restart"
@@ -20086,17 +20087,17 @@ function apache_menu(){
                         			echo "$(which sed)                         bos.sysmgt.sed          exec"
                         			echo "$(which a2enmod)                     bos.sysmgt.a2enmod      exec"
                         			echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                        			echo "Command run: $(which zypper) -y in apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log"
+                        			echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log"
                         			echo "Command run: $(which a2enmod) php5"
                         			echo "Command run: /etc/init.d/apache2 restart"
                         			sleep 2
                         			clear
-                        			$(which zypper) -y in apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log
+                        			$(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log
                         			if [ $PIPESTATUS -eq 0 ]; then
                         			     echo "###############################################################################################################################" >> /var/log/smx-log/success.log
                         			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                         			     echo "Successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
-                        			     echo "Command run: $(which zypper) -y in apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        			     echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
                         			     echo "###############################################################################################################################" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
@@ -20113,7 +20114,7 @@ function apache_menu(){
                         			     echo "File                                 Fileset                 Type"
                         			     echo "-----------------------------------------------------------------"
                         			     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                        			     echo "Command run: $(which zypper) -y in apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/success.log"
+                        			     echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/success.log"
                         			     echo
                         			     cat /var/log/smx-log/success.log | tail -n 6
                         			     echo
@@ -20122,7 +20123,7 @@ function apache_menu(){
                         			     echo "###############################################################################################################################" >> /var/log/smx-log/fail.log
                         			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         			     echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                        			     echo "Command run: $(which zypper) -y in apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        			     echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                         			     echo "" >> /var/log/smx-log/fail.log
                         			     echo "###############################################################################################################################" >> /var/log/smx-log/fail.log
                         			     echo "" >> /var/log/smx-log/fail.log
@@ -20182,7 +20183,7 @@ function apache_menu(){
                         			echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
                         			echo "$(which sed)                         bos.sysmgt.sed          exec"
                         			echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                        			echo "Command run: $(which zypper) -y in apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log"
+                        			echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log"
                         			echo "Command run: /etc/init.d/apache2 restart"
                         			echo
                         			cat /var/log/smx-log/success.log | tail -n 6
@@ -21883,7 +21884,7 @@ function nfs_menu(){
                     			 echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
                     			 echo "/etc/init.d/nfsserver                bos.sysmgt.nfsserver    exec"
                     			 echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
-                    			 echo "Command run: $(which zypper) -y in nfs-kernel-server | tee /var/log/smx-log/zypper.log"
+                    			 echo "Command run: $(which zypper) in -y nfs-kernel-server | tee /var/log/smx-log/zypper.log"
                     			 echo "Command run: $(which mkdir) -p $shareLoc/"
                     			 echo "Command run: $(which chown) -R nobody:nobody $shareLoc/"
                     			 echo "Command run: $(which chmod) -R a+rwx $shareLoc/"
@@ -21893,12 +21894,12 @@ function nfs_menu(){
                     			 echo "Command run: $(which chkconfig) nfsserver on"
                     			 sleep 2
                     			 clear
-                    			 $(which zypper) -y in nfs-kernel-server | tee /var/log/smx-log/zypper.log
+                    			 $(which zypper) in -y nfs-kernel-server | tee /var/log/smx-log/zypper.log
                     			 if [ $PIPESTATUS -eq 0 ]; then
                     			      echo "###########################################################################################" >> /var/log/smx-log/success.log
                     			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                     			      echo "Successfuly installed nfs on system: $(hostname)" >> /var/log/smx-log/success.log
-                    			      echo "Command run: $(which zypper) -y in nfs-kernel-server | tail /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                    			      echo "Command run: $(which zypper) in -y nfs-kernel-server | tail /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                     			      echo "" >> /var/log/smx-log/success.log
                     			      echo "###########################################################################################" >> /var/log/smx-log/success.log
                     			      echo "" >> /var/log/smx-log/success.log
@@ -21917,7 +21918,7 @@ function nfs_menu(){
                     			      echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
                     			      echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
                     			      echo "/etc/init.d/nfsserver                bos.sysmgt.nfsserver    exec"
-                    			      echo "Command run: $(which zypper) -y in nfs-kernel-server | $(which tee) /var/log/smx-log/zypper.log"
+                    			      echo "Command run: $(which zypper) in -y nfs-kernel-server | $(which tee) /var/log/smx-log/zypper.log"
                     			      echo "Command run: /etc/init.d/rpcbind start"
                     			      echo "Command run: /etc/init.d/nfsserver start"
                     			      echo "Command run: $(which chkconfig) rpcbind on"
@@ -21930,7 +21931,7 @@ function nfs_menu(){
                     			      echo "##########################################################################################" >> /var/log/smx-log/fail.log
                     			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                     			      echo "Not installed nfs on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                    			      echo "Command run: $(which zypper) -y in nfs-kernel-server | tee /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                    			      echo "Command run: $(which zypper) in -y nfs-kernel-server | tee /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                     			      echo "" >> /var/log/smx-log/fail.log
                     			      echo "##########################################################################################" >> /var/log/smx-log/fail.log
                     			      echo "" >> /var/log/smx-log/fail.log
@@ -23913,7 +23914,7 @@ function nis_menu() {
                                   		echo "/etc/init.d/yppasswdd                bos.sysmgt.yppasswdd    exec"
                                   		echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
                                   		echo "/usr/lib/yp/ypinit                   bos.sysmgt.ypinit       exec"
-                                  		echo "Command run: $(which zypper) -y in ypserv | $(which tee) /var/log/smx-log/zypper.log"
+                                  		echo "Command run: $(which zypper) in -y ypserv | $(which tee) /var/log/smx-log/zypper.log"
                                   		echo "Command run: $(which ypdomainname) $dnsName"
                                   		echo "Command run: /etc/init.d/rpcbind restart"
                                   		echo "Command run: /etc/init.d/ypserv restart"
@@ -23924,12 +23925,12 @@ function nis_menu() {
                                   		echo "Command run: /usr/lib/yp/ypinit -m"
                                   		sleep 2
                                   		clear
-                                  		$(which zypper) -y in ypserv | $(which tee) /var/log/smx-log/zypper.log
+                                  		$(which zypper) in -y ypserv | $(which tee) /var/log/smx-log/zypper.log
                                   		if [ $PIPESTATUS -eq 0 ]; then
 						     echo "########################################################################################" >> /var/log/smx-log/success.log
                                   		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                   		     echo "Successfuly installed NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-                                  		     echo "Command run: $(which zypper) -y in ypserv | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                  		     echo "Command run: $(which zypper) in -y ypserv | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                                   		     echo "" >> /var/log/smx-log/success.log
                         			     echo "########################################################################################" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
@@ -23946,7 +23947,7 @@ function nis_menu() {
                                   		     echo "File                                 Fileset                 Type"
                                   		     echo "-----------------------------------------------------------------"
                                   		     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                  		     echo "Command run: $(which zypper) -y in ypserv | $(which tee) /var/log/smx-log/zypper.log"
+                                  		     echo "Command run: $(which zypper) in -y ypserv | $(which tee) /var/log/smx-log/zypper.log"
                                   		     echo
                                   		     cat /var/log/smx-log/success.log | tail -n 6
                                   		     echo
@@ -23955,7 +23956,7 @@ function nis_menu() {
 						     echo "########################################################################################" >> /var/log/smx-log/fail.log
                                   		     echo "$(whoami)@$(hostname)@$(hostname)" >> /var/log/smx-log/fail.log
                                   		     echo "Not installed NIS on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-						     echo "Command run: $(which zypper) -y in ypserv | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+						     echo "Command run: $(which zypper) in -y ypserv | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                       				     echo "" >> /var/log/smx-log/fail.log
 						     echo "########################################################################################" >> /var/log/smx-log/fail.log
                                   		     read -p "Press [enter] to continue..." ReadDamKey
@@ -24016,18 +24017,18 @@ function nis_menu() {
                                   		echo "$(which sed)                         bos.sysmgt.sed          exec"
                                   		echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
                                   		echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                                  		echo "Command run: $(which zypper) -y in ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log"
+                                  		echo "Command run: $(which zypper) in -y ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log"
                                   		echo "Command run: $(which chkconfig) rpcbind on"
                                   		echo "Command run: $(which chkconfig) ypbind on"
                                   		echo "Command run: $(which reboot) -f --verbose now"
                                   		sleep 2
                                   		clear
-                                  		$(which zypper) -y in ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log
+                                  		$(which zypper) in -y ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log
                                   		if [ $PIPESTATUS -eq 0 ]; then
 						     echo "################################################################################################" >> /var/log/smx-log/success.log
                                   		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                   		     echo "Successfuly NIS on system: $(hostname)" >> /var/log/smx-log/success.log
-                                  		     echo "Command run: $(which zypper) -y in ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                  		     echo "Command run: $(which zypper) in -y ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                                   		     echo "" >> /var/log/smx-log/success.log
                         			     echo "################################################################################################" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
@@ -24044,7 +24045,7 @@ function nis_menu() {
                                   		     echo "File                                 Fileset                 Type"
                                   		     echo "-----------------------------------------------------------------"
                                   		     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                  		     echo "Command run: $(which zypper) -y in ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log"
+                                  		     echo "Command run: $(which zypper) in -y ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log"
                                   		     echo
                                   		     cat /var/log/smx-log/success.log | tail -n 6
                                   		     echo
@@ -24053,7 +24054,7 @@ function nis_menu() {
 						     echo "################################################################################################" >> /var/log/smx-log/fail.log
                                   		     echo "$(date)::$(whoami)@$(hostname)"  >> /var/log/smx-log/fail.log
                                   		     echo "Not installed NIS on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-						     echo "Command run: $(which zypper) -y in ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+						     echo "Command run: $(which zypper) in -y ypbind rpcbind | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                       				     echo "" >> /var/log/smx-log/fail.log
                         			     echo "################################################################################################" >> /var/log/smx-log/fail.log
                         			     echo "" >> /var/log/smx-log/fail.log
@@ -25165,15 +25166,15 @@ function dhcp_menu() {
                     			  echo "$(which zypper)                     bos.pkgmgt.zypper       exec"
                     			  echo "$(which sed)                        bos.sysmgt.sed          exec"
                     			  echo "/etc/init.d/dhcpd                   bos.sysmgt.dhcpd        exec"
-                    			  echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log"
+                    			  echo "Command run: $(which zypper) in -y dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log"
                     			  echo "Command run: /etc/init.d/dhcpd start"
                     			  sleep 2
-                    			  $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log
+                    			  $(which zypper) in -y dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/zypper.log
                     			  if [ $PIPESTATUS -eq 0 ]; then
                     			       echo "################################################################################################################" >> /var/log/smx-log/success.log
                   			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                     			       echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
-                    			       echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log" >> /var/log/smx-log/success.log
+                    			       echo "Command run: $(which zypper) in -y dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log" >> /var/log/smx-log/success.log
                     			       echo "" >> /var/log/smx-log/success.log
                     			       echo "################################################################################################################" >> /var/log/smx-log/success.log
                     			       echo "" >> /var/log/smx-log/success.log
@@ -25190,7 +25191,7 @@ function dhcp_menu() {
                     			       echo "File                                 Fileset                 Type"
                     			       echo "-----------------------------------------------------------------"
                     			       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    			       echo "Command run: $(which zypper) -y in dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log"
+                    			       echo "Command run: $(which zypper) in -y dhcp-server yast2-dhcp-server | $(which tee) /var/log/smx-log/success.log"
                     			       echo
                     			       cat /var/log/smx-log/success.log | tail -n 6
                     			       echo
@@ -26862,7 +26863,7 @@ function sql_menu () {
                     			  echo "$(which chkconfig)                   bos.sysmgt.chkconfig                        exec"
                     			  echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
                     			  echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
-                    			  echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log"
+                    			  echo "Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log"
                     			  echo "Command run: /etc/init.d/mysqld start"
                     			  echo "Command run: $(which chkconfig) mysql on"
                     			  echo "Command run: $(which mysql_secure_installation)"
@@ -26870,12 +26871,12 @@ function sql_menu () {
                     			  echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
                     			  sleep 2
                     			  clear
-                    			  $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log
+                    			  $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log
                     			  if [ $PIPESTATUS -eq 0 ]; then
                     			       echo "#######################################################################################" >> /var/log/smx-log/success.log
                   			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                     			       echo "Successfuly installed mysql on: $(hostname)" >> /var/log/smx-log/success.log
-                    			       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                    			       echo "Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                     			       echo "" >> /var/log/smx-log/success.log
                     			       echo "#######################################################################################" >> /var/log/smx-log/success.log
                     			       echo "" >> /var/log/smx-log/success.log
@@ -26892,7 +26893,7 @@ function sql_menu () {
                     			       echo "File                                 Fileset                 Type"
                     			       echo "-----------------------------------------------------------------"
                     			       echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    			       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log"
+                    			       echo "Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log"
                     			       echo
                     			       cat /var/log/smx-log/success.log | tail -n 6
                     			       echo
@@ -26901,7 +26902,7 @@ function sql_menu () {
 					       echo "#######################################################################################" >> /var/log/smx-log/fail.log
       					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                     			       echo "Not installed mysql on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                    			       echo "Command run: $(which zypper) -y in mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                    			       echo "Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                     			       echo "" >> /var/log/smx-log/fail.log
                     			       echo "#######################################################################################" >> /var/log/smx-log/fail.log
                     			       echo "" >> /var/log/smx-log/fail.log
@@ -29236,19 +29237,19 @@ function smb_menu() {
                         			echo "$(which chmod)                       bos.sysmgt.chmod        exec"
                         			echo "/etc/init.d/smb                      bos.sysmgt.smb          exec"
                         			echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
-                        			echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        			echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log"
                         			echo "Command run: $(which mkdir) -p $folderName"
                         			echo "Command run: $(which chmod) 777 $folderName"
                         			echo "Command run: /etc/init.d/smb start"
                         			echo "Command run: $(which chkconfig) smb on"
                         			sleep 2
                         			clear
-                        			$(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log
+                        			$(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log
                         			if [ $PIPESTATUS -eq 0 ]; then
                         			     echo "#######################################################################################" >> /var/log/smx-log/success.log
                         			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                         			     echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-                        			     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        			     echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
                         			     echo "#######################################################################################" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
@@ -29265,7 +29266,7 @@ function smb_menu() {
                         			     echo "File                                 Fileset                 Type"
                         			     echo "-----------------------------------------------------------------"
                         			     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                        			     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        			     echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log"
                         			     echo
                         			     cat /var/log/smx-log/success.log | tail -n 6
                         			     echo
@@ -29274,7 +29275,7 @@ function smb_menu() {
                         			     echo "#######################################################################################" >> /var/log/smx-log/fail.log
                         			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         			     echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                        			     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        			     echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                         			     echo "" >> /var/log/smx-log/fail.log
                         			     echo "#######################################################################################" >> /var/log/smx-log/fail.log
                         			     echo "" >> /var/log/smx-log/fail.log
@@ -29349,7 +29350,7 @@ function smb_menu() {
                         			echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
                         			echo "$(which smbpasswd)                   bos.sysmgt.smbpasswd    exec"
                         			echo "$(which usermod)                     bos.sysmgt.usermod      exec"
-                        			echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        			echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log"
                         			echo "Command run: $(which groupadd) samba"
                         			echo "Command run: $(which mkdir) -p $folderName"
                         			echo "Command run: $(which chgrp) samba $folderName"
@@ -29360,12 +29361,12 @@ function smb_menu() {
                         			echo "Command run: $(which usermod) -G samba $smbUsers"
                         			sleep 2
                         			clear
-                        			$(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log
+                        			$(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log
                         			if [ $PIPESTATUS -eq 0 ]; then
                         			     echo "#######################################################################################" >> /var/log/smx-log/success.log
                         			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                         			     echo "Successfuly installed samba on system: $(hostname)" >> /var/log/smx-log/success.log
-                        			     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        			     echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
                         			     echo "#######################################################################################" >> /var/log/smx-log/success.log
                         			     echo "" >> /var/log/smx-log/success.log
@@ -29382,7 +29383,7 @@ function smb_menu() {
                         			     echo "File                                 Fileset                 Type"
                         			     echo "-----------------------------------------------------------------"
                         			     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                        			     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log"
+                        			     echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log"
                         			     echo
                         			     cat /var/log/smx-log/success.log | tail -n 6
                         			     echo
@@ -29391,7 +29392,7 @@ function smb_menu() {
                         			     echo "#######################################################################################" >> /var/log/smx-log/fail.log
                         			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         			     echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                        			     echo "Command run: $(which zypper) -y in samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        			     echo "Command run: $(which zypper) in -y samba | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                         			     echo "" >> /var/log/smx-log/fail.log
                         			     echo "#######################################################################################" >> /var/log/smx-log/fail.log
                         			     echo "" >> /var/log/smx-log/fail.log
