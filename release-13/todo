@@ -36,7 +36,7 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 
 26 - May change layout to not display commands and use help system with stored help files on webserver (help/) []
 
-27 - May add exit for exit status 1 for $? or $PIPESTATUS []
+27 - May add exit for exit status 1 for $? or $PIPESTATUS [X]
 
 28 - may add option to update NIS database for user creation section []
 
@@ -60,4 +60,4 @@ version 13.0 (Codename: Peanut (Codename for IBM PCjr))
 
 40 - For updatekrnl change kernel major version to example, same with minor []
 
-41 - Show current running kernel using uname -r []
+41 - Show current running kernel using uname -r [X]
