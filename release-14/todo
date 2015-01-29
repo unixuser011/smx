@@ -1,0 +1,46 @@
+## todo for next release ##
+version 14.0 (Codename: Hekaton (Codename for Microsoft SQL server In-Memory Online Transaction Processing  (OTLP) system))
+
+1 - may have to change install program for rhel - uses diffrent install sources, rpmforge and epel []
+
+2 - May create option for manage LVM and VG []
+
+3 - May change command run section for internal sub-menus (ie: unixadmin.sh#sys_menu#pkg_menu) to com.unixadmin.sys_menu []
+
+4 - May change log system to create seperate folder for programs as /var/log/unixadmin/program/ []
+
+5 - For unmount, add eject using udisks (udisks --eject <diskName>) []
+
+6 - May add kill sequence after package management, to make sure the system kills package program, and not slowing down
+     system operations []
+
+7 - May combine OS X disk mount and unmount []
+
+8 - May remove underline in command names (example: change add_usr to add-usr, etc) []
+
+9 - May remove '' from all sed usage and replace with "" []
+
+10 - For bos.sysmgt.<deamon>, replace with bos.deamon.<deamon_name> []
+
+11 - May use trap to usr CTRL-C to exit back to menu []
+
+12 - May include support for systemd by using /sbin/service [X]
+
+13 - May change shell commands from bos.sysmgt.* to bos.shell.* []
+
+14 - May change layout to not display commands and use help system with stored help files on webserver (help/) []
+
+15 - May add exit for exit status 1 for $? or $PIPESTATUS [X]
+
+16 - may add option to update NIS database for user creation section []
+
+17 - May add kickstart for red hat, etc for debian and suse for remote install []
+
+18 - Change user management for user modifications, to run sub-menu to ask for user name (stored as: $MASTER-USR) and replace
+     $userName with $MASTER-USR []
+
+19 - Add snmp server support to server management []
+
+20 - May add SUCCESS or FAIL message in ASCII art form and add spinning cursor (See spin.sh) []
+
+21 - May add support for AIX, HP-UX and solaris []
