@@ -16,7 +16,8 @@
 # Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #
 # This program was written on CentOS 6.6 X86_64, however it is fully compatable with Debian-based Linux, and SuSE-based linux with no modifications
-# This version (13) has support for systemd (ugh!) so it will be fully compatable with 7x versions of RHEL/CentOS/Fedora, Debian and SuSE
+# This version (13) has support for systemd (ugh! - I have nothing against systemd, it just goes aginst the old UNIX way)
+# so it will be fully compatable with 7x versions of RHEL/CentOS/Fedora, Debian and SuSE
 # It will however may require modifications for Solaris/HP-UX/AIX or any other "Pure" UNIX
 # The only "Pure" UNIX it is compatable with is OS X
 #
@@ -28,7 +29,7 @@
 # UNIX, unix and Unix is a copyrighted product (c) 1990-2015 The Open Group - all rights reserved
 # Solaris is a copyrighted product (c) Sun Microsystems 1991-2005 and copyright (c) Oracle Corporation 2005-2015 - all rights reserved
 # AI-64 (Itanium) is a copyrighted product (c) 1986-1996 Intel Corporation - all rights reserved
-# Cisco IOS is a copyrighted product (c) 1987-2015 Cisco Systems Inc- all rights reserved
+# Cisco IOS is a copyrighted product (c) 1987-2015 Cisco Systems Inc - all rights reserved
 # OS X and Mac OS X are copyrighted products (c) 1999-2015 Apple Corporation - all rights reserved
 ##
 
@@ -72,7 +73,7 @@ if [ $# -eq 0 ]; then
      clear
      usage
      echo
-     exit 0
+     exit 1
 fi
 
 # Usage for flags - END
@@ -88,7 +89,7 @@ echo "      ## ##     ##   ## ##   "
 echo "##    ## ##     ##  ##   ##  "
 echo " ######  ##     ## ##     ## "
 echo
-echo "System Management eXecutive (for UNIX/Linux) Version 13.0 (Codename: Peanut (codename for IBM PCjr))"
+echo "System Management eXecutive (for UNIX/Linux) Version 14.0 (Codename: Hekaton (Codename for Microsoft SQL server In-memory Online Transaction system))"
 echo "Copyright (c) 2010 - 2016 Darius Anderson, d.anderson1147@gmail.com"
 echo "Created in, and optimised for GNU Emacs"
 echo
@@ -129,9 +130,6 @@ fi
 
 export TERM=xterm                        # Could use vt100, but doesn't look right on emulators/PuTTY
 
-stty erase ^h				 # You will have to set stty erase on your own system, rhel-like systems should work with ^h
-#stty erase ^?
-
 function main_menu() {
     while :
     do
@@ -150,11 +148,11 @@ function main_menu() {
       	echo
       	echo "srvmgt > Server management"
         echo
-        echo "usrmgt/osx > User Account management for OS X"
+        echo "usrmgt-osx > User Account management for OS X"
         echo
-        echo "diskmgt/osx > Disk management for OS X"
+        echo "diskmgt-osx > Disk management for OS X"
         echo
-        echo "sysmgt/osx > System management for OS X"
+        echo "sysmgt-osx > System management for OS X"
         echo
         echo "rmlog > Remove log files"
         echo
@@ -210,7 +208,7 @@ function main_menu() {
                      echo "" >> /var/log/smx-log/success.log
                      srv_menu
                      ;;
-            usrmgt/osx)
+            usrmgt-osx)
 		         clear
                          echo "#######################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -221,7 +219,7 @@ function main_menu() {
                          echo "" >> /var/log/smx-log/success.log
                          usr_menuosx
                          ;;
-            diskmgt/osx)
+            diskmgt-osx)
                           clear
                           echo "#######################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -232,7 +230,7 @@ function main_menu() {
                           echo "" /var/log/smx-log/success.log
                           dsk_menuosx
                           ;;
-            sysmgt/osx)
+            sysmgt-osx)
                          clear
                          echo "#######################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -1258,7 +1256,7 @@ function usr_menu() {
                    fi
                    ;;
            find)
-                  $(which which) finger > /dev/null
+                  $(which finger) > /dev/null
                   if [ $? -eq 0 ]; then
                        echo "Finger found in PATH"
                   else
@@ -2224,7 +2222,7 @@ function dsk_menu() {
                      fi
                      ;;
             diskinfo)
-                       $(which which) udisks > /dev/null
+                       $(which udisks) > /dev/null
                        if [ $? -eq 0 ]; then
                             echo "udisks found in PATH"
                        else
@@ -2596,11 +2594,14 @@ function dsk_menu() {
             		  fi
             		  if [ "$mntPoint" = "" ]; then
 			        MNT_POINT=/mnt/disk
-			  fi		
+			  fi
+			  read -p " Eject after unmount --------------- (Y/N) > " ans
                           clear
                           echo "         COMMAND STATUS                      "
                           echo
                           echo "$(date)                                     $(whoami)@$(hostname)"
+			  echo
+			  echo "Command: RUNNING    stdout: yes    stderr: no     "
                           echo
                           echo "Before command completion, additional instructions may appear below"
                           echo
@@ -2612,7 +2613,7 @@ function dsk_menu() {
                           echo "Command run: $(which rm) -rf $MNT_POINT"
                           $(which umount) -f $DISK_NAME
                           if [ $? -eq 0 ]; then
-                               echo "##########################################" >> /var/log/smx-log/
+                               echo "##########################################" >> /var/log/smx-log/success.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly unmounted disk: $DISK_NAME" >> /var/log/smx-log/success.log
                                echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/success.log
@@ -2624,6 +2625,8 @@ function dsk_menu() {
                                echo "        COMMAND STATUS          "
                                echo
                                echo "$(date)                                    $(whoami)@$(hostname)"
+			       echo
+			       echo "Command: OK    stdout: yes    stderr: no         "
                                echo
                                echo "Before command completion, additional instructions may appear below"
                                echo
@@ -2648,6 +2651,8 @@ function dsk_menu() {
                                echo "        COMMAND STATUS          "
                                echo
                                echo "$(date)                                    $(whoami)@$(hostname)"
+			       echo
+			       echo "Command: FAIL    stdout: yes    stderr: no       "
                                echo
                                echo "Before command completion, additional instructions may appear below"
                                echo
@@ -2662,10 +2667,125 @@ function dsk_menu() {
                                exit 1
 			  fi
 			  $(which rm) -rf $MNT_POINT
-        	    fi
-        	    ;;
+			  if [ "$ans" = "Y" ]; then
+			        $(which udisks) > /dev/null
+      				if [ $? -eq 0 ]; then
+				     echo "udisks found in PATH"
+      				else
+				     clear
+				     cat /proc/version | grep "Red Hat" > /dev/null
+				     if [ $? -eq 0 ]; then
+					  echo "OS = Red Hat"
+					  $(which yum) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-redhat.log
+				     else
+					  clear
+					  cat /proc/version | grep "Debian" > /dev/null
+					  if [ $? -eq 0 ]; then
+					       echo "OS = Debian"
+					       $(which apt-get) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-debian.log
+					  else
+					       clear
+					       cat /proc/version | grep "Ubuntu" > /dev/null
+					       if [ $? -eq 0 ]; then
+						    echo "OS = Ubuntu"
+						    $(which apt-get) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-ubuntu.log
+					       else
+						    clear
+						    cat /proc/version | grep "SUSE" > /dev/null
+						    if [ $? -eq 0 ]; then
+							 echo "OS = SuSE"
+							 $(which zypper) in -y udisks | $(which tee) /var/log/smx-log/udisks-install-suse.log
+						    fi
+					       fi
+					  fi
+				     fi
+				fi
+        		  fi
+			  clear
+			  echo "$(date)                                     $(whoami)@$(hostname)"
+			  echo "Disk name must be full device, ie: /dev/sda"
+			  echo "[TOP]                                       [Entry Fields]"
+			  printf " Enter /dev/ disk name [Default: /dev/sda] > "
+                          if [ "$diskName" = "" ]; then
+                                read diskName
+                                DISK_NAME=$diskName
+                          fi
+                          if [ "$diskName" = "" ]; then
+                                DISK_NAME=/dev/sda
+                          fi
+        		  clear
+			  echo "            COMMAND STATUS            "
+			  echo
+			  echo "$(date)                                     $(whoami)@$(hostname)"
+			  echo
+			  echo "Command: RUNNING    stdout: yes    stderr: no     "
+			  echo
+			  echo "Before command completion, additional instructions may appear below"
+			  echo
+			  echo "File                                 Fileset                 Type"
+			  echo "-----------------------------------------------------------------"
+			  echo "$(which udisks)                      bos.dskmgt.udisks       exec"
+			  echo "Command run: $(which udisks) --detach $DISK_NAME"
+			  sleep 2
+			  clear
+			  $(which udisks) --detach $DISK_NAME
+			  if [ $? -eq 0 ]; then
+			       echo "#################################################" >> /var/log/smx-log/success.log
+			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+			       echo "Successfully detached disk: $DISK_NAME from system" >> /var/log/smx-log/success.log
+			       echo "Command run: $(which udisks) --detach $DISK_NAME" >> /var/log/smx-log/success.log
+			       echo "" >> /var/log/smx-log/success.log
+			       echo "#################################################" >> /var/log/smx-log/success.log
+			       echo "" >> /var/log/smx-log/success.log
+			       read -p "Press [enter] to continue..." ReadDamKey
+			       clear
+			       echo "        COMMAND STATUS          "
+			       echo
+			       echo "$(date)                                     $(whoami)@$(hostname)"
+			       echo
+			       echo "Command: OK    stdout: yes    stderr: no          "
+			       echo
+			       echo "Before command completion, additional instructions may appear below"
+			       echo
+			       echo "File                                 Fileset                 Type"
+			       echo "-----------------------------------------------------------------"
+			       echo "$(which udisks)                      bos.dskmgt.udisks       exec"
+			       echo "Command run: $(which udisks) --detach $DISK_NAME"
+			       echo
+			       cat /var/log/smx-log/success.log | tail -n 6
+			       echo
+			       read -p "Press [enter] to continue..." ReadDamKey
+			  else
+			      echo "################################################" >> /var/log/smx-log/fail.log
+			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+			      echo "Not detached disk: $DISK_NAME from system" >> /var/log/smx-log/fail.log
+			      echo "Command run: $(which udisks) --detach $DISK_NAME" >> /var/log/smx-log/fail.log
+			      echo "" >> /var/log/smx-log/fail.log.log
+			      echo "################################################" >> /var/log/smx-log/fail.log
+			      echo "" >> /var/log/smx-log/fail.log
+			      read -p "Press [enter] to conitnue..." ReadDamKey
+			      clear
+			      echo "        COMMAND STATUS          "
+			      echo
+			      echo "$(date)                                    $(whoami)@$(hostname)"
+			      echo
+			      echo "Command: FAIL    stdout: yes    stderr: no       "
+			      echo
+			      echo "Before command completion, additional instructions may appear below"
+			      echo
+			      echo "File                                 Fileset                 Type"
+			      echo "-----------------------------------------------------------------"
+			      echo "$(which udisks)                      bos.dskmgt.udisks       exec"
+			      echo "Command unsuccessful, check command variables and syntax"
+			      echo
+			      cat /var/log/smx-log/fail.log | tail -n 6
+			      echo
+			      read -p "Press [enter] to continue..." ReadDamKey
+			  fi
+		    fi
+		    ;;
 	    rename)
-                     $(which which) mlabel > /dev/null
+                     $(which mlabel) > /dev/null
       		     if [ $? -eq 0 ]; then
                           echo "mlabel found in PATH"
       		     else
@@ -3212,7 +3332,7 @@ function dsk_menu() {
 		     fi 
                      ;;
             erasedod)
-                       $(which which) shred > /dev/null
+                       $(which shred) > /dev/null
                        if [ $? -eq 0 ]; then
                             echo "shred found in PATH"
           	       else 
@@ -3624,7 +3744,7 @@ function sys_menu() {
                       fi
                       ;;
 	    sysio)
-		    $(which which) iostat > /dev/null
+		    $(which iostat) > /dev/null
                     if [ $? -eq 0 ]; then
                         echo "iostat found in PATH"
         	    else
@@ -3727,7 +3847,7 @@ function sys_menu() {
 		    fi
                     ;;
 	    vmstatus)
-		       $(which which) vmstat > /dev/null
+		       $(which vmstat) > /dev/null
                        if [ $? -eq 0 ]; then
                             echo "vmstat found in PATH"
     		       else
@@ -4263,7 +4383,7 @@ function sys_menu() {
                        pkg_menu
                        ;;
 	    backup)
-		     $(which which) pax > /dev/null
+		     $(which pax) > /dev/null
         	     if [ $? -eq 0 ]; then
         		  echo "pax found in PATH"
         	     else
@@ -4725,7 +4845,7 @@ function sys_menu() {
                        fire_menu
                        ;;
 	    nmap)
-	           $(which which) nmap > /dev/null
+	           $(which nmap) > /dev/null
       		   if [ $? -eq 0 ]; then
                         echo "nmap found in PATH"
     		   else
@@ -4844,7 +4964,7 @@ function sys_menu() {
                    fi
                    ;;
 	    netmap)
-                     $(which which) nmap > /dev/null
+                     $(which nmap) > /dev/null
       		     if [ $? -eq 0 ]; then
         		  echo "nmap found in PATH"
       		     else
@@ -6123,7 +6243,7 @@ function ip_menu() {
             	fi
             	;;
 	   trace)
-                   $(which which) whois > /dev/null
+                   $(which whois) > /dev/null
 		   if [ $? -eq 0 ]; then
                         echo "whois found in PATH"
 		   else
@@ -14342,9 +14462,7 @@ function dsk_menuosx() {
         echo
         echo "fsys > Check disk filesystem"
         echo
-        echo "mount > Mount a disk for use"
-        echo
-        echo "unmount > Unmount a disk from system"
+        echo "mount > Mount or unmount a disk for use"
         echo
         echo "rename > Rename disk"
         echo
@@ -14604,430 +14722,435 @@ function dsk_menuosx() {
                    fi
                    ;;
             mount)
-                    clear
-                    echo "$(date)                                     $(whoami)@$(hostname)"
-                    echo "[TOP]                                           [Entry Fields]"
-                    printf " Enter filesystem type [Default: HFS+] ------- > "
-                    if [ "$fsysName" = "" ]; then
-                          read fsysName
-                          FSYS_NAME=$fsysName
-                    fi
-                    if [ "$fsysName" = "" ]; then
-                          FSYS_NAME=HFS+
-                    fi      
-                    printf " Enter /dev/ disk name [Default: /dev/disk0s1] > "
-                    if [ "$diskName" = "" ]; then
-                          read diskName
-                          DISK_NAME=$diskName
-                    fi
-                    if [ "$diskName" = "" ]; then
-                          DISK_NAME=/dev/disk0s1
-                    fi      
-                    read -p " Enter mount point -------------------------- > " mntPoint
-                    clear
-                    echo "         COMMAND STATUS                  "
-                    echo
-                    echo "$(date)                                     $(whoami)@$(hostname)"
-                    echo
-                    echo "Command: RUNNING    stdout: yes    stderr: no     "
-                    echo
-                    echo "Before command completion, additional instructions may appear below"
-                    echo
-                    echo "File                                 Fileset                 Type"
-                    echo "-----------------------------------------------------------------"
-                    echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
-                    echo "$(which mount)                       bos.dskmgt.mount        exec"
-                    echo "$(which df)                          bos.dskmgt.df           exec"
-                    echo "Command run: $(which mkdir) -p $mntPoint"
-                    echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint"
-                    echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log"
-                    sleep 2
-                    $(which mkdir) -p $mntPoint
-                    if [ $? -eq 0 ]; then
-			 echo "###########################################" >> /var/log/smx-log/success.log
-                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                         echo "Successfuly created mount point: $mntPoint" >> /var/log/smx-log/success.log
-                         echo "Command run: $(which mkdir) -p $mntPoint" >> /var/log/smx-log/success.log
-                         echo "" >> /var/log/smx-log/success.log
-                         echo "##########################################" >> /var/log/smx-log/success.log
-                         echo "" >> /var/log/smx-log/success.log
-                         read -p "Press [enter] to continue..." ReadDamKey
-                         clear
-                         echo "        COMMAND STATUS          "
-                         echo
-                         echo "$(date)                                    $(whoami)@$(hostname)"
-                         echo
-                         echo "Command: OK    stdout: yes    stderr: no         "
-                         echo
-                         echo "Before command completion, additional instructions may appear below"
-                         echo
-                         echo "File                                 Fileset                 Type"
-                         echo "-----------------------------------------------------------------"
-                         echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
-                         echo "Command run: $(which mkdir) -p $mntPoint"
-                         echo
-                    	 cat /var/log/smx-log/success.log | tail -n 6
-                    	 echo
-                         read -p "Press [enter] to continue..." ReadDamKey
-                    else
-			 echo "########################################################" >> /var/log/smx-log/fail.log
-                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                         echo "Not created mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
-                         echo "Command run: $(which mkdir) -p $mntPoint" >> /var/log/smx-log/fail.log
-                         echo "" >> /var/log/smx-log/fail.log
-                         echo "########################################################" >> /var/log/smx-log/fail.log
-                         echo "" >> /var/log/smx-log/fail.log
-                         read -p "Press [enter] to continue..." ReadDamKey
-                         clear
-                         echo "        COMMAND STATUS          "
-                         echo
-                         echo "$(date)                                    $(whoami)@$(hostname)"
-                         echo
-                         echo "Command: FAIL    stdout: yes    stderr: no       "
-                         echo
-                         echo "Before command completion, additional instructions may appear below"
-                         echo
-                         echo "File                                 Fileset                 Type"
-                         echo "-----------------------------------------------------------------"
-                         echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
-                         echo "Command unsuccessful, check command syntax and variables"
-                         echo
-                    	 cat /var/log/smx-log/success.log | tail -n 6
-                    	 echo
-                         read -p "Press [enter] to continue..." ReadDamKey
-                         exit 1
-                   fi
-                   $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint
-                   if [ $? -eq 0 ]; then
-		        echo "##############################################################" >> /var/log/smx-log/success.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        echo "Successfuly mounted disk: $DISK_NAME at mount point: $mntPoint" >> /var/log/smx-log/success.log
-                        echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        echo "##############################################################" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: OK    stdout: yes    stderr: no         "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which mount)                       bos.dskmgt.mount        exec"
-                        echo "Command run: $(which mount) -t $fsysType $diskName $mntPoint"
-                        echo
-                    	cat /var/log/smx-log/success.log | tail -n 6
-                    	echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-                   else
-		        echo "############################################################################" >> /var/log/smx-log/fail.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        echo "Not mounted disk: $DISK_NAME at mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
-                        echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/fail.log
-                        echo "############################################################################" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/success.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: FAIL    stdout: yes    stderr: no       "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which mount)                       bos.dskmgt.mount        exec"
-                        echo "Command unsuccessful, check command syntax and variables"
-                        echo
-                    	cat /var/log/smx-log/fail.log | tail -n 6
-                    	echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        exit 1
-                   fi
-		   clear
-                   $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log
-                   if [ $PIPESTATUS -eq 0 ]; then
-		        echo "########################################################################################" >> /var/log/smx-log/success.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        echo "Successfuly displayed information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
-                        echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        echo "########################################################################################" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: OK    stdout: yes    stderr: no         "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which df)                          bos.dskmgt.df           exec"
-                        echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log"
-                        echo
-                    	cat /var/log/smx-log/success.log | tail -n 6
-                    	echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-                   else
-		        echo "########################################################################################" >> /var/log/smx-log/fail.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        echo "Not displayed information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-                        echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/fail.log
-                        echo "########################################################################################" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/fail.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: FAIL    stdout: yes    stderr: no       "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which df)                          bos.dskmgt.df           exec"
-                        echo "Command unsuccessful, check command syntax and variables"
-                        echo
-                    	cat /var/log/smx-log/fail.log | tail -n 6
-                    	echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-                   fi
-                   ;;
-            unmount)
-                      clear
-                      echo "$(date)                                    $(whoami)@$(hostname)"
-                      echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/disk1s1"
-                      echo "[TOP]                                                  [Entry Fields]"
-                      printf " Enter /dev/ disk name [Default: /dev/disk0s1] ------ > "
-                      if [ "$diskName" = "" ]; then
-                            read diskName
-                            DISK_NAME=$diskName
-                      fi
-                      if [ "$diskName" = "" ]; then
-                            DISK_NAME=/dev/disk0s1
-                      fi        
-                      read -p " Enter mount point --------------------------------- > " mntPoint
-                      read -p " Disk eject after unmount ------------- (True/False) > " ans
-                      clear
-                      echo "        COMMAND STATUS                    "
-                      echo
-                      echo "$(date)                                    $(whoami)@$(hostname)"
-                      echo
-                      echo "Command: RUNNING    stdout: yes    stderr: no    "
-                      echo
-                      echo "Before command completion, additional instructions may appear below"
-                      echo
-                      echo "File                                 Fileset                 Type"
-                      echo "-----------------------------------------------------------------"
-                      echo "$(which umount)                      bos.dskmgt.umount       exec"
-                      echo "$(which rm)                          bos.sysmgt.rm           exec"
-                      echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
-                      echo "Command run: $(which umount) -f $DISK_NAME"
-                      echo "Command run: $(which rm) -rf $mntPoint"
-                      echo "Command run: $(which diskutil) eject $DISK_NAME"
-                      sleep 2
-                      $(which umount) -f $diskName
-                      if [ $? -eq 0 ]; then
-            		   echo "##########################################" >> /var/log/smx-log/success.log
-            		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                           echo "Successfuly unmounted disk: $DISK_NAME" >> /var/log/smx-log/success.log
-                           echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/success.log
-                           echo "" >> /var/log/smx-log/success.log
-                           echo "##########################################" >> /var/log/smx-log/success.log
-                           echo "" >> /var/log/smx-log/success.log
-                           read -p "Press [enter] to continue..." ReadDamKey
-                           clear
-                           echo "        COMMAND STATUS          "
-                           echo
-                           echo "$(date)                                    $(whoami)@$(hostname)"
-                           echo
-                           echo "Command: OK    stdout: yes    stderr: no         "
-                           echo
-                           echo "Before command completion, additional instructions may appear below"
-                           echo
-                           echo "File                                 Fileset                 Type"
-                           echo "-----------------------------------------------------------------"
-                           echo "$(which umount)                      bos.dskmgt.umount       exec"
-                           echo "Command run: $(which umount) -f $DISK_NAME"
-                           echo
-                    	   cat /var/log/smx-log/success.log | tail -n 6
-                    	   echo
-                           read -p "Press [enter] to continue..." ReadDamKey
-                      else
-			   echo "####################################################" >> /var/log/smx-log/fail.log
-                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                           echo "Not unmounted disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-                           echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/fail.log
-                           echo "" >> /var/log/smx-log/fail.log
-                           echo "####################################################" >> /var/log/smx-log/fail.log
-                           echo "" >> /var/log/smx-log/fail.log
-                           read -p "Press [enter] to continue..." ReadDamKey
-                           clear
-                           echo "        COMMAND STATUS          "
-                           echo
-                           echo "$(date)                                     $(whoami)@$(hostname)"
-                           echo
-                           echo "Command: FAIL    stdout: yes    stderr: no        "
-                           echo
-                           echo "Before command completion, additional instructions may appear below"
-                           echo
-                           echo "File                                 Fileset                 Type"
-                           echo "-----------------------------------------------------------------"
-                           echo "$(which umount)                      bos.dskmgt.unmount      exec"
-                           echo "Command unsuccessful, check command syntax and variables"
-                           echo
-                    	   cat /var/log/smx-log/fail.log | tail -n 6
-                    	   echo
-                           read -p "Press [enter] to continue..." ReadDamKey
-                           exit 1
-                      fi
-                      $(which rm) -rf $mntPoint
-                      if [ $? -eq 0 ]; then
-			   echo "##########################################" >> /var/log/smx-log/success.log
-                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                           echo "Successfuly deleted mount point: $mntPoint" >> /var/log/smx-log/success.log
-                           echo "Command run: $(which rm) -rf $mntPoint" >> /var/log/smx-log/success.log
-                           echo "" >> /var/log/smx-log/success.log
-                           echo "##########################################" >> /var/log/smx-log/success.log
-                           echo "" >> /var/log/smx-log/success.log
-                           read -p "Press [enter] to continue..." ReadDamKey
-                           clear
-                           echo "        COMMAND STATUS          "
-                           echo
-                           echo "$(date)                                    $(whoami)@$(hostname)"
-                           echo
-                           echo "Command: OK      stdout: yes    stderr: no       "
-                           echo
-                           echo "Before command completion, additional instructions may appear below"
-                           echo
-                           echo "File                                 Fileset                 Type"
-                           echo "-----------------------------------------------------------------"
-                           echo "$(which rm)                          bos.sysmgt.rm           exec"
-                           echo "Command run: $(which rm) -rf $mntPoint"
-                           echo
-                    	   cat /var/log/smx-log/success.log | tail -n 6
-                    	   echo
-                           read -p "Press [enter] to continue..." ReadDamKey
-                      else
-			   echo "########################################################" >> /var/log/smx-log/fail.log
-                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                           echo "Not deleted mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
-                           echo "Command run: $(which rm) -rf $mntPoint" >> /var/log/smx-log/fail.log
-                           echo "" >> /var/log/smx-log/fail.log
-                           echo "########################################################" >> /var/log/smx-log/fail.log
-                           echo "" >> /var/log/smx-log/fail.log
-                           read -p "Press [enter] to continue..." ReadDamKey
-                           clear
-                           echo "        COMMAND STATUS          "
-                           echo
-                           echo "$(date)                                    $(whoami)@$(hostname)"
-                           echo
-                           echo "Command: FAIL    stdout: yes    stderr: no       "
-                           echo
-                           echo "Before command completion, additional instructions may appear below"
-                           echo
-                           echo "File                                 Fileset                 Type"
-                           echo "-----------------------------------------------------------------"
-                           echo "$(which rm)                          bos.sysmgt.rm           exec"
-                           echo "Command unsuccessful, check command syntax and variables"
-                           echo
-                    	   cat /var/log/smx-log/fail.log | tail -n 6
-                    	   echo
-                           read -p "Press [enter] to continue..." ReadDamKey
-                      fi
-                      if [ "$ans" = "True" ]; then
-                            $(which diskutil) eject $DISK_NAME
-                            if [ $? -eq 0 ]; then
-                                 clear
-                                 echo "        COMMAND STATUS          "
-                                 echo
-                                 echo "$(date)                                     $(whoami)@$(hostname)"
-                                 echo
-                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                 echo
-                                 echo "Before command completion, additional instructions may appear below"
-                                 echo
-                                 echo "File                                 Fileset                 Type"
-                                 echo "-----------------------------------------------------------------"
-                                 echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
-                                 echo "Command run: $(which diskutil) eject $DISK_NAME"
-                                 sleep 2
-                                 $(which diskutil) eject $DISK_NAME
-                                 if [ $? -eq 0 ]; then
-                                      echo "###############################################" >> /var/log/smx-log/success.log
-                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                      echo "Successfuly ejected disk: $DISK_NAME" >> /var/log/smx-log/success.log
-                                      echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/success.log
-                                      echo "" >> /var/log/smx-log/success.log
-                                      echo "###############################################" >> /var/log/smx-log/success.log
-                                      echo "" >> /var/log/smx-log/success.log
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                      clear
-                                      echo "        COMMAND STATUS          "
-                                      echo
-                                      echo "$(date)                                    $(whoami)@$(hostname)"
-                                      echo
-                                      echo "Command: OK    stdout: yes    stderr: no         "
-                                      echo
-                                      echo "Before command completion, additional instructions may appear below"
-                                      echo
-                                      echo "File                                 Fileset                 Type"
-                                      echo "-----------------------------------------------------------------"
-                                      echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
-                                      echo "Command run: $(which diskutil) eject $DISK_NAME"
-                                      echo
-                            	      cat /var/log/smx-log/success.log | tail -n 6
-                            	      echo
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                 else
-				      echo "##################################################" >> /var/log/smx-log/fail.log
-                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                                      echo "Not ejected disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-                                      echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/fail.log
-                                      echo "" >> /var/log/smx-log/fail.log
-                                      echo "##################################################" >> /var/log/smx-log/fail.log
-                                      echo "" >> /var/log/smx-log/fail.log
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                      clear
-                                      echo "        COMMAND STATUS          "
-                                      echo
-                                      echo "$(date)                                    $(whoami)@$(hostname)"
-                                      echo
-                                      echo "Command: FAIL    stdout: yes    stdout: yes      "
-                                      echo
-                                      echo "Before command completion, additional instructions may appear below"
-                                      echo
-                                      echo "File                                 Fileset                 Type"
-                                      echo "-----------------------------------------------------------------"
-                                      echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
-                                      echo "Command unsuccessful, check command syntax and variables"
-                                      echo
-                            	      cat /var/log/smx-log/fail.log | tail -n 6
-                            	      echo
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                 fi
-                            fi
-                      else
-                           echo "Disk: $DISK_NAME not ejected from system"
-                           read -p "Press [enter] to continue..." ReadDamKey
-                      fi
-                      ;;
-            rename)
+		    clear
+		    echo "$(date)                                     $(whoami)@$(hostname)"
+		    echo "[TOP]                                                      [Entry Fields]"
+		    read -p "Mount or unmount disk ------------------ (mount/unmount) > " ans
+		    if [ "$ans" = "mount" ]; then
+			  clear
+			  echo "$(date)                                     $(whoami)@$(hostname)"
+			  echo "[TOP]                                           [Entry Fields]"
+			  printf " Enter filesystem type [Default: HFS+] ------- > "
+			  if [ "$fsysName" = "" ]; then
+                                read fsysName
+				FSYS_NAME=$fsysName
+			  fi
+			  if [ "$fsysName" = "" ]; then
+                                FSYS_NAME=HFS+
+			  fi      
+			  printf " Enter /dev/ disk name [Default: /dev/disk0s1] > "
+			  if [ "$diskName" = "" ]; then
+                                read diskName
+				DISK_NAME=$diskName
+			  fi
+			  if [ "$diskName" = "" ]; then
+                                DISK_NAME=/dev/disk0s1
+			  fi      
+			  read -p " Enter mount point -------------------------- > " mntPoint
+			  clear
+			  echo "         COMMAND STATUS                  "
+			  echo
+			  echo "$(date)                                     $(whoami)@$(hostname)"
+			  echo
+			  echo "Command: RUNNING    stdout: yes    stderr: no     "
+			  echo
+			  echo "Before command completion, additional instructions may appear below"
+			  echo
+			  echo "File                                 Fileset                 Type"
+			  echo "-----------------------------------------------------------------"
+			  echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+			  echo "$(which mount)                       bos.dskmgt.mount        exec"
+			  echo "$(which df)                          bos.dskmgt.df           exec"
+			  echo "Command run: $(which mkdir) -p $mntPoint"
+			  echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint"
+			  echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log"
+			  sleep 2
+			  $(which mkdir) -p $mntPoint
+			  if [ $? -eq 0 ]; then
+			       echo "###########################################" >> /var/log/smx-log/success.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                               echo "Successfuly created mount point: $mntPoint" >> /var/log/smx-log/success.log
+                               echo "Command run: $(which mkdir) -p $mntPoint" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               echo "##########################################" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: OK    stdout: yes    stderr: no         "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+                               echo "Command run: $(which mkdir) -p $mntPoint"
+                               echo
+                    	       cat /var/log/smx-log/success.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+			  else
+			       echo "########################################################" >> /var/log/smx-log/fail.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                               echo "Not created mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
+                               echo "Command run: $(which mkdir) -p $mntPoint" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               echo "########################################################" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: FAIL    stdout: yes    stderr: no       "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+                               echo "Command unsuccessful, check command syntax and variables"
+                               echo
+                    	       cat /var/log/smx-log/success.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
+			  fi
+			  $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint
+			  if [ $? -eq 0 ]; then
+		               echo "##############################################################" >> /var/log/smx-log/success.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                               echo "Successfuly mounted disk: $DISK_NAME at mount point: $mntPoint" >> /var/log/smx-log/success.log
+                               echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               echo "##############################################################" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: OK    stdout: yes    stderr: no         "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which mount)                       bos.dskmgt.mount        exec"
+                               echo "Command run: $(which mount) -t $fsysType $diskName $mntPoint"
+                               echo
+                    	       cat /var/log/smx-log/success.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+			  else
+		               echo "############################################################################" >> /var/log/smx-log/fail.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                               echo "Not mounted disk: $DISK_NAME at mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
+                               echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               echo "############################################################################" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/success.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: FAIL    stdout: yes    stderr: no       "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which mount)                       bos.dskmgt.mount        exec"
+                               echo "Command unsuccessful, check command syntax and variables"
+                               echo
+                    	       cat /var/log/smx-log/fail.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
+			  fi
+			  clear
+			  $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log
+			  if [ $PIPESTATUS -eq 0 ]; then
+		               echo "########################################################################################" >> /var/log/smx-log/success.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                               echo "Successfuly displayed information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
+                               echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               echo "########################################################################################" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: OK    stdout: yes    stderr: no         "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which df)                          bos.dskmgt.df           exec"
+                               echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log"
+                               echo
+                    	       cat /var/log/smx-log/success.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+			  else
+		               echo "########################################################################################" >> /var/log/smx-log/fail.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                               echo "Not displayed information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
+                               echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               echo "########################################################################################" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: FAIL    stdout: yes    stderr: no       "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which df)                          bos.dskmgt.df           exec"
+                               echo "Command unsuccessful, check command syntax and variables"
+                               echo
+                    	       cat /var/log/smx-log/fail.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+			  fi
+		    else
+			  clear
+			  echo "$(date)                                    $(whoami)@$(hostname)"
+			  echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/disk1s1"
+			  echo "[TOP]                                                  [Entry Fields]"
+			  printf " Enter /dev/ disk name [Default: /dev/disk0s1] ------ > "
+			  if [ "$diskName" = "" ]; then
+                                read diskName
+				DISK_NAME=$diskName
+			  fi
+			  if [ "$diskName" = "" ]; then
+                                DISK_NAME=/dev/disk0s1
+			  fi        
+			  read -p " Enter mount point --------------------------------- > " mntPoint
+			  read -p " Disk eject after unmount ------------- (True/False) > " ans
+			  clear
+			  echo "        COMMAND STATUS                    "
+			  echo
+			  echo "$(date)                                    $(whoami)@$(hostname)"
+			  echo
+			  echo "Command: RUNNING    stdout: yes    stderr: no    "
+			  echo
+			  echo "Before command completion, additional instructions may appear below"
+			  echo
+			  echo "File                                 Fileset                 Type"
+			  echo "-----------------------------------------------------------------"
+			  echo "$(which umount)                      bos.dskmgt.umount       exec"
+			  echo "$(which rm)                          bos.sysmgt.rm           exec"
+			  echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
+			  echo "Command run: $(which umount) -f $DISK_NAME"
+			  echo "Command run: $(which rm) -rf $mntPoint"
+			  echo "Command run: $(which diskutil) eject $DISK_NAME"
+			  sleep 2
+			  $(which umount) -f $diskName
+			  if [ $? -eq 0 ]; then
+            		       echo "##########################################" >> /var/log/smx-log/success.log
+            		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                               echo "Successfuly unmounted disk: $DISK_NAME" >> /var/log/smx-log/success.log
+                               echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               echo "##########################################" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: OK    stdout: yes    stderr: no         "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which umount)                      bos.dskmgt.umount       exec"
+                               echo "Command run: $(which umount) -f $DISK_NAME"
+                               echo
+                    	       cat /var/log/smx-log/success.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+			  else
+			       echo "####################################################" >> /var/log/smx-log/fail.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                               echo "Not unmounted disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
+                               echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               echo "####################################################" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                     $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: FAIL    stdout: yes    stderr: no        "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which umount)                      bos.dskmgt.unmount      exec"
+                               echo "Command unsuccessful, check command syntax and variables"
+                               echo
+                    	       cat /var/log/smx-log/fail.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               exit 1
+			  fi
+			  $(which rm) -rf $mntPoint
+			  if [ $? -eq 0 ]; then
+			       echo "##########################################" >> /var/log/smx-log/success.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                               echo "Successfuly deleted mount point: $mntPoint" >> /var/log/smx-log/success.log
+                               echo "Command run: $(which rm) -rf $mntPoint" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               echo "##########################################" >> /var/log/smx-log/success.log
+                               echo "" >> /var/log/smx-log/success.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: OK      stdout: yes    stderr: no       "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which rm)                          bos.sysmgt.rm           exec"
+                               echo "Command run: $(which rm) -rf $mntPoint"
+                               echo
+                    	       cat /var/log/smx-log/success.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+			  else
+			       echo "########################################################" >> /var/log/smx-log/fail.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                               echo "Not deleted mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
+                               echo "Command run: $(which rm) -rf $mntPoint" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               echo "########################################################" >> /var/log/smx-log/fail.log
+                               echo "" >> /var/log/smx-log/fail.log
+                               read -p "Press [enter] to continue..." ReadDamKey
+                               clear
+                               echo "        COMMAND STATUS          "
+                               echo
+                               echo "$(date)                                    $(whoami)@$(hostname)"
+                               echo
+                               echo "Command: FAIL    stdout: yes    stderr: no       "
+                               echo
+                               echo "Before command completion, additional instructions may appear below"
+                               echo
+                               echo "File                                 Fileset                 Type"
+                               echo "-----------------------------------------------------------------"
+                               echo "$(which rm)                          bos.sysmgt.rm           exec"
+                               echo "Command unsuccessful, check command syntax and variables"
+                               echo
+                    	       cat /var/log/smx-log/fail.log | tail -n 6
+                    	       echo
+                               read -p "Press [enter] to continue..." ReadDamKey
+			  fi
+			  if [ "$ans" = "True" ]; then
+                                $(which diskutil) eject $DISK_NAME
+				if [ $? -eq 0 ]; then
+                                     clear
+                                     echo "        COMMAND STATUS          "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
+                                     echo "Command run: $(which diskutil) eject $DISK_NAME"
+                                     sleep 2
+                                     $(which diskutil) eject $DISK_NAME
+                                     if [ $? -eq 0 ]; then
+					  echo "###############################################" >> /var/log/smx-log/success.log
+					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+					  echo "Successfuly ejected disk: $DISK_NAME" >> /var/log/smx-log/success.log
+					  echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/success.log
+					  echo "" >> /var/log/smx-log/success.log
+					  echo "###############################################" >> /var/log/smx-log/success.log
+					  echo "" >> /var/log/smx-log/success.log
+					  read -p "Press [enter] to continue..." ReadDamKey
+					  clear
+					  echo "        COMMAND STATUS          "
+					  echo
+					  echo "$(date)                                    $(whoami)@$(hostname)"
+					  echo
+					  echo "Command: OK    stdout: yes    stderr: no         "
+					  echo
+					  echo "Before command completion, additional instructions may appear below"
+					  echo
+					  echo "File                                 Fileset                 Type"
+					  echo "-----------------------------------------------------------------"
+					  echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
+					  echo "Command run: $(which diskutil) eject $DISK_NAME"
+					  echo
+                            		  cat /var/log/smx-log/success.log | tail -n 6
+                            		  echo
+					  read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+					  echo "##################################################" >> /var/log/smx-log/fail.log
+					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+					  echo "Not ejected disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
+					  echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/fail.log
+					  echo "" >> /var/log/smx-log/fail.log
+					  echo "##################################################" >> /var/log/smx-log/fail.log
+					  echo "" >> /var/log/smx-log/fail.log
+					  read -p "Press [enter] to continue..." ReadDamKey
+					  clear
+					  echo "        COMMAND STATUS          "
+					  echo
+					  echo "$(date)                                    $(whoami)@$(hostname)"
+					  echo
+					  echo "Command: FAIL    stdout: yes    stdout: yes      "
+					  echo
+					  echo "Before command completion, additional instructions may appear below"
+					  echo
+					  echo "File                                 Fileset                 Type"
+					  echo "-----------------------------------------------------------------"
+					  echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
+					  echo "Command unsuccessful, check command syntax and variables"
+					  echo
+                            		  cat /var/log/smx-log/fail.log | tail -n 6
+                            		  echo
+					  read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+				fi
+			  else
+                                echo "Disk: $DISK_NAME not ejected from system"
+				read -p "Press [enter] to continue..." ReadDamKey
+			  fi
+		    fi
+		    ;;
+	    rename)
                      clear
                      echo "$(date)                                     $(whoami)@$(hostname)"
                      echo "Must have real disk name, ie /Volumes/USB"
@@ -16436,7 +16559,7 @@ function sys_menuosx() {
                      fi
                      ;;
             nmap)
-                   $(which which) nmap > /dev/null
+                   $(which nmap) > /dev/null
                    if [ $? -eq 0 ]; then
                         clear
                         echo "$(date)                                     $(whoami)@$(hostname)"
@@ -16534,7 +16657,7 @@ function sys_menuosx() {
                     fi
                     ;;
             netmap)
-                     $(which which) nmap > /dev/null
+                     $(which nmap) > /dev/null
                      if [ $? -eq 0 ]; then
                           clear
                           echo "$(date)                                     $(whoami)@$(hostname)"
