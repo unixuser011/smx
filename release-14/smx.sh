@@ -16,8 +16,7 @@
 # Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #
 # This program was written on CentOS 6.6 X86_64, however it is fully compatable with Debian-based Linux, and SuSE-based linux with no modifications
-# This version (13) has support for systemd (ugh! - I have nothing against systemd, it just goes aginst the old UNIX way)
-# so it will be fully compatable with 7x versions of RHEL/CentOS/Fedora, Debian and SuSE
+# This version (13) has support for systemd (ugh!) so it will be fully compatable with 7x versions of RHEL/CentOS/Fedora, Debian and SuSE
 # It will however may require modifications for Solaris/HP-UX/AIX or any other "Pure" UNIX
 # The only "Pure" UNIX it is compatable with is OS X
 #
@@ -29,7 +28,7 @@
 # UNIX, unix and Unix is a copyrighted product (c) 1990-2015 The Open Group - all rights reserved
 # Solaris is a copyrighted product (c) Sun Microsystems 1991-2005 and copyright (c) Oracle Corporation 2005-2015 - all rights reserved
 # AI-64 (Itanium) is a copyrighted product (c) 1986-1996 Intel Corporation - all rights reserved
-# Cisco IOS is a copyrighted product (c) 1987-2015 Cisco Systems Inc - all rights reserved
+# Cisco IOS is a copyrighted product (c) 1987-2015 Cisco Systems Inc- all rights reserved
 # OS X and Mac OS X are copyrighted products (c) 1999-2015 Apple Corporation - all rights reserved
 ##
 
@@ -73,7 +72,7 @@ if [ $# -eq 0 ]; then
      clear
      usage
      echo
-     exit 1
+     exit 0
 fi
 
 # Usage for flags - END
@@ -89,9 +88,9 @@ echo "      ## ##     ##   ## ##   "
 echo "##    ## ##     ##  ##   ##  "
 echo " ######  ##     ## ##     ## "
 echo
-echo "System Management eXecutive (for UNIX/Linux) Version 14.0 (Codename: Hekaton (Codename for Microsoft SQL server In-memory Online Transaction system))"
+echo "System Management eXecutive (for UNIX/Linux) Version 14.0 (Command: Hekaton (Codename for Microsoft SQL server In-memory Online Transcation Processing system))"
 echo "Copyright (c) 2010 - 2016 Darius Anderson, d.anderson1147@gmail.com"
-echo "Created in, and optimised for GNU Emacs"
+echo "Created in, and optimised for Sublime Text 2"
 echo
 echo "Log files located in: /var/log/smx-log/success.log /var/log/smx-log/fail.log and /var/log/smx-log/exit.log"
 echo "Program log files located in: /var/log/smx-log/<program>.log"
@@ -130,6 +129,9 @@ fi
 
 export TERM=xterm                        # Could use vt100, but doesn't look right on emulators/PuTTY
 
+stty erase ^h				 # You will have to set stty erase on your own system, rhel-like systems should work with ^h
+#stty erase ^?
+
 function main_menu() {
     while :
     do
@@ -148,11 +150,11 @@ function main_menu() {
       	echo
       	echo "srvmgt > Server management"
         echo
-        echo "usrmgt-osx > User Account management for OS X"
+        echo "usrmgt/osx > User Account management for OS X"
         echo
-        echo "diskmgt-osx > Disk management for OS X"
+        echo "diskmgt/osx > Disk management for OS X"
         echo
-        echo "sysmgt-osx > System management for OS X"
+        echo "sysmgt/osx > System management for OS X"
         echo
         echo "rmlog > Remove log files"
         echo
@@ -197,7 +199,7 @@ function main_menu() {
                      echo "" >> /var/log/smx-log/success.log
                      sys_menu
                      ;;
-	    srvmgt)
+	        srvmgt)
                      clear
                      echo "####################################" >> /var/log/smx-log/success.log
                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -208,8 +210,8 @@ function main_menu() {
                      echo "" >> /var/log/smx-log/success.log
                      srv_menu
                      ;;
-            usrmgt-osx)
-		         clear
+            usrmgt/osx)
+		                 clear
                          echo "#######################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Entering $(basename $0)/usr_menuosx" >> /var/log/smx-log/success.log
@@ -219,7 +221,7 @@ function main_menu() {
                          echo "" >> /var/log/smx-log/success.log
                          usr_menuosx
                          ;;
-            diskmgt-osx)
+            diskmgt/osx)
                           clear
                           echo "#######################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -230,7 +232,7 @@ function main_menu() {
                           echo "" /var/log/smx-log/success.log
                           dsk_menuosx
                           ;;
-            sysmgt-osx)
+            sysmgt/osx)
                          clear
                          echo "#######################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -290,8 +292,8 @@ function main_menu() {
                          read -p "Press [enter] to continue..." ReadDamKey
                     fi
                     ;;
-	    catlog)
-		     clear
+	       catlog)
+		             clear
             	     echo "         COMMAND STATUS            "
             	     echo
             	     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -481,7 +483,7 @@ function usr_menu() {
                     echo "Command run: $(which passwd) $USER_NAME"
                     echo "Command run: $(which gpasswd) -a $USER_NAME $USER_GROUP"
                     sleep 2
-		    $(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c "$REAL_NAME" $USER_NAME
+		            $(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c "$REAL_NAME" $USER_NAME
                     if [ $? -eq 0 ]; then
                          clear
                          echo "########################################################################################################################" >> /var/log/smx-log/success.log
@@ -516,7 +518,7 @@ function usr_menu() {
                          echo "##########################################################################################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not created user: $USER_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c '$REAL_NAME' $USER_NAME" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c '$REAL_NAME' $USER_NAME" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "##########################################################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -570,7 +572,7 @@ function usr_menu() {
                          echo "#######################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not added user: $USER_NAME to group: $USER_GROUP" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which gpasswd) -a $USER_NAME $USER_GROUP" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which gpasswd) -a $USER_NAME $USER_GROUP" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "#######################################################" >> /var/log/smx-log/fail.log
                          read -p "Press [enter] to continue..." ReadDamKey
@@ -594,7 +596,7 @@ function usr_menu() {
                     fi
                     if [ "$ans2" = "True" ]; then
                           clear
-			  echo "Expire date prefix: dd/mm/yyyy"
+			              echo "Expire date prefix: dd/mm/yyyy"
                           echo "[TOP]                       [Entry Fields]"
                           read -p " Enter expire date ------- > " expDate
                           clear
@@ -640,7 +642,7 @@ function usr_menu() {
                                echo "#############################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "User: $USER_NAME expire date not set, check syntax of command" >> /var/log/smx-log/fail.log
-			       echo "Command run: $(which usermod) -e $expDate $USER_NAME" >> /var/log/smx-log/fail.log
+			                   echo "Command run: $(which usermod) -e $expDate $USER_NAME" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                echo "#############################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -711,10 +713,10 @@ function usr_menu() {
                           echo "User will not be able to send mail"
                           read -p "Press [enter] to continue..." ReadDamKey
                     fi
-		    ;;
+		            ;;
            addsys)
                     clear
-          	    # System user - controling deamon like stuff only (I think :-))
+          	        # System user - controling deamon like stuff only (I think :-))
                     echo "$(date)                                     $(whoami)@$(hostname)"
                     echo "[TOP]                                            [Entry Fields]"
                     read -p " Enter system username ----------------------- > " sysUser
@@ -777,7 +779,7 @@ function usr_menu() {
                          echo "############################################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not created system user: $sysUser, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which useradd) -m -d $syshomeDir -N -r -s $SYS_SHELL -u $sysUserID -c '$sysRealName' $sysUser" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which useradd) -m -d $syshomeDir -N -r -s $SYS_SHELL -u $sysUserID -c '$sysRealName' $sysUser" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "############################################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -796,7 +798,7 @@ function usr_menu() {
                          echo "$(which useradd)                     bos.usrmgt.useradd      exec"
                          echo
                          cat /var/log/smx-log/fail.log | tail -n 6
-			 echo
+			             echo
                          read -p "Press [enter] to continue..." ReadDamKey
                          exit 1
                     fi
@@ -831,7 +833,7 @@ function usr_menu() {
                          echo "#########################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not added system user: $sysUser to group: $sysGroup, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which gpasswd) -a $sysUser $sysGroup" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which gpasswd) -a $sysUser $sysGroup" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "#########################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -886,7 +888,7 @@ function usr_menu() {
                        echo "#####################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "User: $userName modified, shell changed to $USER_SHELL" >> /var/log/smx-log/success.log
-		       echo "Command run: $(which chsh) -s $USER_SHELL $userName" >> /var/log/smx-log/success.log
+		               echo "Command run: $(which chsh) -s $USER_SHELL $userName" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
                        echo "#####################################################" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
@@ -986,7 +988,7 @@ function usr_menu() {
                          echo "####################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "User: $userName not modified, name not changed, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which usermod) -c '$realName' $userName" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which usermod) -c '$realName' $userName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "####################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -1060,7 +1062,7 @@ function usr_menu() {
                        echo "###################################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                        echo "User: $userName not modified, UID not changed, check command syntax" >> /var/log/smx-log/fail.log
-		       echo "Command run: $(which usermod) -u $userIdent $userName" >> /var/log/smx-log/fail.log
+		               echo "Command run: $(which usermod) -u $userIdent $userName" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
                        echo "###################################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
@@ -1159,7 +1161,7 @@ function usr_menu() {
                          echo "################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "User: $userName not modified, user not removed from system, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which userdel) -f -r $userName" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which userdel) -f -r $userName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -1232,7 +1234,7 @@ function usr_menu() {
                         echo "################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not logged in as $userName, check command syntax" >> /var/log/smx-log/fail.log
-			echo "Command run: $(which su) -l $userName" >> /var/log/smx-log/fail.log
+			            echo "Command run: $(which su) -l $userName" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -1256,13 +1258,13 @@ function usr_menu() {
                    fi
                    ;;
            find)
-                  $(which finger) > /dev/null
+                  $(which which) finger > /dev/null
                   if [ $? -eq 0 ]; then
                        echo "Finger found in PATH"
                   else
                        clear
                        cat /proc/version | grep "Red Hat" > /dev/null
-		        if [ $? -eq 0 ]; then
+		               if [ $? -eq 0 ]; then
                              echo "OS = Red Hat"
                              $(which yum) -y install finger | $(which tee) /var/log/smx-log/finger-install-redhat.log
                         else
@@ -1285,9 +1287,9 @@ function usr_menu() {
                                             $(which zypper) in -y finger | $(which tee) /var/log/smx-log/finger-install-suse.log
                                        fi
                                   fi
-			     fi
-			fi
-	          fi	 
+			                 fi
+			            fi
+	              fi	 
                   clear
                   echo "$(date)                                     $(whoami)@$(hostname)"
                   echo "[TOP]                          [Entry Fields]"
@@ -1338,7 +1340,7 @@ function usr_menu() {
                        echo "#####################################################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                        echo "Not displayed information of $userName" >> /var/log/smx-log/fail.log
-		       echo "Command run: $(which finger) $userName | $(which tee) /var/log/smx-log/finger.log" >> /var/log/smx-log/fail.log
+		               echo "Command run: $(which finger) $userName | $(which tee) /var/log/smx-log/finger.log" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
                        echo "#####################################################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
@@ -1408,7 +1410,7 @@ function usr_menu() {
                         echo "#################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Loged in users not displayed, check command syntax" >> /var/log/smx-log/fail.log
-			echo "Command run: $(which w) | $(which tee) /var/log/smx-log/w.log" >> /var/log/smx-log/fail.log
+			            echo "Command run: $(which w) | $(which tee) /var/log/smx-log/w.log" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "#################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -1477,7 +1479,7 @@ function usr_menu() {
                          echo "##############################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "/etc/sudoers not modified, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which visudo)" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which visudo)" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "###############################################" >> /var/log/smx-log/fail.log
                          read -p "Press [enter] to continue..." ReadDamKey
@@ -1549,7 +1551,7 @@ function usr_menu() {
                           echo "####################################################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "user: $userName not modified not disabled or shell changed to $(which nologin), check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which usermod) -L -s $(which nologin) $userName" >> /var/log/smx-log/fail.log
+			              echo "Command run: $(which usermod) -L -s $(which nologin) $userName" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "####################################################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -1598,8 +1600,8 @@ function usr_menu() {
                     echo "-----------------------------------------------------------------"
                     echo "$(which usermod)                      bos.usrmgt.usermod     exec"
                     echo "Command run: $(which usermod) -U -s $USER_SHELL $userName"
-          	    sleep 2
-		    $(which usermod) -U -s $USER_SHELL $userName
+          	        sleep 2
+		            $(which usermod) -U -s $USER_SHELL $userName
                     if [ $? -eq 0 ]; then
                          echo "######################################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -1630,7 +1632,7 @@ function usr_menu() {
                          echo "#######################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "user: $userName not modified, user not enabled, shell not changed, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which usermod) -U -s $USER_SHELL $userName" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which usermod) -U -s $USER_SHELL $userName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "#######################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -1653,8 +1655,8 @@ function usr_menu() {
                          read -p "Press [enter] to continue..." ReadDamKey
                     fi
                     ;;
-	   edlogin)
-	             clear
+	       edlogin)
+	                 clear
             	     echo "        COMMAND STATUS          "
             	     echo
             	     echo "$(date)                                    $(whoami)@$(hostname)"
@@ -1669,10 +1671,10 @@ function usr_menu() {
             	     echo "Command run: $(which vi) /etc/login.defs"
             	     sleep 2
             	     $(which vi) /etc/login.defs
-      		     if [ $? -eq 0 ]; then
-			  echo "##########################################" >> /var/log/smx-log/success.log
+      		         if [ $? -eq 0 ]; then
+			              echo "##########################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			  echo "Successfuly modified file: /etc/login.defs" >> /var/log/smx-log/success.log
+			              echo "Successfuly modified file: /etc/login.defs" >> /var/log/smx-log/success.log
                           echo "Command run: $(which vi) /etc/login.defs" >> /var/log/smx-log/success.log
                           echo "" >> /var/log/smx-log/success.log
                           echo "##########################################" >> /var/log/smx-log/success.log
@@ -1695,7 +1697,7 @@ function usr_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else
+		             else
                           echo "########################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not modified file: /etc/login.defs, check command syntax" >> /var/log/smx-log/fail.log
@@ -1720,12 +1722,12 @@ function usr_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-        	     fi
-        	     ;;
-	   chinfo)
-	            clear
+            	     fi
+            	     ;;
+	       chinfo)
+	                clear
               	    echo "$(date)                                    $(whoami)@$(hostname)"
-		    echo "[TOP]                              [Entry Fields]"
+		            echo "[TOP]                              [Entry Fields]"
               	    read -p " Enter username ----------------- > " userName
               	    clear
               	    echo "         COMMAND STATUS           "
@@ -1741,11 +1743,11 @@ function usr_menu() {
               	    echo "$(which chfn)                        bos.usrmgt.chfn         exec"
               	    echo "Command run: $(which chfn) $userName"
               	    sleep 2
-      		    clear
+      		        clear
               	    $(which chfn) $userName
               	    if [ $? -eq 0 ]; then
                          echo "################################################" >> /var/log/smx-log/success.log
-                	 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Successfuly modified user: $userName information" >> /var/log/smx-log/success.log
                          echo "Command run: $(which chfn) $userName" >> /var/log/smx-log/success.log
                          echo "" >> /var/log/smx-log/success.log
@@ -1769,11 +1771,11 @@ function usr_menu() {
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-		    else
+		            else
                          echo "##############################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not modified user: $userName information, check command syntax" >> /var/log/smx-log/fail.log
-		         echo "Command run: $(which chfn) $userName" >> /var/log/smx-log/fail.log
+		                 echo "Command run: $(which chfn) $userName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "##############################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -1794,8 +1796,8 @@ function usr_menu() {
                          cat /var/log/smx-log/fail.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-        	    fi
-        	    ;;
+        	        fi
+        	        ;;
            exit)
                   clear
                   echo "##############################################" >> /var/log/smx-log/exit.log
@@ -1806,14 +1808,14 @@ function usr_menu() {
                   echo "" >> /var/log/smx-log/exit.log
                   main_menu
                   ;;
-	   exit-mas)
-	              clear
-		      echo "#################################" >> /var/log/smx-log/exit.log
+	       exit-mas)
+	                  clear
+		              echo "#################################" >> /var/log/smx-log/exit.log
               	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
               	      echo "Successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
               	      echo "" >> /var/log/smx-log/exit.log
-        	      echo "#################################" >> /var/log/smx-log/exit.log
-        	      echo "" >> /var/log/smx-log/exit.log
+            	      echo "#################################" >> /var/log/smx-log/exit.log
+            	      echo "" >> /var/log/smx-log/exit.log
               	      exit 0
               	      ;;
            *)     clear
@@ -1952,7 +1954,7 @@ function dsk_menu() {
                         echo "####################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not initalized disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			echo "Command run: $(which fdisk) $DISK_NAME" >> /var/log/smx-log/fail.log
+			            echo "Command run: $(which fdisk) $DISK_NAME" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "####################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -2006,7 +2008,7 @@ function dsk_menu() {
                         echo "####################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not created new filesystem on disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			echo "Command run: $(which mkfs) -t $FSYS_NAME $DISK_NAME" >> /var/log/smx-log/fail.log
+			            echo "Command run: $(which mkfs) -t $FSYS_NAME $DISK_NAME" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "####################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -2062,8 +2064,8 @@ function dsk_menu() {
                         echo "##############################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not mounted disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/fail.log
-			echo "" >> /var/log/smx-log/fail.log
+            			echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/fail.log
+            			echo "" >> /var/log/smx-log/fail.log
                         echo "##############################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         read -p "Press [enter] to continue..." ReadDamKey
@@ -2118,7 +2120,7 @@ function dsk_menu() {
                         echo "####################################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not displayed information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+			            echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "####################################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -2165,7 +2167,7 @@ function dsk_menu() {
                      echo "$(which fdisk)                        bos.dskmgt.fdisk       exec"
                      echo "Command run: $(which fdisk) -l | $(which tee) /var/log/smx-log/fdisk.log"
                      sleep 2
-		     clear
+		             clear
                      $(which fdisk) -l | $(which tee) /var/log/smx-log/fdisk.log
                      if [ $PIPESTATUS -eq 0 ]; then
                           echo "############################################################################" >> /var/log/smx-log/success.log
@@ -2197,7 +2199,7 @@ function dsk_menu() {
                           echo "############################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Disk information not listed, check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which fdisk) -l | $(which tee) /var/log/smx-log/fdisk.log" >> /var/log/smx-log/fail.log
+			              echo "Command run: $(which fdisk) -l | $(which tee) /var/log/smx-log/fdisk.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "############################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -2222,7 +2224,7 @@ function dsk_menu() {
                      fi
                      ;;
             diskinfo)
-                       $(which udisks) > /dev/null
+                       $(which which) udisks > /dev/null
                        if [ $? -eq 0 ]; then
                             echo "udisks found in PATH"
                        else
@@ -2251,9 +2253,9 @@ function dsk_menu() {
                                                 $(which zypper) in -y udisks | $(which tee) /var/log/sysExec-install-udisks-suse.log
                                            fi
                                       fi
-				 fi
-			    fi
-		       fi
+				                 fi
+			                fi
+		               fi
                        clear
                        echo "$(date)                                     $(whoami)@$(hostname)"
                        echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/sda1"
@@ -2280,7 +2282,7 @@ function dsk_menu() {
                        echo "$(which udisks)                       bos.dskmgt.udisks      exec"
                        echo "Command run: $(which udisks) --show-info $DISK_NAME | $(which tee) /var/log/smx-log/udisks.log"
                        sleep 2
-		       clear
+		               clear
                        $(which udisks) --show-info $DISK_NAME | $(which tee) /var/log/smx-log/udisks.log
                        if [ $PIPESTATUS -eq 0 ]; then
                             echo "##################################################################################################" >> /var/log/smx-log/success.log
@@ -2312,7 +2314,7 @@ function dsk_menu() {
                             echo "##################################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "not displayed information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			    echo "Command run: $(which udisks) --show-info $DISK_NAME | $(which tee) /var/log/smx-log/udisks.log" >> /var/log/smx-log/fail.log
+			                echo "Command run: $(which udisks) --show-info $DISK_NAME | $(which tee) /var/log/smx-log/udisks.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "##################################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -2395,7 +2397,7 @@ function dsk_menu() {
                         echo "#################################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-		        echo "Command run: $(which df) -T $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+		                echo "Command run: $(which df) -T $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "#################################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -2438,13 +2440,13 @@ function dsk_menu() {
                                 DISK_NAME=/dev/sda1
                           fi        
                           printf " Enter mount point [Default: /mnt/disk] --- > "
-            		  if [ "$mntPoint" = "" ]; then
-			        read mntPoint
-				MNT_POINT=$mntPoint
-			  fi
-			  if [ "$mntPoint" = "" ]; then
-			        MNT_POINT=/mnt/disk
-			  fi		
+            		      if [ "$mntPoint" = "" ]; then
+			                    read mntPoint
+				                MNT_POINT=$mntPoint
+            			  fi
+            			  if [ "$mntPoint" = "" ]; then
+            			        MNT_POINT=/mnt/disk
+            			  fi		
                           printf " Enter filesystem [Default: ext4] --------- > "
                           if [ "$fsysName" = "" ]; then
                                 read fsysName
@@ -2474,12 +2476,12 @@ function dsk_menu() {
                           $(which mkdir) -p $MNT_POINT
                           $(which mount) -t $FSYS_NAME $DISK_NAME $MNT_POINT
                           if [ $? -eq 0 ]; then
-                               echo "###########################################################################" >> /var/log/smx-log/success.log
+                               echo "############################################################################" >> /var/log/smx-log/success.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly mounted disk: $DISK_NAME at: $MNT_POINT, filesystem: $FSYS_NAME" >> /var/log/smx-log/success.log
                                echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $MNT_POINT" >> /var/log/smx-log/success.log
                                echo "" >> /var/log/smx-log/success.log
-                               echo "###########################################################################" >> /var/log/smx-log/success.log
+                               echo "############################################################################" >> /var/log/smx-log/success.log
                                echo "" >> /var/log/smx-log/success.log
                                read -p "Press [enter] to continue..." ReadDamKey
                                clear
@@ -2501,7 +2503,7 @@ function dsk_menu() {
                                echo "##################################################################" >> /var/log/smx-log/fail.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not mounted disk: $DISK_NAME, at: $MNT_POINT, check command syntax" >> /var/log/smx-log/fail.log
-			       echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $MNT_POINT" >> /var/log/smx-log/fail.log
+			                   echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $MNT_POINT" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                echo "##################################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -2549,13 +2551,13 @@ function dsk_menu() {
                                cat /var/log/smx-log/success.log | tail -n 6
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			       echo "############################################################" >> /var/log/smx-log/fail.log
+			              else
+			                   echo "#############################################################" >> /var/log/smx-log/fail.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not displayed disk info for: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			       echo "Command run: $(which df) -a -H $DISK_NAME" >> /var/log/smx-log/fail.log
+			                   echo "Command run: $(which df) -a -H $DISK_NAME" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
-                               echo "############################################################" >> /var/log/smx-log/fail.log
+                               echo "#############################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                read -p "Press [enter] to continue..." ReadDamKey
                                clear
@@ -2573,8 +2575,8 @@ function dsk_menu() {
                                cat /var/log/smx-log/fail.log | tail -n 6
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  fi
-		    else
+			              fi
+		            else
               	          clear
                           echo "$(date)                                     $(whoami)@$(hostname)"
                           echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/sda1"
@@ -2588,20 +2590,18 @@ function dsk_menu() {
                                 DISK_NAME=/dev/sda1
                           fi        
                           printf " Enter mount point [Default: /mnt/disk] --- > "
-			  if [ "$mntPoint" = "" ]; then
-			        read mntPoint
+            			  if [ "$mntPoint" = "" ]; then
+            			        read mntPoint
                                 MNT_POINT=$mntPoint
-            		  fi
-            		  if [ "$mntPoint" = "" ]; then
-			        MNT_POINT=/mnt/disk
-			  fi
-			  read -p " Eject after unmount --------------- (Y/N) > " ans
+                		  fi
+                		  if [ "$mntPoint" = "" ]; then
+			                    MNT_POINT=/mnt/disk
+			              fi
+                          read -p " Eject disk after unmount ---------- (Y/N) > " ans	
                           clear
                           echo "         COMMAND STATUS                      "
                           echo
                           echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no     "
                           echo
                           echo "Before command completion, additional instructions may appear below"
                           echo
@@ -2613,7 +2613,7 @@ function dsk_menu() {
                           echo "Command run: $(which rm) -rf $MNT_POINT"
                           $(which umount) -f $DISK_NAME
                           if [ $? -eq 0 ]; then
-                               echo "##########################################" >> /var/log/smx-log/success.log
+                               echo "##########################################" >> /var/log/smx-log/
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly unmounted disk: $DISK_NAME" >> /var/log/smx-log/success.log
                                echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/success.log
@@ -2625,8 +2625,6 @@ function dsk_menu() {
                                echo "        COMMAND STATUS          "
                                echo
                                echo "$(date)                                    $(whoami)@$(hostname)"
-			       echo
-			       echo "Command: OK    stdout: yes    stderr: no         "
                                echo
                                echo "Before command completion, additional instructions may appear below"
                                echo
@@ -2638,11 +2636,11 @@ function dsk_menu() {
                                cat /var/log/smx-log/success.log | tail -n 6
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  else
+			              else
                                echo "####################################################" >> /var/log/smx-log/fail.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not unmounted disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			       echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/fail.log
+			                   echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                echo "####################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -2651,8 +2649,6 @@ function dsk_menu() {
                                echo "        COMMAND STATUS          "
                                echo
                                echo "$(date)                                    $(whoami)@$(hostname)"
-			       echo
-			       echo "Command: FAIL    stdout: yes    stderr: no       "
                                echo
                                echo "Before command completion, additional instructions may appear below"
                                echo
@@ -2665,136 +2661,136 @@ function dsk_menu() {
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
                                exit 1
-			  fi
-			  $(which rm) -rf $MNT_POINT
-			  if [ "$ans" = "Y" ]; then
-			        $(which udisks) > /dev/null
-      				if [ $? -eq 0 ]; then
-				     echo "udisks found in PATH"
-      				else
-				     clear
-				     cat /proc/version | grep "Red Hat" > /dev/null
-				     if [ $? -eq 0 ]; then
-					  echo "OS = Red Hat"
-					  $(which yum) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-redhat.log
-				     else
-					  clear
-					  cat /proc/version | grep "Debian" > /dev/null
-					  if [ $? -eq 0 ]; then
-					       echo "OS = Debian"
-					       $(which apt-get) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-debian.log
-					  else
-					       clear
-					       cat /proc/version | grep "Ubuntu" > /dev/null
-					       if [ $? -eq 0 ]; then
-						    echo "OS = Ubuntu"
-						    $(which apt-get) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-ubuntu.log
-					       else
-						    clear
-						    cat /proc/version | grep "SUSE" > /dev/null
-						    if [ $? -eq 0 ]; then
-							 echo "OS = SuSE"
-							 $(which zypper) in -y udisks | $(which tee) /var/log/smx-log/udisks-install-suse.log
-						    fi
-					       fi
-					  fi
-				     fi
-				fi
-        		  fi
-			  clear
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo "Disk name must be full device, ie: /dev/sda"
-			  echo "[TOP]                                       [Entry Fields]"
-			  printf " Enter /dev/ disk name [Default: /dev/sda] > "
-                          if [ "$diskName" = "" ]; then
-                                read diskName
-                                DISK_NAME=$diskName
-                          fi
-                          if [ "$diskName" = "" ]; then
-                                DISK_NAME=/dev/sda
-                          fi
-        		  clear
-			  echo "            COMMAND STATUS            "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no     "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "$(which udisks)                      bos.dskmgt.udisks       exec"
-			  echo "Command run: $(which udisks) --detach $DISK_NAME"
-			  sleep 2
-			  clear
-			  $(which udisks) --detach $DISK_NAME
-			  if [ $? -eq 0 ]; then
-			       echo "#################################################" >> /var/log/smx-log/success.log
-			       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-			       echo "Successfully detached disk: $DISK_NAME from system" >> /var/log/smx-log/success.log
-			       echo "Command run: $(which udisks) --detach $DISK_NAME" >> /var/log/smx-log/success.log
-			       echo "" >> /var/log/smx-log/success.log
-			       echo "#################################################" >> /var/log/smx-log/success.log
-			       echo "" >> /var/log/smx-log/success.log
-			       read -p "Press [enter] to continue..." ReadDamKey
-			       clear
-			       echo "        COMMAND STATUS          "
-			       echo
-			       echo "$(date)                                     $(whoami)@$(hostname)"
-			       echo
-			       echo "Command: OK    stdout: yes    stderr: no          "
-			       echo
-			       echo "Before command completion, additional instructions may appear below"
-			       echo
-			       echo "File                                 Fileset                 Type"
-			       echo "-----------------------------------------------------------------"
-			       echo "$(which udisks)                      bos.dskmgt.udisks       exec"
-			       echo "Command run: $(which udisks) --detach $DISK_NAME"
-			       echo
-			       cat /var/log/smx-log/success.log | tail -n 6
-			       echo
-			       read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			      echo "################################################" >> /var/log/smx-log/fail.log
-			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-			      echo "Not detached disk: $DISK_NAME from system" >> /var/log/smx-log/fail.log
-			      echo "Command run: $(which udisks) --detach $DISK_NAME" >> /var/log/smx-log/fail.log
-			      echo "" >> /var/log/smx-log/fail.log.log
-			      echo "################################################" >> /var/log/smx-log/fail.log
-			      echo "" >> /var/log/smx-log/fail.log
-			      read -p "Press [enter] to conitnue..." ReadDamKey
-			      clear
-			      echo "        COMMAND STATUS          "
-			      echo
-			      echo "$(date)                                    $(whoami)@$(hostname)"
-			      echo
-			      echo "Command: FAIL    stdout: yes    stderr: no       "
-			      echo
-			      echo "Before command completion, additional instructions may appear below"
-			      echo
-			      echo "File                                 Fileset                 Type"
-			      echo "-----------------------------------------------------------------"
-			      echo "$(which udisks)                      bos.dskmgt.udisks       exec"
-			      echo "Command unsuccessful, check command variables and syntax"
-			      echo
-			      cat /var/log/smx-log/fail.log | tail -n 6
-			      echo
-			      read -p "Press [enter] to continue..." ReadDamKey
-			  fi
-		    fi
-		    ;;
-	    rename)
-                     $(which mlabel) > /dev/null
-      		     if [ $? -eq 0 ]; then
+            			  fi
+            			  $(which rm) -rf $MNT_POINT
+                          if [ "$ans" = "Y" ]; then
+                                $(which which) udisks > /dev/null
+                                if [ $? -eq 0 ]; then
+                                     echo "udisks found in PATH"
+                                else
+                                     clear
+                                     cat /proc/version | grep "Red Hat" > /dev/null
+                                     if [ $? -eq 0 ]; then
+                                          echo "OS = Red Hat"
+                                          $(which yum) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-redhat.log
+                                     else
+                                          clear
+                                          cat /proc/version | grep "Debian" > /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               echo "OS = Debian"
+                                               $(which apt-get) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-debian.log
+                                          else
+                                               clear
+                                               cat /proc/version | grep "Ubuntu" > /dev/null
+                                               if [ $? -eq 0 ]; then
+                                                    echo "OS = Ubuntu"
+                                                    $(which apt-get) -y install udisks | $(which tee) /var/log/smx-log/udisks-install-ubuntu.log
+                                               else
+                                                    clear
+                                                    cat /proc/version | grep "SUSE" > /dev/null
+                                                    if [ $? -eq 0 ]; then
+                                                         echo "OS = SuSE"
+                                                         $(which zypper) in -y udisks | $(which tee) /var/log/smx-log/udisks-install-suse.log
+                                                    fi
+                                               fi
+                                          fi
+                                     fi
+                                fi
+                                clear
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo "Disk must be full device, example: /dev/sda"
+                                echo "[TOP]                                       [Entry Fields]"
+                                printf " Enter /dev/ disk name [Default: /dev/sda] > "
+                                if [ "$diskName" = "" ]; then
+                                      read diskName
+                                      DISK_NAME=$diskName
+                                fi
+                                if [ "$diskName" = "" ]; then
+                                      DISK_NAME=/dev/sda
+                                fi
+                                clear
+                                echo "         COMMAND STATUS                    "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                 Type"
+                                echo "-----------------------------------------------------------------"
+                                echo "$(which udisks)                      bos.dskmgt.udisks       exec"
+                                echo "Command run: $(which udisks) --detach $DISK_NAME"
+                                sleep 2
+                                clear
+                                $(which udisks) --detach $DISK_NAME
+                                if [ $? -eq 0 ]; then
+                                     echo "#################################################" >> /var/log/smx-log/success.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Successfuly detached disk: $DISK_NAME from system" >> /var/log/smx-log/success.log
+                                     echo "Command run: $(which udisks) --detach $DISK_NAME" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     echo "#################################################" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     clear
+                                     echo "        COMMAND STATUS          "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: OK    stdout: yes    stderr: no          "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "$(which udisks)                      bos.dskmgt.udisks       exec"
+                                     echo "Command run: $(which udisks) --detach $DISK_NAME"
+                                     echo
+                                     cat /var/log/smx-log/success.log | tail -n 6
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                else
+                                     echo "###############################################################" >> /var/log/smx-log/fail.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                     echo "Not detached disk: $DISK_NAME from system, check command syntax" >> /var/log/smx-log/fail.log
+                                     echo "Command run: $(which udisks) --detach $DISK_NAME" >> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
+                                     echo "###############################################################" >> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     clear
+                                     echo "        COMMAND STATUS          "
+                                     echo
+                                     echo "$(date)                                    $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: FAIL    stdout: yes    stderr: no       "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                 Type"
+                                     echo "-----------------------------------------------------------------"
+                                     echo "$(which udisks)                      bos.dskmgt.udisks       exec"
+                                     echo "Command unsuccessful, check command variables and syntax"
+                                     echo
+                                     cat /var/log/smx-log/fail.log | tail -n 6
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                fi
+                          fi             
+        	        fi
+        	        ;;
+	        rename)
+                     $(which which) mlabel > /dev/null
+      		         if [ $? -eq 0 ]; then
                           echo "mlabel found in PATH"
-      		     else
+      		         else
                           clear
                           cat /proc/version | grep "Red Hat" > /dev/null
                           if [ $? -eq 0 ]; then
                                echo "OS = Red Hat"
                                $(which yum) -y install mlabel | $(which tee) /var/log/smx-log/mlabel-install-redhat.log
-			  else
+			              else
                                clear
                                cat /proc/version | grep "Debian" > /dev/null
                                if [ $? -eq 0 ]; then
@@ -2813,11 +2809,11 @@ function dsk_menu() {
                                               echo "OS = SuSE"
                                               $(which zypper) in -y mlabel | $(which tee) /var/log/smx-log/mlabel-install-suse.log
                                          fi
-				    fi
-			       fi
-			  fi
-		     fi
-        	     clear
+				                    fi
+			                   fi
+			              fi
+		             fi
+        	         clear
                      echo "$(date)                                    $(whoami)@$(hostname)"
                      echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must have the disk slice, ie /dev/sda1"
                      echo "Disk must be mounted in a graphical session, will not work in a remote session"
@@ -2874,12 +2870,12 @@ function dsk_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-	             else
+	                 else
                           echo "################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not renamed disk: $DISK_NAME to: $diskLabel, check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which mlabel) -i ::$diskLabel $DISK_NAME" >> /var/log/smx-log/fail.log
-			  echo "" >> /var/log/smx-log/fail.log
+            			  echo "Command run: $(which mlabel) -i ::$diskLabel $DISK_NAME" >> /var/log/smx-log/fail.log
+            			  echo "" >> /var/log/smx-log/fail.log
                           echo "################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           read -p "Press [enter] to continue..." ReadDamKey
@@ -2901,7 +2897,7 @@ function dsk_menu() {
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
                           exit 1
-		     fi  
+		             fi  
             	     clear
             	     $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
             	     if [ $PIPESTATUS -eq 0 ]; then
@@ -2930,11 +2926,11 @@ function dsk_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else
+		             else
                           echo "####################################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+			              echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "####################################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -2956,9 +2952,9 @@ function dsk_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     fi
-          	     ;;
-	    mkfs)
+		             fi
+          	         ;;
+	        mkfs)
                    clear
                    echo "$(date)                                     $(whoami)@$(hostname)"
                    echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/sda1"
@@ -3024,7 +3020,7 @@ function dsk_menu() {
                         cat /var/log/smx-log/success.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
-		   else
+		           else
                         echo "############################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not created filesystem: $FSYS_NAME on disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
@@ -3051,64 +3047,64 @@ function dsk_menu() {
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
                         exit 1
-		   fi
+		           fi
                    clear
                    $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
                    if [ $PIPESTATUS -eq 0 ]; then
                         echo "####################################################################################" >> /var/log/smx-log/success.log
-            		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-            		echo "Successfuly displayed filesystem information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
-            		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/success.log
-            		echo "" >> /var/log/smx-log/success.log
-            		echo "####################################################################################" >> /var/log/smx-log/success.log
-            		echo "" >> /var/log/smx-log/success.log
-            		read -p "Press [enter] to continue..." ReadDamKey
-            		clear
-            		echo "       COMMAND STATUS        "
-            		echo "$(date)                                     $(whoami)@$(hostname)"
-            		echo
-            		echo "Command: OK     stdout: yes    stderr: no         "
-            		echo
-            		echo "Before command completion, additional instructions may appear below"
-            		echo
-            		echo "File                                 Fileset                 Type"
-            		echo "-----------------------------------------------------------------"
-            		echo "$(which df)                          bos.dskmgt.df           exec"
-            		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log"
-            		echo
-            		cat /var/log/smx-log/success.log | tail -n 6
-            		echo
-            		read -p "Press [enter] to continue..." ReadDamKey
-		   else
+                		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                		echo "Successfuly displayed filesystem information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
+                		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/success.log
+                		echo "" >> /var/log/smx-log/success.log
+                		echo "####################################################################################" >> /var/log/smx-log/success.log
+                		echo "" >> /var/log/smx-log/success.log
+                		read -p "Press [enter] to continue..." ReadDamKey
+                		clear
+                		echo "       COMMAND STATUS        "
+                		echo "$(date)                                     $(whoami)@$(hostname)"
+                		echo
+                		echo "Command: OK     stdout: yes    stderr: no         "
+                		echo
+                		echo "Before command completion, additional instructions may appear below"
+                		echo
+                		echo "File                                 Fileset                 Type"
+                		echo "-----------------------------------------------------------------"
+                		echo "$(which df)                          bos.dskmgt.df           exec"
+                		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log"
+                		echo
+                		cat /var/log/smx-log/success.log | tail -n 6
+                		echo
+                		read -p "Press [enter] to continue..." ReadDamKey
+		           else
                         echo "####################################################################################" >> /var/log/smx-log/fail.log
-            		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-            		echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-            		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
-            		echo "" >> /var/log/smx-log/fail.log
-            		echo "####################################################################################" >> /var/log/smx-log/fail.log
-            		echo "" >> /var/log/smx-log/fail.log
-            		read -p "Press [enter] to continue..." ReadDamKey
-            		clear
-            		echo "       COMMAND STATUS       "
-            		echo
-            		echo "$(date)                                     $(whoami)@$(hostname)"
-            		echo
-            		echo "Command: FAIL      stdout: yes     stderr: no     "
-            		echo
-            		echo "Before command completion, additional instructions may appear below"
-            		echo
-            		echo "File                                 Fileset                 Type"
-            		echo "-----------------------------------------------------------------"
-            		echo "$(which df)                          bos.dskmgt.df           exec"
-            		echo "Command unsuccessful, check command syntax and variables"
-            		echo
-            		cat /var/log/smx-log/fail.log | tail -n 6
-            		echo
-            		read -p "Press [enter] to continue..." ReadDamKey
-		   fi    
+                		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                		echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
+                		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+                		echo "" >> /var/log/smx-log/fail.log
+                		echo "####################################################################################" >> /var/log/smx-log/fail.log
+                		echo "" >> /var/log/smx-log/fail.log
+                		read -p "Press [enter] to continue..." ReadDamKey
+                		clear
+                		echo "       COMMAND STATUS       "
+                		echo
+                		echo "$(date)                                     $(whoami)@$(hostname)"
+                		echo
+                		echo "Command: FAIL      stdout: yes     stderr: no     "
+                		echo
+                		echo "Before command completion, additional instructions may appear below"
+                		echo
+                		echo "File                                 Fileset                 Type"
+                		echo "-----------------------------------------------------------------"
+                		echo "$(which df)                          bos.dskmgt.df           exec"
+                		echo "Command unsuccessful, check command syntax and variables"
+                		echo
+                		cat /var/log/smx-log/fail.log | tail -n 6
+                		echo
+                		read -p "Press [enter] to continue..." ReadDamKey
+		           fi    
                    ;;
-	    chdisk)
-		     clear
+	        chdisk)
+		             clear
                      echo "$(date)                                     $(whoami)@$(hostname)"
                      echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/sda1"
                      echo "[TOP]                                        [Entry Fields]"
@@ -3162,7 +3158,7 @@ function dsk_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else 
+		             else 
                           echo "##################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not checked disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
@@ -3188,10 +3184,10 @@ function dsk_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     fi 
+		             fi 
                      ;;
-	    format)
-		     clear
+	        format)
+		             clear
                      echo "$(date)                                     $(whoami)@$(hostname)"
                      echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/sda1"
                      echo "[TOP]                                       [Entry Fields]"
@@ -3247,7 +3243,7 @@ function dsk_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else 
+		             else 
                           echo "################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not created filesystem on disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
@@ -3274,7 +3270,7 @@ function dsk_menu() {
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
                           exit 1
-		     fi 
+		             fi 
                      clear
                      $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
                      if [ $PIPESTATUS -eq 0 ]; then
@@ -3303,7 +3299,7 @@ function dsk_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else
+		             else
                           echo "####################################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
@@ -3329,19 +3325,19 @@ function dsk_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     fi 
+		             fi 
                      ;;
             erasedod)
-                       $(which shred) > /dev/null
+                       $(which which) shred > /dev/null
                        if [ $? -eq 0 ]; then
                             echo "shred found in PATH"
-          	       else 
+          	           else 
                             clear
                             cat /proc/version | grep "Red Hat" > /dev/null
                             if [ $? -eq 0 ]; then
                                  echo "OS = Red Hat"
                                  $(which yum) -y install shred | $(which tee) /var/log/smx-log/shred-install-redhat.log
-			    else
+			                else
                                  clear
                                  cat /proc/version | grep "Debian" > /dev/null
                                  if [ $? -eq 0 ]; then
@@ -3362,8 +3358,8 @@ function dsk_menu() {
                                            fi
                                       fi
                                  fi
-			    fi
-		       fi
+			                fi
+		               fi
                        clear
                        echo "$(date)                                    $(whoami)@$(hostname)"
                        echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/sda1"
@@ -3394,7 +3390,7 @@ function dsk_menu() {
                        sleep 2
               	       clear
               	       $(which shred) -vfz -n 10 $DISK_NAME | $(which tee) /var/log/smx-log/shred.log
-          	       if [ $PIPESTATUS -eq 0 ]; then
+          	           if [ $PIPESTATUS -eq 0 ]; then
                             echo "###############################################################################################" >> /var/log/smx-log/success.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             echo "Successfuly erased all data on disk: $DISK_NAME" >> /var/log/smx-log/success.log
@@ -3420,11 +3416,11 @@ function dsk_menu() {
                             cat /var/log/smx-log/success.log | tail -n 6
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
-    		       else
+    		           else
                             echo "###############################################################################################" >> /var/log/smx-log/fail.log
                     	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not erased disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			    echo "Command run: $(which shred) -vfz -n 10 $DISK_NAME | $(which tee) /var/log/smx-log/shred.log" >> /var/log/smx-log/fail.log
+			                echo "Command run: $(which shred) -vfz -n 10 $DISK_NAME | $(which tee) /var/log/smx-log/shred.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "###############################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -3447,7 +3443,7 @@ function dsk_menu() {
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
                             exit 1
-          	       fi
+          	           fi
               	       clear
               	       $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
               	       if [ $PIPESTATUS -eq 0 ]; then
@@ -3476,11 +3472,11 @@ function dsk_menu() {
                             cat /var/log/smx-log/success.log | tail -n 6
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
-          	       else
+          	           else
                             echo "####################################################################################" >> /var/log/smx-log/fail.log
                     	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			    echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+			                echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "####################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -3502,11 +3498,11 @@ function dsk_menu() {
                             cat /var/log/smx-log/fail.log | tail -n 6
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
-		       fi
+		               fi
             	       ;;
-	    exit)
+	        exit)
                    clear
-	           echo "##############################################" >> /var/log/smx-log/exit.log
+	               echo "##############################################" >> /var/log/smx-log/exit.log
               	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
               	   echo "Successfuly terminated $(basename $0)/dsk_menu" >> /var/log/smx-log/exit.log
               	   echo "" >> /var/log/smx-log/exit.log
@@ -3514,35 +3510,35 @@ function dsk_menu() {
                    echo "" >> /var/log/smx-log/exit.log
               	   main_menu
               	   ;;
-	    exit-mas)
-		       clear
-        	       echo "#################################" >> /var/log/smx-log/exit.log
+	        exit-mas)
+		               clear
+        	           echo "#################################" >> /var/log/smx-log/exit.log
                        echo  "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                        echo "Successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
                        echo "" >> /var/log/smx-log/exit.log
-        	       echo "#################################" >> /var/log/smx-log/exit.log
-        	       echo "" >> /var/log/smx-log/exit.log
+            	       echo "#################################" >> /var/log/smx-log/exit.log
+            	       echo "" >> /var/log/smx-log/exit.log
                        exit 0
                        ;;
     	    *)  clear
-        	echo "        COMMAND STATUS                 "
-        	echo
-        	echo "$(date)                                     $(whoami)@$(hostname)"
-        	echo
-        	echo "Command: FAIL     stdout: yes     stderr: no      "
-        	echo
-        	echo "Before command completion, additional information may appear below"
-        	echo
-        	echo "Command unknown, please consult command list, executed with pid - 2415 (0x1)"
-        	read -p "Press [enter] to continue..." ReadDamKey;;
-	esac
+            	echo "        COMMAND STATUS                 "
+            	echo
+            	echo "$(date)                                     $(whoami)@$(hostname)"
+            	echo
+            	echo "Command: FAIL     stdout: yes     stderr: no      "
+            	echo
+            	echo "Before command completion, additional information may appear below"
+            	echo
+            	echo "Command unknown, please consult command list, executed with pid - 2415 (0x1)"
+            	read -p "Press [enter] to continue..." ReadDamKey;;
+	    esac
     done    
 }
 
 function sys_menu() {
     while :
     do
-	clear
+	    clear
         echo "$(date)                                     $(whoami)@$(hostname)"
         echo "+-------------------------------+"
         echo "|       SYSTEM MANAGEMENT       |"
@@ -3594,8 +3590,8 @@ function sys_menu() {
         echo
     	
         case "$choice_sys" in
-  	    sysproc)
-		      clear
+  	        sysproc)
+		              clear
               	      echo "$(date)                                     $(whoami)@$(hostname)"
               	      echo "[TOP]                           [Entry Felds]"
               	      read -p " Enter process name ---------- > " procName
@@ -3615,7 +3611,7 @@ function sys_menu() {
               	      sleep 2
               	      clear
               	      $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps.log
-        	      if [ $PIPESTATUS -eq 0 ]; then
+        	          if [ $PIPESTATUS -eq 0 ]; then
                            echo "#############################################################################################################" >> /var/log/smx-log/success.log
                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                            echo "Successfuly displayed process: $procName" >> /var/log/smx-log/success.log
@@ -3641,12 +3637,12 @@ function sys_menu() {
                            cat /var/log/smx-log/success.log | tail -n 6
                            echo
                            read -p "Press [enter] to continue..." ReadDamKey
-		      else
+		              else
                            echo "####################################################################################################" >> /var/log/smx-log/fail.log
-                  	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                  	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                            echo "Not displayed process: $procName, check command syntax" >> /var/log/smx-log/fail.log
-            		   echo "Command run: $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps.log" >> /var/log/smx-log/fail.log
-            		   echo "" >> /var/log/smx-log/fail.log
+                		   echo "Command run: $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps.log" >> /var/log/smx-log/fail.log
+                		   echo "" >> /var/log/smx-log/fail.log
                            echo "####################################################################################################" >> /var/log/smx-log/fail.log
                            echo "" >> /var/log/smx-log/fail.log
                            read -p "Press [enter] to continue..." ReadDamKey
@@ -3668,7 +3664,7 @@ function sys_menu() {
                            echo
                            read -p "Press [enter] to continue..." ReadDamKey
                            exit 1
-		      fi
+		              fi
                       read -p "Kill Process ... Y / N > " ans
                       if [ "$ans" == "Y" ]; then
                             clear
@@ -3712,11 +3708,11 @@ function sys_menu() {
                                  cat /var/log/smx-log/success.log | tail -n 6
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
-			    else
+			                else
                                  echo "#############################################################################################################################" >> /var/log/smx-log/fail.log
                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                  echo "Not killed process: $procName, check command syntax" >> /var/log/smx-log/fail.log
-				 echo "Command run: $(which kill) -9 `ps -ef | $(which grep) $procName | $(which grep) -v $(which grep) | $(which awk) '{print $2}'`" >> /var/log/smx-log/fail.log
+				                 echo "Command run: $(which kill) -9 `ps -ef | $(which grep) $procName | $(which grep) -v $(which grep) | $(which awk) '{print $2}'`" >> /var/log/smx-log/fail.log
                                  echo "" >> /var/log/smx-log/fail.log
                                  echo "#############################################################################################################################" >> /var/log/smx-log/fail.log
                                  echo "" >> /var/log/smx-log/fail.log
@@ -3738,16 +3734,16 @@ function sys_menu() {
                                  cat /var/log/smx-log/fail.log | tail -n 6
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
-			    fi
-		      else
+			                fi
+		              else
                             read -p "Press [enter] to continue..." ReadDamKey
                       fi
                       ;;
-	    sysio)
-		    $(which iostat) > /dev/null
+	        sysio)
+		            $(which which) iostat > /dev/null
                     if [ $? -eq 0 ]; then
                         echo "iostat found in PATH"
-        	    else
+        	        else
                          clear
                          cat /proc/version | grep "Red Hat" > /dev/null
                          if [ $? -eq 0 ]; then
@@ -3773,9 +3769,9 @@ function sys_menu() {
                                              $(which zypper) in -y sysstat | $(which tee) /var/log/smx-log/sysstat-install-suse.log
                                         fi
                                    fi 
-			      fi
-			 fi
-		    fi
+			                  fi
+			             fi
+		            fi
                     clear
                     echo "        COMMAND STATUS                "
                     echo
@@ -3818,11 +3814,11 @@ function sys_menu() {
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-		    else
+		            else
                          echo "###########################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not displayed system IO stats, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which iostat) | $(which tee) /var/log/smx-log/iostat.log" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which iostat) | $(which tee) /var/log/smx-log/iostat.log" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "###########################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -3844,19 +3840,19 @@ function sys_menu() {
                          cat /var/log/smx-log/fail.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-		    fi
+		            fi
                     ;;
-	    vmstatus)
-		       $(which vmstat) > /dev/null
+	        vmstatus)
+		               $(which which) vmstat > /dev/null
                        if [ $? -eq 0 ]; then
                             echo "vmstat found in PATH"
-    		       else
+    		            else
                             clear
                             cat /proc/version | grep "Red Hat" > /dev/null
                             if [ $? -eq 0 ]; then
                                  echo "OS = Red Hat"
                                  $(which yum) -y install sysstat | $(which tee) /var/log/smx-log/sysstat-install-redhat.log
-			    else
+			                else
                                  clear
                                  cat /proc/version | grep "Debian" > /dev/null
                                  if [ $? -eq 0 ]; then
@@ -3877,8 +3873,8 @@ function sys_menu() {
                                            fi
                                       fi
                                  fi
-			    fi
-		       fi
+			                fi
+		               fi
                        clear
                        echo "       COMMAND STATUS       "
                        echo
@@ -3921,11 +3917,11 @@ function sys_menu() {
                             cat /var/log/smx-log/success.log | tail -n 6
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
-		       else
+		               else
                             echo "##################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not displayed virtual memory status, check command syntax" >> /var/log/smx-log/fail.log
-			    echo "Command run: $(which vmstat) 2 6 -a | $(which tee) /var/log/smx-log/vmstat.log" >> /var/log/smx-log/fail.log
+			                echo "Command run: $(which vmstat) 2 6 -a | $(which tee) /var/log/smx-log/vmstat.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "##################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -3947,10 +3943,10 @@ function sys_menu() {
                             cat /var/log/smx-log/fail.log | tail -n 6
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
-		       fi
+		               fi
                        ;;
-	    shell)
-		    clear
+	        shell)
+		            clear
                     echo "$(date)                                     $(whoami)@$(hostname)"
                     echo "[TOP]                                        [Entry Fields]"
                     printf " Enter shell [Default: $(which bash)] ----- > "
@@ -3976,8 +3972,8 @@ function sys_menu() {
             	    sleep 2
             	    clear
             	    $ROOT_SHELL
-		    if [ $? -eq 0 ]; then
-			 echo "###############################" >> /var/log/smx-log/success.log
+		            if [ $? -eq 0 ]; then
+			             echo "###############################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Successfuly accessed root shell" >> /var/log/smx-log/success.log
                          echo "Command run: $ROOT_SHELL" >> /var/log/smx-log/success.log
@@ -3996,12 +3992,12 @@ function sys_menu() {
                          echo "File                                  Fileset                 Type"
                          echo "------------------------------------------------------------------"
                          echo "$ROOT_SHELL                           bos.sysmgt.shell        exec"
-			 echo "Command run: $ROOT_SHELL"
+			             echo "Command run: $ROOT_SHELL"
                     	 echo
                     	 cat /var/log/smx-log/success.log | tail -n 6
                     	 echo
                     	 read -p "Press [enter] to continue..." ReadDamKey
-		    else
+		            else
                          echo "#############################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not accessed root shell, check command syntax" >> /var/log/smx-log/fail.log
@@ -4026,10 +4022,10 @@ function sys_menu() {
                          cat /var/log/smx-log/fail.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-		    fi
-        	    ;;
-	    cmdusr)
-		     clear
+		            fi
+        	        ;;
+	        cmdusr)
+		             clear
                      echo "$(date)                                      $(whoami)@$(hostname)"
                      echo "For this command, please enter the full path of the program, ie: $(which cp)"
                      echo "[TOP]                                 [Entry Fields]"
@@ -4051,7 +4047,7 @@ function sys_menu() {
                      sleep 2
                      clear
                      $(which su) -l $userName '$cmdRun'
-      		     if [ $? -eq 0 ]; then
+      		         if [ $? -eq 0 ]; then
                           echo "###################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                           echo "Successfuly ran command: $cmdRun as user: $userName" >> /var/log/smx-log/success.log
@@ -4105,7 +4101,7 @@ function sys_menu() {
                           read -p "Press [enter] to continue..." ReadDamKey
                      fi
                      ;;
-	    remotemgt)
+	        remotemgt)
                         clear
                         echo "$(date)                                     $(whoami)@$(hostname)"
                         echo "You must know the location of sysExec on the remote system"
@@ -4140,7 +4136,7 @@ function sys_menu() {
                         if [ $? -eq 0 ]; then
                              clear
                              $(which ssh) -t $remUser@$remSys "$SYSEXEC_PATH --main-menu"
-          		     if [ $? -eq 0 ]; then
+          		             if [ $? -eq 0 ]; then
                                   echo "#######################################################################" >> /var/log/smx-log/success.log
                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                   echo "Successfuly connected to $remSys" >> /var/log/smx-log/success.log
@@ -4166,11 +4162,11 @@ function sys_menu() {
                                   cat /var/log/smx-log/success.log | tail -n 6
                                   echo
                                   read -p "Press [enter] to continue..." ReadDamKey
-			     else
+			                 else
                                   echo "#######################################################################" >> /var/log/smx-log/fail.log
                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                   echo "Not conneted to $remSys, check command syntax and internet connection" >> /var/log/smx-log/fail.log
-				  echo "Command run: $(which ssh) -t $remUser@$remSys $SYSEXEC_PATH --main-menu" >> /var/log/smx-log/fail.log
+				                  echo "Command run: $(which ssh) -t $remUser@$remSys $SYSEXEC_PATH --main-menu" >> /var/log/smx-log/fail.log
                                   echo "" >> /var/log/smx-log/fail.log
                                   echo "#######################################################################" >> /var/log/smx-log/fail.log
                                   echo "" >> /var/log/smx-log/fail.log
@@ -4192,14 +4188,14 @@ function sys_menu() {
                                   cat /var/log/smx-log/fail.log | tail -n 6
                                   echo
                                   read -p "Press [enter] to continue..." ReadDamKey
-			     fi
-    			else
+			                 fi
+    			        else
                              echo "ping 100% FAIL, host offline"
                              read -p "Press [enter] to continue..." ReadDamKey
-    			fi
+    			        fi
                         ;;
-	    chboot)
-		     clear
+	        chboot)
+		             clear
                      echo "           COMMAND STATUS             "
                      echo "$(date)                                     $(whoami)@$(hostname)"
                      echo
@@ -4240,7 +4236,7 @@ function sys_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else
+		             else
                           echo "############################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed boot messages, check command syntax" >> /var/log/smx-log/fail.log
@@ -4266,9 +4262,9 @@ function sys_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     fi
+		             fi
                      ;;
-	    initLevel)
+	        initLevel)
                         clear
                         echo "$(date)                                     $(whoami)@$(hostname)"
                         echo
@@ -4301,8 +4297,8 @@ function sys_menu() {
                         echo "" >> /var/log/smx-log/success.log
                         $(which telinit) $runLevel; exit
                         ;;
-	    viinit)
-		     clear
+	        viinit)
+		             clear
                      echo "        COMMAND STATUS       "
                      echo
                      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -4343,11 +4339,11 @@ function sys_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else
+		             else
                           echo "########################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not viewed / modified /etc/inittab, check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which vi) /etc/inittab" >> /var/log/smx-log/fail.log
+			              echo "Command run: $(which vi) /etc/inittab" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "########################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -4370,7 +4366,7 @@ function sys_menu() {
                           read -p "Press [enter] to continue..." ReadDamKey
                      fi
                      ;;
-	    software)
+	        software)
                        clear
                        echo "#############################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -4382,12 +4378,12 @@ function sys_menu() {
                        sleep 2
                        pkg_menu
                        ;;
-	    backup)
-		     $(which pax) > /dev/null
-        	     if [ $? -eq 0 ]; then
-        		  echo "pax found in PATH"
-        	     else
-        		  clear
+	        backup)
+		             $(which which) pax > /dev/null
+        	         if [ $? -eq 0 ]; then
+        		          echo "pax found in PATH"
+        	         else
+        		          clear
                           cat /proc/version | grep "Red Hat" > /dev/null
                           if [ $? -eq 0 ]; then
                                echo "OS = Red Hat"
@@ -4415,12 +4411,12 @@ function sys_menu() {
                                fi
                           fi
                      fi
-		     clear
+		             clear
               	     echo "$(date)                                    $(whoami)@$(hostname)"
               	     echo "[TOP]                          [Entry Fields]"
               	     read -p " Backup or Recovery --------- > " ans
               	     if [ "$ans" = "Backup" ]; then
-                  	   clear
+                  	       clear
                            echo "$(date)                                               $(whoami)@$(hostname)"
                            echo "Backup filename and location example: /home/user/backup.tar"
                            echo "File to backup example: /home/*, each directory or file must be seperated by a space"
@@ -4439,7 +4435,7 @@ function sys_menu() {
                            echo "File                                 Fileset                 Type"
                            echo "-----------------------------------------------------------------"
                            echo "$(which pax)                         bos.sysmgt.pax          exec"
-			   echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName"
+			               echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName"
                            sleep 2
                            $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName
                            if [ $PIPESTATUS -eq 0 ]; then
@@ -4468,11 +4464,11 @@ function sys_menu() {
                                 cat /var/log/smx-log/success.log | tail -n 6
                                 echo
                                 read -p "Press [enter] to continue..." ReadDamKey
-			   else
+			               else
                                 echo "###########################################################################################" >> /var/log/smx-log/fail.log
                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                 echo "Not backed up: $fileBak to file: $bakName, compressed as $bakName.zip, check command syntax" >> /var/log/smx-log/fail.log
-				echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName" >> /var/log/smx-log/fail.log
+				                echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
                                 echo "###########################################################################################" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
@@ -4495,10 +4491,10 @@ function sys_menu() {
                                 echo
                                 read -p "Press [enter] to continue..." ReadDamKey
                                 exit 1
-            		   fi
-            		   $(which rm) $bakName
-		     else
-            		   clear
+                		   fi
+                		   $(which rm) $bakName
+		             else
+            		       clear
                            echo "$(date)                                     $(whoami)@$(hostname)"
                            echo "Restore location example: /home/user/ (must end in /)"
                            echo "Backup file location example: /usr/src/ (must end in /)"
@@ -4569,10 +4565,10 @@ function sys_menu() {
                            echo "Command run: $(which chown) -R $userGroup $restLoc*"
                            echo "Command run: $(which chmod) -R a+rwx $restLoc*"
                            read -p "Press [enter] to continue..." ReadDamKey
-      		     fi
-    		     ;;
-	    stACL)
-		    clear
+          		     fi
+        		     ;;
+	        stACL)
+		            clear
               	    echo "$(date)                                     $(whoami)@$(hostname)"
               	    echo "Permissions example: rwx"
               	    echo "[TOP]                              [Entry Fields]"
@@ -4594,7 +4590,7 @@ function sys_menu() {
               	    echo "Command run: $(which setfacl) -r -m user:$userName:$filePerm $fileName"
               	    sleep 2
               	    $(which setfacl) -r -m user:$userName:$filePerm $fileName
-        	    if [ $? -eq 0 ]; then
+        	        if [ $? -eq 0 ]; then
                          echo "############################################################################################" >> /var/log/smx-log/success.log
                      	 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Successfuly set access control list on file: $fileName with permissions: $userName:$filePerm" >> /var/log/smx-log/success.log
@@ -4620,11 +4616,11 @@ function sys_menu() {
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-	            else
-		         echo "######################################################################" >> /var/log/smx-log/fail.log
+	                else
+		                 echo "######################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not set access control list on file: $fileName, check command syntax" >> /var/log/smx-log/fail.log
-			 echo "Command run: $(which setfacl) -r -m user:$userName:$filePerm $fileName" >> /var/log/smx-log/fail.log
+			             echo "Command run: $(which setfacl) -r -m user:$userName:$filePerm $fileName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "######################################################################"
                          echo "" >> /var/log/smx-log/fail.log
@@ -4648,9 +4644,9 @@ function sys_menu() {
                          read -p "Press [enter] to continue..." ReadDamKey
     	            fi
             	    ;;
-	    gtACL)
-	            clear
-      		    echo "$(date)                                     $(whoami)@$(hostname)"
+	        gtACL)
+    	            clear
+          		    echo "$(date)                                     $(whoami)@$(hostname)"
                     echo "file name example: /home/user/test.txt"
                     echo "[TOP]                           [Entry Fields]"
                     read -p " Enter filename -------------- > " fileName
@@ -4661,7 +4657,7 @@ function sys_menu() {
                     echo
                     echo "Command: RUNNING    stdout: yes    stderr: no     "
                     echo
-		    echo "Before command completion, additional instructions may appear below"
+		            echo "Before command completion, additional instructions may appear below"
             	    echo
             	    echo "File                                  Fileset                Type"
                     echo "-----------------------------------------------------------------"
@@ -4696,7 +4692,7 @@ function sys_menu() {
                          cat /var/log/smx-log/success.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-		    else
+		            else
                          echo "#######################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not displayed access control list information for file: $fileName, check command syntax" >> /var/log/smx-log/fail.log
@@ -4720,9 +4716,9 @@ function sys_menu() {
                          cat /var/log/smx-log/fail.log | tail -n 6
                          echo
                          read -p "Press [enter] to continue..." ReadDamKey
-        	    fi
-        	    ;;
-	    stSelinux)
+            	    fi
+            	    ;;
+	        stSelinux)
                         clear
                         echo "$(date)                                     $(whoami)@$(hostname)"
                     	echo "Valid selinux security ratings: enforcing, permissive, disabled"
@@ -4777,7 +4773,7 @@ function sys_menu() {
                              cat /var/log/smx-log/success.log | tail -n 6
                              echo
                              read -p "Press [enter] to continue..." ReadDamKey
-			else
+			            else
                              echo "#############################################################################" >> /var/log/smx-log/fail.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                              echo "Not set selinux security rating to: $seLinux, check command syntax" >> /var/log/smx-log/fail.log
@@ -4801,8 +4797,8 @@ function sys_menu() {
                              cat /var/log/smx-log/fail.log | tail -n 6
                              echo
                              read -p "Press [enter] to continue..." ReadDamKey
-			fi
-        		if [ "$ans" = "Y" ]; then
+			            fi
+        		        if [ "$ans" = "Y" ]; then
                               echo "The system will now reboot..."
                               read -p "Press [enter] to continue..." ReadDamKey
                               $(which reboot) -f now --verbose; exit
@@ -4811,7 +4807,7 @@ function sys_menu() {
                               read -p "Press [enter] to continue..." ReadDamKey
                         fi
                         ;;
- 	    systemupd)
+ 	        systemupd)
                         clear
                         echo "#######################################################" >> /var/log/smx-log/success.log
                     	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -4822,8 +4818,8 @@ function sys_menu() {
                     	sleep 2
                     	system_upd
                     	;;
-	    ifconfig)
-		       clear
+	        ifconfig)
+		               clear
                        echo "####################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "Successfuly executed $(basename $0)/sys_menu/ip_menu" >> /var/log/smx-log/success.log
@@ -4833,8 +4829,8 @@ function sys_menu() {
                        sleep 2
                        ip_menu
                        ;;
-	    firewall)
-		       clear
+	        firewall)
+		               clear
                        echo "######################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "Successfuly executed $(basename $0)/sys_menu/fire_menu" >> /var/log/smx-log/success.log
@@ -4844,11 +4840,11 @@ function sys_menu() {
                        sleep 2
                        fire_menu
                        ;;
-	    nmap)
-	           $(which nmap) > /dev/null
-      		   if [ $? -eq 0 ]; then
+	        nmap)
+    	           $(which which) nmap > /dev/null
+          		   if [ $? -eq 0 ]; then
                         echo "nmap found in PATH"
-    		   else
+    		       else
                         clear
                         cat /proc/version | grep "Red Hat" > /dev/null
                         if [ $? -eq 0 ]; then
@@ -4877,7 +4873,7 @@ function sys_menu() {
                              fi
                         fi
                    fi
-		   clear
+		           clear
                    echo "$(date)                                     $(whoami)@$(hostname)"
                    echo "NOTE: This may take a while (on localhost it takes about 40 seconds"
                    echo "[TOP]                                   [Entry Fields]"
@@ -4909,7 +4905,7 @@ function sys_menu() {
                    if [ $? -eq 0 ]; then
                         clear
                         $(which nmap) -A -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log
-          		if [ $PIPESTATUS -eq 0 ]; then
+          		        if [ $PIPESTATUS -eq 0 ]; then
                              echo "################################################################################################" >> /var/log/smx-log/success.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                              echo "Successfuly scanned ip address: $IP_ADDR" >> /var/log/smx-log/success.log
@@ -4933,7 +4929,7 @@ function sys_menu() {
                              cat /var/log/smx-log/success.log | tail -n 6
                              echo
                              read -p "Press [enter] to continue..." ReadDamKey
-			else
+			            else
                              echo "#################################################################################################" >> /var/log/smx-log/fail.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                              echo "Not scanned ip address: $IP_ADDR, check command syntax" >> /var/log/smx-log/fail.log
@@ -4957,18 +4953,18 @@ function sys_menu() {
                              cat /var/log/smx-log/fail.log | tail -n 6
                              echo
                              read -p "Press [enter] to continue..." ReadDamKey
-			fi
+			            fi
                    else
                         echo "Ping to host: $IP_ADDR fail %100"
                         read -p "Press [enter] to continue..." ReadDamKey     
                    fi
                    ;;
-	    netmap)
-                     $(which nmap) > /dev/null
-      		     if [ $? -eq 0 ]; then
-        		  echo "nmap found in PATH"
-      		     else
-        		  clear
+	        netmap)
+                     $(which which) nmap > /dev/null
+      		         if [ $? -eq 0 ]; then
+        		          echo "nmap found in PATH"
+      		         else
+        		          clear
                           cat /proc/version | grep "Red Hat" > /dev/null
                           if [ $? -eq 0 ]; then
                                echo "OS = Red Hat"
@@ -4990,7 +4986,7 @@ function sys_menu() {
                                          cat /proc/version | grep "SUSE" > /dev/null
                                          if [ $? -eq 0 ]; then
                                               echo "OS = SuSE"
-					      $(which zypper) in -y nmap | $(which tee) /var/log/smx-log/nmap-install-suse.log
+					                          $(which zypper) in -y nmap | $(which tee) /var/log/smx-log/nmap-install-suse.log
                                          fi
                                     fi
                                fi
@@ -5048,11 +5044,11 @@ function sys_menu() {
                           cat /var/log/smx-log/success.log | tail -n 6
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		     else
-			  echo "####################################################################################" >> /var/log/smx-log/fail.log
+		             else
+			              echo "####################################################################################" >> /var/log/smx-log/fail.log
                     	  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                     	  echo "Not scanned ip address range: $IPRANGE, check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which nmap) -Sp $IPRANGE | $(which tee) /var/log/smx-log/nmap.log" >> /var/log/smx-log/fail.log
+			              echo "Command run: $(which nmap) -Sp $IPRANGE | $(which tee) /var/log/smx-log/nmap.log" >> /var/log/smx-log/fail.log
                     	  echo "" >> /var/log/smx-log/fail.log
                           echo "####################################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -5072,10 +5068,10 @@ function sys_menu() {
                     	  cat /var/log/smx-log/fail.log | tail -n 6
                     	  echo
                     	  read -p "Press [enter] to continue..." ReadDamKey
-		     fi
-        	     ;;
-	    exit)
-		   clear
+		             fi
+        	         ;;
+	        exit)
+		           clear
                    echo "##############################################" >> /var/log/smx-log/exit.log
                    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                    echo "Successfuly terminated $(basename $0)/sys_menu" >> /var/log/smx-log/exit.log
@@ -5084,9 +5080,9 @@ function sys_menu() {
                    echo "" >> /var/log/smx-log/exit.log
                    main_menu
                    ;;
-	    exit-mas)
-		       clear
-		       echo "#################################" >> /var/log/smx-log/exit.log
+	        exit-mas)
+		               clear
+		               echo "#################################" >> /var/log/smx-log/exit.log
               	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
               	       echo "Successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
               	       echo "" >> /var/log/smx-log/exit.log
@@ -5094,7 +5090,7 @@ function sys_menu() {
                        echo "" >> /var/log/smx-log/exit.log
               	       exit 0
               	       ;;
-	    *)     clear
+	        *)     clear
                    echo "        COMMAND STATUS                 "
                    echo
                    echo "$(date)                                     $(whoami)@$(hostname)"
@@ -5105,7 +5101,7 @@ function sys_menu() {
                    echo
                    echo "Command unknown, please consult the command list, executed with pid - 3155 (0x1)"
                    read -p "Press [enter] to continue..." ReadDamKey;;
-	esac
+	    esac
     done
 }
 
@@ -5140,8 +5136,8 @@ function ip_menu() {
        echo
 
        case "$choice_ip" in
-	   list)
-	          clear
+	       list)
+	              clear
             	  echo "$(date)                                     $(whoami)@$(hostname)"
             	  echo "[TOP]                            [Entry Fields]"
             	  read -p " Enter network adaptor -------- > " netApt
@@ -5161,8 +5157,8 @@ function ip_menu() {
             	  sleep 2
             	  clear
             	  $(which ifconfig) $netApt | $(which tee) /var/log/smx-log/ifconfig.log
-      		  if [ $PIPESTATUS -eq 0 ]; then
-		       echo "#######################################################################################" >> /var/log/smx-log/success.log
+      		      if [ $PIPESTATUS -eq 0 ]; then
+		               echo "#######################################################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
               	       echo "Successfuly listed network adaptor: $netApt" >> /var/log/smx-log/success.log
               	       echo "Command run: $(which ifconfig) $netApt | $(which tee) /var/log/smx-log/ifconfig.log" >> /var/log/smx-log/success.log
@@ -5187,11 +5183,11 @@ function ip_menu() {
             	       cat /var/log/smx-log/success.log | tail -n 6
             	       echo
             	       read -p "Press [enter] to continue..." ReadDamKey
-		  else
-		       echo "#######################################################################################" >> /var/log/smx-log/fail.log
+		          else
+		               echo "#######################################################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
               	       echo "Not listed network adaptor: $netApt, check command syntax" >> /var/log/smx-log/fail.log
-		       echo "Command run: $(which ifconfig) $netApt | $(which tee) /var/log/smx-log/ifconfig.log" >> /var/log/smx-log/fail.log
+		               echo "Command run: $(which ifconfig) $netApt | $(which tee) /var/log/smx-log/ifconfig.log" >> /var/log/smx-log/fail.log
                	       echo "" >> /var/log/smx-log/fail.log
                        echo "#######################################################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
@@ -5213,8 +5209,8 @@ function ip_menu() {
               	       cat /var/log/smx-log/fail.log | tail -n 6
               	       echo
               	       read -p "Press [enter] to continue..." ReadDamKey
-		  fi
-      		  ;;
+		          fi
+      		      ;;
            ifstats)
                      clear
                      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -5242,10 +5238,10 @@ function ip_menu() {
                      echo "$(which netstat)                     bos.ipmgt.netstat       exec"
                      echo "Command run: $(which netstat) -i | $(which grep) $NETINTF | $(which tee) /var/log/smx-log/netstat.log"
                      sleep 2
-          	     clear
+          	         clear
                      $(which netstat) -i | $(which grep) $NETINTF | $(which tee) /var/log/smx-log/netstat.log
                      if [ $PIPESTATUS -eq 0 ]; then
-			  echo "###################################################################" >> /var/log/smx-log/success.log
+			              echo "###################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                           echo "Successfuly displayed advanced status for network adaptor: $NETINTF" >> /var/log/smx-log/success.log
                           echo "Command run: $(which netstat) -i | $(which grep) $NETINTF" >> /var/log/smx-log/success.log
@@ -5271,10 +5267,10 @@ function ip_menu() {
                     	  echo
                           read -p "Press [enter] to continue..." ReadDamKey
                      else
-			  echo "#########################################################################################################" >> /var/log/smx-log/fail.log
+			              echo "#########################################################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed advanced status for $netApt, check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which netstat) -i | $(which grep) $NETINTF | $(which tee) /var/log/smx-log/netstat.log" >> /var/log/smx-log/fail.log
+			              echo "Command run: $(which netstat) -i | $(which grep) $NETINTF | $(which tee) /var/log/smx-log/netstat.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "########################################################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -5983,107 +5979,107 @@ function ip_menu() {
                          fi
                     fi
                     ;;
-	   chip)
+	       chip)
+                   clear
+            	   echo "$(date)                                     $(whoami)@$(hostname)"
+            	   echo "[TOP]                                     [Entry Fields]"
+            	   echo " Enter new ip address -------------------- > " ipAddr
+            	   echo " Enter netmask --------------------------- > " netMask
+            	   printf " Enter network interface [Default: eth0] > "
+                   if [ "$netIntf" = "" ]; then
+                         read netIntf
+                         NET_INTF=$netIntf
+                   fi
+                   if [ "$netIntf" = "" ]; then
+                         NET_INTF=eth0
+                   fi         
+            	   clear
+            	   echo "      COMMAND STATUS                        "
+            	   echo
+            	   echo "$(date)                                     $(whoami)@$(hostname)"
+            	   echo
+            	   echo "Command: RUNNING    stdout: yes    stderr: no     "
+            	   echo
+            	   echo "Before command completion, additional instructions may appear below"
+            	   echo
+            	   echo "File                                 Fileset                 Type"
+            	   echo "-----------------------------------------------------------------"
+            	   echo "$(which ifdown)                      bos.ipmgt.ifdown        exec"
+            	   echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
+            	   echo "$(which ifup)                        bos.ipmgt.ifup          exec"
+            	   echo "Command run: $(which ifdown) $NET_INTF"
+            	   echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask"
+            	   echo "Command run: $(which ifup) $NET_INTF"
+            	   sleep 2
+            	   $(which ifdown) $NET_INTF
+            	   $(which ifconfig) $NET_INTF $ipAddr $netMask
+                   if [ $? -eq 0 ]; then
+ 		                echo "#######################################################################" >> /var/log/smx-log/success.log
+                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        echo "Successfuly changed ip address of $NET_INTF, ip address set to: $ipAddr" >> /var/log/smx-log/success.log
+                        echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask" >> /var/log/smx-log/success.log
+                        echo "" >> /var/log/smx-log/success.log
+                        echo "#######################################################################" >> /var/log/smx-log/success.log
+                        echo "" >> /var/log/smx-log/success.log
+                        read -p "Press [enter] to continue..." ReadDamKey
+                        clear
+                        echo "        COMMAND STATUS          "
+                        echo
+                        echo "$(date)                                    $(whoami)@$(hostname)"
+                        echo
+                        echo "Command: OK    stdout: yes    stderr: no         "
+                        echo
+                        echo "Before command completion, additional instructions may appear below"
+                        echo
+                        echo "File                                 Fileset                 Type"
+                        echo "-----------------------------------------------------------------"
+                        echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
+                        echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask"
+            	        echo
+            	        cat /var/log/smx-log/success.log | tail -n 6
+            	        echo
+                        read -p "Press [enter] to continue..." ReadDamKey
+		            else 
+   		                echo "#########################################################################################" >> /var/log/smx-log/fail.log
+                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        echo "Not changed ip address of $NET_INTF, ip address not set to: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+ 		                echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask" >> /var/log/smx-log/fail.log
+                        echo "" >> /var/log/smx-log/fail.log
+                        echo "#########################################################################################" >> /var/log/smx-log/fail.log
+                        echo "" >> /var/log/smx-log/fail.log
+                        read -p "Press [enter] to continue..." ReadDamKey
+                        clear
+                        echo "        COMMAND STATUS          "
+                        echo
+                        echo "$(date)                                    $(whoami)@$(hostname)"
+                        echo
+                        echo "Command: FAIL    stdout: yes    stderr: no       "
+                        echo
+                        echo "Before command completion, additional instructions may appear below"
+                        echo
+                        echo "File                                 Fileset                 Type"
+                        echo "-----------------------------------------------------------------"
+                        echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
+                        echo "Command unsuccessful, check command syntax and variables"
+             	        echo
+                	    cat /var/log/smx-log/success.log | tail -n 6
+              	        echo
+                        read -p "Press [enter] to continue..." ReadDamKey
+		           fi
+            	   $(which ifup) $NETINTF
+            	   echo "Successfuly set IP address: $ipAddr"
+            	   echo "The system must now reboot, you can choose not to, but the hostname will not be changed until next reboot"
+            	   read -p "Reboot system (Y/N) > " ans
+            	   if [ "$ans" = "Y" ]; then
+                         $(which reboot) -f now --verbose; exit
+		           else
+                         echo "System will not be rebooted"
+                   fi
+                   ;;
+	       down)
                   clear
-            	  echo "$(date)                                     $(whoami)@$(hostname)"
-            	  echo "[TOP]                                     [Entry Fields]"
-            	  echo " Enter new ip address -------------------- > " ipAddr
-            	  echo " Enter netmask --------------------------- > " netMask
-            	  printf " Enter network interface [Default: eth0] > "
-                  if [ "$netIntf" = "" ]; then
-                        read netIntf
-                        NET_INTF=$netIntf
-                  fi
-                  if [ "$netIntf" = "" ]; then
-                        NET_INTF=eth0
-                  fi        
-            	  clear
-            	  echo "      COMMAND STATUS                        "
-            	  echo
-            	  echo "$(date)                                     $(whoami)@$(hostname)"
-            	  echo
-            	  echo "Command: RUNNING    stdout: yes    stderr: no     "
-            	  echo
-            	  echo "Before command completion, additional instructions may appear below"
-            	  echo
-            	  echo "File                                 Fileset                 Type"
-            	  echo "-----------------------------------------------------------------"
-            	  echo "$(which ifdown)                      bos.ipmgt.ifdown        exec"
-            	  echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
-            	  echo "$(which ifup)                        bos.ipmgt.ifup          exec"
-            	  echo "Command run: $(which ifdown) $NET_INTF"
-            	  echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask"
-            	  echo "Command run: $(which ifup) $NET_INTF"
-            	  sleep 2
-            	  $(which ifdown) $NET_INTF
-            	  $(which ifconfig) $NET_INTF $ipAddr $netMask
-            	  if [ $? -eq 0 ]; then
-		       echo "#######################################################################" >> /var/log/smx-log/success.log
-                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                       echo "Successfuly changed ip address of $NET_INTF, ip address set to: $ipAddr" >> /var/log/smx-log/success.log
-                       echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask" >> /var/log/smx-log/success.log
-                       echo "" >> /var/log/smx-log/success.log
-                       echo "#######################################################################" >> /var/log/smx-log/success.log
-                       echo "" >> /var/log/smx-log/success.log
-                       read -p "Press [enter] to continue..." ReadDamKey
-                       clear
-                       echo "        COMMAND STATUS          "
-                       echo
-                       echo "$(date)                                    $(whoami)@$(hostname)"
-                       echo
-                       echo "Command: OK    stdout: yes    stderr: no         "
-                       echo
-                       echo "Before command completion, additional instructions may appear below"
-                       echo
-                       echo "File                                 Fileset                 Type"
-                       echo "-----------------------------------------------------------------"
-                       echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
-                       echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask"
-            	       echo
-            	       cat /var/log/smx-log/success.log | tail -n 6
-            	       echo
-                       read -p "Press [enter] to continue..." ReadDamKey
-		  else
-		       echo "#########################################################################################" >> /var/log/smx-log/fail.log
-                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                       echo "Not changed ip address of $NET_INTF, ip address not set to: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-		       echo "Command run: $(which ifconfig) $NET_INTF $ipAddr $netMask" >> /var/log/smx-log/fail.log
-                       echo "" >> /var/log/smx-log/fail.log
-                       echo "#########################################################################################" >> /var/log/smx-log/fail.log
-                       echo "" >> /var/log/smx-log/fail.log
-                       read -p "Press [enter] to continue..." ReadDamKey
-                       clear
-                       echo "        COMMAND STATUS          "
-                       echo
-                       echo "$(date)                                    $(whoami)@$(hostname)"
-                       echo
-                       echo "Command: FAIL    stdout: yes    stderr: no       "
-                       echo
-                       echo "Before command completion, additional instructions may appear below"
-                       echo
-                       echo "File                                 Fileset                 Type"
-                       echo "-----------------------------------------------------------------"
-                       echo "$(which ifconfig)                    bos.ipmgt.ifconfig      exec"
-                       echo "Command unsuccessful, check command syntax and variables"
-            	       echo
-            	       cat /var/log/smx-log/success.log | tail -n 6
-            	       echo
-                       read -p "Press [enter] to continue..." ReadDamKey
-		  fi
-            	  $(which ifup) $NETINTF
-            	  echo "Successfuly set IP address: $ipAddr"
-            	  echo "The system must now reboot, you can choose not to, but the hostname will not be changed until next reboot"
-            	  read -p "Reboot system (Y/N) > " ans
-            	  if [ "$ans" = "Y" ]; then
-                        $(which reboot) -f now --verbose; exit
-		  else
-                        echo "System will not be rebooted"
-                  fi
-                  ;;
-	   down)
-                  clear
-              	  echo "$(date)                                    $(whoami)@$(hostname)"
-              	  echo "[TOP]                                     [Entry Fields]"
+               	  echo "$(date)                                    $(whoami)@$(hostname)"
+               	  echo "[TOP]                                     [Entry Fields]"
               	  printf " Enter network interface [Default: eth0] > "
                   if [ "$netIntf" = "" ]; then
                         read netIntf
@@ -6092,7 +6088,7 @@ function ip_menu() {
                   if [ "$netIntf" = "" ]; then
                         NETINTF=eth0
                   fi        
-              	  clear
+           	      clear
               	  echo "         COMMAND STATUS               "
               	  echo
               	  echo "$(date)                                    $(whoami)@$(hostname)"
@@ -6108,7 +6104,7 @@ function ip_menu() {
               	  sleep 2
               	  $(which ifdown) $netApt
               	  if [ $? -eq 0 ]; then
-		       echo "##############################################" >> /var/log/smx-log/success.log
+		               echo "##############################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "Successfuly disabled network adaptor: $NETINTF" >> /var/log/smx-log/success.log
                        echo "Command run: $(which ifdown) $NETINTF" >> /var/log/smx-log/success.log
@@ -6133,11 +6129,11 @@ function ip_menu() {
               	       cat /var/log/smx-log/success.log | tail -n 6
               	       echo
                        read -p "Press [enter] to continue..." ReadDamKey
-		  else
-		       echo "############################################################" >> /var/log/smx-log/fail.log
+		          else
+		               echo "############################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                        echo "Not disabled network adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
-		       echo "Command run: $(which ifdown) $NETINTF" >> /var/log/smx-log/fail.log
+		               echo "Command run: $(which ifdown) $NETINTF" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
                        echo "############################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
@@ -6161,7 +6157,7 @@ function ip_menu() {
                        read -p "Press [enter] to continue..." ReadDamKey
                   fi
                   ;;
-	   up)
+	       up)
                 clear
             	echo "$(date)                                     $(whoami)@$(hostname)"
             	echo "[TOP]                                     [Entry Fields]"
@@ -6189,7 +6185,7 @@ function ip_menu() {
             	sleep 2
             	$(which ifup) $NETINTF
             	if [ $? -eq 0 ]; then
-		     echo "################################################" >> /var/log/smx-log/success.log
+		             echo "################################################" >> /var/log/smx-log/success.log
                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                      echo "Successfuly brought up network adaptor: $NETINTF" >> /var/log/smx-log/success.log
                      echo "Command run: $(which ifup) $NETINTF" >> /var/log/smx-log/success.log
@@ -6212,13 +6208,13 @@ function ip_menu() {
             	     echo "Command run: $(which ifup) $NETINTF"
             	     echo
             	     cat /var/log/smx-log/success.log | tail -n 6
-            	     echo
+                     echo
                      read -p "Press [enter] to continue..." ReadDamKey
-		else
-		     echo "#############################################################" >> /var/log/smx-log/fail.log
+		        else
+		             echo "#############################################################" >> /var/log/smx-log/fail.log
                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                      echo "Not brought up network adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
-		     echo "Command run: $(which ifup) $NETINTF" >> /var/log/smx-log/fail.log
+		             echo "Command run: $(which ifup) $NETINTF" >> /var/log/smx-log/fail.log
                      echo "" >> /var/log/smx-log/fail.log
                      echo "#############################################################" >> /var/log/smx-log/fail.log
                      echo "" >> /var/log/smx-log/fail.log
@@ -6242,11 +6238,11 @@ function ip_menu() {
                      read -p "Press [enter] to continue..." ReadDamKey
             	fi
             	;;
-	   trace)
-                   $(which whois) > /dev/null
-		   if [ $? -eq 0 ]; then
+	       trace)
+                   $(which which) whois > /dev/null
+		           if [ $? -eq 0 ]; then
                         echo "whois found in PATH"
-		   else
+		           else
                         clear
                         cat /proc/version | grep "Red Hat" > /dev/null
                         if [ $? -eq 0 ]; then
@@ -6277,10 +6273,10 @@ function ip_menu() {
                    fi
             	   clear
             	   echo "$(date)                                     $(whoami)@$(hostname)"
-            	   echo "[TOP]                         [Entry Fields]"
-            	   read -p " Enter ip address ---------- > " ipAddr
-            	   clear
-            	   echo "        COMMAND STATUS                  "
+                   echo "[TOP]                         [Entry Fields]"
+                   read -p " Enter ip address ---------- > " ipAddr
+                   clear
+          	       echo "        COMMAND STATUS                  "
             	   echo
             	   echo "$(date)                                     $(whoami)@$(hostname)"
             	   echo
@@ -6297,15 +6293,15 @@ function ip_menu() {
             	   echo "Command run: $(which ping) -c 5 $ipAddr"
             	   echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log"
             	   echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup.log"
-            	   echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log"
+                   echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log"
             	   sleep 2
             	   clear
             	   $(which ping) -c 5 $ipAddr
             	   if [ $? -eq 0 ]; then
-		        echo "###########################################" >> /var/log/smx-log/success.log
+		                echo "###########################################" >> /var/log/smx-log/success.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-      			echo "Successfuly sent ping test to host: $ipAddr" >> /var/log/smx-log/success.log
-			echo "Command run: $(which ping) -c 5 $ipAddr" >> /var/log/smx-log/success.log
+      			        echo "Successfuly sent ping test to host: $ipAddr" >> /var/log/smx-log/success.log
+			            echo "Command run: $(which ping) -c 5 $ipAddr" >> /var/log/smx-log/success.log
                         echo "" >> /var/log/smx-log/success.log
                         echo "###########################################" >> /var/log/smx-log/success.log
                         echo "" >> /var/log/smx-log/success.log
@@ -6327,8 +6323,8 @@ function ip_menu() {
                         cat /var/log/smx-log/success.log | tail -n 6
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
-		   else
-		        echo "#########################################################" >> /var/log/smx-log/fail.log
+		           else
+		                echo "#########################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not sent ping test to host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
                         echo "Command run: $(which ping) -c 5 $ipAddr" >> /var/log/smx-log/fail.log
@@ -6354,207 +6350,207 @@ function ip_menu() {
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
                         exit 1
-		   fi
-            	   clear
-            	   $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log
-                   if [ $PIPESTATUS -eq 0 ]; then
-		        echo "###########################################################################################" >> /var/log/smx-log/success.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        echo "Successfuly traced host: $ipAddr" >> /var/log/smx-log/success.log
-                        echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        echo "###########################################################################################" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: OK    stdout: yes    stderr: no         "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which traceroute)                  bos.ipmgt.traceroute    exec"
-			echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log"
-			echo
-                        cat /var/log/smx-log/success.log | tail -n 6
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-		   else
-		        echo "###########################################################################################" >> /var/log/smx-log/fail.log
-            		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-            		echo "Not traced host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-            		echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/fail.log
-            		echo "" >> /var/log/smx-log/fail.log
-                        echo "###########################################################################################" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/fail.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: FAIL    stdout: yes   stderr: no        "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which traceroute)                  bos.ipmgt.traceroute    exec"
-			            echo "Command unsuccessful, check command syntax and variables"
-                        echo
-                        cat /var/log/smx-log/fail.log | tail -n 6
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        exit 1
-		   fi
-            	   clear
-            	   $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup.log
-                   if [ $PIPESTATUS -eq 0 ]; then
-		        echo "####################################################################################" >> /var/log/smx-log/success.log
-			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        echo "Successfuly looked up host: $ipAddr" >> /var/log/smx-log/success.log
-                        echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        echo "###################################################################################" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: OK    stdout: yes    stderr: no         "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which nslookup)                    bos.ipmgt.nslookup      exec"
-                        echo "$(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup.log"
-                        echo
-                        cat /var/log/smx-log/success.log | tail -n 6
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-		   else
-		        echo "###################################################################################" >> /var/log/smx-log/fail.log
-			echo "" >> /var/log/smx-log/fail.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        echo "Not looked up host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-                        echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/fail.log
-                     	echo "" >> /var/log/smx-log/fail.log
-                        echo "###################################################################################" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/fail.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: FAIL    stdout: yes   stderr: no        "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which nslookup)                    bos.ipmgt.nslookup      exec"
-                        echo "Command unsuccessful, check command syntax and variables"
-                        echo
-                        cat /var/log/smx-log/fail.log | tail -n 6
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        exit 1
-            	   fi
-            	   clear
-            	   $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log
-            	   if [ $PIPESTATUS -eq 0 ]; then
-		        echo "#################################################################################" >> /var/log/smx-log/success.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        echo "Successfuly displayed domain information for host: $ipAddr" >> /var/log/smx-log/success.log
-                        echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        echo "#################################################################################" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: OK    stdout: yes    stderr: no         "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which whois)                       bos.ipmgt.whois         exec"
-                        echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log"
-                        echo
-                        cat /var/log/smx-log/success.log | tail -n 6
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-		   else
-		        echo "#################################################################################" >> /var/log/smx-log/fail.log
-            		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-            		echo "Not displayed domain information for host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-            		echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/fail.log
-            		echo "" >> /var/log/smx-log/fail.log
-                        echo "#################################################################################" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/fail.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo "        COMMAND STATUS          "
-                        echo
-                        echo "$(date)                                    $(whoami)@$(hostname)"
-                        echo
-                        echo "Command: FAIL    stdout: yes   stderr: no        "
-                        echo
-                        echo "Before command completion, additional instructions may appear below"
-                        echo
-                        echo "File                                 Fileset                 Type"
-                        echo "-----------------------------------------------------------------"
-                        echo "$(which whois)                       bos.ipmgt.whois         exec"
-            		echo "Command unsuccessful, check command syntax and variables"
-            		echo
-                        cat /var/log/smx-log/fail.log | tail -n 6
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-                   fi
-                   ;;
-	   exit)
-	          clear
-		  echo "######################################################" >> /var/log/smx-log/exit.log
+		          fi
+                  clear
+                  $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log
+                  if [ $PIPESTATUS -eq 0 ]; then
+		               echo "###########################################################################################" >> /var/log/smx-log/success.log
+                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                       echo "Successfuly traced host: $ipAddr" >> /var/log/smx-log/success.log
+                       echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       echo "###########################################################################################" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       clear
+                       echo "        COMMAND STATUS          "
+                       echo
+                       echo "$(date)                                    $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: OK    stdout: yes    stderr: no         "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "File                                 Fileset                 Type"
+                       echo "-----------------------------------------------------------------"
+                       echo "$(which traceroute)                  bos.ipmgt.traceroute    exec"
+            	   	   echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log"
+            	 	   echo
+                       cat /var/log/smx-log/success.log | tail -n 6
+                       echo
+                       read -p "Press [enter] to continue..." ReadDamKey
+		          else
+		               echo "###########################################################################################" >> /var/log/smx-log/fail.log
+                	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                  	   echo "Not traced host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+                 	   echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/fail.log
+                	   echo "" >> /var/log/smx-log/fail.log
+                       echo "###########################################################################################" >> /var/log/smx-log/fail.log
+                       echo "" >> /var/log/smx-log/fail.log
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       clear
+                       echo "        COMMAND STATUS          "
+                       echo
+                       echo "$(date)                                    $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: FAIL    stdout: yes   stderr: no        "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "File                                 Fileset                 Type"
+                       echo "-----------------------------------------------------------------"
+                       echo "$(which traceroute)                  bos.ipmgt.traceroute    exec"
+			           echo "Command unsuccessful, check command syntax and variables"
+                       echo
+                       cat /var/log/smx-log/fail.log | tail -n 6
+                       echo
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       exit 1
+		          fi
+            	  clear
+                  $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup.log
+                  if [ $PIPESTATUS -eq 0 ]; then
+		               echo "####################################################################################" >> /var/log/smx-log/success.log
+			           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                       echo "Successfuly looked up host: $ipAddr" >> /var/log/smx-log/success.log
+                       echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       echo "###################################################################################" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       clear
+                       echo "        COMMAND STATUS          "
+                       echo
+                       echo "$(date)                                    $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: OK    stdout: yes    stderr: no         "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "File                                 Fileset                 Type"
+                       echo "-----------------------------------------------------------------"
+                       echo "$(which nslookup)                    bos.ipmgt.nslookup      exec"
+                       echo "$(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup.log"
+                       echo
+                       cat /var/log/smx-log/success.log | tail -n 6
+                       echo
+                       read -p "Press [enter] to continue..." ReadDamKey
+		          else
+		               echo "###################################################################################" >> /var/log/smx-log/fail.log
+			           echo "" >> /var/log/smx-log/fail.log
+                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                       echo "Not looked up host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+                       echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/fail.log
+                       echo "" >> /var/log/smx-log/fail.log
+                       echo "###################################################################################" >> /var/log/smx-log/fail.log
+                       echo "" >> /var/log/smx-log/fail.log
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       clear
+                       echo "        COMMAND STATUS          "
+                       echo
+                       echo "$(date)                                    $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: FAIL    stdout: yes   stderr: no        "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "File                                 Fileset                 Type"
+                       echo "-----------------------------------------------------------------"
+                       echo "$(which nslookup)                    bos.ipmgt.nslookup      exec"
+                       echo "Command unsuccessful, check command syntax and variables"
+                       echo
+                       cat /var/log/smx-log/fail.log | tail -n 6
+                       echo
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       exit 1
+            	  fi
+            	  clear
+                  $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log
+                  if [ $PIPESTATUS -eq 0 ]; then
+		               echo "#################################################################################" >> /var/log/smx-log/success.log
+                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                       echo "Successfuly displayed domain information for host: $ipAddr" >> /var/log/smx-log/success.log
+                       echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       echo "#################################################################################" >> /var/log/smx-log/success.log
+                       echo "" >> /var/log/smx-log/success.log
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       clear
+                       echo "        COMMAND STATUS          "
+                       echo
+                       echo "$(date)                                    $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: OK    stdout: yes    stderr: no         "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "File                                 Fileset                 Type"
+                       echo "-----------------------------------------------------------------"
+                       echo "$(which whois)                       bos.ipmgt.whois         exec"
+                       echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log"
+                       echo
+                       cat /var/log/smx-log/success.log | tail -n 6
+                       echo
+                       read -p "Press [enter] to continue..." ReadDamKey
+		          else
+		               echo "#################################################################################" >> /var/log/smx-log/fail.log
+                	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                 	   echo "Not displayed domain information for host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+                 	   echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/fail.log
+                 	   echo "" >> /var/log/smx-log/fail.log
+                       echo "#################################################################################" >> /var/log/smx-log/fail.log
+                       echo "" >> /var/log/smx-log/fail.log
+                       read -p "Press [enter] to continue..." ReadDamKey
+                       clear
+                       echo "        COMMAND STATUS          "
+                       echo
+                       echo "$(date)                                    $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: FAIL    stdout: yes   stderr: no        "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "File                                 Fileset                 Type"
+                       echo "-----------------------------------------------------------------"
+                       echo "$(which whois)                       bos.ipmgt.whois         exec"
+            		   echo "Command unsuccessful, check command syntax and variables"
+            	       echo
+                       cat /var/log/smx-log/fail.log | tail -n 6
+                       echo
+                       read -p "Press [enter] to continue..." ReadDamKey
+                  fi
+                  ;;
+	       exit)
+	              clear
+		          echo "######################################################" >> /var/log/smx-log/exit.log
             	  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
-            	  echo "Successfuly terminated $(basename $0)/sys_menu#ip_menu" >> /var/log/smx-log/exit.log
-            	  echo "" >> /var/log/smx-log/exit.log
+                  echo "Successfuly terminated $(basename $0)/sys_menu#ip_menu" >> /var/log/smx-log/exit.log
+           	      echo "" >> /var/log/smx-log/exit.log
                   echo "######################################################" >> /var/log/smx-log/exit.log
                   echo "" >> /var/log/smx-log/exit.log
             	  sys_menu
             	  ;;
-	   exit-mas)
+	       exit-mas)
     	              clear
-	              echo "#################################" >> /var/log/smx-log/exit.log
+	                  echo "#################################" >> /var/log/smx-log/exit.log
             	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
             	      echo "Successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
-            	      echo "" >> /var/log/smx-log/exit.log
+                      echo "" >> /var/log/smx-log/exit.log
                       echo "#################################" >> /var/log/smx-log/exit.log
                       echo "" >> /var/log/smx-log/exit.log
             	      exit 0
             	      ;;
-	   *)     clear
+	       *)     clear
                   echo "        COMMAND STATUS                 "
-		  echo
-            	  echo "$(date)                                     $(whoami)@$(hostname)"
-            	  echo
-            	  echo "Command: FAIL    stdout: yes     stderr: no         "
-            	  echo
-            	  echo "Before command completion, additional instructions may appear below"
-            	  echo
-            	  echo "Unkonwn command, please consult the command list, executed with pid - 3115 (0x1)"
-            	  read -p "Press [enter] to continue..." ReadDamKey;;
+		          echo
+                  echo "$(date)                                     $(whoami)@$(hostname)"
+           	      echo
+         	      echo "Command: FAIL    stdout: yes     stderr: no         "
+         	      echo
+         	      echo "Before command completion, additional instructions may appear below"
+         	      echo
+        	      echo "Unkonwn command, please consult the command list, executed with pid - 3115 (0x1)"
+         	      read -p "Press [enter] to continue..." ReadDamKey;;
        esac
    done
 }
@@ -6601,12 +6597,12 @@ function fire_menu() {
                      echo "File                                  Fileset                Type"
                      echo "-----------------------------------------------------------------"
                      echo "$(which iptables)                     bos.firemgt.iptables   exec"
-		     echo "Command run: $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log"
+		             echo "Command run: $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log"
                      sleep 2
-		     clear
+		             clear
                      $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log
                      if [ $PIPESTATUS -eq 0 ]; then
-			  echo "########################################################################################" >> /var/log/smx-log/success.log
+			              echo "########################################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                           echo "Successfuly displayed firewall status" >> /var/log/smx-log/success.log
                           echo "Command run: $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log" >> /var/log/smx-log/success.log
@@ -6632,10 +6628,10 @@ function fire_menu() {
                     	  echo
                           read -p "Press [enter] to continue..." ReadDamKey
                      else
-			  echo "########################################################################################" >> /var/log/smx-log/fail.log
+			              echo "########################################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed firewall status, check command syntax" >> /var/log/smx-log/fail.log
-			  echo "Command run: $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log" >> /var/log/smx-log/fail.log
+			              echo "Command run: $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "########################################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -6690,7 +6686,7 @@ function fire_menu() {
                         sleep 2
                         $(which iptables) -A INPUT -i $NETINTF -p tcp --dport $firePort -j ACCEPT
                         if [ $? -eq 0 ]; then
-			     echo "#########################################################################" >> /var/log/smx-log/success.log
+			                 echo "#########################################################################" >> /var/log/smx-log/success.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                              echo "Successfuly opened port: $firePort on adaptor: $NETINTF" >> /var/log/smx-log/success.log
                              echo "$(which iptables) -A INPUT -i $NETINTF -p tcp --dport $firePort -j ACCEPT" >> /var/log/smx-log/success.log
@@ -6719,7 +6715,7 @@ function fire_menu() {
                              echo "######################################################################################" >> /var/log/smx-log/fail.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                              echo "Not opened port: $firePort on adaptor: $NETINTF" >> /var/log/smx-log/fail.log
-			     echo "Command run: $(which iptables) -A INPUT -i $NETINTF -p tcp --dport $firePort -j ACCEPT" >> /var/log/smx-log/fail.log
+			                 echo "Command run: $(which iptables) -A INPUT -i $NETINTF -p tcp --dport $firePort -j ACCEPT" >> /var/log/smx-log/fail.log
                              echo "" >> /var/log/smx-log/fail.log
                              echo "######################################################################################" >> /var/log/smx-log/fail.log
                              echo "" >> /var/log/smx-log/fail.log
@@ -6776,7 +6772,7 @@ function fire_menu() {
                          sleep 2
                          $(which iptables) -A INPUT -i $NETINTF -p tcp --dport $firePort -j DROP
                          if [ $? -eq 0 ]; then
-			      echo "####################################################################################" >> /var/log/smx-log/success.log
+			                  echo "####################################################################################" >> /var/log/smx-log/success.log
                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               echo "Successfuly closed port: $firePort on adaptor: $NETINTF" >> /var/log/smx-log/success.log
                               echo "Command run: $(which iptables) -A INPUT -i $NETINTF -p tcp --dport $firePort -j DROP" >> /var/log/smx-log/success.log
@@ -6802,7 +6798,7 @@ function fire_menu() {
                     	      echo
                               read -p "Press [enter] to continue..." ReadDamKey
                          else
-			      echo "####################################################################################" >> /var/log/smx-log/fail.log
+			                  echo "####################################################################################" >> /var/log/smx-log/fail.log
                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                               echo "Not closed port: $firePort on adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
                               echo "Command run: $(which iptables) -A INPUT -i $NETINTF -p tcp --dport $firePort -j DROP" >> /var/log/smx-log/fail.log
@@ -6863,9 +6859,9 @@ function fire_menu() {
                            sleep 2
                            $(which iptables) -A OUTPUT -i $netApt -p tcp -d $domainName -j DROP
                            if [ $? -eq 0 ]; then
-			        echo "##################################################################################" >> /var/log/smx-log/success.log
-                		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                		echo "Successfuly blocked domain: $domainName on adaptor: $NETINTF" >> /var/log/smx-log/success.log
+			                    echo "##################################################################################" >> /var/log/smx-log/success.log
+                        		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		echo "Successfuly blocked domain: $domainName on adaptor: $NETINTF" >> /var/log/smx-log/success.log
                                 echo "Command run: $(which iptables) -A OUTPUT -i $NETINTF -p tcp -d $domainName -j DROP" >> /var/log/smx-log/success.log
                                 echo "" >> /var/log/smx-log/success.log
                                 echo "##################################################################################" >> /var/log/smx-log/success.log
@@ -6889,10 +6885,10 @@ function fire_menu() {
                             	echo
                                 read -p "Press [enter] to continue..." ReadDamKey
                            else
-			        echo "##################################################################################" >> /var/log/smx-log/fail.log
+			                    echo "##################################################################################" >> /var/log/smx-log/fail.log
                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                 echo "Not blocked domain: $domainName on adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
-				echo "Command run: $(which iptables) -A OUTPUT -i $NETINTF -p tcp -d $domainName -j DROP" >> /var/log/smx-log/fail.log
+				                echo "Command run: $(which iptables) -A OUTPUT -i $NETINTF -p tcp -d $domainName -j DROP" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
                                 echo "##################################################################################" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
@@ -6946,10 +6942,10 @@ function fire_menu() {
                        echo "$(which iptables-save)                bos.firemgt.iptables   exec"
               	       echo "Command run: $(which iptables) -A OUTPUT -I $NETINTF -d $ipAddr -j DROP"
               	       echo "Command run: $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log"
-		       clear
+		               clear
                        $(which iptables) -A OUTPUT -I $NETINTF -d $ipAddr -j DROP
                        if [ $? -eq 0 ]; then
-			    echo "#######################################################################" >> /var/log/smx-log/success.log
+			                echo "#######################################################################" >> /var/log/smx-log/success.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             echo "Successfuly blocked ip address: $ipAddr on adaptor: $NETINTF" >> /var/log/smx-log/success.log
                             echo "Command run: $(which iptables) -A OUTPUT -I $NETINTF -d $ipAddr -j DROP" >> /var/log/smx-log/success.log
@@ -6975,10 +6971,10 @@ function fire_menu() {
                     	    echo
                             read -p "Press [enter] to continue..." ReadDamKey
                        else
-			    echo "##########################################################################" >> /var/log/smx-log/fail.log
+			                echo "##########################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not blocked ip address: $ipAddr on adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
-			    echo "Command run: $(which iptables) -A OUTPUT -I $NETINTF -d $ipAddr -j DROP" >> /var/log/smx-log/fail.log
+			                echo "Command run: $(which iptables) -A OUTPUT -I $NETINTF -d $ipAddr -j DROP" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "##########################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -7032,10 +7028,10 @@ function fire_menu() {
                   echo "$(which iptables-save)                bos.firemgt.iptables   exec"
               	  echo "Command run: $(which iptables) -A INPUT -i $NETINTF -s $ipAddr -j LOG --log-prefix 'IP_SPOOF A: '"
               	  echo "Command run: $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log"
-		  sleep 2
+		          sleep 2
                   $(which iptables) -A INPUT -i $NETINTF -s $ipAddr -j LOG --log-prefix "IP_SPOOF A: "
                   if [ $? -eq 0 ]; then
-		       echo "###################################################################################" >> /var/log/smx-log/success.log
+		               echo "###################################################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "Successfuly logged firewall processes for ip address: $ipAddr on: $NETINTF" >> /var/log/smx-log/success.log
                        echo "$(which iptables) -A INPUT -i $NETINTF -s $ipAddr -j LOG --log-prefix "IP_SPOOF A:"" >> /var/log/smx-log/success.log
@@ -7061,10 +7057,10 @@ function fire_menu() {
               	       echo
                        read -p "Press [enter] to continue..." ReadDamKey
                   else
-		       echo "#################################################################################################" >> /var/log/smx-log/fail.log
+		               echo "#################################################################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                        echo "Not logged firewall processes for ip address: $ipAddr on: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
-		       echo "Command run: $(which iptables) -A INPUT -i $NETINTF -s $ipAddr -j LOG --log-prefix 'IP_SPOOF A: '" >> /var/log/smx-log/fail.log
+		               echo "Command run: $(which iptables) -A INPUT -i $NETINTF -s $ipAddr -j LOG --log-prefix 'IP_SPOOF A: '" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
                        echo "#################################################################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
@@ -7092,7 +7088,7 @@ function fire_menu() {
                   ;;
             exit)
                    clear
-		   echo "########################################################" >> /var/log/smx-log/exit.log
+		           echo "########################################################" >> /var/log/smx-log/exit.log
                    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                    echo "Successfuly terminated $(basename $0)/sys_menu#fire_menu" >> /var/log/smx-log/exit.log
                    echo "" >> /var/log/smx-log/exit.log
@@ -7101,8 +7097,8 @@ function fire_menu() {
                    sys_menu
                    ;;
             exit-mas)
-        	       clear
-        	       echo "#################################" >> /var/log/smx-log/exit.log
+            	       clear
+            	       echo "#################################" >> /var/log/smx-log/exit.log
               	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
               	       echo "Successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
               	       echo "" >> /var/log/smx-log/exit.log
@@ -7146,7 +7142,7 @@ function pkg_menu() {
       	echo
       	echo "update > Install updates on system"
       	echo
-	echo "repomgt> Perform repoistory management on system"
+	    echo "repomgt> Perform repoistory management on system"
         echo
         echo "exit > Exit back to sys_menu"
       	echo
@@ -7771,7 +7767,7 @@ function pkg_menu() {
                           fi
                      fi
                      ;;
-	    remove)
+	        remove)
                      clear
                      cat /proc/version | grep "Red Hat" > /dev/null
                      if [ $? -eq 0 ]; then
@@ -8088,8 +8084,8 @@ function pkg_menu() {
                          fi
                      fi
                      ;;
-	    install_deb)
-		          clear
+	        install_deb)
+		                  clear
                     	  echo "$(date)                                     $(whoami)@$(hostname)"
                     	  echo "Package location example: /home/user/pkg.deb"
                     	  echo "[TOP]                           [ Entry Fields]"
@@ -8111,10 +8107,10 @@ function pkg_menu() {
                     	  clear
                     	  $(which dpkg) -i $pkgLoc | $(which tee) /var/log/smx-log/dpkg.log
                     	  if [ $PIPESTATUS -eq 0 ]; then
-			       echo "##################################################################################" >> /var/log/smx-log/success.log
+			                   echo "##################################################################################" >> /var/log/smx-log/success.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                     	       echo "Package at location: $pkgLoc Successfuly installed" >> /var/log/smx-log/success.log
-			       echo "Command run: $(which dpkg) -i $pkgLoc | $(which tee) /var/log/smx-log/dpkg.log" >> /var/log/smx-log/success.log
+			                   echo "Command run: $(which dpkg) -i $pkgLoc | $(which tee) /var/log/smx-log/dpkg.log" >> /var/log/smx-log/success.log
                     	       echo "" >> /var/log/smx-log/success.log
                                echo "##################################################################################" >> /var/log/smx-log/success.log
                                echo "" >> /var/log/smx-log/success.log
@@ -8136,11 +8132,11 @@ function pkg_menu() {
                     	       cat /var/log/smx-log/success.log | tail -n 6
                     	       echo
                     	       read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			       echo "##################################################################################" >> /var/log/smx-log/fail.log
+			              else
+			                   echo "##################################################################################" >> /var/log/smx-log/fail.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                     	       echo "Package not installed at location: $pkgLoc, check command syntax" >> /var/log/smx-log/fail.log
-			       echo "Command run: $(which dpkg) -i $pkgLoc | $(which tee) /var/log/smx-log/dpkg.log" >> /var/log/smx-log/fail.log
+			                   echo "Command run: $(which dpkg) -i $pkgLoc | $(which tee) /var/log/smx-log/dpkg.log" >> /var/log/smx-log/fail.log
                     	       echo "" >> /var/log/smx-log/fail.log
                                echo "##################################################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -8164,7 +8160,7 @@ function pkg_menu() {
                     	       read -p "Press [enter] to continue..." ReadDamKey
                     	  fi
                     	  ;;
-	        install_rpm)
+	            install_rpm)
                               clear
                               echo "$(date)                                     $(whoami)@$(hostname)"
                               echo "[TOP]                                                     [Entry Fields]"
@@ -8172,163 +8168,163 @@ function pkg_menu() {
                               if [ "$ans" = "install" ]; then
                                     clear
                             	    echo "$(date)                                     $(whoami)@$(hostname)"
-                        	    echo "You must know the location of the rpm file on the filesystem"
-                        	    echo "For example: /home/user/file.rpm"
-                        	    echo "[TOP]                                     [Entry Fields]"
-                        	    read -p " Enter rpm file location -------------- > " pkgLoc
-                        	    clear
-                        	    echo "         COMMAND STATUS                       "
-                        	    echo
-                        	    echo "$(date)                                     $(whoami)@$(hostname)"
-                        	    echo
-                          	    echo "Command: RUNNING    stdout: yes    stderr: no     "
-                        	    echo
-                        	    echo "Before command completion, additional instructions may appear below"
-                        	    echo
-                        	    echo "File                                 Fileset                 Type"
-                        	    echo "-----------------------------------------------------------------"
-                        	    echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
-                        	    echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log"
-                        	    sleep 2
-                        	    clear
-                        	    $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log
+                            	    echo "You must know the location of the rpm file on the filesystem"
+                            	    echo "For example: /home/user/file.rpm"
+                            	    echo "[TOP]                                     [Entry Fields]"
+                            	    read -p " Enter rpm file location -------------- > " pkgLoc
+                            	    clear
+                            	    echo "         COMMAND STATUS                       "
+                            	    echo
+                            	    echo "$(date)                                     $(whoami)@$(hostname)"
+                            	    echo
+                              	    echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            	    echo
+                            	    echo "Before command completion, additional instructions may appear below"
+                            	    echo
+                            	    echo "File                                 Fileset                 Type"
+                            	    echo "-----------------------------------------------------------------"
+                            	    echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
+                            	    echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log"
+                            	    sleep 2
+                            	    clear
+                            	    $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log
                                     if [ $PIPESTATUS -eq 0 ]; then
-            			         echo "##################################################################################" >> /var/log/smx-log/success.log
-                			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                         	         echo "Successfuly installed package at location: $pkgLoc" >> /var/log/smx-log/success.log
-                        	         echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/success.log
-                        	         echo "" >> /var/log/smx-log/success.log
-					 echo "##################################################################################" >> /var/log/smx-log/success.log
-					 echo "" >> /var/log/smx-log/success.log
-                        	         read -p "Press [enter] to continue..." ReadDamKey
-                        	         clear
-                        	         echo "        COMMAND STATUS          "
-                        	         echo
-                        	         echo "$(date)                                     $(whoami)@$(hostname)"
-                        	         echo
-                        	         echo "Command: OK    stdout: yes    stderr: no          "
-                        	         echo
-                        	         echo "Before command completion, additional instructions may appear below"
-                        	         echo
-                        	         echo "File                                 Fileset                Type"
-                        	         echo "----------------------------------------------------------------"
-                        	         echo "$(which rpm)                         bos.pkgmgt.rpm         exec"
-                        	         echo "Command run: $(which rpm) -ivh $pkgName | $(which tee) /var/log/smx-log/rpm.log"
-                        	         echo
-                        	         cat /var/log/smx-log/success.log | tail -n 6
-                        	         echo
-                        	         read -p "Press [enter] to continue..." ReadDamKey
-          		            else
-			                 echo "##################################################################################" >> /var/log/smx-log/fail.log
-					 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			 echo "Not installed package at location: $pkgLoc, check command syntax" >> /var/log/smx-log/fail.log
-			                 echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
-                    			 echo "" >> /var/log/smx-log/fail.log
-					 echo "##################################################################################" >> /var/log/smx-log/fail.log
-					 echo "" >> /var/log/smx-log/fail.log
-                    			 read -p "Press [enter] to continue..." ReadDamKey
-                    			 clear
-                    			 echo "        COMMAND STATUS          "
-                    			 echo
-                    			 echo "$(date)                                    $(whoami)@$(hostname)"
-                    			 echo
-                    			 echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			 echo
-                    			 echo "Before command completion, additional instructions may appear below"
-                    			 echo
-                    			 echo "File                                 Fileset                 Type"
-                    			 echo "-----------------------------------------------------------------"
-                    			 echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
-                    			 echo "Command unsuccessful, check variables and syntax"
-                    			 echo
-                    			 cat /var/log/smx-log/fail.log | tail -n 6
-                    			 echo
-                    			 read -p "Press [enter] to continue..." ReadDamKey
-			            fi
-			      else
-				    clear
-                    		    echo "$(date)                                     $(whoami)@$(hostname)"
-                    		    echo "pkgName example: iptables"
-                    		    echo "[TOP]                                   [Entry Fields]"
-                    		    read -p " Enter package name ----------------- > " pkgName
-                    		    clear
-                    		    echo "         COMMAND STATUS        "
-                    		    echo
-                    		    echo "$(date)                                     $(whoami)@$(hostname)"
-                    		    echo
-                    		    echo "Command: RUNNING    stdout: yes    stderr: no     "
-                    		    echo
-                    		    echo "Before command completion, additional instructions may appear below"
-                    		    echo
-                    		    echo "File                                 Fileset                 Type"
-                    		    echo "-----------------------------------------------------------------"
-                    		    echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
-                    		    echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log"
-                    		    sleep 2
-                    		    clear
-                    		    RPM_FULL=`rpm -qa | grep $pkgName`
-                    		    $(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log
-                    		    if [ $PIPESTATUS -eq 0 ]; then
-			                 echo "##################################################################################" >> /var/log/smx-log/success.log
-                    			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			 echo "Successfuly removed package: $RPM_FULL" >> /var/log/smx-log/success.log
-                    			 echo "Command run: $(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/success.log
-                    			 echo "" >> /var/log/smx-log/success.log
-					 echo "##################################################################################" >> /var/log/smx-log/success.log
-					 echo "" >> /var/log/smx-log/success.log
-                    			 read -p "Press [enter] to continue..." ReadDamKey
-                    			 clear
-                    			 echo "        COMMAND STATUS          "
-                    			 echo
-                    			 echo "$(date)                                    $(whoami)@$(hostname)"
-                    			 echo
-                    			 echo "Command: OK    stdout: yes    stderr: no         "
-                    			 echo
-                    			 echo "Before command completion, additional instructions may appear below"
-                    			 echo
-                    			 echo "File                                 Fileset                 Type"
-                    			 echo "-----------------------------------------------------------------"
-                    			 echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
-                    			 echo "Command run: $(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log"
-                    			 echo
-                    			 cat /var/log/smx-log/success.log | tail -n 6
-                    			 echo
-                    			 read -p "Press [enter] to continue..." ReadDamKey
-          		            else
-			                 echo "###################################################################################" >> /var/log/smx-log/fail.log
-                    			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			 echo "Not removed package: $RPM_FULL, check command syntax" >> /var/log/smx-log/fail.log
-			                 echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
-                    			 echo "" >> /var/log/smx-log/fail.log
-					 echo "###################################################################################" >> /var/log/smx-log/fail.log
-					 echo "" >> /var/log/smx-log/fail.log
-                    			 read -p "Press [enter] to continue..." ReadDamKey
-                    			 clear
-                    			 echo "        COMMAND STATUS          "
-                    			 echo
-                    			 echo "$(date)                                    $(whoami)@$(hostname)"
-                    			 echo
-                    			 echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			 echo
-                    			 echo "Before command completion, additional instructions may appear below"
-                    			 echo
-                    			 echo "File                                 Fileset                 Type"
-                    			 echo "-----------------------------------------------------------------"
-                    			 echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
-                    			 echo "Command unsuccessful, check command syntax and variables"
-                    			 echo
-                    			 cat /var/log/smx-log/fail.log | tail -n 6
-                    			 echo
-                    			 read -p "Press [enter] to continue..." ReadDamKey
-                    		    fi
-			      fi
-			      ;;
-	        update)
-		         clear
+            			                 echo "##################################################################################" >> /var/log/smx-log/success.log
+                			             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                             	         echo "Successfuly installed package at location: $pkgLoc" >> /var/log/smx-log/success.log
+                            	         echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/success.log
+                            	         echo "" >> /var/log/smx-log/success.log
+                    					 echo "##################################################################################" >> /var/log/smx-log/success.log
+                    					 echo "" >> /var/log/smx-log/success.log
+                            	         read -p "Press [enter] to continue..." ReadDamKey
+                            	         clear
+                            	         echo "        COMMAND STATUS          "
+                            	         echo
+                            	         echo "$(date)                                     $(whoami)@$(hostname)"
+                            	         echo
+                            	         echo "Command: OK    stdout: yes    stderr: no          "
+                            	         echo
+                            	         echo "Before command completion, additional instructions may appear below"
+                            	         echo
+                            	         echo "File                                 Fileset                Type"
+                            	         echo "----------------------------------------------------------------"
+                            	         echo "$(which rpm)                         bos.pkgmgt.rpm         exec"
+                            	         echo "Command run: $(which rpm) -ivh $pkgName | $(which tee) /var/log/smx-log/rpm.log"
+                            	         echo
+                            	         cat /var/log/smx-log/success.log | tail -n 6
+                            	         echo
+                            	         read -p "Press [enter] to continue..." ReadDamKey
+          		                    else
+			                             echo "##################################################################################" >> /var/log/smx-log/fail.log
+					                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                    			         echo "Not installed package at location: $pkgLoc, check command syntax" >> /var/log/smx-log/fail.log
+			                             echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
+                    			         echo "" >> /var/log/smx-log/fail.log
+                    					 echo "##################################################################################" >> /var/log/smx-log/fail.log
+                    					 echo "" >> /var/log/smx-log/fail.log
+                            			 read -p "Press [enter] to continue..." ReadDamKey
+                            			 clear
+                            			 echo "        COMMAND STATUS          "
+                            			 echo
+                            			 echo "$(date)                                    $(whoami)@$(hostname)"
+                            			 echo
+                            			 echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			 echo
+                            			 echo "Before command completion, additional instructions may appear below"
+                            			 echo
+                            			 echo "File                                 Fileset                 Type"
+                            			 echo "-----------------------------------------------------------------"
+                            			 echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
+                            			 echo "Command unsuccessful, check variables and syntax"
+                            			 echo
+                            			 cat /var/log/smx-log/fail.log | tail -n 6
+                            			 echo
+                            			 read -p "Press [enter] to continue..." ReadDamKey
+			                        fi
+			                  else
+				                    clear
+                        		    echo "$(date)                                     $(whoami)@$(hostname)"
+                        		    echo "pkgName example: iptables"
+                        		    echo "[TOP]                                   [Entry Fields]"
+                        		    read -p " Enter package name ----------------- > " pkgName
+                        		    clear
+                        		    echo "         COMMAND STATUS        "
+                        		    echo
+                        		    echo "$(date)                                     $(whoami)@$(hostname)"
+                        		    echo
+                        		    echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        		    echo
+                        		    echo "Before command completion, additional instructions may appear below"
+                        		    echo
+                        		    echo "File                                 Fileset                 Type"
+                        		    echo "-----------------------------------------------------------------"
+                        		    echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
+                        		    echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log"
+                        		    sleep 2
+                        		    clear
+                        		    RPM_FULL=`rpm -qa | grep $pkgName`
+                        		    $(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log
+                        		    if [ $PIPESTATUS -eq 0 ]; then
+			                             echo "##################################################################################" >> /var/log/smx-log/success.log
+                            			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			 echo "Successfuly removed package: $RPM_FULL" >> /var/log/smx-log/success.log
+                            			 echo "Command run: $(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/success.log
+                            			 echo "" >> /var/log/smx-log/success.log
+                    					 echo "##################################################################################" >> /var/log/smx-log/success.log
+                    					 echo "" >> /var/log/smx-log/success.log
+                            			 read -p "Press [enter] to continue..." ReadDamKey
+                            			 clear
+                            			 echo "        COMMAND STATUS          "
+                            			 echo
+                            			 echo "$(date)                                    $(whoami)@$(hostname)"
+                            			 echo
+                            			 echo "Command: OK    stdout: yes    stderr: no         "
+                            			 echo
+                            			 echo "Before command completion, additional instructions may appear below"
+                            			 echo
+                            			 echo "File                                 Fileset                 Type"
+                            			 echo "-----------------------------------------------------------------"
+                            			 echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
+                            			 echo "Command run: $(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log"
+                            			 echo
+                            			 cat /var/log/smx-log/success.log | tail -n 6
+                            			 echo
+                            			 read -p "Press [enter] to continue..." ReadDamKey
+          		                    else
+			                             echo "###################################################################################" >> /var/log/smx-log/fail.log
+                            			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			 echo "Not removed package: $RPM_FULL, check command syntax" >> /var/log/smx-log/fail.log
+			                             echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
+                    			         echo "" >> /var/log/smx-log/fail.log
+                    					 echo "###################################################################################" >> /var/log/smx-log/fail.log
+                    					 echo "" >> /var/log/smx-log/fail.log
+                            			 read -p "Press [enter] to continue..." ReadDamKey
+                            			 clear
+                            			 echo "        COMMAND STATUS          "
+                            			 echo
+                            			 echo "$(date)                                    $(whoami)@$(hostname)"
+                            			 echo
+                            			 echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			 echo
+                            			 echo "Before command completion, additional instructions may appear below"
+                            			 echo
+                            			 echo "File                                 Fileset                 Type"
+                            			 echo "-----------------------------------------------------------------"
+                            			 echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
+                            			 echo "Command unsuccessful, check command syntax and variables"
+                            			 echo
+                            			 cat /var/log/smx-log/fail.log | tail -n 6
+                            			 echo
+                            			 read -p "Press [enter] to continue..." ReadDamKey
+                    		        fi
+			                  fi
+			                  ;;
+	            update)
+		                 clear
                          cat /proc/version | grep "Red Hat" > /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-			      echo "OS = Red Hat"
+			                  echo "OS = Red Hat"
                     	      echo "            COMMAND STATUS            "
                     	      echo
                     	      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -8346,694 +8342,694 @@ function pkg_menu() {
                     	      clear
                     	      $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log
                     	      if [ $PIPESTATUS -eq 0 ]; then
-			           echo "##################################################################################" >> /var/log/smx-log/success.log
-                    		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    		   echo "Successfuly listed updates" >> /var/log/smx-log/success.log
-                    		   echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
-                    		   echo "" >> /var/log/smx-log/success.log
-				   echo "##################################################################################" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-                    		   read -p "Press [enter] to continue..." ReadDamKey
-                    		   clear
-                    		   echo "        COMMAND STATUS          "
-                    		   echo
-                    		   echo "$(date)                                    $(whoami)@$(hostname)"
-                    		   echo
-                    		   echo "Command: OK    stdout: yes    stderr: no         "
-                    		   echo
-                    		   echo "Before command completion, additional instructions may appear below"
-                    		   echo
-                    		   echo "File                                 Fileset                 Type"
-                    		   echo "-----------------------------------------------------------------"
-                    		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
-                    		   echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log"
-                    		   echo
-                    		   cat /var/log/smx-log/success.log | tail -n 6
-                    		   echo
-                    		   read -p "Press [enter] to continue..." ReadDamKey
-          		      else
-			           echo "##################################################################################" >> /var/log/smx-log/fail.log
-                    		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    		   echo "Not listed updates, check command syntax" >> /var/log/smx-log/fail.log
-			           echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
-                    		   echo "" >> /var/log/smx-log/fail.log
-				   echo "##################################################################################" >> /var/log/smx-log/fail.log
-				   echo "" >> /var/log/smx-log/fail.log
-                    		   read -p "Press [enter] to continue..." ReadDamKey
-                    		   clear
-                    		   echo "        COMMAND STATUS          "
-                    		   echo
-                    		   echo "$(date)                                    $(whoami)@$(hostname)"
-                    		   echo
-                    		   echo "Command: FAIL    stdout: yes    stderr: no       "
-                    		   echo
-                    		   echo "Before command completion, additional instructions may appear below"
-                    		   echo
-                    		   echo "File                                 Fileset                 Type"
-                    		   echo "-----------------------------------------------------------------"
-                    		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
-                    		   echo "Command unsuccessful, check command syntax and variables"
-                    		   echo
-                    		   cat /var/log/smx-log/fail.log | tail -n 6
-                    		   echo
-                    		   read -p "Press [enter] to continue..." ReadDamKey
-				   exit 1
+			                       echo "##################################################################################" >> /var/log/smx-log/success.log
+                        		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		   echo "Successfuly listed updates" >> /var/log/smx-log/success.log
+                        		   echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                        		   echo "" >> /var/log/smx-log/success.log
+                				   echo "##################################################################################" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+                        		   clear
+                        		   echo "        COMMAND STATUS          "
+                        		   echo
+                        		   echo "$(date)                                    $(whoami)@$(hostname)"
+                        		   echo
+                        		   echo "Command: OK    stdout: yes    stderr: no         "
+                        		   echo
+                        		   echo "Before command completion, additional instructions may appear below"
+                        		   echo
+                        		   echo "File                                 Fileset                 Type"
+                        		   echo "-----------------------------------------------------------------"
+                        		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                        		   echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log"
+                        		   echo
+                        		   cat /var/log/smx-log/success.log | tail -n 6
+                        		   echo
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+          		              else
+			                       echo "##################################################################################" >> /var/log/smx-log/fail.log
+                        		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		   echo "Not listed updates, check command syntax" >> /var/log/smx-log/fail.log
+			                       echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                    		       echo "" >> /var/log/smx-log/fail.log
+                				   echo "##################################################################################" >> /var/log/smx-log/fail.log
+                				   echo "" >> /var/log/smx-log/fail.log
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+                        		   clear
+                        		   echo "        COMMAND STATUS          "
+                        		   echo
+                        		   echo "$(date)                                    $(whoami)@$(hostname)"
+                        		   echo
+                        		   echo "Command: FAIL    stdout: yes    stderr: no       "
+                        		   echo
+                        		   echo "Before command completion, additional instructions may appear below"
+                        		   echo
+                        		   echo "File                                 Fileset                 Type"
+                        		   echo "-----------------------------------------------------------------"
+                        		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                        		   echo "Command unsuccessful, check command syntax and variables"
+                        		   echo
+                        		   cat /var/log/smx-log/fail.log | tail -n 6
+                        		   echo
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+				                   exit 1
                     	      fi
                     	      clear
                     	      $(which yum) update | $(which tee) /var/log/smx-log/yum.log
                     	      if [ $PIPESTATUS -eq 0 ]; then
-			           echo "############################################################################" >> /var/log/smx-log/success.log
-                    		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    		   echo "Successfuly installed updates" >> /var/log/smx-log/success.log
-                    		   echo "Command run: $(which yum) update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
-                    		   echo "" >> /var/log/smx-log/success.log
-				   echo "############################################################################" >> /var/log/smx-log/success.log
-				   echo "" >> /var/log/smx-log/success.log
-                    		   read -p "Press [enter] to continue..." ReadDamKey
-                    		   clear
-                    		   echo "        COMMAND STATUS          "
-                    		   echo
-                    		   echo "$(date)                                    $(whoami)@$(hostname)"
-                    		   echo
-                    		   echo "Command: OK    stdout: yes    stderr: no         "
-                    		   echo
-                    		   echo "Before command completion, additional instructions may appear below"
-                    		   echo
-                    		   echo "File                                 Fileset                 Type"
-                    		   echo "-----------------------------------------------------------------"
-                    		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
-                    		   echo "Command run: $(which yum) update | $(which tee) /var/log/smx-log/yum.log"
-                    		   echo
-                    		   cat /var/log/smx-log/success.log | tail -n 6
-                    		   echo
-                    		   read -p "Press [enter] to continue..." ReadDamKey
-          		      else
-			           echo "############################################################################" >> /var/log/smx-log/fail.log
-                    		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    		   echo "Not installed updates, check command syntax" >> /var/log/smx-log/fail.log
-			           echo "Command run: $(which yum) update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
-                    		   echo "" >> /var/log/smx-log/success.log
-				   echo "############################################################################" >> /var/log/smx-log/fail.log
-				   echo "" >> /var/log/smx-log/fail.log
-                    		   read -p "Press [enter] to continue..." ReadDamKey
-                    		   clear
-                    		   echo "        COMMAND STATUS          "
-                    		   echo
-                    		   echo "$(date)                                    $(whoami)@$(hostname)"
-                    		   echo
-                    		   echo "Command: FAIL    stdout: yes    stderr: no       "
-                    		   echo
-                    		   echo "Before command completion, additional instructions may appear below"
-                    		   echo
-                    		   echo "File                                 Fileset                 Type"
-                    		   echo "-----------------------------------------------------------------"
-                    		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
-                    		   echo "Command unsuccessful, check command syntax and variables"
-                    		   echo
-                    		   cat /var/log/smx-log/fail.log | tail -n 6
-                    		   echo
-                    		   read -p "Press [enter] to continue..." ReadDamKey
+			                       echo "############################################################################" >> /var/log/smx-log/success.log
+                        		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		   echo "Successfuly installed updates" >> /var/log/smx-log/success.log
+                        		   echo "Command run: $(which yum) update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                        		   echo "" >> /var/log/smx-log/success.log
+                				   echo "############################################################################" >> /var/log/smx-log/success.log
+                				   echo "" >> /var/log/smx-log/success.log
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+                        		   clear
+                        		   echo "        COMMAND STATUS          "
+                        		   echo
+                        		   echo "$(date)                                    $(whoami)@$(hostname)"
+                        		   echo
+                        		   echo "Command: OK    stdout: yes    stderr: no         "
+                        		   echo
+                        		   echo "Before command completion, additional instructions may appear below"
+                        		   echo
+                        		   echo "File                                 Fileset                 Type"
+                        		   echo "-----------------------------------------------------------------"
+                        		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                        		   echo "Command run: $(which yum) update | $(which tee) /var/log/smx-log/yum.log"
+                        		   echo
+                        		   cat /var/log/smx-log/success.log | tail -n 6
+                        		   echo
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+          		              else
+			                       echo "############################################################################" >> /var/log/smx-log/fail.log
+                        		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		   echo "Not installed updates, check command syntax" >> /var/log/smx-log/fail.log
+			                       echo "Command run: $(which yum) update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                    		       echo "" >> /var/log/smx-log/success.log
+                				   echo "############################################################################" >> /var/log/smx-log/fail.log
+                				   echo "" >> /var/log/smx-log/fail.log
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+                        		   clear
+                        		   echo "        COMMAND STATUS          "
+                        		   echo
+                        		   echo "$(date)                                    $(whoami)@$(hostname)"
+                        		   echo
+                        		   echo "Command: FAIL    stdout: yes    stderr: no       "
+                        		   echo
+                        		   echo "Before command completion, additional instructions may appear below"
+                        		   echo
+                        		   echo "File                                 Fileset                 Type"
+                        		   echo "-----------------------------------------------------------------"
+                        		   echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                        		   echo "Command unsuccessful, check command syntax and variables"
+                        		   echo
+                        		   cat /var/log/smx-log/fail.log | tail -n 6
+                        		   echo
+                        		   read -p "Press [enter] to continue..." ReadDamKey
                     	      fi
                          else
                               clear
                               cat /proc/version | grep "Debian" > /dev/null
                               if [ $? -eq 0 ]; then
-				   clear
-				   echo "OS = Debian"
-                    		   echo "          COMMAND STATUS           "
-                    		   echo
-                    		   echo "$(date)                                     $(whoami)@$(hostname)"
-                    		   echo
-                    		   echo "Command: RUNNING    stdout: yes    stderr: no     "
-                    		   echo
-                    		   echo "Before command completion, additional instructions may appear below"
-                    		   echo
-                    		   echo "File                                 Fileset                 Type"
-                    		   echo "-----------------------------------------------------------------"
-                    		   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    		   echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
-                    		   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                    		   echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-                    		   sleep 2
-                    		   clear
-                    		   $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log
-                    		   if [ $? -eq 0 ]; then
-			                echo "####################################################################################################" >> /var/log/smx-log/success.log
-                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			echo "Successfuly listed all avalible updates" >> /var/log/smx-log/success.log
-                    			echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    			echo "" >> /var/log/smx-log/success.log
-					echo "####################################################################################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-                    			read -p "Press [enter] to continue..." ReadDamKey
-                    			clear
-                    			echo "        COMMAND STATUS          "
-                    			echo
-                    			echo "$(date)                                     $(whoami)::$(hostname)"
-                    			echo
-                    			echo "Command: OK    stdout: yes    stderr: no          "
-                    			echo
-                    			echo "Before command completion, additional instructions may appear below"
-                    			echo
-                    			echo "File                                 Fileset                 Type"
-                    			echo "-----------------------------------------------------------------"
-                    			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
-                    			echo
-                    			cat /var/log/smx-log/success.log | tail -n 6
-                    			echo
-					read -p "Press [enter] to continue..." ReadDamKey
-			           else
-			                echo "####################################################################################################" >> /var/log/smx-log/fail.log
-                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                     			echo "" >> /var/log/smx-log/fail.log
-					echo "####################################################################################################" >> /var/log/smx-log/fail.log
-					echo "" >> /var/log/smx-log/fail.log
-                    			read -p "Press [enter] to continue..." ReadDamKey
-                    			clear
-                    			echo "        COMMAND STATUS          "
-                    			echo
-                    			echo "$(date)                                    $(whoami)::$(hostname)"
-                    			echo
-                    			echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			echo
-                    			echo "Before command completion, additional instructions may appear below"
-                    			echo
-                    			echo "File                                 Fileset                 Type"
-                    			echo "-----------------------------------------------------------------"
-                    			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			echo "Command unsuccessful, check command syntax and variables"
-                    			echo
-                    			cat /var/log/smx-log/fail.log | tail -n 6
-                    			echo
-                    			read -p "Press [enter] to continue..." ReadDamKey
-					exit 1
-			           fi
-                    		   clear
-                    		   $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-                    		   if [ $PIPESTATUS -eq 0 ]; then
-			                echo "####################################################################################" >> /var/log/smx-log/success.log
-                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			echo "Successfuly updated sources" >> /var/log/smx-log/success.log
-                    			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    			echo "" >> /var/log/smx-log/success.log
-					echo "####################################################################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-                    			read -p "Press [enter] to continue..." ReadDamKey
-                    			clear
-                    			echo "        COMMAND STATUS          "
-                    			echo
-                    			echo "$(date)                                    $(whoami)@$(hostname)"
-                    			echo
-                    			echo "Command: OK    stdout: yes    stderr: no         "
-                    			echo
-                    			echo "Before command completion, additional instructions may appear below"
-                    			echo
-                    			echo "File                                 Fileset                 Type"
-                    			echo "-----------------------------------------------------------------"
-                    			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                    			echo
-                    			cat /var/log/smx-log/success.log | tail -n 6
-                    			echo
-                    			read -p "Press [enter] to continue..." ReadDamKey
-        		           else
-			                echo "####################################################################################" >> /var/log/smx-log/fail.log
-                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    			echo "" >> /var/log/smx-log/fail.log
-					echo "####################################################################################" >> /var/log/smx-log/fail.log
-					echo "" >> /var/log/smx-log/fail.log
-                    			read -p "Press [enter] to continue..." ReadDamKey
-                    			clear
-                    			echo "        COMMAND STATUS          "
-                    			echo
-                    			echo "$(date)                                    $(whoami)@$(hostname)"
-                    			echo
-                    			echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			echo
-                    			echo "Before command completion, additional instructions may appear below"
-                    			echo
-                    			echo "File                                 Fileset                 Type"
-                    			echo "-----------------------------------------------------------------"
-                    			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			echo "Command unsuccessful, check command syntax and variables"
-                    			echo
-                    			cat /var/log/smx-log/fail.log | tail -n 6
-                    			echo
-                    			read -p "Press [enter] to continue..." ReadDamKey
-					exit 1
-                    		   fi
-                    		   clear
-                    		   $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
-                    		   if [ $PIPESTATUS -eq 0 ]; then
-			                echo "#####################################################################################" >> /var/log/smx-log/success.log
-                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			echo "Successfuly updated software" >> /var/log/smx-log/success.log
-                    			echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    			echo "" >> /var/log/smx-log/success.log
-					echo "#####################################################################################" >> /var/log/smx-log/success.log
-					echo "" >> /var/log/smx-log/success.log
-                    			read -p "Press [enter] to continue..." ReadDamKey
-                    			clear
-                    			echo "        COMMAND STATUS          "
-                    			echo
-                    			echo "$(date)                                    $(whoami)@$(hostname)"
-                    			echo
-                    			echo "Command: OK    stdout: yes    stderr: no         "
-                    			echo
-                    			echo "Before command completion, additional instructions may appear below"
-                    			echo
-                    			echo "File                                 Fileset                 Type"
-                    			echo "-----------------------------------------------------------------"
-                    			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-                    			echo
-                    			cat /var/log/smx-log/success.log | tail -n 6
-                    			echo
-                    			read -p "Press [enter] to continue..." ReadDamKey
-        		           else
-			                echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			echo "Not updated software, check command syntax" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    			echo "" >> /var/log/smx-log/fail.log
-					echo "#####################################################################################" >> /var/log/smx-log/fail.log
-					echo "" >> /var/log/smx-log/fail.log
-					read -p "Press [enter] to continue..." ReadDamKey
-                    			clear
-                    			echo "        COMMAND STATUS          "
-                    			echo
-                    			echo "$(date)                                    $(whoami)@$(hostname)"
-                    			echo
-                    			echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			echo
-                    			echo "Before command completion, additional instructions may appear below"
-                    			echo
-                    			echo "File                                 Fileset                 Type"
-                    			echo "-----------------------------------------------------------------"
-                    			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			echo "Command unsuccessful, check command syntax and variables"
-                    			echo
-                    			cat /var/log/smx-log/fail.log | tail -n 6
-                    			echo
-                    			read -p "Press [enter] to continue..." ReadDamKey
-                    		   fi
+                				   clear
+                				   echo "OS = Debian"
+                        		   echo "          COMMAND STATUS           "
+                        		   echo
+                        		   echo "$(date)                                     $(whoami)@$(hostname)"
+                        		   echo
+                        		   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        		   echo
+                        		   echo "Before command completion, additional instructions may appear below"
+                        		   echo
+                        		   echo "File                                 Fileset                 Type"
+                        		   echo "-----------------------------------------------------------------"
+                        		   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        		   echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
+                        		   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                        		   echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+                        		   sleep 2
+                        		   clear
+                        		   $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log
+                        		   if [ $? -eq 0 ]; then
+			                            echo "####################################################################################################" >> /var/log/smx-log/success.log
+                            			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			echo "Successfuly listed all avalible updates" >> /var/log/smx-log/success.log
+                            			echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			echo "" >> /var/log/smx-log/success.log
+                    					echo "####################################################################################################" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                            			read -p "Press [enter] to continue..." ReadDamKey
+                            			clear
+                            			echo "        COMMAND STATUS          "
+                            			echo
+                            			echo "$(date)                                     $(whoami)::$(hostname)"
+                            			echo
+                            			echo "Command: OK    stdout: yes    stderr: no          "
+                            			echo
+                            			echo "Before command completion, additional instructions may appear below"
+                            			echo
+                            			echo "File                                 Fileset                 Type"
+                            			echo "-----------------------------------------------------------------"
+                            			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
+                            			echo
+                            			cat /var/log/smx-log/success.log | tail -n 6
+                            			echo
+					                    read -p "Press [enter] to continue..." ReadDamKey
+			                       else
+			                            echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                            			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
+			                            echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                     			        echo "" >> /var/log/smx-log/fail.log
+                    					echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                    					echo "" >> /var/log/smx-log/fail.log
+                            			read -p "Press [enter] to continue..." ReadDamKey
+                            			clear
+                            			echo "        COMMAND STATUS          "
+                            			echo
+                            			echo "$(date)                                    $(whoami)::$(hostname)"
+                            			echo
+                            			echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			echo
+                            			echo "Before command completion, additional instructions may appear below"
+                            			echo
+                            			echo "File                                 Fileset                 Type"
+                            			echo "-----------------------------------------------------------------"
+                            			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			echo "Command unsuccessful, check command syntax and variables"
+                            			echo
+                            			cat /var/log/smx-log/fail.log | tail -n 6
+                            			echo
+                            			read -p "Press [enter] to continue..." ReadDamKey
+					                    exit 1
+			                       fi
+                        		   clear
+                        		   $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
+                        		   if [ $PIPESTATUS -eq 0 ]; then
+			                            echo "####################################################################################" >> /var/log/smx-log/success.log
+                            			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			echo "Successfuly updated sources" >> /var/log/smx-log/success.log
+                            			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			echo "" >> /var/log/smx-log/success.log
+                    					echo "####################################################################################" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                            			read -p "Press [enter] to continue..." ReadDamKey
+                            			clear
+                            			echo "        COMMAND STATUS          "
+                            			echo
+                            			echo "$(date)                                    $(whoami)@$(hostname)"
+                            			echo
+                            			echo "Command: OK    stdout: yes    stderr: no         "
+                            			echo
+                            			echo "Before command completion, additional instructions may appear below"
+                            			echo
+                            			echo "File                                 Fileset                 Type"
+                            			echo "-----------------------------------------------------------------"
+                            			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                            			echo
+                            			cat /var/log/smx-log/success.log | tail -n 6
+                            			echo
+                            			read -p "Press [enter] to continue..." ReadDamKey
+        		                   else
+			                            echo "####################################################################################" >> /var/log/smx-log/fail.log
+                            			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
+			                            echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    			        echo "" >> /var/log/smx-log/fail.log
+                    					echo "####################################################################################" >> /var/log/smx-log/fail.log
+                    					echo "" >> /var/log/smx-log/fail.log
+                            			read -p "Press [enter] to continue..." ReadDamKey
+                            			clear
+                            			echo "        COMMAND STATUS          "
+                            			echo
+                            			echo "$(date)                                    $(whoami)@$(hostname)"
+                            			echo
+                            			echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			echo
+                            			echo "Before command completion, additional instructions may appear below"
+                            			echo
+                            			echo "File                                 Fileset                 Type"
+                            			echo "-----------------------------------------------------------------"
+                            			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			echo "Command unsuccessful, check command syntax and variables"
+                            			echo
+                            			cat /var/log/smx-log/fail.log | tail -n 6
+                            			echo
+                            			read -p "Press [enter] to continue..." ReadDamKey
+					                    exit 1
+                    		       fi
+                        		   clear
+                        		   $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
+                        		   if [ $PIPESTATUS -eq 0 ]; then
+			                            echo "#####################################################################################" >> /var/log/smx-log/success.log
+                            			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			echo "Successfuly updated software" >> /var/log/smx-log/success.log
+                            			echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			echo "" >> /var/log/smx-log/success.log
+                    					echo "#####################################################################################" >> /var/log/smx-log/success.log
+                    					echo "" >> /var/log/smx-log/success.log
+                            			read -p "Press [enter] to continue..." ReadDamKey
+                            			clear
+                            			echo "        COMMAND STATUS          "
+                            			echo
+                            			echo "$(date)                                    $(whoami)@$(hostname)"
+                            			echo
+                            			echo "Command: OK    stdout: yes    stderr: no         "
+                            			echo
+                            			echo "Before command completion, additional instructions may appear below"
+                            			echo
+                            			echo "File                                 Fileset                 Type"
+                            			echo "-----------------------------------------------------------------"
+                            			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+                            			echo
+                            			cat /var/log/smx-log/success.log | tail -n 6
+                            			echo
+                            			read -p "Press [enter] to continue..." ReadDamKey
+        		                   else
+			                            echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                            			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			echo "Not updated software, check command syntax" >> /var/log/smx-log/fail.log
+			                            echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    			        echo "" >> /var/log/smx-log/fail.log
+                    					echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                    					echo "" >> /var/log/smx-log/fail.log
+                    					read -p "Press [enter] to continue..." ReadDamKey
+                            			clear
+                            			echo "        COMMAND STATUS          "
+                            			echo
+                            			echo "$(date)                                    $(whoami)@$(hostname)"
+                            			echo
+                            			echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			echo
+                            			echo "Before command completion, additional instructions may appear below"
+                            			echo
+                            			echo "File                                 Fileset                 Type"
+                            			echo "-----------------------------------------------------------------"
+                            			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			echo "Command unsuccessful, check command syntax and variables"
+                            			echo
+                            			cat /var/log/smx-log/fail.log | tail -n 6
+                            			echo
+                            			read -p "Press [enter] to continue..." ReadDamKey
+                    		       fi
                               else
                                    clear
                                    cat /proc/version | grep "Ubuntu" > /dev/null
                                    if [ $? -eq 0 ]; then
-				        clear
-				        echo "OS = Ubuntu"
-                    			echo "          COMMAND STATUS           "
-                    			echo
-                    			echo "$(date)                                     $(whoami)@$(hostname)"
-                    			echo
-                    			echo "Command: RUNNING    stdout: yes    stderr: no     "
-                    			echo
-                    			echo "Before command completion, additional instructions may appear below"
-                    			echo
-                    			echo "File                                 Fileset                 Type"
-                    			echo "-----------------------------------------------------------------"
-                    			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
-                    			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                    			echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-                    			sleep 2
-                    			clear
-                    			$(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log
-                    			if [ $? -eq 0 ]; then
-			                     echo "####################################################################################################" >> /var/log/smx-log/success.log
-                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			     echo "Successfuly listed all avalible updates" >> /var/log/smx-log/success.log
-                    			     echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    			     echo "" >> /var/log/smx-log/success.log
-					     echo "####################################################################################################" >> /var/log/smx-log/success.log
-					     echo "" >> /var/log/smx-log/success.log
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-                    			     clear
-                    			     echo "        COMMAND STATUS          "
-                    			     echo
-                    			     echo "$(date)                                     $(whoami)::$(hostname)"
-                    			     echo
-                    			     echo "Command: OK    stdout: yes    stderr: no          "
-                    			     echo
-                    			     echo "Before command completion, additional instructions may appear below"
-                    			     echo
-                    			     echo "File                                 Fileset                 Type"
-                    			     echo "-----------------------------------------------------------------"
-                    			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			     echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
-                    			     echo
-                    			     cat /var/log/smx-log/success.log | tail -n 6
-                    			     echo
-					     read -p "Press [enter] to continue..." ReadDamKey
-					else
-			                     echo "####################################################################################################" >> /var/log/smx-log/fail.log
-                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			     echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
-			                     echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                     			     echo "" >> /var/log/smx-log/fail.log
-					     echo "####################################################################################################" >> /var/log/smx-log/fail.log
-					     echo "" >> /var/log/smx-log/fail.log
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-                    			     clear
-                    			     echo "        COMMAND STATUS          "
-                    			     echo
-                    			     echo "$(date)                                    $(whoami)::$(hostname)"
-                    			     echo
-                    			     echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			     echo
-                    			     echo "Before command completion, additional instructions may appear below"
-                    			     echo
-                    			     echo "File                                 Fileset                 Type"
-                    			     echo "-----------------------------------------------------------------"
-                    			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			     echo "Command unsuccessful, check command syntax and variables"
-                    			     echo
-                    			     cat /var/log/smx-log/fail.log | tail -n 6
-                    			     echo
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-					     exit 1
-					fi
-                    			clear
-                    			$(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-                    			if [ $PIPESTATUS -eq 0 ]; then
-			                     echo "####################################################################################" >> /var/log/smx-log/success.log
-                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			     echo "Successfuly updated sources" >> /var/log/smx-log/success.log
-                    			     echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    			     echo "" >> /var/log/smx-log/success.log
-					     echo "####################################################################################" >> /var/log/smx-log/success.log
-					     echo "" >> /var/log/smx-log/success.log
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-                    			     clear
-                    			     echo "        COMMAND STATUS          "
-                    			     echo
-                    			     echo "$(date)                                    $(whoami)@$(hostname)"
-                    			     echo
-                    			     echo "Command: OK    stdout: yes    stderr: no         "
-                    			     echo
-                    			     echo "Before command completion, additional instructions may appear below"
-                    			     echo
-                    			     echo "File                                 Fileset                 Type"
-                    			     echo "-----------------------------------------------------------------"
-                    			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			     echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                    			     echo
-                    			     cat /var/log/smx-log/success.log | tail -n 6
-                    			     echo
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-        				else
-			                     echo "####################################################################################" >> /var/log/smx-log/fail.log
-                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			     echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
-			                     echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    			     echo "" >> /var/log/smx-log/fail.log
-					     echo "####################################################################################" >> /var/log/smx-log/fail.log
-					     echo "" >> /var/log/smx-log/fail.log
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-                    			     clear
-                    			     echo "        COMMAND STATUS          "
-                    			     echo
-                    			     echo "$(date)                                    $(whoami)@$(hostname)"
-                    			     echo
-                    			     echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			     echo
-                    			     echo "Before command completion, additional instructions may appear below"
-                    			     echo
-                    			     echo "File                                 Fileset                 Type"
-                    			     echo "-----------------------------------------------------------------"
-                    			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			     echo "Command unsuccessful, check command syntax and variables"
-                    			     echo
-                    			     cat /var/log/smx-log/fail.log | tail -n 6
-                    			     echo
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-					     exit 1
-                    			fi
-                    			clear
-                    			$(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
-                    			if [ $PIPESTATUS -eq 0 ]; then
-			                     echo "#####################################################################################" >> /var/log/smx-log/success.log
-                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			     echo "Successfuly updated software" >> /var/log/smx-log/success.log
-                    			     echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    			     echo "" >> /var/log/smx-log/success.log
-					     echo "#####################################################################################" >> /var/log/smx-log/success.log
-					     echo "" >> /var/log/smx-log/success.log
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-                    			     clear
-                    			     echo "        COMMAND STATUS          "
-                    			     echo
-                    			     echo "$(date)                                    $(whoami)@$(hostname)"
-                    			     echo
-                    			     echo "Command: OK    stdout: yes    stderr: no         "
-                    			     echo
-                    			     echo "Before command completion, additional instructions may appear below"
-                    			     echo
-                    			     echo "File                                 Fileset                 Type"
-                    			     echo "-----------------------------------------------------------------"
-                    			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			     echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-                    			     echo
-                    			     cat /var/log/smx-log/success.log | tail -n 6
-                    			     echo
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-        				else
-			                     echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			     echo "Not updated software, check command syntax" >> /var/log/smx-log/fail.log
-			                     echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    			     echo "" >> /var/log/smx-log/fail.log
-					     echo "#####################################################################################" >> /var/log/smx-log/fail.log
-					     echo "" >> /var/log/smx-log/fail.log
-					     read -p "Press [enter] to continue..." ReadDamKey
-                    			     clear
-                    			     echo "        COMMAND STATUS          "
-                    			     echo
-                    			     echo "$(date)                                    $(whoami)@$(hostname)"
-                    			     echo
-                    			     echo "Command: FAIL    stdout: yes    stderr: no       "
-                    			     echo
-                    			     echo "Before command completion, additional instructions may appear below"
-                    			     echo
-                    			     echo "File                                 Fileset                 Type"
-                    			     echo "-----------------------------------------------------------------"
-                    			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                    			     echo "Command unsuccessful, check command syntax and variables"
-                    			     echo
-                    			     cat /var/log/smx-log/fail.log | tail -n 6
-                    			     echo
-                    			     read -p "Press [enter] to continue..." ReadDamKey
-                    			fi
+                				        clear
+                				        echo "OS = Ubuntu"
+                            			echo "          COMMAND STATUS           "
+                            			echo
+                            			echo "$(date)                                     $(whoami)@$(hostname)"
+                            			echo
+                            			echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            			echo
+                            			echo "Before command completion, additional instructions may appear below"
+                            			echo
+                            			echo "File                                 Fileset                 Type"
+                            			echo "-----------------------------------------------------------------"
+                            			echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
+                            			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                            			echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+                            			sleep 2
+                            			clear
+                            			$(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log
+                            			if [ $? -eq 0 ]; then
+			                                 echo "####################################################################################################" >> /var/log/smx-log/success.log
+                            			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			     echo "Successfuly listed all avalible updates" >> /var/log/smx-log/success.log
+                            			     echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			     echo "" >> /var/log/smx-log/success.log
+                    					     echo "####################################################################################################" >> /var/log/smx-log/success.log
+                    					     echo "" >> /var/log/smx-log/success.log
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+                            			     clear
+                            			     echo "        COMMAND STATUS          "
+                            			     echo
+                            			     echo "$(date)                                     $(whoami)::$(hostname)"
+                            			     echo
+                            			     echo "Command: OK    stdout: yes    stderr: no          "
+                            			     echo
+                            			     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                            			     echo "File                                 Fileset                 Type"
+                            			     echo "-----------------------------------------------------------------"
+                            			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			     echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
+                            			     echo
+                            			     cat /var/log/smx-log/success.log | tail -n 6
+                            			     echo
+					                         read -p "Press [enter] to continue..." ReadDamKey
+					                    else
+			                                 echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                            			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			     echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
+			                                 echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                     			             echo "" >> /var/log/smx-log/fail.log
+                    					     echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                    					     echo "" >> /var/log/smx-log/fail.log
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+                            			     clear
+                            			     echo "        COMMAND STATUS          "
+                            			     echo
+                            			     echo "$(date)                                    $(whoami)::$(hostname)"
+                            			     echo
+                            			     echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			     echo
+                            			     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                            			     echo "File                                 Fileset                 Type"
+                            			     echo "-----------------------------------------------------------------"
+                            			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			     echo "Command unsuccessful, check command syntax and variables"
+                            			     echo
+                            			     cat /var/log/smx-log/fail.log | tail -n 6
+                            			     echo
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+					                         exit 1
+					                    fi
+                            			clear
+                            			$(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
+                            			if [ $PIPESTATUS -eq 0 ]; then
+			                                 echo "####################################################################################" >> /var/log/smx-log/success.log
+                            			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			     echo "Successfuly updated sources" >> /var/log/smx-log/success.log
+                            			     echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			     echo "" >> /var/log/smx-log/success.log
+                    					     echo "####################################################################################" >> /var/log/smx-log/success.log
+                    					     echo "" >> /var/log/smx-log/success.log
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+                            			     clear
+                            			     echo "        COMMAND STATUS          "
+                            			     echo
+                            			     echo "$(date)                                    $(whoami)@$(hostname)"
+                            			     echo
+                            			     echo "Command: OK    stdout: yes    stderr: no         "
+                            			     echo
+                            			     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                            			     echo "File                                 Fileset                 Type"
+                            			     echo "-----------------------------------------------------------------"
+                            			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			     echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                            			     echo
+                            			     cat /var/log/smx-log/success.log | tail -n 6
+                            			     echo
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+        				                else
+			                                 echo "####################################################################################" >> /var/log/smx-log/fail.log
+                            			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			     echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
+			                                 echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    			             echo "" >> /var/log/smx-log/fail.log
+                    					     echo "####################################################################################" >> /var/log/smx-log/fail.log
+                    					     echo "" >> /var/log/smx-log/fail.log
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+                            			     clear
+                            			     echo "        COMMAND STATUS          "
+                            			     echo
+                            			     echo "$(date)                                    $(whoami)@$(hostname)"
+                            			     echo
+                            			     echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			     echo
+                            			     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                            			     echo "File                                 Fileset                 Type"
+                            			     echo "-----------------------------------------------------------------"
+                            			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			     echo "Command unsuccessful, check command syntax and variables"
+                            			     echo
+                            			     cat /var/log/smx-log/fail.log | tail -n 6
+                            			     echo
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+					                         exit 1
+                            			fi
+                            			clear
+                            			$(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log
+                            			if [ $PIPESTATUS -eq 0 ]; then
+			                                 echo "#####################################################################################" >> /var/log/smx-log/success.log
+                            			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			     echo "Successfuly updated software" >> /var/log/smx-log/success.log
+                            			     echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			     echo "" >> /var/log/smx-log/success.log
+                    					     echo "#####################################################################################" >> /var/log/smx-log/success.log
+                    					     echo "" >> /var/log/smx-log/success.log
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+                            			     clear
+                            			     echo "        COMMAND STATUS          "
+                            			     echo
+                            			     echo "$(date)                                    $(whoami)@$(hostname)"
+                            			     echo
+                            			     echo "Command: OK    stdout: yes    stderr: no         "
+                            			     echo
+                            			     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                            			     echo "File                                 Fileset                 Type"
+                            			     echo "-----------------------------------------------------------------"
+                            			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			     echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+                            			     echo
+                            			     cat /var/log/smx-log/success.log | tail -n 6
+                            			     echo
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+        				                else
+			                                 echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                            			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			     echo "Not updated software, check command syntax" >> /var/log/smx-log/fail.log
+			                                 echo "Command run: $(which apt-get) upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                    			             echo "" >> /var/log/smx-log/fail.log
+                    					     echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                    					     echo "" >> /var/log/smx-log/fail.log
+                    					     read -p "Press [enter] to continue..." ReadDamKey
+                            			     clear
+                            			     echo "        COMMAND STATUS          "
+                            			     echo
+                            			     echo "$(date)                                    $(whoami)@$(hostname)"
+                            			     echo
+                            			     echo "Command: FAIL    stdout: yes    stderr: no       "
+                            			     echo
+                            			     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                            			     echo "File                                 Fileset                 Type"
+                            			     echo "-----------------------------------------------------------------"
+                            			     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                            			     echo "Command unsuccessful, check command syntax and variables"
+                            			     echo
+                            			     cat /var/log/smx-log/fail.log | tail -n 6
+                            			     echo
+                            			     read -p "Press [enter] to continue..." ReadDamKey
+                    			        fi
                                    else
                                         clear
-					cat /proc/version | grep "SUSE" > /dev/null
-					if [ $? -eq 0 ]; then
+                    					cat /proc/version | grep "SUSE" > /dev/null
+                    					if [ $? -eq 0 ]; then
                                              clear
-					     echo "OS = SuSE"
-                    			     echo "        COMMAND STATUS       "
-                    			     echo
-                    			     echo "$(date)                                      $(whoami)@$(hostname)"
-                    			     echo
-                    			     echo "Command: RUNNING    stdout: yes    stderr: no      "
-                    			     echo
-                    			     echo "Before command completion, additional instructions may appear below"
-                    			     echo
-                    			     echo "File                                 Fileset                 Type"
-                    			     echo "-----------------------------------------------------------------"
-                    			     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    			     echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log"
-                    			     echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
-                    			     echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log"
-                    			     sleep 2
-                    			     clear
-                    			     $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log
-                    			     if [ $? -eq 0 ]; then
-						  echo "########################################################################################" >> /var/log/smx-log/success.log
-                    				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    				  echo "Successfuly listed updates for system" >> /var/log/smx-log/success.log
-                    				  echo "Command run: $(which zypper) list_updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                    				  echo "" >> /var/log/smx-log/success.log
-						  echo "########################################################################################" >> /var/log/smx-log/success.log
-						  echo "" >> /var/log/smx-log/success.log
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-                    				  clear
-                    				  echo "        COMMAND STATUS          "
-                    				  echo
-                    				  echo "$(date)                                    $(whoami)::$(hostname)"
-                    				  echo
-                    				  echo "Command: OK    stdout: yes    stderr: no         "
-                    				  echo
-                    				  echo "Before command completion, additional instructions may appear below"
-                    				  echo
-                    				  echo "File                                 Fileset                 Type"
-                    				  echo "-----------------------------------------------------------------"
-                    				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    				  echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log"
-                    				  echo
-                    				  cat /var/log/smx-log/success.log | tail -n 6
-                    				  echo
-                    				  read -p "Press [Enter] to continue..." ReadDamKey
-          				     else
-						  echo "########################################################################################" >> /var/log/smx-log/fail.log
-                    				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    				  echo "Not listed updates for system, check command syntax" >> /var/log/smx-log/fail.log
-						  echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                    				  echo "" >> /var/log/smx-log/fail.log
-						  echo "########################################################################################" >> /var/log/smx-log/fail.log
-						  echo "" >> /var/log/smx-log/fail.log
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-                    				  clear
-                    				  echo "        COMMAND STATUS          "
-                    				  echo
-                    				  echo "$(date)                                     $(whoami)@$(hostname)"
-                    				  echo
-                    				  echo "Command: FAIL    stdout: yes    stderr: no        "
-                    				  echo
-                    				  echo "Before command completion, additional instructions may appear below"
-                    				  echo
-                    				  echo "File                                 Fileset                 Type"
-                    				  echo "-----------------------------------------------------------------"
-                    				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    				  echo "Command unsuccessful, check syntax and variables"
-                    				  echo
-                    				  cat /var/log/smx-log/fail.log | tail -n 6
-                    				  echo
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-						  exit 1
-					     fi
-                    			     clear
-                    			     $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log
-                    			     if [ $PIPESTATUS -eq 0 ]; then
-						  echo "###################################################################################" >> /var/log/smx-log/success.log
-                    				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    				  echo "Successfuly refreshed repositories" >> /var/log/smx-log/success.log
-                    				  echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                    				  echo "" >> /var/log/smx-log/success.log
-						  echo "###################################################################################" >> /var/log/smx-log/success.log
-						  echo "" >> /var/log/smx-log/success.log
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-                    				  clear
-                    				  echo "        COMMAND STATUS          "
-                    				  echo
-                    				  echo "$(date)                                    $(whoami)@$(hostname)"
-                    				  echo
-                    				  echo "Command: OK    stdout: yes    stderr: no         "
-                    				  echo
-                    				  echo "Before command completion, additional instructions may appear below"
-                    				  echo
-                    				  echo "File                                 Fileset                 Type"
-                    				  echo "-----------------------------------------------------------------"
-                    				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    				  echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
-                    				  echo
-                    				  cat /var/log/smx-log/success.log | tail -n 6
-                    				  echo
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-            				     else
-						  echo "###################################################################################" >> /var/log/smx-log/fail.log
-                    				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    				  echo "Not refreshed repositories, check command syntax, and network connection" >> /var/log/smx-log/fail.log
-						  echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                    				  echo "" >> /var/log/smx-log/fail.log
-						  echo "###################################################################################" >> /var/log/smx-log/fail.log
-						  echo "" >> /var/log/smx-log/fail.log
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-                    				  clear
-                    				  echo "        COMMAND STATUS          "
-                    				  echo
-                    				  echo "$(date)                                    $(whoami)@$(hostname)"
-                    				  echo
-                    				  echo "Command: FAIL    stdout: yes    stderr: no       "
-                    				  echo
-                    				  echo "Before command completion, additional instructions may appear below"
-                    				  echo
-                    				  echo "File                                 Fileset                 Type"
-                    				  echo "-----------------------------------------------------------------"
-                    				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                    				  echo "Command unsuccessful, check command syntax and variables"
-                    				  echo
-                    				  cat /var/log/smx-log/fail.log | tail -n 6
-                    				  echo
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-						  exit 1
-                    			     fi
-                    			     clear
-                    			     $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log
-                    			     if [ $PIPESTATUS -eq 0 ]; then
-						  echo "##################################################################################" >> /var/log/smx-log/success.log
-                    				  echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    				  echo "Successfuly updated packages" >> /var/log/smx-log/success.log
-                    				  echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                    				  echo "" >> /var/log/smx-log/success.log
-						  echo "##################################################################################" >> /var/log/smx-log/success.log
-						  echo "" >> /var/log/smx-log/success.log
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-                    				  clear
-                    				  echo "        COMMAND STATUS          "
-                    				  echo
-                    				  echo "$(date)                                    $(whoami)@$(hostname)"
-                    				  echo
-                    				  echo "Command: OK    stdout: yes    stderr: no         "
-                    				  echo
-                    				  echo "Before command completion, additional instructions may appear below"
-                    				  echo
-                    				  echo "File                                  Fileset                 Type"
-                    				  echo "------------------------------------------------------------------"
-                    				  echo "$(which zypper)                       bos.pkgmgt.zypper       exec"
-                    				  echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log"
-                    				  echo
-                    				  cat /var/log/smx-log/success.log | tail -n 6
-                    				  echo
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-          				     else
-						  echo "##################################################################################" >> /var/log/smx-log/fail.log
-                    				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    				  echo "Not updated packages, check command syntax and internet connection" >> /var/log/smx-log/fail.log
-						  echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                    				  echo "" >> /var/log/smx-log/fail.log
-						  echo "##################################################################################" >> /var/log/smx-log/fail.log
-						  echo "" >> /var/log/smx-log/fail.log
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-                    				  clear
-                    				  echo "         COMMAND STATUS         "
-                    				  echo
-                    				  echo "$(date)                                     $(whoami)@$(hostname)"
-                    				  echo
-                    				  echo "Command: FAIL    stdout: yes    stderr: no        "
-                    				  echo
-                    				  echo "Before command completion, additional instructions may appear below"
-                    				  echo
-                    				  echo "File                                  Fileset                 Type"
-                    				  echo "------------------------------------------------------------------"
-                    				  echo "$(which zypper)                       bos.pkgmgt.zypper       exec"
-                    				  echo "Command unsuccessful, check command syntax and variables"
-                    				  echo
-                    				  cat /var/log/smx-log/fail.log | tail -n 6
-                    				  echo
-                    				  read -p "Press [enter] to continue..." ReadDamKey
-                    			     fi
-					fi
+					                         echo "OS = SuSE"
+                            			     echo "        COMMAND STATUS       "
+                            			     echo
+                            			     echo "$(date)                                      $(whoami)@$(hostname)"
+                            			     echo
+                            			     echo "Command: RUNNING    stdout: yes    stderr: no      "
+                            			     echo
+                            			     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                            			     echo "File                                 Fileset                 Type"
+                            			     echo "-----------------------------------------------------------------"
+                            			     echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                            			     echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log"
+                            			     echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
+                            			     echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log"
+                            			     sleep 2
+                            			     clear
+                            			     $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log
+                            			     if [ $? -eq 0 ]; then
+						                          echo "########################################################################################" >> /var/log/smx-log/success.log
+                                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                				  echo "Successfuly listed updates for system" >> /var/log/smx-log/success.log
+                                				  echo "Command run: $(which zypper) list_updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                				  echo "" >> /var/log/smx-log/success.log
+                        						  echo "########################################################################################" >> /var/log/smx-log/success.log
+                        						  echo "" >> /var/log/smx-log/success.log
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+                                				  clear
+                                				  echo "        COMMAND STATUS          "
+                                				  echo
+                                				  echo "$(date)                                    $(whoami)::$(hostname)"
+                                				  echo
+                                				  echo "Command: OK    stdout: yes    stderr: no         "
+                                				  echo
+                                				  echo "Before command completion, additional instructions may appear below"
+                                				  echo
+                                				  echo "File                                 Fileset                 Type"
+                                				  echo "-----------------------------------------------------------------"
+                                				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                                				  echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log"
+                                				  echo
+                                				  cat /var/log/smx-log/success.log | tail -n 6
+                                				  echo
+                                				  read -p "Press [Enter] to continue..." ReadDamKey
+          				                     else
+						                          echo "########################################################################################" >> /var/log/smx-log/fail.log
+                                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                				  echo "Not listed updates for system, check command syntax" >> /var/log/smx-log/fail.log
+						                          echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                    				              echo "" >> /var/log/smx-log/fail.log
+                        						  echo "########################################################################################" >> /var/log/smx-log/fail.log
+                        						  echo "" >> /var/log/smx-log/fail.log
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+                                				  clear
+                                				  echo "        COMMAND STATUS          "
+                                				  echo
+                                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                                				  echo
+                                				  echo "Command: FAIL    stdout: yes    stderr: no        "
+                                				  echo
+                                				  echo "Before command completion, additional instructions may appear below"
+                                				  echo
+                                				  echo "File                                 Fileset                 Type"
+                                				  echo "-----------------------------------------------------------------"
+                                				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                                				  echo "Command unsuccessful, check syntax and variables"
+                                				  echo
+                                				  cat /var/log/smx-log/fail.log | tail -n 6
+                                				  echo
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+						                          exit 1
+					                         fi
+                            			     clear
+                            			     $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log
+                            			     if [ $PIPESTATUS -eq 0 ]; then
+						                          echo "###################################################################################" >> /var/log/smx-log/success.log
+                                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                				  echo "Successfuly refreshed repositories" >> /var/log/smx-log/success.log
+                                				  echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                				  echo "" >> /var/log/smx-log/success.log
+                        						  echo "###################################################################################" >> /var/log/smx-log/success.log
+                        						  echo "" >> /var/log/smx-log/success.log
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+                                				  clear
+                                				  echo "        COMMAND STATUS          "
+                                				  echo
+                                				  echo "$(date)                                    $(whoami)@$(hostname)"
+                                				  echo
+                                				  echo "Command: OK    stdout: yes    stderr: no         "
+                                				  echo
+                                				  echo "Before command completion, additional instructions may appear below"
+                                				  echo
+                                				  echo "File                                 Fileset                 Type"
+                                				  echo "-----------------------------------------------------------------"
+                                				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                                				  echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
+                                				  echo
+                                				  cat /var/log/smx-log/success.log | tail -n 6
+                                				  echo
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+            				                 else
+						                          echo "###################################################################################" >> /var/log/smx-log/fail.log
+                                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                				  echo "Not refreshed repositories, check command syntax, and network connection" >> /var/log/smx-log/fail.log
+						                          echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                    				              echo "" >> /var/log/smx-log/fail.log
+                        						  echo "###################################################################################" >> /var/log/smx-log/fail.log
+                        						  echo "" >> /var/log/smx-log/fail.log
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+                                				  clear
+                                				  echo "        COMMAND STATUS          "
+                                				  echo
+                                				  echo "$(date)                                    $(whoami)@$(hostname)"
+                                				  echo
+                                				  echo "Command: FAIL    stdout: yes    stderr: no       "
+                                				  echo
+                                				  echo "Before command completion, additional instructions may appear below"
+                                				  echo
+                                				  echo "File                                 Fileset                 Type"
+                                				  echo "-----------------------------------------------------------------"
+                                				  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                                				  echo "Command unsuccessful, check command syntax and variables"
+                                				  echo
+                                				  cat /var/log/smx-log/fail.log | tail -n 6
+                                				  echo
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+						                          exit 1
+                            			     fi
+                            			     clear
+                            			     $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log
+                            			     if [ $PIPESTATUS -eq 0 ]; then
+						                          echo "##################################################################################" >> /var/log/smx-log/success.log
+                                				  echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                				  echo "Successfuly updated packages" >> /var/log/smx-log/success.log
+                                				  echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                				  echo "" >> /var/log/smx-log/success.log
+                        						  echo "##################################################################################" >> /var/log/smx-log/success.log
+                        						  echo "" >> /var/log/smx-log/success.log
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+                                				  clear
+                                				  echo "        COMMAND STATUS          "
+                                				  echo
+                                				  echo "$(date)                                    $(whoami)@$(hostname)"
+                                				  echo
+                                				  echo "Command: OK    stdout: yes    stderr: no         "
+                                				  echo
+                                				  echo "Before command completion, additional instructions may appear below"
+                                				  echo
+                                				  echo "File                                  Fileset                 Type"
+                                				  echo "------------------------------------------------------------------"
+                                				  echo "$(which zypper)                       bos.pkgmgt.zypper       exec"
+                                				  echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log"
+                                				  echo
+                                				  cat /var/log/smx-log/success.log | tail -n 6
+                                				  echo
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+          				                     else
+						                          echo "##################################################################################" >> /var/log/smx-log/fail.log
+                                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                				  echo "Not updated packages, check command syntax and internet connection" >> /var/log/smx-log/fail.log
+						                          echo "Command run: $(which zypper) update | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                    				              echo "" >> /var/log/smx-log/fail.log
+                        						  echo "##################################################################################" >> /var/log/smx-log/fail.log
+                        						  echo "" >> /var/log/smx-log/fail.log
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+                                				  clear
+                                				  echo "         COMMAND STATUS         "
+                                				  echo
+                                				  echo "$(date)                                     $(whoami)@$(hostname)"
+                                				  echo
+                                				  echo "Command: FAIL    stdout: yes    stderr: no        "
+                                				  echo
+                                				  echo "Before command completion, additional instructions may appear below"
+                                				  echo
+                                				  echo "File                                  Fileset                 Type"
+                                				  echo "------------------------------------------------------------------"
+                                				  echo "$(which zypper)                       bos.pkgmgt.zypper       exec"
+                                				  echo "Command unsuccessful, check command syntax and variables"
+                                				  echo
+                                				  cat /var/log/smx-log/fail.log | tail -n 6
+                                				  echo
+                                				  read -p "Press [enter] to continue..." ReadDamKey
+                    			             fi
+					                    fi
                                    fi
                               fi
                          fi
-			 ;;
-		repomgt)
-		          clear
+			             ;;
+		        repomgt)
+		                  clear
                           cat /proc/version | grep "Red Hat" > /dev/null
                           if [ $? -eq 0 ]; then
                                clear
-			       echo "OS = Red Hat"
+			                   echo "OS = Red Hat"
                     	       echo "$(date)                                      $(whoami)@$(hostname)"
                     	       echo "[TOP]                                           [Entry Fields]"
                     	       read -p " Add or remove a repository ---- (add/remove) > " ans_repo
                     	       if [ "$ans_repo" = "add" ]; then
-            		             clear
+            		                 clear
                                      echo "$(date)                                     $(whoami)@$(hostname)"
                                      echo "[TOP]                             [Entry Fields]"
                                      read -p " Enter repository name -------- > " repoName
@@ -9055,115 +9051,115 @@ function pkg_menu() {
                                      sleep 2
                                      $(which yum-config-manager) --add-repo $repoName
                                      if [ $? -eq 0 ]; then
-					  echo "#############################################################" >> /var/log/smx-log/success.log
-                            		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            		  echo "Successfuly added repository: $repoName" >> /var/log/smx-log/success.log
-                            		  echo "Command run: $(which yum-config-manager) --add-repo $repoName" >> /var/log/smx-log/success.log
-                            		  echo "" >> /var/log/smx-log/success.log
-					  echo "#############################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-                            		  clear
-                            		  echo "        COMMAND STATUS          "
-                            		  echo
-                            		  echo "$(date)                                    $(whoami)@$(hostname)"
-                            		  echo
-                            		  echo "Command: OK    stdout: yes    stderr: no         "
-                            		  echo
-                            		  echo "Before command completion, additional instructions may appear below"
-                            		  echo
-                            		  echo "File                                 Fileset                            Type"
-                            		  echo "----------------------------------------------------------------------------"
-                            		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
-                            		  echo "Command run: $(which yum-config-manager) --add-repo $repoName"
-                            		  echo
-                            		  cat /var/log/smx-log/success.log | tail -n 6
-                            		  echo
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-              			     else
-					  echo "###############################################################" >> /var/log/smx-log/fail.log
-                            		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                            		  echo "Not added repository, check command syntax, and internet access" >> /var/log/smx-log/fail.log
-					  echo "Command run: $(which yum-config-manager) --add-repo $repoName" >> /var/log/smx-log/fail.log
-                            		  echo "" >> /var/log/smx-log/fail.log
-					  echo "###############################################################" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-                            		  clear
-                            		  echo "        COMMAND STATUS          "
-                            		  echo
-                            		  echo "$(date)                                    $(whoami)@$(hostname)"
-                            		  echo
-                            		  echo "Command: FAIL    stdout: yes    stderr: no       "
-                            		  echo
-                            		  echo "Before command completion, additional instructions may appear below"
-                            		  echo
-                            		  echo "File                                 Fileset                            Type"
-                            		  echo "----------------------------------------------------------------------------"
-                            		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
-                            		  echo "Command unsuccessful, check command syntax and variables"
-                            		  echo
-                            		  cat /var/log/smx-log/fail.log | tail -n 6
-                            		  echo
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-					  exit 1
-				     fi
+					                      echo "#############################################################" >> /var/log/smx-log/success.log
+                                		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		  echo "Successfuly added repository: $repoName" >> /var/log/smx-log/success.log
+                                		  echo "Command run: $(which yum-config-manager) --add-repo $repoName" >> /var/log/smx-log/success.log
+                                		  echo "" >> /var/log/smx-log/success.log
+                    					  echo "#############################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+                                		  clear
+                                		  echo "        COMMAND STATUS          "
+                                		  echo
+                                		  echo "$(date)                                    $(whoami)@$(hostname)"
+                                		  echo
+                                		  echo "Command: OK    stdout: yes    stderr: no         "
+                                		  echo
+                                		  echo "Before command completion, additional instructions may appear below"
+                                		  echo
+                                		  echo "File                                 Fileset                            Type"
+                                		  echo "----------------------------------------------------------------------------"
+                                		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
+                                		  echo "Command run: $(which yum-config-manager) --add-repo $repoName"
+                                		  echo
+                                		  cat /var/log/smx-log/success.log | tail -n 6
+                                		  echo
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+              			             else
+					                      echo "###############################################################" >> /var/log/smx-log/fail.log
+                                		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		  echo "Not added repository, check command syntax, and internet access" >> /var/log/smx-log/fail.log
+					                      echo "Command run: $(which yum-config-manager) --add-repo $repoName" >> /var/log/smx-log/fail.log
+                            		      echo "" >> /var/log/smx-log/fail.log
+                    					  echo "###############################################################" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+                                		  clear
+                                		  echo "        COMMAND STATUS          "
+                                		  echo
+                                		  echo "$(date)                                    $(whoami)@$(hostname)"
+                                		  echo
+                                		  echo "Command: FAIL    stdout: yes    stderr: no       "
+                                		  echo
+                                		  echo "Before command completion, additional instructions may appear below"
+                                		  echo
+                                		  echo "File                                 Fileset                            Type"
+                                		  echo "----------------------------------------------------------------------------"
+                                		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
+                                		  echo "Command unsuccessful, check command syntax and variables"
+                                		  echo
+                                		  cat /var/log/smx-log/fail.log | tail -n 6
+                                		  echo
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+					                      exit 1
+				                     fi
                                      $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log
                                      if [ $? -eq 0 ]; then
-					  echo "###############################################################################" >> /var/log/smx-log/success.log
-                            		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            		  echo "Successfuly updated system" >> /var/log/smx-log/success.log
-                            		  echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
-                            		  echo "" >> /var/log/smx-log/success.log
-					  echo "###############################################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-                            		  clear
-                            		  echo "        COMMAND STATUS          "
-                            		  echo
-                            		  echo "$(date)                                    $(whoami)@$(hostname)"
-                            		  echo
-                            		  echo "Command: OK    stdout: yes    stderr: no         "
-                            		  echo
-                            		  echo "Before command completion, additional instructions may appear below"
-                            		  echo
-                            		  echo "File                                 Fileset                            Type"
-                            		  echo "----------------------------------------------------------------------------"
-                            		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
-                            		  echo "Command run: $(which yum-config-manager) --add-repo $repoName"
-                            		  echo
-                            		  cat /var/log/smx-log/success.log | tail -n 6
-                            		  echo
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-              			     else
-					  echo "###############################################################################" >> /var/log/smx-log/fail.log
-                            		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                            		  echo "Not added repository, check command syntax, and internet access" >> /var/log/smx-log/fail.log
-					  echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
-                            		  echo "" >> /var/log/smx-log/fail.log
-					  echo "###############################################################################" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-                            		  clear
-                            		  echo "        COMMAND STATUS          "
-                            		  echo
-                            		  echo "$(date)                                    $(whoami)@$(hostname)"
-                            		  echo
-                            		  echo "Command: FAIL    stdout: yes    stderr: no       "
-                            		  echo
-                            		  echo "Before command completion, additional instructions may appear below"
-                            		  echo
-                            		  echo "File                                 Fileset                            Type"
-                            		  echo "----------------------------------------------------------------------------"
-                            		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
-                            		  echo "Command unsuccessful, check command syntax and variables"
-                            		  echo
-                            		  cat /var/log/smx-log/fail.log | tail -n 6
-                            		  echo
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-				     fi
-			       else
-			             clear
+					                      echo "###############################################################################" >> /var/log/smx-log/success.log
+                                		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		  echo "Successfuly updated system" >> /var/log/smx-log/success.log
+                                		  echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                                		  echo "" >> /var/log/smx-log/success.log
+                    					  echo "###############################################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+                                		  clear
+                                		  echo "        COMMAND STATUS          "
+                                		  echo
+                                		  echo "$(date)                                    $(whoami)@$(hostname)"
+                                		  echo
+                                		  echo "Command: OK    stdout: yes    stderr: no         "
+                                		  echo
+                                		  echo "Before command completion, additional instructions may appear below"
+                                		  echo
+                                		  echo "File                                 Fileset                            Type"
+                                		  echo "----------------------------------------------------------------------------"
+                                		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
+                                		  echo "Command run: $(which yum-config-manager) --add-repo $repoName"
+                                		  echo
+                                		  cat /var/log/smx-log/success.log | tail -n 6
+                                		  echo
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+              			             else
+					                      echo "###############################################################################" >> /var/log/smx-log/fail.log
+                                		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		  echo "Not added repository, check command syntax, and internet access" >> /var/log/smx-log/fail.log
+					                      echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                            		      echo "" >> /var/log/smx-log/fail.log
+                    					  echo "###############################################################################" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+                                		  clear
+                                		  echo "        COMMAND STATUS          "
+                                		  echo
+                                		  echo "$(date)                                    $(whoami)@$(hostname)"
+                                		  echo
+                                		  echo "Command: FAIL    stdout: yes    stderr: no       "
+                                		  echo
+                                		  echo "Before command completion, additional instructions may appear below"
+                                		  echo
+                                		  echo "File                                 Fileset                            Type"
+                                		  echo "----------------------------------------------------------------------------"
+                                		  echo "$(which yum-config-manager)          bos.pkgmgt.yum-config-manager      exec"
+                                		  echo "Command unsuccessful, check command syntax and variables"
+                                		  echo
+                                		  cat /var/log/smx-log/fail.log | tail -n 6
+                                		  echo
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+				                     fi
+			                   else
+			                         clear
                                      echo "$(date)                                     $(whoami)@$(hostname)"
                                      echo "repository name example: test.repo"
                                      echo "[TOP]                           [Entry Fields]"
@@ -9184,278 +9180,278 @@ function pkg_menu() {
                                      sleep 2
                                      $(which rm) -rf /etc/yum.repos.d/$repoName
                                      if [ $? -eq 0 ]; then
-					  echo "##########################################################" >> /var/log/smx-log/success.log
-                            		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            		  echo "Successfuly deleted repository: /etc/yum.repos.d/$repoName" >> /var/log/smx-log/success.log
-                            		  echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName" >> /var/log/smx-log/success.log
-                            		  echo "" >> /var/log/smx-log/success.log
-					  echo "##########################################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-                            		  clear
-                            		  echo "        COMMAND STATUS          "
-                            		  echo
-                            		  echo "$(date)                                    $(whoami)@$(hostname)"
-                            		  echo
-                            		  echo "Command: OK    stdout: yes    stderr: no         "
-                            		  echo
-                            		  echo "Before command completion, additional instructions may appear below"
-                            		  echo
-                            		  echo "File                                 Fileset                 Type"
-                            		  echo "-----------------------------------------------------------------"
-                            		  echo "$(which rm) -rf                          bos.sysmgt.rm           exec"
-                            		  echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName"
-                            		  echo
-                            		  cat /var/log/smx-log/success.log | tail -n 6
-                            		  echo
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-				     else
-					  echo "#######################################################" >> /var/log/smx-log/fail.log
-                            		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                            		  echo "Not found repository, check command syntax" >> /var/log/smx-log/fail.log
-					  echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName" >> /var/log/smx-log/fail.log
-                            		  echo "" >> /var/log/smx-log/fail.log
-					  echo "#######################################################" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-                            		  clear
-                            		  echo "        COMMAND STATUS          "
-                            		  echo
-                            		  echo "$(date)                                    $(whoami)@$(hostname)"
-                            		  echo
-                            		  echo "Command: FAIL    stdout: yes    stderr: no       "
-                            		  echo
-                            		  echo "Before command completion, additional instructions may appear below"
-                            		  echo
-                            		  echo "File                                 Fileset                 Type"
-                            		  echo "-----------------------------------------------------------------"
-                            		  echo "$(which rm)                          bos.sysmgt.rm           exec"
-                            		  echo "Command unsuccessful, check command syntax and variables"
-                            		  echo
-                            		  cat /var/log/smx-log/fail.log | tail -n 6
-                            		  echo
-                            		  read -p "Press [enter] to continue..." ReadDamKey
-              			     fi
+					                      echo "##########################################################" >> /var/log/smx-log/success.log
+                                		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		  echo "Successfuly deleted repository: /etc/yum.repos.d/$repoName" >> /var/log/smx-log/success.log
+                                		  echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName" >> /var/log/smx-log/success.log
+                                		  echo "" >> /var/log/smx-log/success.log
+                    					  echo "##########################################################" >> /var/log/smx-log/success.log
+                    					  echo "" >> /var/log/smx-log/success.log
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+                                		  clear
+                                		  echo "        COMMAND STATUS          "
+                                		  echo
+                                		  echo "$(date)                                    $(whoami)@$(hostname)"
+                                		  echo
+                                		  echo "Command: OK    stdout: yes    stderr: no         "
+                                		  echo
+                                		  echo "Before command completion, additional instructions may appear below"
+                                		  echo
+                                		  echo "File                                 Fileset                 Type"
+                                		  echo "-----------------------------------------------------------------"
+                                		  echo "$(which rm) -rf                          bos.sysmgt.rm           exec"
+                                		  echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName"
+                                		  echo
+                                		  cat /var/log/smx-log/success.log | tail -n 6
+                                		  echo
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+				                     else
+					                      echo "#######################################################" >> /var/log/smx-log/fail.log
+                                		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		  echo "Not found repository, check command syntax" >> /var/log/smx-log/fail.log
+					                      echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName" >> /var/log/smx-log/fail.log
+                            		      echo "" >> /var/log/smx-log/fail.log
+                    					  echo "#######################################################" >> /var/log/smx-log/fail.log
+                    					  echo "" >> /var/log/smx-log/fail.log
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+                                		  clear
+                                		  echo "        COMMAND STATUS          "
+                                		  echo
+                                		  echo "$(date)                                    $(whoami)@$(hostname)"
+                                		  echo
+                                		  echo "Command: FAIL    stdout: yes    stderr: no       "
+                                		  echo
+                                		  echo "Before command completion, additional instructions may appear below"
+                                		  echo
+                                		  echo "File                                 Fileset                 Type"
+                                		  echo "-----------------------------------------------------------------"
+                                		  echo "$(which rm)                          bos.sysmgt.rm           exec"
+                                		  echo "Command unsuccessful, check command syntax and variables"
+                                		  echo
+                                		  cat /var/log/smx-log/fail.log | tail -n 6
+                                		  echo
+                                		  read -p "Press [enter] to continue..." ReadDamKey
+              			             fi
                       	       fi
                           else
                                clear
                                cat /proc/version | grep "Debian" > /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-				    echo "OS = Debian"
-                    		    echo "$(date)                                     $(whoami)@$(hostname)"
-                    		    echo "[TOP]                                          [Entry Fields]"
-                    		    read -p "Add or remove repository ------ (add/remove) > " ans_repo
-                    		    if [ "$ans_repo" = "add" ]; then
-            				  clear
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo "[TOP]                          [Entry Fields]"
-					  read -p "Enter repository name ------ > " repoName
-					  clear
-					  echo "        COMMAND STATUS             "
-					  echo
-					  echo "$(date)                                     $(whoami)@$(hostname)"
-					  echo
-					  echo "command: RUNNING    stdout: yes    stderr: no      "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                           Type"
-					  echo "---------------------------------------------------------------------------"
-					  echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
-					  echo "$(which apt-get) update              bos.pkgmgt.apt-get update         exec"
-					  echo "Command run: $(which add-apt-repository) $repoName"
-					  echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-					  sleep 2
-					  $(which add-apt-repository) $repoName
-					  if [ $? -eq 0 ]; then
-					       echo "##################################################" >> /var/log/smx-log/success.log
-                            		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            		       echo "Successfuly added repository: $repoName to system" >> /var/log/smx-log/success.log
-                            		       echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/success.log
-                            		       echo "" >> /var/log/smx-log/success.log
-					       echo "##################################################" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-                            		       read -p "Press [enter] to continue..." ReadDamKey
-                            		       clear
-                            		       echo "        COMMAND STATUS          "
-                            		       echo
-                            		       echo "$(date)                                    $(whoami)@$(hostname)"
-                            		       echo
-                            		       echo "Command: OK    stdout: yes    stderr: no         "
-                            		       echo
-                            		       echo "Before command completion, additional instructions may appear below"
-                            		       echo
-                            		       echo "File                                 Fileset                           Type"
-                            		       echo "---------------------------------------------------------------------------"
-                            		       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
-                            		       echo "Command run: $(which add-apt-repository) $repoName"
-                            		       echo
-                            		       cat /var/log/smx-log/success.log | tail -n 6
-                            		       echo
-                            		       read -p "Press [enter] to continue..." ReadDamKey
-              			          else
-				               echo "####################################################" >> /var/log/smx-log/fail.log
-                            		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                            		       echo "Not added repository $repoName, check command syntax" >> /var/log/smx-log/fail.log
-				               echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/fail.log
-                            		       echo "" >> /var/log/smx-log/fail.log
-					       echo "####################################################" >> /var/log/smx-log/fail.log
-					       echo "" >> /var/log/smx-log/fail.log
-                            		       read -p "Press [enter] to continue..." ReadDamKey
-                            		       clear
-                            		       echo "        COMMAND STATUS          "
-                            		       echo
-                            		       echo "$(date)                                    $(whoami)@$(hostname)"
-                            		       echo
-                            		       echo "Command: FAIL    stdout: yes    stderr: no       "
-                            		       echo
-                            		       echo "Before command completion, additional instructions may appear below"
-                            		       echo
-                            		       echo "File                                 Fileset                            Type"
-                            		       echo "----------------------------------------------------------------------------"
-                            		       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
-                            		       echo "Command unsuccessful, check command syntax and variables"
-                            		       echo
-                            		       cat /var/log/smx-log/fail.log | tail -n 6
-                            		       echo
-                            		       read -p "Press [enter] to continue..." ReadDamKey
-					       exit 1
-                          		  fi
-				          clear
-					  $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-					  if [ $PIPESTATUS -eq 0 ]; then
-				               echo "####################################################################################" >> /var/log/smx-log/success.log
-					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					       echo "Successfuly updated package sources" >> /var/log/smx-log/success.log
-					       echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-					       echo "####################################################################################" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-					       read -p "Press [enter] to continue..." ReadDamKey
-					       clear
-					       echo "        COMMAND STATUS          "
-					       echo
-					       echo "$(date)                                    $(whoami)@$(hostname)"
-					       echo
-					       echo "Command: OK    stdout: yes    stderr: no         "
-					       echo
-					       echo "Before command completion, additional instructions may appear below"
-					       echo
-					       echo "File                                 Fileset                 Type"
-					       echo "-----------------------------------------------------------------"
-					       echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					       echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-					       echo
-					       cat /var/log/smx-log/success.log | tail -n 6
-					       echo
-					       read -p "Press [enter] to continue..." ReadDamKey
-				          else
-				               echo "####################################################################################" >> /var/log/smx-log/fail.log
-					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                			       echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
-                			       echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                			       echo "" >> /var/log/smx-log/fail.log
-					       echo "####################################################################################" >> /var/log/smx-log/fail.log
-					       echo "" >> /var/log/smx-log/fail.log
-					       read -p "Press [enter] to continue..." ReadDamKey
-					       clear
-					       echo "        COMMAND STATUS          "
-					       echo
-					       echo "$(date)                                    $(whoami)@$(hostname)"
-					       echo
-					       echo "Command: FAIL    stdout: yes    stderr: no       "
-					       echo
-					       echo "Before command completion, additional instructions may appear below"
-					       echo
-					       echo "File                                 Fileset                 Type"
-					       echo "-----------------------------------------------------------------"
-					       echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-					       echo "Command unsuccessful, check command syntax and variables"
-					       echo
-					       cat /var/log/smx-log/fail.log | tail -n 6
-					       echo
-					       read -p "Press [enter] to continue..." ReadDamKey
-					       exit 1
-				          fi
-          		            else
-			                  clear
-					  echo "$(date)                                    $(whoami)@$(hostname)"
-					  echo "[TOP]                       [Entry Fields]"
-					  read -p "repository name --------- > " repoName
-					  clear
-					  echo "          COMMAND STATUS        "
-					  echo
-					  echo "$(date)                                    $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: RUNNING    stdout: yes    stderr: no    "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                            Type"
-					  echo "----------------------------------------------------------------------------"
-					  echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
-					  echo "$(which apt-get)                     bos.pkgmgt.apt-get                 exec"
-					  echo "Command run: $(which add-apt-repository) -r $repoName"
-					  echo "Command run: $(which apt-get) -y update | $(which tee) /var/log/smx-log/apt-get.log"
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  sleep 2
-					  $(which add-apt-repository) -r $repoName
-					  if [ $? -eq 0 ]; then
-					       echo "#####################################################" >> /var/log/smx-log/success.log
-					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            		       echo "Successfuly removed repository: $repoName from system" >> /var/log/smx-log/success.log
-                            		       echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/success.log
-                            		       echo "" >> /var/log/smx-log/success.log
-					       echo "#####################################################" >> /var/log/smx-log/success.log
-					       echo "" >> /var/log/smx-log/success.log
-                            		       read -p "Press [enter] to continue..." ReadDamKey
-                            		       clear
-                            		       echo "        COMMAND STATUS          "
-                            		       echo
-                            		       echo "$(date)                                    $(whoami)@$(hostname)"
-                            		       echo
-                            		       echo "Command: OK    stdout: yes    stderr: no         "
-				               echo
-					       echo "Before command completion, additional instructions may appear below"
-					       echo
-					       echo "File                                 Fileset                           Type"
-					       echo "---------------------------------------------------------------------------"
-					       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
-					       echo "Command unsuccessful, check command syntax and variables"
-					       echo
-					       cat /var/log/smx-log/success.log | tail -n 6
-					       echo
-					       read -p "Press [enter] to continue..." ReadDamKey
-				          else
-				               echo "###################################################################" >> /var/log/smx-log/fail.log
-                            		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                            		       echo "Not removed repository: $repoName from system, check command syntax" >> /var/log/smx-log/fail.log
-				               echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/fail.log
-                            		       echo "" >> /var/log/smx-log/fail.log
-				               echo "###################################################################" >> /var/log/smx-log/fail.log
-                            		       read -p "Press [enter] to continue..." ReadDamKey
-                            		       clear
-                            		       echo "        COMMAND STATUS          "
-                            		       echo
-                            		       echo "$(date)                                    $(whoami)@$(hostname)"
-                            		       echo
-                            		       echo "Command: FAIL    stdout: yes    stderr: no       "
-                            		       echo
-                            		       echo "Before command completion, additional instructions may appear below"
-                            		       echo
-                            		       echo "File                                 Fileset                           Type"
-                            		       echo "---------------------------------------------------------------------------"
-                            		       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
-                            		       echo "Command unsuccessful, check command syntax and variables"
-                            		       echo
-                            		       cat /var/log/smx-log/fail.log | tail -n 6
-                            		       echo
-                            		       read -p "Press [enter] to continue..." ReadDamKey
-					       exit 1
-                			  fi
-                			  $(which apt-get) -y update | $(which tee) /var/log/smx-log/apt-get.log
-                             		  if [ $PIPESTATUS -eq 0 ]; then
+				                    echo "OS = Debian"
+                        		    echo "$(date)                                     $(whoami)@$(hostname)"
+                        		    echo "[TOP]                                          [Entry Fields]"
+                        		    read -p "Add or remove repository ------ (add/remove) > " ans_repo
+                        		    if [ "$ans_repo" = "add" ]; then
+            				              clear
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo "[TOP]                          [Entry Fields]"
+                    					  read -p "Enter repository name ------ > " repoName
+                    					  clear
+                    					  echo "        COMMAND STATUS             "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "command: RUNNING    stdout: yes    stderr: no      "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                           Type"
+                    					  echo "---------------------------------------------------------------------------"
+                    					  echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
+                    					  echo "$(which apt-get) update              bos.pkgmgt.apt-get update         exec"
+                    					  echo "Command run: $(which add-apt-repository) $repoName"
+                    					  echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                    					  sleep 2
+                    					  $(which add-apt-repository) $repoName
+                    					  if [ $? -eq 0 ]; then
+                    					       echo "##################################################" >> /var/log/smx-log/success.log
+                                		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		       echo "Successfuly added repository: $repoName to system" >> /var/log/smx-log/success.log
+                                		       echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/success.log
+                                		       echo "" >> /var/log/smx-log/success.log
+                    					       echo "##################################################" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                                		       read -p "Press [enter] to continue..." ReadDamKey
+                                		       clear
+                                		       echo "        COMMAND STATUS          "
+                                		       echo
+                                		       echo "$(date)                                    $(whoami)@$(hostname)"
+                                		       echo
+                                		       echo "Command: OK    stdout: yes    stderr: no         "
+                                		       echo
+                                		       echo "Before command completion, additional instructions may appear below"
+                                		       echo
+                                		       echo "File                                 Fileset                           Type"
+                                		       echo "---------------------------------------------------------------------------"
+                                		       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
+                                		       echo "Command run: $(which add-apt-repository) $repoName"
+                                		       echo
+                                		       cat /var/log/smx-log/success.log | tail -n 6
+                                		       echo
+                                		       read -p "Press [enter] to continue..." ReadDamKey
+              			                  else
+				                               echo "####################################################" >> /var/log/smx-log/fail.log
+                                		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		       echo "Not added repository $repoName, check command syntax" >> /var/log/smx-log/fail.log
+				                               echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/fail.log
+                            		           echo "" >> /var/log/smx-log/fail.log
+                    					       echo "####################################################" >> /var/log/smx-log/fail.log
+                    					       echo "" >> /var/log/smx-log/fail.log
+                                		       read -p "Press [enter] to continue..." ReadDamKey
+                                		       clear
+                                		       echo "        COMMAND STATUS          "
+                                		       echo
+                                		       echo "$(date)                                    $(whoami)@$(hostname)"
+                                		       echo
+                                		       echo "Command: FAIL    stdout: yes    stderr: no       "
+                                		       echo
+                                		       echo "Before command completion, additional instructions may appear below"
+                                		       echo
+                                		       echo "File                                 Fileset                            Type"
+                                		       echo "----------------------------------------------------------------------------"
+                                		       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
+                                		       echo "Command unsuccessful, check command syntax and variables"
+                                		       echo
+                                		       cat /var/log/smx-log/fail.log | tail -n 6
+                                		       echo
+                                		       read -p "Press [enter] to continue..." ReadDamKey
+					                           exit 1
+                          		          fi
+				                          clear
+                    					  $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
+                    					  if [ $PIPESTATUS -eq 0 ]; then
+				                               echo "####################################################################################" >> /var/log/smx-log/success.log
+                    					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					       echo "Successfuly updated package sources" >> /var/log/smx-log/success.log
+                    					       echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                    					       echo "####################################################################################" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                    					       clear
+                    					       echo "        COMMAND STATUS          "
+                    					       echo
+                    					       echo "$(date)                                    $(whoami)@$(hostname)"
+                    					       echo
+                    					       echo "Command: OK    stdout: yes    stderr: no         "
+                    					       echo
+                    					       echo "Before command completion, additional instructions may appear below"
+                    					       echo
+                    					       echo "File                                 Fileset                 Type"
+                    					       echo "-----------------------------------------------------------------"
+                    					       echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					       echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                    					       echo
+                    					       cat /var/log/smx-log/success.log | tail -n 6
+                    					       echo
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+				                          else
+				                               echo "####################################################################################" >> /var/log/smx-log/fail.log
+					                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			       echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
+                            			       echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                            			       echo "" >> /var/log/smx-log/fail.log
+                    					       echo "####################################################################################" >> /var/log/smx-log/fail.log
+                    					       echo "" >> /var/log/smx-log/fail.log
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                    					       clear
+                    					       echo "        COMMAND STATUS          "
+                    					       echo
+                    					       echo "$(date)                                    $(whoami)@$(hostname)"
+                    					       echo
+                    					       echo "Command: FAIL    stdout: yes    stderr: no       "
+                    					       echo
+                    					       echo "Before command completion, additional instructions may appear below"
+                    					       echo
+                    					       echo "File                                 Fileset                 Type"
+                    					       echo "-----------------------------------------------------------------"
+                    					       echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					       echo "Command unsuccessful, check command syntax and variables"
+                    					       echo
+                    					       cat /var/log/smx-log/fail.log | tail -n 6
+                    					       echo
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+                    					       exit 1
+				                          fi
+          		                    else
+			                              clear
+                    					  echo "$(date)                                    $(whoami)@$(hostname)"
+                    					  echo "[TOP]                       [Entry Fields]"
+                    					  read -p "repository name --------- > " repoName
+                    					  clear
+                    					  echo "          COMMAND STATUS        "
+                    					  echo
+                    					  echo "$(date)                                    $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no    "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                            Type"
+                    					  echo "----------------------------------------------------------------------------"
+                    					  echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
+                    					  echo "$(which apt-get)                     bos.pkgmgt.apt-get                 exec"
+                    					  echo "Command run: $(which add-apt-repository) -r $repoName"
+                    					  echo "Command run: $(which apt-get) -y update | $(which tee) /var/log/smx-log/apt-get.log"
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  sleep 2
+                    					  $(which add-apt-repository) -r $repoName
+                    					  if [ $? -eq 0 ]; then
+                    					       echo "#####################################################" >> /var/log/smx-log/success.log
+                    					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		       echo "Successfuly removed repository: $repoName from system" >> /var/log/smx-log/success.log
+                                		       echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/success.log
+                                		       echo "" >> /var/log/smx-log/success.log
+                    					       echo "#####################################################" >> /var/log/smx-log/success.log
+                    					       echo "" >> /var/log/smx-log/success.log
+                                		       read -p "Press [enter] to continue..." ReadDamKey
+                                		       clear
+                                		       echo "        COMMAND STATUS          "
+                                		       echo
+                                		       echo "$(date)                                    $(whoami)@$(hostname)"
+                                		       echo
+                                		       echo "Command: OK    stdout: yes    stderr: no         "
+				                               echo
+                    					       echo "Before command completion, additional instructions may appear below"
+                    					       echo
+                    					       echo "File                                 Fileset                           Type"
+                    					       echo "---------------------------------------------------------------------------"
+                    					       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
+                    					       echo "Command unsuccessful, check command syntax and variables"
+                    					       echo
+                    					       cat /var/log/smx-log/success.log | tail -n 6
+                    					       echo
+                    					       read -p "Press [enter] to continue..." ReadDamKey
+				                          else
+				                               echo "###################################################################" >> /var/log/smx-log/fail.log
+                                		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		       echo "Not removed repository: $repoName from system, check command syntax" >> /var/log/smx-log/fail.log
+				                               echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/fail.log
+                            		           echo "" >> /var/log/smx-log/fail.log
+				                               echo "###################################################################" >> /var/log/smx-log/fail.log
+                                		       read -p "Press [enter] to continue..." ReadDamKey
+                                		       clear
+                                		       echo "        COMMAND STATUS          "
+                                		       echo
+                                		       echo "$(date)                                    $(whoami)@$(hostname)"
+                                		       echo
+                                		       echo "Command: FAIL    stdout: yes    stderr: no       "
+                                		       echo
+                                		       echo "Before command completion, additional instructions may appear below"
+                                		       echo
+                                		       echo "File                                 Fileset                           Type"
+                                		       echo "---------------------------------------------------------------------------"
+                                		       echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
+                                		       echo "Command unsuccessful, check command syntax and variables"
+                                		       echo
+                                		       cat /var/log/smx-log/fail.log | tail -n 6
+                                		       echo
+                                		       read -p "Press [enter] to continue..." ReadDamKey
+					                           exit 1
+                            			  fi
+                            			  $(which apt-get) -y update | $(which tee) /var/log/smx-log/apt-get.log
+                             		     if [ $PIPESTATUS -eq 0 ]; then
 				               echo "######################################################################################" >> /var/log/smx-log/success.log
 					       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
 					       echo "Successfuly updated package sources" >> /var/log/smx-log/success.log
@@ -14722,52 +14718,52 @@ function dsk_menuosx() {
                    fi
                    ;;
             mount)
-		    clear
-		    echo "$(date)                                     $(whoami)@$(hostname)"
-		    echo "[TOP]                                                      [Entry Fields]"
-		    read -p "Mount or unmount disk ------------------ (mount/unmount) > " ans
-		    if [ "$ans" = "mount" ]; then
-			  clear
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo "[TOP]                                           [Entry Fields]"
-			  printf " Enter filesystem type [Default: HFS+] ------- > "
-			  if [ "$fsysName" = "" ]; then
+                    clear
+                    echo "$(date)                                     $(whoami)@$(hostname)"
+                    echo "[TOP]                                                          [Entry Fields]"
+                    read -p " Mount or unmount disk --------------------- (mount/unmount) > " ans
+                    if [ "$ans" = "mount" ]; then
+                          clear
+                          echo "$(date)                                     $(whoami)@$(hostname)"
+                          echo "[TOP]                                           [Entry Fields]"
+                          printf " Enter filesystem type [Default: HFS+] ------- > "
+                          if [ "$fsysName" = "" ]; then
                                 read fsysName
-				FSYS_NAME=$fsysName
-			  fi
-			  if [ "$fsysName" = "" ]; then
+                                FSYS_NAME=$fsysName
+                          fi
+                          if [ "$fsysName" = "" ]; then
                                 FSYS_NAME=HFS+
-			  fi      
-			  printf " Enter /dev/ disk name [Default: /dev/disk0s1] > "
-			  if [ "$diskName" = "" ]; then
+                          fi      
+                          printf " Enter /dev/ disk name [Default: /dev/disk0s1] > "
+                          if [ "$diskName" = "" ]; then
                                 read diskName
-				DISK_NAME=$diskName
-			  fi
-			  if [ "$diskName" = "" ]; then
+                                DISK_NAME=$diskName
+                          fi
+                          if [ "$diskName" = "" ]; then
                                 DISK_NAME=/dev/disk0s1
-			  fi      
-			  read -p " Enter mount point -------------------------- > " mntPoint
-			  clear
-			  echo "         COMMAND STATUS                  "
-			  echo
-			  echo "$(date)                                     $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no     "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
-			  echo "$(which mount)                       bos.dskmgt.mount        exec"
-			  echo "$(which df)                          bos.dskmgt.df           exec"
-			  echo "Command run: $(which mkdir) -p $mntPoint"
-			  echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint"
-			  echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log"
-			  sleep 2
-			  $(which mkdir) -p $mntPoint
-			  if [ $? -eq 0 ]; then
-			       echo "###########################################" >> /var/log/smx-log/success.log
+                          fi      
+                          read -p " Enter mount point -------------------------- > " mntPoint
+                          clear
+                          echo "         COMMAND STATUS                  "
+                          echo
+                          echo "$(date)                                     $(whoami)@$(hostname)"
+                          echo
+                          echo "Command: RUNNING    stdout: yes    stderr: no     "
+                          echo
+                          echo "Before command completion, additional instructions may appear below"
+                          echo
+                          echo "File                                 Fileset                 Type"
+                          echo "-----------------------------------------------------------------"
+                          echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+                          echo "$(which mount)                       bos.dskmgt.mount        exec"
+                          echo "$(which df)                          bos.dskmgt.df           exec"
+                          echo "Command run: $(which mkdir) -p $mntPoint"
+                          echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint"
+                          echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log"
+                          sleep 2
+                          $(which mkdir) -p $mntPoint
+                          if [ $? -eq 0 ]; then
+			                   echo "###########################################" >> /var/log/smx-log/success.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly created mount point: $mntPoint" >> /var/log/smx-log/success.log
                                echo "Command run: $(which mkdir) -p $mntPoint" >> /var/log/smx-log/success.log
@@ -14789,11 +14785,11 @@ function dsk_menuosx() {
                                echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
                                echo "Command run: $(which mkdir) -p $mntPoint"
                                echo
-                    	       cat /var/log/smx-log/success.log | tail -n 6
-                    	       echo
+                        	   cat /var/log/smx-log/success.log | tail -n 6
+                        	   echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			       echo "########################################################" >> /var/log/smx-log/fail.log
+                          else
+			                   echo "########################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not created mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
                                echo "Command run: $(which mkdir) -p $mntPoint" >> /var/log/smx-log/fail.log
@@ -14815,14 +14811,14 @@ function dsk_menuosx() {
                                echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
                                echo "Command unsuccessful, check command syntax and variables"
                                echo
-                    	       cat /var/log/smx-log/success.log | tail -n 6
-                    	       echo
+                        	   cat /var/log/smx-log/success.log | tail -n 6
+                        	   echo
                                read -p "Press [enter] to continue..." ReadDamKey
                                exit 1
-			  fi
-			  $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint
-			  if [ $? -eq 0 ]; then
-		               echo "##############################################################" >> /var/log/smx-log/success.log
+                          fi
+                          $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint
+                          if [ $? -eq 0 ]; then
+		                       echo "##############################################################" >> /var/log/smx-log/success.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly mounted disk: $DISK_NAME at mount point: $mntPoint" >> /var/log/smx-log/success.log
                                echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/success.log
@@ -14844,11 +14840,11 @@ function dsk_menuosx() {
                                echo "$(which mount)                       bos.dskmgt.mount        exec"
                                echo "Command run: $(which mount) -t $fsysType $diskName $mntPoint"
                                echo
-                    	       cat /var/log/smx-log/success.log | tail -n 6
-                    	       echo
+                        	   cat /var/log/smx-log/success.log | tail -n 6
+                        	   echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  else
-		               echo "############################################################################" >> /var/log/smx-log/fail.log
+                          else
+		                       echo "############################################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not mounted disk: $DISK_NAME at mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
                                echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/fail.log
@@ -14870,15 +14866,15 @@ function dsk_menuosx() {
                                echo "$(which mount)                       bos.dskmgt.mount        exec"
                                echo "Command unsuccessful, check command syntax and variables"
                                echo
-                    	       cat /var/log/smx-log/fail.log | tail -n 6
-                    	       echo
+                        	   cat /var/log/smx-log/fail.log | tail -n 6
+                        	   echo
                                read -p "Press [enter] to continue..." ReadDamKey
                                exit 1
-			  fi
-			  clear
-			  $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log
-			  if [ $PIPESTATUS -eq 0 ]; then
-		               echo "########################################################################################" >> /var/log/smx-log/success.log
+                          fi
+		                  clear
+                          $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log
+                          if [ $PIPESTATUS -eq 0 ]; then
+		                       echo "########################################################################################" >> /var/log/smx-log/success.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly displayed information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
                                echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log" >> /var/log/smx-log/success.log
@@ -14900,11 +14896,11 @@ function dsk_menuosx() {
                                echo "$(which df)                          bos.dskmgt.df           exec"
                                echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log"
                                echo
-                    	       cat /var/log/smx-log/success.log | tail -n 6
-                    	       echo
+                        	   cat /var/log/smx-log/success.log | tail -n 6
+                        	   echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  else
-		               echo "########################################################################################" >> /var/log/smx-log/fail.log
+                          else
+		                       echo "########################################################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not displayed information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
                                echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log" >> /var/log/smx-log/fail.log
@@ -14926,47 +14922,47 @@ function dsk_menuosx() {
                                echo "$(which df)                          bos.dskmgt.df           exec"
                                echo "Command unsuccessful, check command syntax and variables"
                                echo
-                    	       cat /var/log/smx-log/fail.log | tail -n 6
-                    	       echo
+                        	   cat /var/log/smx-log/fail.log | tail -n 6
+                        	   echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  fi
-		    else
-			  clear
-			  echo "$(date)                                    $(whoami)@$(hostname)"
-			  echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/disk1s1"
-			  echo "[TOP]                                                  [Entry Fields]"
-			  printf " Enter /dev/ disk name [Default: /dev/disk0s1] ------ > "
-			  if [ "$diskName" = "" ]; then
+                          fi
+                    else
+                          clear
+                          echo "$(date)                                    $(whoami)@$(hostname)"
+                          echo "Path must be /dev/<diskName>, use lsdisk to get /dev/ path, you must also have the disk slice, ie /dev/disk1s1"
+                          echo "[TOP]                                                  [Entry Fields]"
+                          printf " Enter /dev/ disk name [Default: /dev/disk0s1] ------ > "
+                          if [ "$diskName" = "" ]; then
                                 read diskName
-				DISK_NAME=$diskName
-			  fi
-			  if [ "$diskName" = "" ]; then
+                                DISK_NAME=$diskName
+                          fi
+                          if [ "$diskName" = "" ]; then
                                 DISK_NAME=/dev/disk0s1
-			  fi        
-			  read -p " Enter mount point --------------------------------- > " mntPoint
-			  read -p " Disk eject after unmount ------------- (True/False) > " ans
-			  clear
-			  echo "        COMMAND STATUS                    "
-			  echo
-			  echo "$(date)                                    $(whoami)@$(hostname)"
-			  echo
-			  echo "Command: RUNNING    stdout: yes    stderr: no    "
-			  echo
-			  echo "Before command completion, additional instructions may appear below"
-			  echo
-			  echo "File                                 Fileset                 Type"
-			  echo "-----------------------------------------------------------------"
-			  echo "$(which umount)                      bos.dskmgt.umount       exec"
-			  echo "$(which rm)                          bos.sysmgt.rm           exec"
-			  echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
-			  echo "Command run: $(which umount) -f $DISK_NAME"
-			  echo "Command run: $(which rm) -rf $mntPoint"
-			  echo "Command run: $(which diskutil) eject $DISK_NAME"
-			  sleep 2
-			  $(which umount) -f $diskName
-			  if [ $? -eq 0 ]; then
-            		       echo "##########################################" >> /var/log/smx-log/success.log
-            		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                          fi        
+                          read -p " Enter mount point --------------------------------- > " mntPoint
+                          read -p " Disk eject after unmount ------------- (True/False) > " ans
+                          clear
+                          echo "        COMMAND STATUS                    "
+                          echo
+                          echo "$(date)                                    $(whoami)@$(hostname)"
+                          echo
+                          echo "Command: RUNNING    stdout: yes    stderr: no    "
+                          echo
+                          echo "Before command completion, additional instructions may appear below"
+                          echo
+                          echo "File                                 Fileset                 Type"
+                          echo "-----------------------------------------------------------------"
+                          echo "$(which umount)                      bos.dskmgt.umount       exec"
+                          echo "$(which rm)                          bos.sysmgt.rm           exec"
+                          echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
+                          echo "Command run: $(which umount) -f $DISK_NAME"
+                          echo "Command run: $(which rm) -rf $mntPoint"
+                          echo "Command run: $(which diskutil) eject $DISK_NAME"
+                          sleep 2
+                          $(which umount) -f $diskName
+                          if [ $? -eq 0 ]; then
+                               echo "##########################################" >> /var/log/smx-log/success.log
+                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly unmounted disk: $DISK_NAME" >> /var/log/smx-log/success.log
                                echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/success.log
                                echo "" >> /var/log/smx-log/success.log
@@ -14987,11 +14983,11 @@ function dsk_menuosx() {
                                echo "$(which umount)                      bos.dskmgt.umount       exec"
                                echo "Command run: $(which umount) -f $DISK_NAME"
                                echo
-                    	       cat /var/log/smx-log/success.log | tail -n 6
-                    	       echo
+                               cat /var/log/smx-log/success.log | tail -n 6
+                               echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			       echo "####################################################" >> /var/log/smx-log/fail.log
+                          else
+                               echo "####################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not unmounted disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
                                echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/fail.log
@@ -15013,14 +15009,14 @@ function dsk_menuosx() {
                                echo "$(which umount)                      bos.dskmgt.unmount      exec"
                                echo "Command unsuccessful, check command syntax and variables"
                                echo
-                    	       cat /var/log/smx-log/fail.log | tail -n 6
-                    	       echo
+                               cat /var/log/smx-log/fail.log | tail -n 6
+                               echo
                                read -p "Press [enter] to continue..." ReadDamKey
                                exit 1
-			  fi
-			  $(which rm) -rf $mntPoint
-			  if [ $? -eq 0 ]; then
-			       echo "##########################################" >> /var/log/smx-log/success.log
+                          fi
+                          $(which rm) -rf $mntPoint
+                          if [ $? -eq 0 ]; then
+                               echo "##########################################" >> /var/log/smx-log/success.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "Successfuly deleted mount point: $mntPoint" >> /var/log/smx-log/success.log
                                echo "Command run: $(which rm) -rf $mntPoint" >> /var/log/smx-log/success.log
@@ -15042,11 +15038,11 @@ function dsk_menuosx() {
                                echo "$(which rm)                          bos.sysmgt.rm           exec"
                                echo "Command run: $(which rm) -rf $mntPoint"
                                echo
-                    	       cat /var/log/smx-log/success.log | tail -n 6
-                    	       echo
+                               cat /var/log/smx-log/success.log | tail -n 6
+                               echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  else
-			       echo "########################################################" >> /var/log/smx-log/fail.log
+                          else
+                               echo "########################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not deleted mount point: $mntPoint, check command syntax" >> /var/log/smx-log/fail.log
                                echo "Command run: $(which rm) -rf $mntPoint" >> /var/log/smx-log/fail.log
@@ -15068,13 +15064,13 @@ function dsk_menuosx() {
                                echo "$(which rm)                          bos.sysmgt.rm           exec"
                                echo "Command unsuccessful, check command syntax and variables"
                                echo
-                    	       cat /var/log/smx-log/fail.log | tail -n 6
-                    	       echo
+                               cat /var/log/smx-log/fail.log | tail -n 6
+                               echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			  fi
-			  if [ "$ans" = "True" ]; then
+                          fi
+                          if [ "$ans" = "True" ]; then
                                 $(which diskutil) eject $DISK_NAME
-				if [ $? -eq 0 ]; then
+                                if [ $? -eq 0 ]; then
                                      clear
                                      echo "        COMMAND STATUS          "
                                      echo
@@ -15091,66 +15087,66 @@ function dsk_menuosx() {
                                      sleep 2
                                      $(which diskutil) eject $DISK_NAME
                                      if [ $? -eq 0 ]; then
-					  echo "###############################################" >> /var/log/smx-log/success.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-					  echo "Successfuly ejected disk: $DISK_NAME" >> /var/log/smx-log/success.log
-					  echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  echo "###############################################" >> /var/log/smx-log/success.log
-					  echo "" >> /var/log/smx-log/success.log
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                    $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: OK    stdout: yes    stderr: no         "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
-					  echo "Command run: $(which diskutil) eject $DISK_NAME"
-					  echo
-                            		  cat /var/log/smx-log/success.log | tail -n 6
-                            		  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
+                                          echo "###############################################" >> /var/log/smx-log/success.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Successfuly ejected disk: $DISK_NAME" >> /var/log/smx-log/success.log
+                                          echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          echo "###############################################" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          clear
+                                          echo "        COMMAND STATUS          "
+                                          echo
+                                          echo "$(date)                                    $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: OK    stdout: yes    stderr: no         "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
+                                          echo "Command run: $(which diskutil) eject $DISK_NAME"
+                                          echo
+                                          cat /var/log/smx-log/success.log | tail -n 6
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
                                      else
-					  echo "##################################################" >> /var/log/smx-log/fail.log
-					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-					  echo "Not ejected disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-					  echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-					  echo "##################################################" >> /var/log/smx-log/fail.log
-					  echo "" >> /var/log/smx-log/fail.log
-					  read -p "Press [enter] to continue..." ReadDamKey
-					  clear
-					  echo "        COMMAND STATUS          "
-					  echo
-					  echo "$(date)                                    $(whoami)@$(hostname)"
-					  echo
-					  echo "Command: FAIL    stdout: yes    stdout: yes      "
-					  echo
-					  echo "Before command completion, additional instructions may appear below"
-					  echo
-					  echo "File                                 Fileset                 Type"
-					  echo "-----------------------------------------------------------------"
-					  echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
-					  echo "Command unsuccessful, check command syntax and variables"
-					  echo
-                            		  cat /var/log/smx-log/fail.log | tail -n 6
-                            		  echo
-					  read -p "Press [enter] to continue..." ReadDamKey
+                                          echo "##################################################" >> /var/log/smx-log/fail.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                          echo "Not ejected disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
+                                          echo "Command run: $(which diskutil) eject $DISK_NAME" >> /var/log/smx-log/fail.log
+                                          echo "" >> /var/log/smx-log/fail.log
+                                          echo "##################################################" >> /var/log/smx-log/fail.log
+                                          echo "" >> /var/log/smx-log/fail.log
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          clear
+                                          echo "        COMMAND STATUS          "
+                                          echo
+                                          echo "$(date)                                    $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: FAIL    stdout: yes    stdout: yes      "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                 Type"
+                                          echo "-----------------------------------------------------------------"
+                                          echo "$(which diskutil)                    bos.dskmgt.diskutil     exec"
+                                          echo "Command unsuccessful, check command syntax and variables"
+                                          echo
+                                          cat /var/log/smx-log/fail.log | tail -n 6
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
                                      fi
-				fi
-			  else
-                                echo "Disk: $DISK_NAME not ejected from system"
-				read -p "Press [enter] to continue..." ReadDamKey
-			  fi
-		    fi
-		    ;;
-	    rename)
+                                fi
+                          else
+                               echo "Disk: $DISK_NAME not ejected from system"
+                               read -p "Press [enter] to continue..." ReadDamKey
+                          fi
+                    fi      
+                    ;;
+            rename)
                      clear
                      echo "$(date)                                     $(whoami)@$(hostname)"
                      echo "Must have real disk name, ie /Volumes/USB"
@@ -16559,7 +16555,7 @@ function sys_menuosx() {
                      fi
                      ;;
             nmap)
-                   $(which nmap) > /dev/null
+                   $(which which) nmap > /dev/null
                    if [ $? -eq 0 ]; then
                         clear
                         echo "$(date)                                     $(whoami)@$(hostname)"
@@ -16657,7 +16653,7 @@ function sys_menuosx() {
                     fi
                     ;;
             netmap)
-                     $(which nmap) > /dev/null
+                     $(which which) nmap > /dev/null
                      if [ $? -eq 0 ]; then
                           clear
                           echo "$(date)                                     $(whoami)@$(hostname)"
