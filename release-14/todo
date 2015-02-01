@@ -42,3 +42,5 @@ version 14.0 (Codename: Hekaton (Codename for Microsoft SQL server In-Memory Onl
 21 - May add support for AIX, HP-UX and solaris []
 
 22 - In conjuction with change 4, create log files with date/timestamps []
+
+23 - Create master variable for command being run to get success/error information ($CMD=`cmd`) []
