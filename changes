@@ -1,0 +1,134 @@
+Start date: 30/05/2010
+            Orriginal working name: cp/m (Control program / Macintosh), system administration tool for Mac OS X
+            later remolded to admintool, and ported to linux (now called syspert)
+orriginal bug count:
+                     key: [x] = fixed, [] = not fixed
+                     Line 17: useradd - not found [x]
+                              passwd - unknown user [x]
+                     Line 21: real - (should be read) [x]
+                     Line 9: missing ] [x]
+                             echo "" [x]
+                             echo "" [x]
+                     Line 23: exit0 (should be exit 0) [x]
+                              missing quit [x]
+                              exit 0;; [x]
+
+                     $userShell [x]
+                     find user in dscl [x]
+                     set_usr-id (should be set_usr_id) [x]
+                     set_usr-grp (should be set_usr_grp) [x]
+                     add if statement for root use only [x]
+
+                     shell_script (submenu)
+                     build test [x]
+                     transfer all scripts into 1 [x]
+                     test [x]
+                     4 submenus [x]
+                     tested [x]
+                     transfer from:
+                                   disk_adm.sh - diskmgmt [x]
+                                   recovery.sh - ? <scrapped>
+                                   security.sh - ? <scrapped>
+                                   usr_adm.sh - usrmgmt [X]
+                                   sys_adm.sh - sysmgmt [X]
+                     useradd > \
+                     usermod > all transfered to usrmgmt
+                     userdel > /
+                     diskmod > tranfedred to diskmgmt
+                     sec_mgmt > scrapped
+                     sys_mgmt > tranfered to sysmgmt
+
+15/07/2011
+           program now called admintool / linuxadmin
+           direct port
+           make if statment - "user su to root" - add user to /etc/sudoers (echo '$userName ALL=(ALL)     ALL' >>/etc/sudoers)
+           added non-optional logging to /sbin/admin/log/
+           will log date, user, host and command run
+16/04/2012
+          added process management, command confirm prompt (Press [enter] to execute...)
+12/06/2013
+          program now called gnusys, fully completed > only looking for bug fixes > may port to red hat if SL6 works > will rename to redhat-config-main
+          will add other redhat system-config commands []
+
+          overhaul of command confirm prompt > removed 'press [enter] to continue...' looks more AIX-like > now showing command run, process id and date / time run
+
+17/07/2013
+          Program now called sysman, adding program mangement (able to install software for multi-linux systems) will include redhat, debian/ubuntu
+20/08/2013
+          MASTER LOST! > Lost most updated version, made backup, lost program mgmt, restoring program to latest version
+01/09/2013
+          compleated command confirm section, completly removed number selection, adding software install for redhat and debian/ubuntu
+15/09/2013
+          Program complete!! > running main test and fixing minor bugs, creating install program to location /opt/syspert/bin/
+          source moved to /opt/syspert/src
+16/09/2013
+          Install program completed, changed syspert path to '/opt/syspert/bin'
+28/09/2013
+          all tests completed, fixed minor bugs in useradd, insted of using useradd -g to add a user to a group, now use gpasswd -a
+          fixed bug in backup, now not updating /etc/dumpdates
+27/10/2013
+          Fixed outlook of syspert, changed path to '/usr/sbin', may add pinter management section, added if statement to check if a user exits
+          may create all in one installer
+27/11/2013
+          Created all in one installer, merged mkfs into 1, may add non optional logging for 'system intregraty', relese codename 'Trident'
+          may rename to 'System Software Management Console' (ssmc) for 2.0 release
+05/12/2013
+          Created command validation, changed useradd for diffrent versions of linux
+
+23/12/2013
+          Almost finished fixes for syspert 1.5
+
+24/12/2013
+          Removed dump for backup, now using tar and bzip2, completed syspert 1.5 'Trident'
+
+24/12/2013
+          codename for ssmc 'project 42'
+1/1/2014
+         may have to remove mail options, causing unknown errors
+
+5/2/2014
+        ssmc 2.0 completed, added full support for opensuse, rewrote kernel and update section, added remote management section, fixed with ssh -t, now using /usr/bin/env bash, after full test, shal confirm release date
+
+31/3/2014
+         ssmc 3.0 completed, added full support for Mac OS X, added ability to add mac users, mac disk mgmt, system mgmt, release date confirmed as 1/4/2014
+
+8/4/2014
+        smc 3.11 completed, had to remove tee command logging, messing up exit codes, for commands that use pipelines changed from $? to 
+$PIPESTATUS
+
+21/4/2014
+         smc 4.0 completed, created password sub-menu, authenticated by groups, but changed back to root, due to the use of $USER and $USERNAME on both linux and os x being too complicated,
+         added option to create a system user (user that controls a deamon), removed 'command status' for when moving to sub-menu, 'command status' only used for commands, fully removed ssh and
+	 telnet support - program not being used as a telnet/ssh client, changed licence to mozilla v 2.0, release date confirmed as 22/4/2014
+
+10/5/2014
+	 smc 5.0 completed, finaly created the ability to move to difrent sectons of the program with flags, added option to send mail to a
+	 user, added ability to send mail to root if authentication fails, added option to run command an other user, used full path for
+	 command ie '/bin/cp', using logging with program depentant log files ie '/var/log/smc-finger', created option to display boot
+	 messages with dmesg
+3/6/2014
+         smc 6.0 completed, started on version 7, implamenting radical changes, like removing master authentication and running on a program by program basis
+17/6/2014
+         smc 7.0 completed, changed authentication to be on program by program basis, for example: non root user can run commands like finger, but not programs like useradd, added option to set SELinux security rating, combined disk mount and unmount, fully removed user checks (the programs allready check users), changed full path of programs to $(which <program>)
+
+9/07/2014
+         adm-ux 8.0 completed, had to rename to adm-ux to avoid confusion to the 'real' smc (Solaris Management Console), completly removed access for sudo/wheel users
+         as users had no access to log files, still can use sudo to run program, changed successful/fail page - will now cat out log files, changed iptables-save -
+         will now go to log file, moved chadm to grpmgt, fixed all bugs relating to opensuse with search and distro upgrades
+
+18/07/2014
+          adm-ux 9.0 completed, changed licence to GPLv2, changed hostname to include suse support by modifiying /etc/HOSTNAME, changed repoadm to repomgt, 
+          changed lsgrp to use cat /etc/group | grep $grpName, added option to create system group, added option to change system run level using init, 
+          and also give current run level by using who -r
+28/07/2014
+          adm-ux 10.0 completed, changed software install, first you search for the program, and adm-ux will ask you if you want to install the program you searched for
+	  added install section to install .rpm file
+
+27/10/2014
+          adm-ux 11.0 completed, added server admin section for apache, NFS, NIS, SQL, Samba, renamed the program to unixadmin, added support for BSD using pkg_add -r
+	  added option to modify /etc/inittab, added option to use vmstat
+10/12/2014
+          sysExec 12.0 completed, created OS detection script for program install, passed -y to package management install, added seperator to log files
+28/01/2015
+          smx 13.0 completed, included os detection for server management and starting/stoping services, changed code layout so that if a command is unsuccessful
+          (exit code: 0x1) it won't run the next code in line, added defaults for sertan variables
