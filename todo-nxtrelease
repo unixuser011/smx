@@ -1,0 +1,93 @@
+## todo for next release ##
+version 15.0 (Codename: )
+
+Key: * - todo
+     ** - todo in current fix/change session
+     *** Currently doing
+
+1 - May change install program for RHEL - uses diffrent install sources (rpmforge, epel, etc) []
+
+2 - May create option to manage LVM and VG []
+
+3 - May change command run section for internal sub-menus (ie: smx.sh#sys_menu#pkg_menu) to com.smx.sys_menu []
+
+4 - May change log system to create seperate folders for programs as: /var/log/smx/program/ []
+
+5 - May add kill sequence after package management, to make sure the system kills package program, and not slowing down
+     system operations []
+
+6 - May combine OS X disk mount and unmount [X]
+
+7 - May remove underline in command names (example: change add_usr to add-usr, etc) [X]
+
+8 - May remove '' from all sed usage and replace with "" []
+
+9 - For bos.sysmgt.<deamon>, replace with bos.deamon.<deamon_name> []
+
+10 - May use trap to usr CTRL-C to exit back to menu []
+
+11 - May change shell commands from bos.sysmgt.* to bos.shell.* []
+
+12 - May change layout to not display commands and use help system with help command displaying information about all commands in that subMenu []
+
+13 - may add option to update NIS database for user creation section []
+
+14 - May add kickstart for red hat, etc for debian and suse for remote install []
+
+15 - Change user management for user modifications, to run sub-menu to ask for user name (stored as: $MASTER-USR) and replace
+     $userName with $MASTER-USR []
+     
+16 - May add support for AIX, HP-UX and solaris []
+
+17 - In conjuction with change 4, create log files seperators such as -- or ## between enteries []
+
+18 - Create master variable for command being run to get error information ($ERROR_CMD=`cmd`) []
+
+19 - Overhaul remote management section, run with ssh, create sub-menus for ssh []
+
+20 - Add DNS (use BIND or NSD) and LDAP to server management []
+
+21 - May remove OS X support []
+
+22 - May add date/timestamp to log files []
+
+23 - May add linux intergration with MS AD []
+
+24 - May add fail2ban for SSH config []
+
+25 - May change name to SMS - System Management Service(s) []
+
+26 - May add func_ to function name [] (Example: func_main_menu())
+
+27 - For chadm - add OS detection []
+
+28 - For DHCP, add default for network interface []
+
+29 - Change chip for debian, change to edit /etc/network/interfaces to set static ip addr [X]
+
+30 - May add extra echo after input request (example: read -p "One"
+                                                      echo
+                                                      read -p "Two") []
+31 - For functions for OS X change from /osx to -osx (example: diskmgt/osx to diskmgt-osx) []
+
+31 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) []
+
+32 - include support for arch, gentoo and knoppix []
+
+33 - for delusr on linux, include option to delete users home directory, mail files, cron jobs, etc []
+
+34 - may add default for mntPoint for disk mounting/unmounting []
+
+35 - With firewall management, add code to ensure that firewall is turned on []
+
+36 - With fix #40 include pros/cons of each []
+
+37 - Change help system to show help for specific menu (example: if you are in the usrmgt section, the program will display all commands and what they do) []
+
+38 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # []
+
+39 - May add vulnrability check using lynis and tiger []
+
+40 - Add support for diffrent desktop envronments for vnc []
+
+41 - May change cp for rsync -ah --progress []
