@@ -1,0 +1,27 @@
+## todo for next release ##
+version 14.0 (Codename: Hekaton (Codename for Microsoft SQL server In-Memory Online Transaction Processing  (OTLP) system))
+
+Key: * - todo
+     ** - To do in current fix/change session
+     *** - Currently doing
+
+1 - For unmount, add eject using udisks (udisks --eject <diskName>) [X]
+
+2 - May combine OS X disk mount and unmount [X]
+
+3 - May remove underline in command names (example: change add_usr to add-usr, etc) [X]
+
+4 - Add snmp server support to server management [X]
+
+5 - May add SUCCESS or FAIL message in ASCII art form and add spinning cursor (See spin.sh) [X] (UPDATE: not using ASCII art, but including spinning cursor)
+
+6 - For default variables, unset or set to null (Example: USER_SHELL="") [X]
+
+7 - May remove Default: <default> from default section and just use pre-set default (Example: Network Interface [eth0] > ) [X]
+													  
+8 - With change 36, change chip to edit config files to set static ip address [X]
+
+9 - May add samba-client and mariadb-server for mysql install for redhat for version 7 [X]
+
+10 - May add code to find active network interface (route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev') [X]
+     for ip_menu to get current active network interface
