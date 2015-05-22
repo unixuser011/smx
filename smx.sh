@@ -153,6 +153,12 @@ else
      echo "Log file successfuly created"
 fi
 
+sleep 2
+
+clear
+echo "Entering interactive mode... (Enter 'help' for commands)"
+sleep 2
+
 # Banner display - END
 
 export TERM=xterm                        # Could use vt100, but doesn't look right on emulators/PuTTY
@@ -165,29 +171,6 @@ function main_menu() {
         clear
         echo
         echo "$(date)                                      $(whoami)@$(hostname)"
-        echo "+-------------------------------+"
-        echo "|       SYSTEM MANAGEMENT       |"
-        echo "+-------------------------------+"
-        echo
-        echo "usrmgt > User Account management"
-        echo
-        echo "diskmgt > Disk management"
-        echo
-        echo "sysmgt > System management"
-      	echo
-      	echo "srvmgt > Server management"
-        echo
-        echo "usrmgt/osx > User Account management for OS X"
-        echo
-        echo "diskmgt/osx > Disk management for OS X"
-        echo
-        echo "sysmgt/osx > System management for OS X"
-        echo
-        echo "rmlog > Remove log files"
-        echo
-        echo "catlog > View log files"
-        echo
-        echo "exit > Exit back to shell"
         echo
         read -p "(config-main)#" choice_main
         echo
@@ -354,6 +337,19 @@ function main_menu() {
               	     echo "Command run: $(which cat) /var/log/smx-log/success.log | more"
               	     echo "Command run: $(which cat) /var/log/smx-log/fail.log | more"
               	     read -p "Press [enter] to continue..." ReadDamKey;;
+            help)
+                   echo "usrmgt > User Account Management"  
+                   echo "dskmgt > Disk Management"
+                   echo "sysmgt > System Management"
+                   echo "srvmgt > Server Management"
+                   echo "usrmgt/osx > User Account Management for OS X"
+                   echo "diskmgt/osx > Disk Management for OS X"
+                   echo "sysmgt/osx > System Management for OS X"
+                   echo "rmlog > Remove log files"
+                   echo "catlog > View log files"
+                   echo "help > This menu"
+                   echo "exit > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey;;  
             exit)
                    clear
                    echo "####################################" >> /var/log/smx-log/exit.log
@@ -384,47 +380,6 @@ function usr_menu() {
     do
        clear
        echo "$(date)                                     $(whoami)@$(hostname)"
-       echo "+----------------------+"
-       echo "|   USER MANAGEMENT    |"
-       echo "+----------------------+"
-       echo
-       echo "addusr > Add a user to the system"
-       echo
-       echo "addsys > Add a system user to the system"
-       echo
-       echo "chsh > Change user's shell"
-       echo
-       echo "chname > Change user's real name"
-       echo
-       echo "chid > Change user's id"
-       echo
-       echo "grpmgt > Perform group management"
-       echo
-       echo "passmgt > Password management"
-       echo
-       echo "delusr > Remove a user from the system"
-       echo
-       echo "login > Login as a user on the system"
-       echo
-       echo "find > Find a user on the system"
-       echo
-       echo "users > List user's logged in"
-       echo
-       echo "visudo > Edit /etc/sudoers file"
-       echo
-       echo "disable > Disable a user"
-       echo
-       echo "enable > Enable a user"
-       echo
-       echo "edlogin > Edit /etc/login.defs"
-       echo
-       echo "chinfo > Change user information"
-       echo
-       echo "mail > Send mail to a user"
-       echo
-       echo "exit > Return to main menu"
-       echo
-       echo "exit-mas > Exit back to shell"
        echo
        read -p "(config-usr)#" choice_usr
        echo
@@ -1670,6 +1625,28 @@ function usr_menu() {
                            read -p "Press [enter] to continue..." ReadDamKey
               	    fi
               	    ;;
+           help)
+                  echo "addusr > Add a user to the system"
+                  echo "addsys > Add a system user to the system"
+                  echo "chsh > Change user's shell"
+                  echo "chname > Change user's real name"
+                  echo "chid > Change user's id"
+                  echo "grpmgt > Perform group management"
+                  echo "passmgt > Password management"
+                  echo "delusr > Remove a user from the system"
+                  echo "login > Login as a user on the system"
+                  echo "find > Find a user on the system"
+                  echo "users > List user's logged in"
+                  echo "visudo > Edit /etc/sudoers file"
+                  echo "disable > Disable a user"
+                  echo "enable > Enable a user"
+                  echo "edlogin > Edit /etc/login.defs"
+                  echo "chinfo > Change user information"
+                  echo "mail > Send mail to a user"
+                  echo "help > This menu"
+                  echo "exit > Return to main menu"
+                  echo "exit-mas > Exit back to shell"  
+                  read -p "Press [enter] to continue..." ReadDamKey;;       
            exit)
                   clear
                   echo "##############################################" >> /var/log/smx-log/exit.log
@@ -1710,33 +1687,6 @@ function dsk_menu() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+-----------------------------------+"
-        echo "|           DISK MANAGEMENT         |"
-        echo "+-----------------------------------+"
-        echo
-        echo "init > Initialize a new disk"
-        echo
-        echo "lsdisk > List disks on the system"
-        echo
-        echo "diskinfo > Get information on a disk"
-        echo
-        echo "fsys > Get filesystem information"
-        echo
-        echo "mount > Mount or unmount a disk for use"
-        echo
-        echo "rename > Rename a disk"
-        echo
-        echo "mkfs > create new filesystem"
-        echo
-        echo "chdisk > Perform disk check"
-        echo
-        echo "format > Format disk"
-        echo
-        echo "erasedod > Erase disk to DoD standards"
-        echo
-        echo "exit > Return to main menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-dsk)#" choice_dsk
         echo
@@ -3215,6 +3165,21 @@ function dsk_menu() {
                             read -p "Press [enter] to continue..." ReadDamKey
 		              fi
             	      ;;
+            help)
+                   echo "init > Initialize a new disk"
+                   echo "lsdisk > List disks on the system"
+                   echo "diskinfo > Get information on a disk"
+                   echo "fsys > Get filesystem information"
+                   echo "mount > Mount or unmount a disk for use"
+                   echo "rename > Rename a disk"
+                   echo "mkfs > create new filesystem"
+                   echo "chdisk > Perform disk check"
+                   echo "format > Format disk"
+                   echo "erasedod > Erase disk to DoD standards"
+                   echo "help > This menu"
+                   echo "exit > Return to main menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey;;          
 	        exit)
                    clear
 	               echo "##############################################" >> /var/log/smx-log/exit.log
@@ -3255,51 +3220,6 @@ function sys_menu() {
     do
 	    clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+-------------------------------+"
-        echo "|       SYSTEM MANAGEMENT       |"
-        echo "+-------------------------------+"
-        echo
-        echo "sysproc > View system processes"
-        echo
-        echo "sysio > View system IO stats"
-        echo
-        echo "vmstatus > View system virtual memory status"
-        echo
-        echo "shell > Access user shell"
-        echo
-        echo "cmdusr > Run a command as a user"
-        echo
-        echo "remotemgt > sysExec remote management"
-        echo
-        echo "chboot > Show boot messages"
-        echo
-        echo "initLevel > Show and change system run level"
-        echo
-        echo "viinit > View or modify /etc/inittab"
-        echo
-        echo "software > Install software to system"
-        echo
-        echo "backup > Backup or restore a filesystem using dump and bzip2"
-        echo
-        echo "stACL > Set ACL on a file"
-        echo
-        echo "gtACL > Get ACL settings on a file"
-        echo
-        echo "stSelinux > Set new selinux security rating on system"
-        echo
-        echo "systemupd > update Operating System kernel or to latest version" # Sub-menu 6
-        echo
-        echo "ifconfig > IP configuration" # Sub-menu 4
-        echo
-        echo "firewall > Configure system firewall" # Sub-menu 5
-        echo
-        echo "nmap > Perform OS detection, version detection and portscanner"
-        echo
-        echo "netmap > Perform a ping sweep of a given ip range"
-        echo
-        echo "exit > Exit back to main menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-sys)#" choice_sys
         echo
@@ -4539,6 +4459,31 @@ function sys_menu() {
                       	  read -p "Press [enter] to continue..." ReadDamKey
               	     fi
               	     ;;
+            help)
+                   echo "sysproc > View system processes"
+                   echo "sysio > View system IO stats"
+                   echo "vmstatus > View system virtual memory status"
+                   echo "shell > Access user shell"
+                   echo "cmdusr > Run a command as a user"
+                   echo "remotemgt > sysExec remote management"
+                   echo "chboot > Show boot messages"
+                   echo "initLevel > Show and change system run level"
+                   echo "viinit > View or modify /etc/inittab"
+                   echo "software > Install software to system"
+                   echo "backup > Backup or restore a filesystem using dump and bzip2"
+                   echo "stACL > Set ACL on a file"
+                   echo "gtACL > Get ACL settings on a file"
+                   echo "stSelinux > Set new selinux security rating on system"
+                   echo "systemupd > update Operating System kernel or to latest version"
+                   echo "ifconfig > IP configuration"
+                   echo "firewall > Configure system firewall"
+                   echo "nmap > Perform OS detection, version detection and portscanner"
+                   echo "netmap > Perform a ping sweep of a given ip range"
+                   echo "help > This menu"
+                   echo "exit > Exit back to main menu"
+                   echo "exit-mas > Exit back to shell"         
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;
 	        exit)
 		           clear
                    echo "##############################################" >> /var/log/smx-log/exit.log
@@ -4579,27 +4524,6 @@ function ip_menu() {
    do
        clear
        echo "$(date)                                     $(whoami)@$(hostname)"
-       echo "+----------------------------------+"
-       echo "|            IP MANAGEMENT         |"
-       echo "+----------------------------------+"
-       echo
-       echo "list > List network adaptor"
-       echo
-       echo "ifstats > Advanced network status"
-       echo
-       echo "change > Change hostname address on system"
-       echo
-       echo "chip > Change ip address"
-       echo
-       echo "down > Bring network adaptor down"
-       echo
-       echo "up > Bring network adaptor up"
-       echo
-       echo "trace > Trace an ip address"
-       echo
-       echo "exit > Exit back to system menu"
-       echo
-       echo "exit-mas > Exit back to shell"
        echo
        read -p "(config-ip)#" choice_ip
        echo
@@ -5894,6 +5818,19 @@ function ip_menu() {
               			read -p "Press [enter] to continue..." ReadDamKey
                    fi
                    ;;
+           help)
+                  echo "list > List network adaptor"
+                  echo "ifstats > Advanced network status"
+                  echo "change > Change hostname address on system"
+                  echo "chip > Change ip address"
+                  echo "down > Bring network adaptor down"
+                  echo "up > Bring network adaptor up"
+                  echo "trace > Trace an ip address"
+                  echo "help > This menu"
+                  echo "exit > Exit back to system menu"
+                  echo "exit-mas > Exit back to shell"
+                  read -p "Press [enter] to continue..." ReadDamKey
+                  ;;        
 	       exit)
     	          clear
 		          echo "######################################################" >> /var/log/smx-log/exit.log
@@ -5934,25 +5871,6 @@ function fire_menu() {
     do
         clear
         echo "$(date)                                    $(whoami)@$(hostname)"
-        echo "+-----------------------------+"
-        echo "|     FIREWALL MANAGEMENT     |"
-        echo "+-----------------------------+"
-        echo
-        echo "status > View the state of the system firewall"
-        echo
-        echo "port_open > Open a port in the firewall"
-        echo
-        echo "port_close > Close a port in the firewall"
-        echo
-        echo "block_domain > Block domain in firewall"
-        echo
-        echo "block_ip > Block IP address in firewall"
-        echo
-        echo "log > Log IP packet"
-        echo
-        echo "exit > Exit back to sys_menu"
-      	echo
-      	echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-fw)#" choice_fire
         echo
@@ -6389,6 +6307,18 @@ function fire_menu() {
                   fi
                   $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                   ;;
+            help)
+                   echo "status > View the state of the system firewall"
+                   echo "port_open > Open a port in the firewall"
+                   echo "port_close > Close a port in the firewall"
+                   echo "block_domain > Block domain in firewall"
+                   echo "block_ip > Block IP address in firewall"
+                   echo "log > Log IP packet"
+                   echo "help > This menu"
+                   echo "exit > Exit back to sys_menu"
+                   echo "exit-mas > Exit back to shell" 
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;     
             exit)
                    clear
 		           echo "########################################################" >> /var/log/smx-log/exit.log
@@ -6431,25 +6361,6 @@ function pkg_menu() {
         clear
         echo
         echo "$(date)                                      $(whoami)@$(hostname)"
-        echo "+------------------------------+"
-        echo "|       PACKAGE MANAGEMENT     |"
-        echo "+------------------------------+"
-        echo
-        echo "search > Search and install software on system"
-        echo
-        echo "remove > Remove software on system"
-      	echo
-      	echo "install_deb > Install a downloaded .deb file"
-      	echo
-      	echo "rpm > Install or remove a program via rpm"
-      	echo
-      	echo "update > Install updates on system"
-      	echo
-	    echo "repomgt > Perform repoistory management on system"
-        echo
-        echo "exit > Exit back to sys_menu"
-      	echo
-      	echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-pkg)#" choice_soft
         echo
@@ -8902,6 +8813,17 @@ function pkg_menu() {
 			               fi
                       fi
 		              ;;
+            help)
+                   echo "search > Search and install software on system"
+                   echo "remove > Remove software on system"
+                   echo "install_deb > Install a downloaded .deb file"
+                   echo "rpm > Install or remove a program via rpm"
+                   echo "update > Install updates on system"
+                   echo "repomgt > Perform repoistory management on system"
+                   echo "Help > This menu"
+                   echo "exit > Exit back to sys_menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey;;          
 	        exit)
 		           clear
             	   echo "#######################################################" >> /var/log/smx-log/exit.log
@@ -8943,33 +8865,6 @@ function grp_menu() {
    do
       clear
       echo "$(date)                                     $(whoami)@$(hostname)"
-      echo "+-----------------------------+"
-      echo "|      GROUP MANAGEMENT       |"
-      echo "+-----------------------------+"
-      echo
-      echo "grpadd > Add a new group to system"
-      echo
-      echo "sysgrpadd > Add a new system group to system"
-      echo
-      echo "chgid > Change group ID"
-      echo
-      echo "chgname > Change group name"
-      echo
-      echo "grpusr > Add a user to a group"
-      echo
-      echo "chadm > Change user to admin"
-      echo
-      echo "lsgrp > List groups on the system"
-      echo
-      echo "lsusrgrp > List groups users are in"
-      echo
-      echo "rmusr > Remove user from group"
-      echo
-      echo "grpdel > Remove group from system"
-      echo
-      echo "exit > Return to usr_menu"
-      echo
-      echo "exit-mas > Exit back to shell"
       echo
       read -p "(config-grp)#" choice_grp
       echo
@@ -9642,6 +9537,21 @@ function grp_menu() {
                         read -p "Press [enter] to continue..." ReadDamKey
                    fi
                    ;;
+          help)
+                 echo "grpadd > Add a new group to system"
+                 echo "sysgrpadd > Add a new system group to system"
+                 echo "chgid > Change group ID"
+                 echo "chgname > Change group name"
+                 echo "grpusr > Add a user to a group"
+                 echo "chadm > Change user to admin"
+                 echo "lsgrp > List groups on the system"
+                 echo "lsusrgrp > List groups users are in"
+                 echo "rmusr > Remove user from group"
+                 echo "grpdel > Remove group from system"
+                 echo "help > This menu"
+                 echo "exit > Return to usr_menu"
+                 echo "exit-mas > Exit back to shell" 
+                 read -p "Press [enter] to continue..." ReadDamKey;;        
           exit)
                  clear
 		         echo "#######################################################" >> /var/log/smx-log/exit.log
@@ -9683,19 +9593,6 @@ function system_upd() {
         clear
         echo
         echo "$(date)                                    $(whoami)@$(hostname)"
-        echo "+-----------------------+"
-        echo "|    SYSTEM UPDATE      |"
-        echo "+-----------------------+"
-        echo
-        echo "update > Update system to latest vesion (distrobution update)"
-        echo
-        echo "updateFed > Update Fedora Linux and Fedora-like systems to latest version (distrobution update)"
-        echo
-        echo "updatekrnl > Update system kernel to latest version"
-        echo
-        echo "exit > Exit back to sys_menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-update)#" choice_upd
         echo
@@ -10949,6 +10846,14 @@ function system_upd() {
                               fi
                          fi
 			             ;;
+            help)
+                   echo "update > Update system to latest vesion (distrobution update)"
+                   echo "updateFed > Update Fedora Linux and Fedora-like systems to latest version (distrobution update)"
+                   echo "updatekrnl > Update system kernel to latest version"
+                   echo "help > This menu"
+                   echo "exit > Exit back to sys_menu"
+                   echo "exit-mas > Exit back to shell"             
+                   read -p "Press [enter] to continue..." ReadDamKey;;
             exit)
             	   clear
             	   echo "#########################################################" >> /var/log/smx-log/exit.log
@@ -10989,41 +10894,6 @@ function usr_menuosx() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+---------------------------------+"
-        echo "|       USER MANAGEMENT / OSX     |"
-        echo "+---------------------------------+"
-        echo
-        echo "addusr > Add a user to the system"
-        echo
-        echo "accroot > Activate or disable root account"
-        echo
-        echo "chsh > Change user shell"
-        echo
-        echo "chname > Change user's real name"
-        echo
-        echo "chid > Change user ID"
-        echo
-        echo "grpmgt/osx > Perform group management"
-        echo
-        echo "passwd > Change user password"
-        echo
-        echo "find > Find user in dscl database"
-        echo
-        echo "users > List all users that are logged in"
-        echo
-        echo "disable > Disable an account"
-        echo
-        echo "enable > Enable an account"
-        echo
-        echo "delusr > Delete a user"
-        echo
-        echo "visudo > Edit /etc/sudoers file"
-        echo
-        echo "login > Login as a user on the system"
-        echo
-        echo "exit > Return to main menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-usr-OSX)#" choice_usrosx
         echo
@@ -12051,6 +11921,25 @@ function usr_menuosx() {
                          read -p "Press [enter] to continue..." ReadDamKey
                     fi
                     ;;
+            help)
+                   echo "addusr > Add a user to the system"
+                   echo "accroot > Activate or disable root account"
+                   echo "chsh > Change user shell"
+                   echo "chname > Change user's real name"
+                   echo "chid > Change user ID"
+                   echo "grpmgt/osx > Perform group management"
+                   echo "passwd > Change user password"
+                   echo "find > Find user in dscl database"
+                   echo "users > List all users that are logged in"
+                   echo "disable > Disable an account"
+                   echo "enable > Enable an account"
+                   echo "delusr > Delete a user"
+                   echo "visudo > Edit /etc/sudoers file"
+                   echo "login > Login as a user on the system"
+                   echo "help > This menu"
+                   echo "exit > Return to main menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey;;     
             exit)
                    clear
 		           echo "#################################################" >> /var/log/smx-log/exit.log
@@ -12092,35 +11981,6 @@ function grp_menuosx() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+----------------------------------+"
-        echo "|        GROUP MANAGEMENT / OSX    |"
-        echo "+----------------------------------+"
-        echo
-        echo "grpadd > Add a new group to system"
-        echo
-        echo "chgid > Change group ID"
-        echo
-        echo "chgname > Change group name"
-        echo
-        echo "grpusr > Add a user to a group (Not primary group)"
-        echo
-        echo "grpusrprime > Add a user to a group (primary)"
-        echo
-        echo "chadm > change user to admin"
-        echo
-        echo "lsgrp > List groups on the system"
-        echo
-        echo "lsusrgrp > List groups users are in"
-        echo
-        echo "lsgrpinfo > List group information"
-        echo
-        echo "rmusr > Remove user from group"
-        echo
-        echo "grpdel > Remove groups from system"
-        echo
-        echo "exit > Return to usrmgt/osx"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-grp-OSX)#" choice_grposx
         echo
@@ -12874,6 +12734,23 @@ function grp_menuosx() {
                           read -p "Press [enter] to continue..." ReadDamKey
                      fi
                      ;;
+            help)
+                   echo "grpadd > Add a new group to system"
+                   echo "chgid > Change group ID"
+                   echo "chgname > Change group name"
+                   echo "grpusr > Add a user to a group (Not primary group)"
+                   echo "grpusrprime > Add a user to a group (primary)"
+                   echo "chadm > change user to admin"
+                   echo "lsgrp > List groups on the system"
+                   echo "lsusrgrp > List groups users are in"
+                   echo "lsgrpinfo > List group information"
+                   echo "rmusr > Remove user from group"
+                   echo "grpdel > Remove groups from system"
+                   echo "help > This menu"
+                   echo "exit > Return to usrmgt/osx"
+                   echo "exit-mas > Exit back to shell"    
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;     
             exit)
                    clear
 		           echo "#################################################" >> /var/log/smx-log/exit.log
@@ -12914,33 +12791,6 @@ function dsk_menuosx() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+-----------------------------------+"
-        echo "|        DISK MANAGEMENT / OSX      |"
-        echo "+-----------------------------------+"
-        echo
-        echo "lsdisk > List all disks in the system"
-        echo
-        echo "diskinfo > Get info on a disk"
-        echo
-        echo "fsys > Check disk filesystem"
-        echo
-        echo "mount > Mount or unmount a disk for use"
-        echo
-        echo "rename > Rename disk"
-        echo
-        echo "verfsys > Verify file system of a disk"
-        echo
-        echo "fixfsys > Repair file system of a disk "
-        echo
-        echo "mkfs > Create new filesystem"
-        echo
-        echo "format > Format disk"
-        echo
-        echo "erasedod > Erase disk to DoD standards"
-        echo
-        echo "exit > Return to main menu"
-        echo
-        echo "exit-mas > Return to shell"
         echo
         read -p "(config-dsk-OSX)#" choice_dskosx
         echo
@@ -13945,6 +13795,22 @@ function dsk_menuosx() {
                             read -p "Press [enter] to continue..." ReadDamKey
                        fi
                        ;;
+            help)
+                   echo "lsdisk > List all disks in the system"
+                   echo "diskinfo > Get info on a disk"
+                   echo "fsys > Check disk filesystem"
+                   echo "mount > Mount or unmount a disk for use"
+                   echo "rename > Rename disk"
+                   echo "verfsys > Verify file system of a disk"
+                   echo "fixfsys > Repair file system of a disk "
+                   echo "mkfs > Create new filesystem"
+                   echo "format > Format disk"
+                   echo "erasedod > Erase disk to DoD standards"
+                   echo "help > This menu"
+                   echo "exit > Return to main menu"
+                   echo "exit-mas > Return to shell" 
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;          
             exit)
                    clear
 		           echo "#################################################" >> /var/log/smx-log/exit.log
@@ -13985,37 +13851,6 @@ function sys_menuosx() {
     do
         clear
         echo "$(date)                                      $(whoami)@$(hostname)"
-        echo "+------------------------------------+"
-        echo "|         SYSTEM MANAGEMENT / OSX    |"
-        echo "+------------------------------------+"
-        echo
-        echo "sysproc > View system processes"
-        echo
-        echo "sysio > View IO status"
-      	echo
-      	echo "vmstatus > View virtual memory status"
-        echo
-        echo "shell > Access user shell"
-      	echo
-      	echo "cmdusr > Run a command as a user"
-        echo
-      	echo "shboot > Show boot messages"
-      	echo
-        echo "software > Install system software"
-        echo
-        echo "ipmgt > Perform network management"
-        echo
-        echo "remotemgt > sysExec remote management"
-        echo
-        echo "backup > Backup or restore a filesystem using pax"
-        echo
-        echo "nmap > Perform OS detection, version detection and portscanner"
-        echo
-        echo "netmap > Perform a ping sweep of a given ip range"
-        echo
-        echo "exit > Exit back to main menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-sys-OSX)#" choice_sysosx
         echo
@@ -14795,6 +14630,24 @@ function sys_menuosx() {
                           sys_menuosx
                       fi
                       ;;
+            help)
+                   echo "sysproc > View system processes"
+                   echo "sysio > View IO status"
+                   echo "vmstatus > View virtual memory status"
+                   echo "shell > Access user shell"
+                   echo "cmdusr > Run a command as a user"
+                   echo "shboot > Show boot messages"
+                   echo "software > Install system software"
+                   echo "ipmgt > Perform network management"
+                   echo "remotemgt > sysExec remote management"
+                   echo "backup > Backup or restore a filesystem using pax"
+                   echo "nmap > Perform OS detection, version detection and portscanner"
+                   echo "netmap > Perform a ping sweep of a given ip range"
+                   echo "help > This menu"
+                   echo "exit > Exit back to main menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;          
             exit)
                    clear
             	   echo "#################################################" >> /var/log/smx-log/exit.log
@@ -14835,17 +14688,6 @@ function pkg_menuosx() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+----------------------------------------+"
-        echo "|          SOFTWARE MANAGEMENT / OSX     |"
-        echo "+----------------------------------------+"
-        echo
-        echo "softwaredmg > Install software from .dmg file"
-        echo
-        echo "softwarepkg > Install software from .pkg file"
-        echo
-        echo "exit > Exit back to sys_menuosx"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-pkg-OSX)#" choice_softosx
         echo
@@ -15005,6 +14847,14 @@ function pkg_menuosx() {
                                read -p "Press [enter] to continue..." ReadDamKey
                           fi
                           ;;
+            help)
+                   echo "softwaredmg > Install software from .dmg file"
+                   echo "softwarepkg > Install software from .pkg file"
+                   echo "help > This menu"
+                   echo "exit > Exit back to sys_menuosx"
+                   echo "exit-mas > Exit back to shell" 
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;             
             exit)
                    clear
 		           echo "#################################################" >> /var/log/smx-log/exit.log
@@ -15045,27 +14895,6 @@ function ip_menuosx() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+--------------------------------------+"
-        echo "|           IP MANAGEMENT / OSX        |"
-        echo "+--------------------------------------+"
-        echo
-        echo "list > List network adaptor"
-        echo
-        echo "ifstats > Advanced network status"
-        echo
-        echo "change > Change hostname"
-        echo
-        echo "change_ip > Change ip address"
-        echo
-        echo "down > Bring network adaptor down"
-        echo
-        echo "up > Bring network adaptor up"
-        echo
-        echo "trace > Trace an ip address"
-        echo
-        echo "exit > Exit back to sys_menuosx"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-ip-OSX)#" choice_iposx
         echo
@@ -15541,6 +15370,19 @@ function ip_menuosx() {
                          ip_menuosx
                     fi
                     ;;
+            help)
+                   echo "list > List network adaptor"
+                   echo "ifstats > Advanced network status"
+                   echo "change > Change hostname"
+                   echo "change_ip > Change ip address"
+                   echo "down > Bring network adaptor down"
+                   echo "up > Bring network adaptor up"
+                   echo "trace > Trace an ip address"
+                   echo "help > This menu"
+                   echo "exit > Exit back to sys_menuosx"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;
             exit)
                    clear
 		           echo "############################################################" >> /var/log/smx-log/exit.log
@@ -15581,31 +15423,6 @@ function passwd_menu() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+--------------------------------+"
-        echo "|       PASSWORD MANAGEMENT      |"
-        echo "+--------------------------------+"
-        echo
-        echo "chpasswd > Change user password"
-        echo
-        echo "lock > Lock an account"                     # Duh!
-        echo
-        echo "unlock > Unlock an account"                 # Again duh!!
-        echo
-        echo "delpasswd > Delete user password"           # No sh*t (should never have to use this in production environment)
-        echo
-        echo "minage > Set password minimum age"          # for example, if temp account, set passwd for 5 day(s)
-        echo
-        echo "maxage > Set password maximum age"          # same thing but for long time, ie, 1 year (365 days)
-        echo
-        echo "passwarn > Set password warning age"        # set when system will warn of expire/old password
-        echo
-        echo "passwdexp > Set password date of inactive"  # Rather confusing, basicly when do you want the system to consider the password inactive (probily!?)
-        echo
-        echo "passwdinfo > Get password information on a user"
-        echo
-        echo "exit > Return to usr_menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-pwd)#" choice_passwd
         echo
@@ -16168,6 +15985,21 @@ function passwd_menu() {
                               read -p "Press [enter] to continue..." ReadDamKey
                          fi
                          ;;
+            help)
+                   echo "chpasswd > Change user password"
+                   echo "lock > Lock an account"
+                   echo "unlock > Unlock an account"
+                   echo "delpasswd > Delete user password"
+                   echo "minage > Set password minimum age"
+                   echo "maxage > Set password maximum age"
+                   echo "passwarn > Set password warning age"
+                   echo "passwdexp > Set password date of inactive"
+                   echo "passwdinfo > Get password information on a user"
+                   echo "help > This menu"
+                   echo "exit > Return to usr_menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;           
             exit)
     		       clear
     		       echo "##########################################################" >> /var/log/smx-log/exit.log
@@ -16208,31 +16040,6 @@ function srv_menu() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-    	echo "+--------------------------+"
-    	echo "|     SERVER MANAGEMENT    |"
-    	echo "+--------------------------+"
-    	echo
-    	echo "apache > Apache server management"
-    	echo
-    	echo "nfs > NFS server management"
-    	echo
-    	echo "nis > NIS server management"
-    	echo
-    	echo "dhcp > DHCP server management"
-    	echo
-    	echo "sql > SQL server management (MySQL)"
-    	echo
-    	echo "smb > Samba server management"
-        echo
-        echo "ssh > SSH server management"
-        echo
-        echo "vnc > VNC server management"
-    	echo
-    	echo "snmp > SNMP server management"
-      	echo
-      	echo "exit > Exit back to main menu"
-      	echo
-      	echo "exit-mas > Exit back to shell"
     	echo
     	read -p "(config-srv)#" choice_srv
     	echo
@@ -16337,6 +16144,21 @@ function srv_menu() {
         		   echo "" >> /var/log/smx-log/success.log
         		   snmp_menu
         		   ;;
+            help)
+                   echo "apache > Apache server management"
+                   echo "nfs > NFS server management"
+                   echo "nis > NIS server management"
+                   echo "dhcp > DHCP server management"
+                   echo "sql > SQL server management (MySQL)"
+                   echo "smb > Samba server management"
+                   echo "ssh > SSH server management"
+                   echo "vnc > VNC server management"
+                   echo "snmp > SNMP server management"
+                   echo "help > This menu"
+                   echo "exit > Exit back to main menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;      
             exit)
                    clear
 		           echo "##############################################" >> /var/log/smx-log/exit.log
@@ -16381,19 +16203,6 @@ function apache_menu(){
         echo "|   APACHE MANAGEMENT    |"
         echo "+------------------------+"
         echo
-        echo "install > Install apache www server on system"
-        echo
-        echo "reload > Force reload of httpd.conf"
-        echo
-        echo "restart > Restart apache"
-        echo
-        echo "start > Start apache"
-        echo
-        echo "stop > Stop apache"
-        echo
-        echo "exit > Exit back to srv_menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-www)#" choice_www
         echo
@@ -19811,6 +19620,17 @@ function apache_menu(){
 			            fi
                    fi
                    ;;
+            help)
+                   echo "install > Install apache www server on system"
+                   echo "reload > Force reload of httpd.conf"
+                   echo "restart > Restart apache"
+                   echo "start > Start apache"
+                   echo "stop > Stop apache"
+                   echo "help > This menu"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;      
             exit)
                    clear
 		           echo "#################################################" >> /var/log/smx-log/exit.log
@@ -19851,25 +19671,6 @@ function nfs_menu(){
     do
        clear
        echo "$(date)                                     $(whoami)@$(hostname)"
-       echo "+----------------------------------+"
-       echo "|            NFS MANAGEMENT        |"
-       echo "+----------------------------------+"
-       echo
-       echo "install > Install NFS server on system"
-       echo
-       echo "start > Start NFS"
-       echo
-       echo "stop > Stop NFS"
-       echo
-       echo "restart > Restart NFS"
-       echo
-       echo "add > Add network share to /etc/exports"
-       echo
-       echo "remove > Remove network share from /etc/exports"
-       echo
-       echo "exit > Exit back to srv_mgt"
-       echo
-       echo "exit-mas > Exit back to shell"
        echo
        read -p "(config-nfs)#" choice_nfs
        echo
@@ -21607,6 +21408,18 @@ function nfs_menu(){
     			         fi
                     fi
                     ;;
+           help)
+                  echo "install > Install NFS server on system"
+                  echo "start > Start NFS"
+                  echo "stop > Stop NFS"
+                  echo "restart > Restart NFS"
+                  echo "add > Add network share to /etc/exports"
+                  echo "remove > Remove network share from /etc/exports"
+                  echo "help > This menu"
+                  echo "exit > Exit back to srv_mgt"
+                  echo "exit-mas > Exit back to shell"
+                  read -p "Press [enter] to continue..." ReadDamKey
+                  ;;         
 	       exit)
 	              clear
     		      echo "#######################################################" >> /var/log/smx-log/exit.log
@@ -21647,21 +21460,6 @@ function nis_menu() {
     do
 	    clear
     	echo "$(date)                                     $(whoami)@$(hostname)"
-    	echo "+---------------------------+"
-    	echo "|      NIS MANAGEMENT       |"
-    	echo "+---------------------------+"
-    	echo
-    	echo "install > Install NIS server on system (server/client)"
-        echo
-    	echo "start > Start NIS server"
-    	echo
-    	echo "stop > Stop NIS server"
-    	echo
-    	echo "restart > Restart NIS server"
-    	echo
-    	echo "exit > Exit back to srv_menu"
-    	echo
-    	echo "exit-mas > Exit back to shell"
     	echo
     	read -p "(config-nis)#" choice_nis
     	echo
@@ -23425,6 +23223,16 @@ function nis_menu() {
     			           fi
                       fi
                       ;;
+            help)
+                   echo "install > Install NIS server on system (server/client)"
+                   echo "start > Start NIS server"
+                   echo "stop > Stop NIS server"
+                   echo "restart > Restart NIS server"
+                   echo "help > This menu"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell"   
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;       
     	    exit)
             	   clear
                    echo "######################################################" >> /var/log/smx-log/exit.log
@@ -23465,25 +23273,6 @@ function dhcp_menu() {
     do
 	    clear
       	echo "$(date)                                     $(whoami)@$(hostname)"
-      	echo "+---------------------------+"
-      	echo "|       DCHP MANAGEMENT     |"
-      	echo "+---------------------------+"
-      	echo
-        echo "install > Install DHCP server on system"
-      	echo
-      	echo "start > Start DHCP"
-      	echo
-      	echo "stop > Stop DHCP"
-      	echo
-      	echo "restart > Restart DHCP"
-      	echo
-      	echo "ch_lease > Change lease times on DHCP server"
-      	echo
-      	echo "ip_range > Change IP range on DHCP server"
-      	echo
-      	echo "exit > Exit back to srv_menu"
-      	echo
-      	echo "exit-mas > Exit back to shell"
       	echo
       	read -p "(config-dhcp)#" choice_dhcp
       	echo
@@ -25368,6 +25157,18 @@ function dhcp_menu() {
 			                fi
                        fi
                        ;;
+            help)
+                   echo "install > Install DHCP server on system"
+                   echo "start > Start DHCP"
+                   echo "stop > Stop DHCP"
+                   echo "restart > Restart DHCP"
+                   echo "ch_lease > Change lease times on DHCP server"
+                   echo "ip_range > Change IP range on DHCP server"
+                   echo "help > This menu"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell" 
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;          
 	        exit)
                    clear
                    echo "####################################################" >> /var/log/smx-log/exit.log
@@ -25408,37 +25209,6 @@ function sql_menu () {
     do
 	    clear
       	echo "$(date)                                     $(whoami)@$(hostname)"
-      	echo "+-----------------------------+"
-      	echo "|        SQL MANAGEMENT       |"
-      	echo "+-----------------------------+"
-      	echo
-      	echo "install > Install SQL server on system"
-      	echo
-      	echo "start > Start SQL daemon"
-      	echo
-      	echo "stop > Stop SQL daemon"
-      	echo
-      	echo "restart > Restart SQL daemon"
-      	echo
-      	echo "addusr > Add user to SQL server"
-      	echo
-      	echo "chpwd > Change a SQL users password"
-      	echo
-      	echo "setpriv > Set privlages for user on SQL server"
-      	echo
-      	echo "backup > Backup a SQL database to a .sql file"
-      	echo
-      	echo "restore > Restore a SQL database from a .sql file"
-    	echo
-    	echo "resetPwd > Reset SQL password"
-    	echo
-    	echo "resetRoot > Reset root SQL password"
-    	echo
-    	echo "session > Start SQL session"
-      	echo
-      	echo "exit > Return to srv_menu"
-      	echo
-      	echo "exit-mas > Exit back to shell"
       	echo
       	read -p "(config-sql)#" choice_sql
       	echo
@@ -27130,6 +26900,24 @@ function sql_menu () {
                            read -p "Press [enter] to conitnue..." ReadDamKey
                       fi
                       ;;
+            help)
+                   echo "install > Install SQL server on system"
+                   echo "start > Start SQL daemon"
+                   echo "stop > Stop SQL daemon"
+                   echo "restart > Restart SQL daemon"
+                   echo "addusr > Add user to SQL server"
+                   echo "chpwd > Change a SQL users password"
+                   echo "setpriv > Set privlages for user on SQL server"
+                   echo "backup > Backup a SQL database to a .sql file"
+                   echo "restore > Restore a SQL database from a .sql file"
+                   echo "resetPwd > Reset SQL password"
+                   echo "resetRoot > Reset root SQL password"
+                   echo "session > Start SQL session"
+                   echo "help > This menu"
+                   echo "exit > Return to srv_menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;       
 	        exit)
                    echo "#######################################################" >> /var/log/smx-log/exit.log
                    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
@@ -27169,23 +26957,6 @@ function smb_menu() {
     do
 	    clear
       	echo "$(date)                                     $(whoami)@$(hostname)"
-      	echo "+------------------------------+"
-      	echo "|        SMB MANAGEMENT        |"
-      	echo "+------------------------------+"
-      	echo
-      	echo "install > Install Samba server on system"
-      	echo
-      	echo "start > Start Samba"
-      	echo
-      	echo "stop > Stop Samba"
-      	echo
-      	echo "restart > Restart Samba"
-        echo
-        echo "status > Get status of mounted SMB shares"
-      	echo
-      	echo "exit > Exit back to srv_menu"
-      	echo
-      	echo "exit-mas > Exit back to shell"
       	echo
       	read -p "(config-smb)#" choice_smb
       	echo
@@ -28879,7 +28650,18 @@ function smb_menu() {
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
                      fi
-                     ;;     
+                     ;;  
+            help)
+                   echo "install > Install Samba server on system"
+                   echo "start > Start Samba"
+                   echo "stop > Stop Samba"
+                   echo "restart > Restart Samba"
+                   echo "status > Get status of mounted SMB shares"
+                   echo "help > This menu"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;    
 	        exit)
 		           clear
                    echo "#######################################################" >> /var/log/smx-log/exit.log
@@ -28921,21 +28703,6 @@ function ssh_menu() {
         clear
         echo
         echo "$(date)                                     $(whoami)@$(hostname)"
-        echo "+----------------------------------+"
-        echo "|            SSH MANAGEMENT        |"
-        echo "+----------------------------------+"
-        echo
-        echo "install > Install SSH server on system"
-        echo
-        echo "start > Start SSH server"
-        echo
-        echo "stop > Stop SSH server"
-        echo
-        echo "restart > Restart SSH server"
-        echo
-        echo "exit > Exit back to srv_menu"
-        echo
-        echo "exit-mas > Exit back to shell"
         echo
         read -p "(config-ssh)#" choice_ssh
         echo
@@ -29788,6 +29555,16 @@ function ssh_menu() {
                            fi
                       fi
                       ;;
+            help)
+                   echo "install > Install SSH server on system"
+                   echo "start > Start SSH server"
+                   echo "stop > Stop SSH server"
+                   echo "restart > Restart SSH server"
+                   echo "help > This menu"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell" 
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;         
             exit)
                    clear
                    echo "#######################################################" >> /var/log/smx-log/exit.log
@@ -29828,21 +29605,6 @@ function vnc_menu() {
     do
         clear
         echo "$(date)                                     $(whoami)@$(hostname)"
-    	echo "+-----------------------------------+"
-    	echo "|            VNC MANAGEMENT         |"
-    	echo "+-----------------------------------+"
-    	echo
-    	echo "install > Install VNC server on system"
-    	echo
-    	echo "start > Start VNC"
-    	echo
-    	echo "stop > Stop VNC"
-    	echo
-    	echo "restart > Restart VNC"
-    	echo
-    	echo "exit > Exit back to srv_menu"
-    	echo
-    	echo "exit-mas > Exit back to shell"
     	echo
     	read -p "(config-vnc)#" choice_vnc
     	echo
@@ -30734,6 +30496,16 @@ function vnc_menu() {
                            fi
                       fi
                       ;;
+            help)
+                   echo "install > Install VNC server on system"
+                   echo "start > Start VNC"
+                   echo "stop > Stop VNC"
+                   echo "restart > Restart VNC"
+                   echo "help > This menu"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell"    
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;      
 	        exit)
                    clear
                    echo "#######################################################" >> /var/log/smx-log/exit.log
@@ -30774,23 +30546,6 @@ function snmp_menu() {
     do
         clear
     	echo "$(date)                                     $(whoami)@$(hostname)"
-    	echo "+-------------------------------------+"
-    	echo "|           SNMP MANAGEMENT           |"
-    	echo "+-------------------------------------+"
-    	echo
-    	echo "install > Install SNMP on system"
-    	echo
-    	echo "start > Start SNMP service"
-    	echo
-    	echo "stop > Stop SNMP service"
-    	echo
-    	echo "restart > Restart SNMP service"
-    	echo
-    	echo "snmptest > Perform test on SNMP server"
-    	echo
-    	echo "exit > Exit back to srv_menu"
-    	echo
-    	echo "exit-mas > Exit back to shell"
     	echo
     	read -p "(config-snmp)#" choice_snmp
     	echo
@@ -32020,6 +31775,17 @@ function snmp_menu() {
                             read -p "Press [enter] to continue..." ReadDamKey
                        fi
                        ;;
+            help)
+                   echo "install > Install SNMP on system"
+                   echo "start > Start SNMP service"
+                   echo "stop > Stop SNMP service"
+                   echo "restart > Restart SNMP service"
+                   echo "snmptest > Perform test on SNMP server"
+                   echo "help > This program"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;           
             exit)
                    clear
                    echo "########################################################" >> /var/log/smx-log/exit.log
