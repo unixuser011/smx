@@ -16,7 +16,7 @@
 # Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #
 # This program was written on CentOS 6.6 X86_64, however it is fully compatable with Debian-based Linux, and SuSE-based linux with no modifications
-# This version (13) has support for systemd (ugh!) so it will be fully compatable with 7x versions of RHEL/CentOS/Fedora, Debian and SuSE
+# This version (v13) has support for systemd (ugh!) so it will be fully compatable with 7x versions of RHEL/CentOS/Fedora, Debian/Ubuntu and SuSE
 # It will however may require modifications for Solaris/HP-UX/AIX or any other "Pure" UNIX
 # The only "Pure" UNIX it is compatable with is OS X
 #
@@ -45,11 +45,13 @@
 # Changed chip to edit config files to set ip address
 # added samba-client and mariadb-server for smb and sql managemnt for RHEL v 7
 # Added code to get current active network interface (route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
+##
 
 # Usage for flags - START
-
+##
 
 # Changed the way that options are displayed, much better than the old way, I think
+##
 
 function usage() {
 echo "Usage: $(basename $0) --[option]
@@ -69,7 +71,8 @@ Option:
 [ --smb ] > Start program from SMB server management (linux)			   
 [ --ssh ] > Start program from SSH server management (linux)			   
 [ --vnc ] > Start program from VNC server management (linux)
-[ --snmp ] > Start program from SNMP server management (linux)	       
+[ --snmp ] > Start program from SNMP server management (linux)
+[ --dns ] > Start program from DNS server management (linux)	       
 [ --pkgmgt ] > Start program from software management (linux)	       
 [ --system-update ] > Start program from system update (linux)	       
 [ --ipmgt ] > Start program from IP management (linux)	       
@@ -91,10 +94,13 @@ if [ $# -eq 0 ]; then
 fi
 
 # Usage for flags - END
+##
 
 # Declare for spin for processing - START
+##
 
 # Can be changed for something else if you don't like a spinning cursor
+##
 
 declare -a spinner
 Spinner=(/ - \\ \| / - \\ \| )
@@ -106,6 +112,7 @@ function update_spinner() {
 }
 
 # Banner display - START
+##
 
 clear
 echo " ######  ##     ## ##     ## "
@@ -118,7 +125,7 @@ echo " ######  ##     ## ##     ## "
 echo
 echo "System Management eXecutive (for UNIX/Linux) Version 15.0 (Codename: Wolverine (Codename for TCP/IP stack for Windows 3.11))"
 echo "Copyright (c) 2010 - 2016 Darius Anderson, d.anderson1147@gmail.com"
-echo "Created in and optimised for Microsoft Visual Studio Code"
+echo "Created in and optimised for Notepad++"
 echo
 echo "Log files located in: /var/log/smx-log/success.log /var/log/smx-log/fail.log and /var/log/smx-log/exit.log"
 echo "Program log files located in: /var/log/smx-log/<program>.log"
@@ -153,17 +160,17 @@ else
      echo "Log file successfuly created"
 fi
 
-sleep 2
-
 clear
 echo "Entering interactive mode... (Enter 'help' for commands)"
 sleep 2
 
 # Banner display - END
+##
 
 export TERM=xterm                        # Could use vt100, but doesn't look right on emulators/PuTTY
 
 export EDITOR=vim			             # For use with visudo, etc, can be changed to nano or emacs
+
 
 function main_menu() {
     while :
@@ -221,7 +228,7 @@ function main_menu() {
                      srv_menu
                      ;;
             usrmgt/osx)
-		                 clear
+					     clear
                          echo "#######################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "Entering $(basename $0)/usr_menuosx" >> /var/log/smx-log/success.log
@@ -509,7 +516,7 @@ function usr_menu() {
                     echo "Setting Real name to: $REAL_NAME"
                     sleep 1
                     update_spinner
-		            $(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c "$REAL_NAME" $USER_NAME
+					$(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c "$REAL_NAME" $USER_NAME
                     if [ $? -eq 0 ]; then
                          echo "########################################################################################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -541,7 +548,7 @@ function usr_menu() {
                          echo "##########################################################################################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not created user: $USER_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			             echo "Command run: $(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c '$REAL_NAME' $USER_NAME" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which useradd) -N -o -u $USER_IDENT -d $USER_HOME -k $SKEL_DIR -m -s $USER_SHELL -c '$REAL_NAME' $USER_NAME" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "##########################################################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -583,7 +590,7 @@ function usr_menu() {
                          echo "#########################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not added user: $USER_NAME to group: $USER_GROUP" >> /var/log/smx-log/fail.log
-			             echo "Command run: $(which gpasswd) -a $USER_NAME $USER_GROUP" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which gpasswd) -a $USER_NAME $USER_GROUP" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "#########################################################################################" >> /var/log/smx-log/fail.log
                          read -p "Press [enter] to continue..." ReadDamKey
@@ -596,7 +603,7 @@ function usr_menu() {
                     fi
                     if [ "$ans2" = "True" ]; then
                           clear
-			              echo "Expire date prefix: dd/mm/yyyy"
+						  echo "Expire date prefix: dd/mm/yyyy"
                           echo "[TOP]                       [Entry Fields]"
                           read -p " Enter expire date ------- > " expDate
                           clear
@@ -643,7 +650,7 @@ function usr_menu() {
                                echo "################################################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "User: $USER_NAME expire date not set, check syntax of command" >> /var/log/smx-log/fail.log
-			                   echo "Command run: $(which usermod) -e $expDate $USER_NAME" >> /var/log/smx-log/fail.log
+							   echo "Command run: $(which usermod) -e $expDate $USER_NAME" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                echo "################################################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -732,7 +739,7 @@ function usr_menu() {
                           echo "User will not be able to send mail"
                           read -p "Press [enter] to continue..." ReadDamKey
                     fi
-		                ;;
+		            ;;
            addsys)
                     clear
 		            # System user - controling deamon like stuff only (I think :-))
@@ -816,7 +823,7 @@ function usr_menu() {
                          echo "############################################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not created system user: $sysUser, check command syntax" >> /var/log/smx-log/fail.log
-			             echo "Command run: $(which useradd) -m -d $syshomeDir -N -r -s $SYS_SHELL -u $sysUserID -c '$sysRealName' $sysUser" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which useradd) -m -d $syshomeDir -N -r -s $SYS_SHELL -u $sysUserID -c '$sysRealName' $sysUser" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "############################################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -824,7 +831,7 @@ function usr_menu() {
                          clear
                          echo
                          cat /var/log/smx-log/fail.log | tail -n 7
-			             echo
+						 echo
                          read -p "Press [enter] to continue..." ReadDamKey
                          exit 1
                     fi
@@ -859,7 +866,7 @@ function usr_menu() {
                          echo "#########################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "Not added system user: $sysUser to group: $sysGroup, check command syntax" >> /var/log/smx-log/fail.log
-			             echo "Command run: $(which gpasswd) -a $sysUser $sysGroup" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which gpasswd) -a $sysUser $sysGroup" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "#########################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -917,7 +924,7 @@ function usr_menu() {
                        echo "#####################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "User: $userName modified, shell changed to $USER_SHELL" >> /var/log/smx-log/success.log
-		               echo "Command run: $(which chsh) -s $USER_SHELL $userName" >> /var/log/smx-log/success.log
+					   echo "Command run: $(which chsh) -s $USER_SHELL $userName" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
                        echo "#####################################################" >> /var/log/smx-log/success.log
                        echo "" >> /var/log/smx-log/success.log
@@ -994,7 +1001,7 @@ function usr_menu() {
                          echo "####################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "User: $userName not modified, name not changed, check command syntax" >> /var/log/smx-log/fail.log
-			             echo "Command run: $(which usermod) -c '$realName' $userName" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which usermod) -c '$realName' $userName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "####################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -1057,7 +1064,7 @@ function usr_menu() {
                        echo "###################################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                        echo "User: $userName not modified, UID not changed, check command syntax" >> /var/log/smx-log/fail.log
-  		               echo "Command run: $(which usermod) -u $userIdent $userName" >> /var/log/smx-log/fail.log
+					   echo "Command run: $(which usermod) -u $userIdent $userName" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
                        echo "###################################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
@@ -1145,7 +1152,7 @@ function usr_menu() {
                          echo "################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "User: $userName not modified, user not removed from system, check command syntax" >> /var/log/smx-log/fail.log
-			             echo "Command run: $(which userdel) -f -r $userName" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which userdel) -f -r $userName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -1194,7 +1201,7 @@ function usr_menu() {
                         echo "################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not logged in as $userName, check command syntax" >> /var/log/smx-log/fail.log
-			            echo "Command run: $(which su) -l $userName" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which su) -l $userName" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -1213,8 +1220,8 @@ function usr_menu() {
                   else
                        clear
                        cat /proc/version | grep "Red Hat" > /dev/null
-		               if [ $? -eq 0 ]; then
-			                echo "OS = Red Hat"
+				       if [ $? -eq 0 ]; then
+							echo "OS = Red Hat"
                             $(which yum) -y install finger | $(which tee) /var/log/smx-log/finger-install-redhat.log
                        else
                              clear
@@ -1289,7 +1296,7 @@ function usr_menu() {
                        echo "#####################################################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                        echo "Not displayed information of $userName" >> /var/log/smx-log/fail.log
-		               echo "Command run: $(which finger) $userName | $(which tee) /var/log/smx-log/finger.log" >> /var/log/smx-log/fail.log
+					   echo "Command run: $(which finger) $userName | $(which tee) /var/log/smx-log/finger.log" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
                        echo "#####################################################################################" >> /var/log/smx-log/fail.log
                        echo "" >> /var/log/smx-log/fail.log
@@ -1336,8 +1343,8 @@ function usr_menu() {
                         echo "#################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Loged in users not displayed, check command syntax" >> /var/log/smx-log/fail.log
-                  	    echo "Command run: $(which w) | $(which tee) /var/log/smx-log/w.log" >> /var/log/smx-log/fail.log
-                  	    echo "" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which w) | $(which tee) /var/log/smx-log/w.log" >> /var/log/smx-log/fail.log
+						echo "" >> /var/log/smx-log/fail.log
                         echo "#################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         read -p "Press [enter] to continue..." ReadDamKey
@@ -1382,8 +1389,8 @@ function usr_menu() {
                          echo "##############################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "/etc/sudoers not modified, check command syntax" >> /var/log/smx-log/fail.log
-                  		 echo "Command run: $(which visudo)" >> /var/log/smx-log/fail.log
-                  		 echo "" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which visudo)" >> /var/log/smx-log/fail.log
+						 echo "" >> /var/log/smx-log/fail.log
                          echo "###############################################" >> /var/log/smx-log/fail.log
                          read -p "Press [enter] to continue..." ReadDamKey
                          clear
@@ -1443,7 +1450,7 @@ function usr_menu() {
                           echo "####################################################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "user: $userName not modified not disabled or shell changed to $(which nologin), check command syntax" >> /var/log/smx-log/fail.log
-			              echo "Command run: $(which usermod) -L -s $(which nologin) $userName" >> /var/log/smx-log/fail.log
+						  echo "Command run: $(which usermod) -L -s $(which nologin) $userName" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "####################################################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -1483,7 +1490,7 @@ function usr_menu() {
                     echo "-----------------------------------------------------------------"
                     echo "$(which usermod)                      bos.usrmgt.usermod     exec"
                     echo "Command run: $(which usermod) -U -s $USER_SHELL $userName"
-		            sleep 2
+					sleep 2
                     update_spinner
                     sleep 1
                     update_spinner
@@ -1496,7 +1503,7 @@ function usr_menu() {
                     update_spinner
                     sleep 1
                     update_spinner
-		            $(which usermod) -U -s $USER_SHELL $userName
+					$(which usermod) -U -s $USER_SHELL $userName
                     if [ $? -eq 0 ]; then
                          echo "######################################################################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -1515,7 +1522,7 @@ function usr_menu() {
                          echo "#######################################################################################" >> /var/log/smx-log/fail.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                          echo "user: $userName not modified, user not enabled, shell not changed, check command syntax" >> /var/log/smx-log/fail.log
-			             echo "Command run: $(which usermod) -U -s $USER_SHELL $userName" >> /var/log/smx-log/fail.log
+					     echo "Command run: $(which usermod) -U -s $USER_SHELL $userName" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
                          echo "#######################################################################################" >> /var/log/smx-log/fail.log
                          echo "" >> /var/log/smx-log/fail.log
@@ -1527,8 +1534,8 @@ function usr_menu() {
                          read -p "Press [enter] to continue..." ReadDamKey
                     fi
                     ;;
-	         edlogin)
-	                   clear
+	       edlogin)
+	                 clear
               	     echo "        COMMAND STATUS          "
               	     echo
               	     echo "$(date)                                    $(whoami)@$(hostname)"
@@ -1543,10 +1550,10 @@ function usr_menu() {
               	     echo "Command run: $(which vi) /etc/login.defs"
               	     sleep 2
               	     $(which vi) /etc/login.defs
-  		             if [ $? -eq 0 ]; then
-  			              echo "##########################################" >> /var/log/smx-log/success.log
+					 if [ $? -eq 0 ]; then
+						  echo "##########################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-  			              echo "successfuly modified file: /etc/login.defs" >> /var/log/smx-log/success.log
+						  echo "successfuly modified file: /etc/login.defs" >> /var/log/smx-log/success.log
                           echo "Command run: $(which vi) /etc/login.defs" >> /var/log/smx-log/success.log
                           echo "" >> /var/log/smx-log/success.log
                           echo "##########################################" >> /var/log/smx-log/success.log
@@ -1573,56 +1580,56 @@ function usr_menu() {
                           read -p "Press [enter] to continue..." ReadDamKey
               	     fi
               	     ;;
-	         chinfo)
-  	                  clear
-                	  echo "$(date)                                    $(whoami)@$(hostname)"
-  		              echo "[TOP]                              [Entry Fields]"
-                	  read -p " Enter username ----------------- > " userName
-                	  clear
-                      echo "         COMMAND STATUS           "
-              	      echo
-               	      echo "$(date)                                     $(whoami)@$(hostname)"
-                	  echo
-                	  echo "Command: RUNNING    stdout: yes    stderr: no     "
-                      echo
-              	      echo "Before command completion, additional instructions may appear below"
-               	      echo
-               	      echo "File                                 Fileset                 Type"
-               	      echo "-----------------------------------------------------------------"
-               	      echo "$(which chfn)                        bos.usrmgt.chfn         exec"
-               	      echo "Command run: $(which chfn) $userName"
-               	      sleep 2
-  		              clear
-               	      $(which chfn) $userName
-               	      if [ $? -eq 0 ]; then
-                           echo "################################################" >> /var/log/smx-log/success.log
-  			               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                           echo "successfuly modified user: $userName information" >> /var/log/smx-log/success.log
-                           echo "Command run: $(which chfn) $userName" >> /var/log/smx-log/success.log
-                           echo "" >> /var/log/smx-log/success.log
-                           echo "################################################" >> /var/log/smx-log/success.log
-                           echo "" >> /var/log/smx-log/success.log
-                           read -p "Press [enter] to continue..." ReadDamKey
-                           clear
-                           echo
-                           cat /var/log/smx-log/success.log | tail -n 7
-                           echo
-                           read -p "Press [enter] to continue..." ReadDamKey
-  		              else
-                           clear
-                           echo "##############################################################" >> /var/log/smx-log/fail.log
-                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                           echo "Not modified user: $userName information, check command syntax" >> /var/log/smx-log/fail.log
-  			               echo "Command run: $(which chfn) $userName" >> /var/log/smx-log/fail.log
-                           echo "" >> /var/log/smx-log/fail.log
-                           echo "##############################################################" >> /var/log/smx-log/fail.log
-                           echo "" >> /var/log/smx-log/fail.log
-                           read -p "Press [enter] to continue..." ReadDamKey
-                           clear
-                           echo
-                           cat /var/log/smx-log/fail.log | tail -n 7
-                           echo
-                           read -p "Press [enter] to continue..." ReadDamKey
+	       chinfo)
+  	                clear
+                    echo "$(date)                                    $(whoami)@$(hostname)"
+  		            echo "[TOP]                              [Entry Fields]"
+                    read -p " Enter username ----------------- > " userName
+                    clear
+                    echo "         COMMAND STATUS           "
+              	    echo
+               	    echo "$(date)                                     $(whoami)@$(hostname)"
+                    echo
+                    echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    echo
+              	    echo "Before command completion, additional instructions may appear below"
+               	    echo
+               	    echo "File                                 Fileset                 Type"
+               	    echo "-----------------------------------------------------------------"
+               	    echo "$(which chfn)                        bos.usrmgt.chfn         exec"
+               	    echo "Command run: $(which chfn) $userName"
+               	    sleep 2
+					clear
+               	    $(which chfn) $userName
+               	    if [ $? -eq 0 ]; then
+                         echo "################################################" >> /var/log/smx-log/success.log
+						 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                         echo "successfuly modified user: $userName information" >> /var/log/smx-log/success.log
+                         echo "Command run: $(which chfn) $userName" >> /var/log/smx-log/success.log
+                         echo "" >> /var/log/smx-log/success.log
+                         echo "################################################" >> /var/log/smx-log/success.log
+                         echo "" >> /var/log/smx-log/success.log
+                         read -p "Press [enter] to continue..." ReadDamKey
+                         clear
+                         echo
+                         cat /var/log/smx-log/success.log | tail -n 7
+                         echo
+                         read -p "Press [enter] to continue..." ReadDamKey
+  		            else
+                         clear
+                         echo "##############################################################" >> /var/log/smx-log/fail.log
+                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                         echo "Not modified user: $userName information, check command syntax" >> /var/log/smx-log/fail.log
+  			             echo "Command run: $(which chfn) $userName" >> /var/log/smx-log/fail.log
+                         echo "" >> /var/log/smx-log/fail.log
+                         echo "##############################################################" >> /var/log/smx-log/fail.log
+                         echo "" >> /var/log/smx-log/fail.log
+                         read -p "Press [enter] to continue..." ReadDamKey
+                         clear
+                         echo
+                         cat /var/log/smx-log/fail.log | tail -n 7
+                         echo
+                         read -p "Press [enter] to continue..." ReadDamKey
               	    fi
               	    ;;
            help)
@@ -1659,7 +1666,7 @@ function usr_menu() {
                   ;;
 	       exit-mas)
   	                  clear
-  		              echo "#################################" >> /var/log/smx-log/exit.log
+					  echo "#################################" >> /var/log/smx-log/exit.log
                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                       echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
                	      echo "" >> /var/log/smx-log/exit.log
@@ -1780,7 +1787,7 @@ function dsk_menu() {
                         echo "####################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not initalized disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			            echo "Command run: $(which fdisk) $DISK_NAME" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which fdisk) $DISK_NAME" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "####################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -1823,8 +1830,8 @@ function dsk_menu() {
                         echo "####################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not created new filesystem on disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-                  		echo "Command run: $(which mkfs) -t $FSYS_NAME $DISK_NAME" >> /var/log/smx-log/fail.log
-                  		echo "" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which mkfs) -t $FSYS_NAME $DISK_NAME" >> /var/log/smx-log/fail.log
+						echo "" >> /var/log/smx-log/fail.log
                         echo "####################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         read -p "Press [enter] to continue..." ReadDamKey
@@ -1879,8 +1886,8 @@ function dsk_menu() {
                         echo "##############################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not mounted disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-            			echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $mntPoint" >> /var/log/smx-log/fail.log
+						echo "" >> /var/log/smx-log/fail.log
                         echo "##############################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         read -p "Press [enter] to continue..." ReadDamKey
@@ -1923,7 +1930,7 @@ function dsk_menu() {
                         echo "####################################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not displayed information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-		                echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "####################################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -1958,7 +1965,7 @@ function dsk_menu() {
                      echo "$(which fdisk)                        bos.dskmgt.fdisk       exec"
                      echo "Command run: $(which fdisk) -l | $(which tee) /var/log/smx-log/fdisk.log"
                      sleep 2
-		             clear
+					 clear
                      update_spinner
                      sleep 1
                      update_spinner
@@ -1990,7 +1997,7 @@ function dsk_menu() {
                           echo "############################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Disk information not listed, check command syntax" >> /var/log/smx-log/fail.log
-			              echo "Command run: $(which fdisk) -l | $(which tee) /var/log/smx-log/fdisk.log" >> /var/log/smx-log/fail.log
+						  echo "Command run: $(which fdisk) -l | $(which tee) /var/log/smx-log/fdisk.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "############################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -2063,7 +2070,7 @@ function dsk_menu() {
                        echo "$(which udisks)                       bos.dskmgt.udisks      exec"
                        echo "Command run: $(which udisks) --show-info $DISK_NAME | $(which tee) /var/log/smx-log/udisks.log"
                        sleep 2
-		               clear
+					   clear
                        update_spinner
                        sleep 1
                        update_spinner
@@ -2095,7 +2102,7 @@ function dsk_menu() {
                             echo "##################################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "not displayed information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which udisks) --show-info $DISK_NAME | $(which tee) /var/log/smx-log/udisks.log" >> /var/log/smx-log/fail.log
+							echo "Command run: $(which udisks) --show-info $DISK_NAME | $(which tee) /var/log/smx-log/udisks.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "##################################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -2168,7 +2175,7 @@ function dsk_menu() {
                         echo "#################################################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-		                echo "Command run: $(which df) -T $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which df) -T $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "#################################################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
@@ -2201,14 +2208,14 @@ function dsk_menu() {
                                 DISK_NAME=/dev/sda1
                           fi        
                           printf " Enter mount point [/mnt/disk] ------------ > "
-                  		  if [ "$mntPoint" = "" ]; then
-                  		        MNT_POINT=""
-                				read mntPoint
-                				MNT_POINT=$mntPoint
-                  		  fi
-                  		  if [ "$mntPoint" = "" ]; then
+						  if [ "$mntPoint" = "" ]; then
+                  	            MNT_POINT=""
+								read mntPoint
+								MNT_POINT=$mntPoint
+						  fi
+						  if [ "$mntPoint" = "" ]; then
                                 MNT_POINT=""
-			                    MNT_POINT=/mnt/disk
+							   MNT_POINT=/mnt/disk
 	                      fi		
                           printf " Enter filesystem [ext4] ------------------ > "
                           if [ "$fsysName" = "" ]; then
@@ -2282,7 +2289,7 @@ function dsk_menu() {
                                echo "##################################################################" >> /var/log/smx-log/fail.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not mounted disk: $DISK_NAME, at: $MNT_POINT, check command syntax" >> /var/log/smx-log/fail.log
-			                   echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $MNT_POINT" >> /var/log/smx-log/fail.log
+							   echo "Command run: $(which mount) -t $FSYS_NAME $DISK_NAME $MNT_POINT" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                echo "##################################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -2322,12 +2329,12 @@ function dsk_menu() {
                                cat /var/log/smx-log/success.log | tail -n 7
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
-			              else
-			                   echo "#############################################################" >> /var/log/smx-log/fail.log
+					      else
+							   echo "#############################################################" >> /var/log/smx-log/fail.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not displayed disk info for: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-                  		       echo "Command run: $(which df) -a -H $DISK_NAME" >> /var/log/smx-log/fail.log
-                  		       echo "" >> /var/log/smx-log/fail.log
+							   echo "Command run: $(which df) -a -H $DISK_NAME" >> /var/log/smx-log/fail.log
+							   echo "" >> /var/log/smx-log/fail.log
                                echo "#############################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                read -p "Press [enter] to continue..." ReadDamKey
@@ -2353,15 +2360,15 @@ function dsk_menu() {
                                 DISK_NAME=/dev/sda1
                           fi        
                           printf " Enter mount point [/mnt/disk] ------------ > "
-			              if [ "$mntPoint" = "" ]; then
+					      if [ "$mntPoint" = "" ]; then
                                 MNT_POINT=""
-				                read mntPoint
+								read mntPoint
                                 MNT_POINT=$mntPoint
-            			  fi
-            			  if [ "$mntPoint" = "" ]; then
+						  fi
+						  if [ "$mntPoint" = "" ]; then
                                MNT_POINT=""
-			                   MNT_POINT=/mnt/disk
-			              fi
+							   MNT_POINT=/mnt/disk
+						  fi
                           read -p " Eject disk after unmount ---------- (Y/N) > " ans	
                           clear
                           echo "         COMMAND STATUS                      "
@@ -2407,7 +2414,7 @@ function dsk_menu() {
                                echo "####################################################" >> /var/log/smx-log/fail.log
                     	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not unmounted disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			                   echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/fail.log
+							   echo "Command run: $(which umount) -f $DISK_NAME" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
                                echo "####################################################" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -2418,7 +2425,7 @@ function dsk_menu() {
                                echo
                                read -p "Press [enter] to continue..." ReadDamKey
                                exit 1
-			              fi
+						  fi
                           update_spinner
                           sleep 1
                           update_spinner
@@ -2431,11 +2438,11 @@ function dsk_menu() {
                           update_spinner
                           sleep 1
                           update_spinner
-			              $(which rm) -rf $MNT_POINT
+						  $(which rm) -rf $MNT_POINT
                           if [ "$ans" = "Y" ]; then
                                 $(which udisks) > /dev/null
-				                if [ $? -eq 0 ]; then
-                                     echo "udisks found in PATH"
+								if [ $? -eq 0 ]; then
+                                    echo "udisks found in PATH"
                                 else
                                      clear
                                      cat /proc/version | grep "Red Hat" > /dev/null
@@ -2537,19 +2544,19 @@ function dsk_menu() {
                                      read -p "Press [enter] to continue..." ReadDamKey
                                 fi
                           fi             
-            	       fi
-            	       ;;
+            	    fi
+            	    ;;
 	        rename)
                      $(which mlabel) > /dev/null
       		         if [ $? -eq 0 ]; then
                           echo "mlabel found in PATH"
-      		           else
+      		         else
                           clear
                           cat /proc/version | grep "Red Hat" > /dev/null
                           if [ $? -eq 0 ]; then
                                echo "OS = Red Hat"
                                $(which yum) -y install mlabel | $(which tee) /var/log/smx-log/mlabel-install-redhat.log
-			                    else
+			              else
                                clear
                                cat /proc/version | grep "Debian" > /dev/null
                                if [ $? -eq 0 ]; then
@@ -2635,8 +2642,8 @@ function dsk_menu() {
                           echo "################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not renamed disk: $DISK_NAME to: $diskLabel, check command syntax" >> /var/log/smx-log/fail.log
-                  		  echo "Command run: $(which mlabel) -i ::$diskLabel $DISK_NAME" >> /var/log/smx-log/fail.log
-                  		  echo "" >> /var/log/smx-log/fail.log
+						  echo "Command run: $(which mlabel) -i ::$diskLabel $DISK_NAME" >> /var/log/smx-log/fail.log
+						  echo "" >> /var/log/smx-log/fail.log
                           echo "################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           read -p "Press [enter] to continue..." ReadDamKey
@@ -2675,11 +2682,11 @@ function dsk_menu() {
                           cat /var/log/smx-log/success.log | tail -n 7
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		             else
+					 else
                           echo "####################################################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			              echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+						  echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "####################################################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -2793,33 +2800,33 @@ function dsk_menu() {
                    $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log
                    if [ $PIPESTATUS -eq 0 ]; then
                         echo "####################################################################################" >> /var/log/smx-log/success.log
-                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                  		echo "successfuly displayed filesystem information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
-                  		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/success.log
-            			echo "" >> /var/log/smx-log/success.log
-              			echo "####################################################################################" >> /var/log/smx-log/success.log
-              			echo "" >> /var/log/smx-log/success.log
-              			read -p "Press [enter] to continue..." ReadDamKey
+						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+						echo "successfuly displayed filesystem information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
+						echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/success.log
+						echo "" >> /var/log/smx-log/success.log
+						echo "####################################################################################" >> /var/log/smx-log/success.log
+						echo "" >> /var/log/smx-log/success.log
+						read -p "Press [enter] to continue..." ReadDamKey
                         clear
-                  		echo
+						echo
                     	cat /var/log/smx-log/success.log | tail -n 7
-                  		echo
-            			read -p "Press [enter] to continue..." ReadDamKey
-		          else
+						echo
+						read -p "Press [enter] to continue..." ReadDamKey
+		           else
                         echo "####################################################################################" >> /var/log/smx-log/fail.log
-                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                  		echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-                  		echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
-            			echo "" >> /var/log/smx-log/fail.log
-              			echo "####################################################################################" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
-              			read -p "Press [enter] to continue..." ReadDamKey
+						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+						echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
+						echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+						echo "" >> /var/log/smx-log/fail.log
+						echo "####################################################################################" >> /var/log/smx-log/fail.log
+						echo "" >> /var/log/smx-log/fail.log
+						read -p "Press [enter] to continue..." ReadDamKey
                         clear
-                  		echo
+						echo
                     	cat /var/log/smx-log/fail.log | tail -n 7
-                  		echo
-            			read -p "Press [enter] to continue..." ReadDamKey
-		           fi    
+						echo
+						read -p "Press [enter] to continue..." ReadDamKey
+				   fi    
                    ;;
 	        chdisk)
 		             clear
@@ -2969,7 +2976,7 @@ function dsk_menu() {
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
                           exit 1
-		             fi 
+					 fi 
                      clear
                      update_spinner
                      sleep 1
@@ -3024,7 +3031,7 @@ function dsk_menu() {
                             if [ $? -eq 0 ]; then
                                  echo "OS = Red Hat"
                                  $(which yum) -y install shred | $(which tee) /var/log/smx-log/shred-install-redhat.log
-			                     else
+			                else
                                  clear
                                  cat /proc/version | grep "Debian" > /dev/null
                                  if [ $? -eq 0 ]; then
@@ -3091,7 +3098,7 @@ function dsk_menu() {
                        sleep 1
                        update_spinner
               	       $(which shred) -vfz -n 10 $DISK_NAME | $(which tee) /var/log/smx-log/shred.log
-		               if [ $PIPESTATUS -eq 0 ]; then
+					   if [ $PIPESTATUS -eq 0 ]; then
                             echo "###############################################################################################" >> /var/log/smx-log/success.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             echo "successfuly erased all data on disk: $DISK_NAME" >> /var/log/smx-log/success.log
@@ -3109,7 +3116,7 @@ function dsk_menu() {
                             echo "###############################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not erased disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which shred) -vfz -n 10 $DISK_NAME | $(which tee) /var/log/smx-log/shred.log" >> /var/log/smx-log/fail.log
+							echo "Command run: $(which shred) -vfz -n 10 $DISK_NAME | $(which tee) /var/log/smx-log/shred.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "###############################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -3153,7 +3160,7 @@ function dsk_menu() {
                             echo "####################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
+							echo "Command run: $(which df) -a -H $DISK_NAME | $(which tee) /var/log/smx-log/df.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "####################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -3163,8 +3170,8 @@ function dsk_menu() {
                             cat /var/log/smx-log/fail.log | tail -n 7
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
-		              fi
-            	      ;;
+		               fi
+            	       ;;
             help)
                    echo "init > Initialize a new disk"
                    echo "lsdisk > List disks on the system"
@@ -3192,7 +3199,7 @@ function dsk_menu() {
               	   ;;
 	        exit-mas)
 		               clear
-        	           echo "#################################" >> /var/log/smx-log/exit.log
+					   echo "#################################" >> /var/log/smx-log/exit.log
                        echo  "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                        echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
                        echo "" >> /var/log/smx-log/exit.log
@@ -3246,7 +3253,7 @@ function sys_menu() {
               	      sleep 2
               	      clear
               	      $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps.log
-		              if [ $PIPESTATUS -eq 0 ]; then
+					  if [ $PIPESTATUS -eq 0 ]; then
                            echo "#############################################################################################################" >> /var/log/smx-log/success.log
                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                            echo "successfuly displayed process: $procName" >> /var/log/smx-log/success.log
@@ -3262,10 +3269,10 @@ function sys_menu() {
                            read -p "Press [enter] to continue..." ReadDamKey
 		              else
                            echo "####################################################################################################" >> /var/log/smx-log/fail.log
-			               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+						   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                            echo "Not displayed process: $procName, check command syntax" >> /var/log/smx-log/fail.log
-                  		   echo "Command run: $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps.log" >> /var/log/smx-log/fail.log
-                  		   echo "" >> /var/log/smx-log/fail.log
+						   echo "Command run: $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps.log" >> /var/log/smx-log/fail.log
+						   echo "" >> /var/log/smx-log/fail.log
                            echo "####################################################################################################" >> /var/log/smx-log/fail.log
                            echo "" >> /var/log/smx-log/fail.log
                            read -p "Press [enter] to continue..." ReadDamKey
@@ -3307,11 +3314,11 @@ function sys_menu() {
                                  cat /var/log/smx-log/success.log | tail -n 7
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
-			                else
+							else
                                  echo "#############################################################################################################################" >> /var/log/smx-log/fail.log
                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                  echo "Not killed process: $procName, check command syntax" >> /var/log/smx-log/fail.log
-				                 echo "Command run: $(which kill) -9 `$(which ps) -ef | $(which grep) $procName | $(which grep) -v $(which grep) | $(which awk) '{print $2}'`" >> /var/log/smx-log/fail.log
+								 echo "Command run: $(which kill) -9 `$(which ps) -ef | $(which grep) $procName | $(which grep) -v $(which grep) | $(which awk) '{print $2}'`" >> /var/log/smx-log/fail.log
                                  echo "" >> /var/log/smx-log/fail.log
                                  echo "#############################################################################################################################" >> /var/log/smx-log/fail.log
                                  echo "" >> /var/log/smx-log/fail.log
@@ -3321,7 +3328,7 @@ function sys_menu() {
                                  cat /var/log/smx-log/fail.log | tail -n 7
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
-      		                fi
+							fi
       		          else
                             read -p "Press [enter] to continue..." ReadDamKey
                       fi
@@ -3329,7 +3336,7 @@ function sys_menu() {
 	        sysio)
 		            $(which iostat) > /dev/null
                     if [ $? -eq 0 ]; then
-                        echo "iostat found in PATH"
+                         echo "iostat found in PATH"
         	        else
                          clear
                          cat /proc/version | grep "Red Hat" > /dev/null
@@ -3472,7 +3479,7 @@ function sys_menu() {
                             echo "##################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not displayed virtual memory status, check command syntax" >> /var/log/smx-log/fail.log
-			                echo "Command run: $(which vmstat) 2 6 -a | $(which tee) /var/log/smx-log/vmstat.log" >> /var/log/smx-log/fail.log
+							echo "Command run: $(which vmstat) 2 6 -a | $(which tee) /var/log/smx-log/vmstat.log" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             echo "##################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -3482,7 +3489,7 @@ function sys_menu() {
                             cat /var/log/smx-log/fail.log | tail -n 7
                             echo
                             read -p "Press [enter] to continue..." ReadDamKey
-		               fi
+					   fi
                        ;;
 	        shell)
 		            clear
@@ -3513,8 +3520,8 @@ function sys_menu() {
               	    sleep 2
               	    clear
               	    $ROOT_SHELL
-        		    if [ $? -eq 0 ]; then
-           	             echo "###############################" >> /var/log/smx-log/success.log
+					if [ $? -eq 0 ]; then
+						 echo "###############################" >> /var/log/smx-log/success.log
                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "successfuly accessed root shell" >> /var/log/smx-log/success.log
                          echo "Command run: $ROOT_SHELL" >> /var/log/smx-log/success.log
@@ -3566,7 +3573,7 @@ function sys_menu() {
                      sleep 2
                      clear
                      $(which su) -l $userName '$cmdRun'
-		             if [ $? -eq 0 ]; then
+					 if [ $? -eq 0 ]; then
                           echo "###################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                           echo "successfuly ran command: $cmdRun as user: $userName" >> /var/log/smx-log/success.log
@@ -3633,7 +3640,7 @@ function sys_menu() {
                         if [ $? -eq 0 ]; then
                              clear
                              $(which ssh) -t $remUser@$remSys "$SMX_PATH --main-menu"
-			                 if [ $? -eq 0 ]; then
+							 if [ $? -eq 0 ]; then
                                   echo "#######################################################################" >> /var/log/smx-log/success.log
                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                   echo "successfuly connected to $remSys" >> /var/log/smx-log/success.log
@@ -3647,12 +3654,12 @@ function sys_menu() {
                                   cat /var/log/smx-log/success.log | tail -n 7
                                   echo
                                   read -p "Press [enter] to continue..." ReadDamKey
-			                 else
-				                  echo "#######################################################################" >> /var/log/smx-log/fail.log
+						      else
+							      echo "#######################################################################" >> /var/log/smx-log/fail.log
                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                   echo "Not conneted to $remSys, check command syntax and internet connection" >> /var/log/smx-log/fail.log
-                        		  echo "Command run: $(which ssh) -t $remUser@$remSys $SMX_PATH --main-menu" >> /var/log/smx-log/fail.log
-                				  echo "" >> /var/log/smx-log/fail.log
+								  echo "Command run: $(which ssh) -t $remUser@$remSys $SMX_PATH --main-menu" >> /var/log/smx-log/fail.log
+								  echo "" >> /var/log/smx-log/fail.log
                                   echo "#######################################################################" >> /var/log/smx-log/fail.log
                                   echo "" >> /var/log/smx-log/fail.log
                                   read -p "Press [enter] to continue..." ReadDamKey
@@ -3661,11 +3668,11 @@ function sys_menu() {
                                   cat /var/log/smx-log/fail.log | tail -n 7
                                   echo
                                   read -p "Press [enter] to continue..." ReadDamKey
-			                 fi
-			            else
+							  fi
+						else
                              echo "ping 100% FAIL, host offline"
                              read -p "Press [enter] to continue..." ReadDamKey
-			            fi
+						fi
                         ;;
 	        chboot)
 		             clear
@@ -3711,7 +3718,7 @@ function sys_menu() {
                           cat /var/log/smx-log/fail.log | tail -n 7
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		             fi
+					 fi
                      ;;
 	        initLevel)
                         clear
@@ -3776,11 +3783,11 @@ function sys_menu() {
                           cat /var/log/smx-log/success.log | tail -n 7
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
-		             else
+					 else
                           echo "########################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not viewed / modified /etc/inittab, check command syntax" >> /var/log/smx-log/fail.log
-			              echo "Command run: $(which vi) /etc/inittab" >> /var/log/smx-log/fail.log
+						  echo "Command run: $(which vi) /etc/inittab" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "########################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -3805,10 +3812,10 @@ function sys_menu() {
                        ;;
 	        backup)
 		             $(which pax) > /dev/null
-		             if [ $? -eq 0 ]; then
-			              echo "pax found in PATH"
-        	         else
-			              clear
+					 if [ $? -eq 0 ]; then
+						  echo "pax found in PATH"
+					 else
+						  clear
                           cat /proc/version | grep "Red Hat" > /dev/null
                           if [ $? -eq 0 ]; then
                                echo "OS = Red Hat"
@@ -3836,12 +3843,12 @@ function sys_menu() {
                                fi
                           fi
                      fi
-		             clear
+					 clear
               	     echo "$(date)                                    $(whoami)@$(hostname)"
               	     echo "[TOP]                          [Entry Fields]"
               	     read -p " Backup or Recovery --------- > " ans
               	     if [ "$ans" = "Backup" ]; then
-			               clear
+						   clear
                            echo "$(date)                                               $(whoami)@$(hostname)"
                            echo "Backup filename and location example: /home/user/backup.tar"
                            echo "File to backup example: /home/*, each directory or file must be seperated by a space"
@@ -3860,7 +3867,7 @@ function sys_menu() {
                            echo "File                                 Fileset                 Type"
                            echo "-----------------------------------------------------------------"
                            echo "$(which pax)                         bos.sysmgt.pax          exec"
-			               echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName"
+						   echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName"
                            sleep 2
                            update_spinner
                            sleep 1
@@ -3889,11 +3896,11 @@ function sys_menu() {
                                 cat /var/log/smx-log/success.log | tail -n 7
                                 echo
                                 read -p "Press [enter] to continue..." ReadDamKey
-			               else
+						   else
                                 echo "###########################################################################################" >> /var/log/smx-log/fail.log
                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                 echo "Not backed up: $fileBak to file: $bakName, compressed as $bakName.zip, check command syntax" >> /var/log/smx-log/fail.log
-				                echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName" >> /var/log/smx-log/fail.log
+							    echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
                                 echo "###########################################################################################" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
@@ -3905,7 +3912,7 @@ function sys_menu() {
                                 read -p "Press [enter] to continue..." ReadDamKey
                                 exit 1
     		               fi
-    			           $(which rm) $bakName
+						   $(which rm) $bakName
     		         else
             		       clear
                            echo "$(date)                                     $(whoami)@$(hostname)"
@@ -4043,34 +4050,34 @@ function sys_menu() {
                     sleep 1
                     update_spinner
               	    $(which setfacl) -r -m user:$userName:$filePerm $fileName
-		            if [ $? -eq 0 ]; then
-                        echo "############################################################################################" >> /var/log/smx-log/success.log
-                      	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        echo "successfuly set access control list on file: $fileName with permissions: $userName:$filePerm" >> /var/log/smx-log/success.log
-                        echo "$(which setfacl) -r -m user:$userName:$filePerm $fileName" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        echo "############################################################################################" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo
-                        cat /var/log/smx-log/success.log | tail -n 7
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
-		            else
-			            echo "######################################################################" >> /var/log/smx-log/fail.log
-                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        echo "Not set access control list on file: $fileName, check command syntax" >> /var/log/smx-log/fail.log
-		                echo "Command run: $(which setfacl) -r -m user:$userName:$filePerm $fileName" >> /var/log/smx-log/fail.log
-                        echo "" >> /var/log/smx-log/fail.log
-                        echo "######################################################################"
-                        echo "" >> /var/log/smx-log/fail.log
-                        read -p "Press [enter] to continue..." ReadDamKey
-                        clear
-                        echo
-                        cat /var/log/smx-log/fail.log | tail -n 7
-                        echo
-                        read -p "Press [enter] to continue..." ReadDamKey
+					if [ $? -eq 0 ]; then
+                         echo "############################################################################################" >> /var/log/smx-log/success.log
+                      	 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                         echo "successfuly set access control list on file: $fileName with permissions: $userName:$filePerm" >> /var/log/smx-log/success.log
+                         echo "$(which setfacl) -r -m user:$userName:$filePerm $fileName" >> /var/log/smx-log/success.log
+                         echo "" >> /var/log/smx-log/success.log
+                         echo "############################################################################################" >> /var/log/smx-log/success.log
+                         echo "" >> /var/log/smx-log/success.log
+                         read -p "Press [enter] to continue..." ReadDamKey
+                         clear
+                         echo
+                         cat /var/log/smx-log/success.log | tail -n 7
+                         echo
+                         read -p "Press [enter] to continue..." ReadDamKey
+					else
+						 echo "######################################################################" >> /var/log/smx-log/fail.log
+                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                         echo "Not set access control list on file: $fileName, check command syntax" >> /var/log/smx-log/fail.log
+						 echo "Command run: $(which setfacl) -r -m user:$userName:$filePerm $fileName" >> /var/log/smx-log/fail.log
+                         echo "" >> /var/log/smx-log/fail.log
+                         echo "######################################################################"
+                         echo "" >> /var/log/smx-log/fail.log
+                         read -p "Press [enter] to continue..." ReadDamKey
+                         clear
+                         echo
+                         cat /var/log/smx-log/fail.log | tail -n 7
+                         echo
+                         read -p "Press [enter] to continue..." ReadDamKey
     	            fi
             	    ;;
 	        gtACL)
@@ -4129,8 +4136,8 @@ function sys_menu() {
                         clear
                         echo "$(date)                                     $(whoami)@$(hostname)"
                         echo "Valid selinux security ratings: enforcing, permissive, disabled"
-                  	    echo "Current selinux security rating: $(getenforce)"
-                	    SELINUX_CURR=`getenforce`
+                      	echo "Current selinux security rating: $(getenforce)"
+                    	SELINUX_CURR=`getenforce`
                         echo "[TOP]                                                    [Entry Fields]"
                         printf " Enter new selinux security rating [enforcing] -------- > "
                         if [ "$seLinux" = "" ]; then
@@ -4198,8 +4205,8 @@ function sys_menu() {
                              cat /var/log/smx-log/fail.log | tail -n 7
                              echo
                              read -p "Press [enter] to continue..." ReadDamKey
-                  		fi
-                  		if [ "$ans" = "Y" ]; then
+                      	fi
+                      	if [ "$ans" = "Y" ]; then
                               echo "The system will now reboot..."
                               read -p "Press [enter] to continue..." ReadDamKey
                               $(which reboot) -f now --verbose; exit
@@ -4320,8 +4327,8 @@ function sys_menu() {
                         sleep 1
                         update_spinner
                         $(which nmap) -A -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log
-            			if [ $PIPESTATUS -eq 0 ]; then
-            			     echo "################################################################################################" >> /var/log/smx-log/success.log
+                		if [ $PIPESTATUS -eq 0 ]; then
+                		     echo "################################################################################################" >> /var/log/smx-log/success.log
                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                              echo "successfuly scanned ip address: $IP_ADDR" >> /var/log/smx-log/success.log
                              echo "Command run: $(which nmap) -sV -T4 -O -A -v $IP_ADDR | $(which tee) /var/log/smx-log/nmap.log" >> /var/log/smx-log/success.log
@@ -4529,8 +4536,8 @@ function ip_menu() {
        echo
 
        case "$choice_ip" in
-	       list)
-	              clear
+    	   list)
+    	          clear
             	  echo "$(date)                                     $(whoami)@$(hostname)"
                   echo "[TOP]                                     [Entry Fields]"
           	      printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
@@ -4587,8 +4594,8 @@ function ip_menu() {
               	       cat /var/log/smx-log/fail.log | tail -n 7
               	       echo
               	       read -p "Press [enter] to continue..." ReadDamKey
-            	    fi
-            	    ;;
+            	  fi
+            	  ;;
            ifstats)
                      clear
                      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -4635,8 +4642,8 @@ function ip_menu() {
                       	  echo
                           read -p "Press [enter] to continue..." ReadDamKey
                      else
-                  		  echo "#########################################################################################################" >> /var/log/smx-log/fail.log
-                  		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                  	      echo "#########################################################################################################" >> /var/log/smx-log/fail.log
+                  	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed advanced status for $netApt, check command syntax" >> /var/log/smx-log/fail.log
 			              echo "Command run: $(which netstat) -i | $(which grep) $NETINTF | $(which tee) /var/log/smx-log/netstat.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -4981,33 +4988,33 @@ function ip_menu() {
                                    $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
                                    if [ $? -eq 0 ]; then
                                         echo "##################################################################" >> /var/log/smx-log/success.log
-                              			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                              			echo "successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
-                        				echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
-                      					echo "" >> /var/log/smx-log/success.log
-                      					echo "##################################################################" >> /var/log/smx-log/success.log
-                      					echo "" >> /var/log/smx-log/success.log
-                              			read -p "Press [enter] to continue..." ReadDamKey
+                                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  		echo "successfuly changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/success.log
+                                		echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/success.log
+                              			echo "" >> /var/log/smx-log/success.log
+                              			echo "##################################################################" >> /var/log/smx-log/success.log
+                              			echo "" >> /var/log/smx-log/success.log
+                              		    read -p "Press [enter] to continue..." ReadDamKey
                                         clear
+                              		    echo
+                                		cat /var/log/smx-log/success.log | tail -n 7
                               			echo
-                        				cat /var/log/smx-log/success.log | tail -n 7
-                      					echo
-                      					read -p "Press [enter] to continue..." ReadDamKey
+                              			read -p "Press [enter] to continue..." ReadDamKey
                                    else
                                         echo "###################################################################" >> /var/log/smx-log/fail.log
-                              			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              			echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
-                        				echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
-                      					echo "" >> /var/log/smx-log/fail.log
-                      					echo "##################################################################" >> /var/log/smx-log/fail.log
-                      					echo "" >> /var/log/smx-log/fail.log
-                              			read -p "Press [enter] to continue..." ReadDamKey
+                                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  		echo "Not changed hostname from: $CURR_HOST to: $hostName" >> /var/log/smx-log/fail.log
+                                		echo "Command run: $(which sed) -i 's/$CURR_HOST/$hostName/g' /etc/hosts" >> /var/log/smx-log/fail.log
+                              			echo "" >> /var/log/smx-log/fail.log
+                              			echo "##################################################################" >> /var/log/smx-log/fail.log
+                              			echo "" >> /var/log/smx-log/fail.log
+                              		    read -p "Press [enter] to continue..." ReadDamKey
                                         clear
+                              		    echo
+                                		cat /var/log/smx-log/fail.log | tail -n 7
                               			echo
-                        				cat /var/log/smx-log/fail.log | tail -n 7
-                      					echo
-                      					read -p "Press [enter] to continue..." ReadDamKey
-                      					exit 1
+                              			read -p "Press [enter] to continue..." ReadDamKey
+                              			exit 1
                                    fi
                                    $(which sed) -i "s/$CURR_HOST/$hostName/g" /etc/hosts
                                    if [ "$ans" = "Y" ]; then
@@ -5194,14 +5201,14 @@ function ip_menu() {
                        echo "ONBOOT=yes" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
                        $(which sed) -i 'BOOTPROTO/#BOOTPROTO' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
                        echo "BOOTPROTO=none" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
-            		   $(which sed) -i 's/IPADDR/#IPADDR/g' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
+            	       $(which sed) -i 's/IPADDR/#IPADDR/g' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
             	       echo "IPADDR=$ipAddr" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
             	       $(which sed) -i 's/NETMASK/#NETMASK/g' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
             	       echo "NETMASK=$netMask" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
-        		       $(which sed) -i 's/GATEWAY/#GATEWAY/g' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
-        		       echo "GATEWAY=$defGway" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
-        		       $(which sed) -i 's/DNS1/#DNS1/G' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
-        		       echo "DNS1=$dnsSrvAddr" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
+            	       $(which sed) -i 's/GATEWAY/#GATEWAY/g' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
+            	       echo "GATEWAY=$defGway" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
+            	       $(which sed) -i 's/DNS1/#DNS1/G' /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
+            	       echo "DNS1=$dnsSrvAddr" >> /etc/sysconfig/network-scripts/ifcgf-Auto_$NETINTF
                        sleep 1
                        update_spinner
                        sleep 1
@@ -5330,86 +5337,86 @@ function ip_menu() {
                                  clear
                                  echo "OS = Ubuntu"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
-                        		 echo "[TOP]                                          [Entry Fields]"
-                        		 printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
-                				 if [ "$netIntf" = "" ]; then
+                            	 echo "[TOP]                                          [Entry Fields]"
+                            	 printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
+                		         if [ "$netIntf" = "" ]; then
                                        NETINTF=""
                                        read netIntf
                                        NETINTF=$netIntf
-                				 fi
-                				 if [ "$netIntf" = "" ]; then
+                        		 fi
+                        		 if [ "$netIntf" = "" ]; then
                                        NETINTF=""
                                        NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
-                        		 fi            
-                        		 read -p " Enter new IP address ---------------------- > " ipAddr
-                				 read -p " Enter new netmask address ----------------- > " netMask
-                				 read -p " Enter new broadcast address --------------- > " bcastAddr
-                				 read -p " Enter new default gateway  ---------------- > " defGway
-                        		 read -p " Enter new DNS server IP address ----------- > " dnsSrvAddr
-                        		 read -p " Reboot system after completion ------ (Y/N) > " ans
-                				 clear
-                				 echo "         COMMAND STATUS            "
-                				 echo
-                        		 echo "$(date)                                     $(whoami)@$(hostname)"
+                            	 fi            
+                            	 read -p " Enter new IP address ---------------------- > " ipAddr
+                        		 read -p " Enter new netmask address ----------------- > " netMask
+                        		 read -p " Enter new broadcast address --------------- > " bcastAddr
+                        		 read -p " Enter new default gateway  ---------------- > " defGway
+                            	 read -p " Enter new DNS server IP address ----------- > " dnsSrvAddr
+                            	 read -p " Reboot system after completion ------ (Y/N) > " ans
+                        		 clear
+                        		 echo "         COMMAND STATUS            "
                         		 echo
-                				 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                				 echo
-                				 echo "Before command completion, additional instructions may appear below"
+                            	 echo "$(date)                                     $(whoami)@$(hostname)"
+                            	 echo
+                        		 echo "Command: RUNNING    stdout: yes    stderr: no     "
                         		 echo
-                        		 echo "File                                 Fileset                 Type"
-                				 echo "-----------------------------------------------------------------"
-                				 echo "$(which sed)                         bos.sysmgt.sed          exec"
-                				 echo "$(which ifdown)                      bos.ipmgt.ifdown        exec"
-                        		 echo "$(which ifup)                        bos.ipmgt.ifup          exec"
-                        		 echo "$(which reboot)                      bos.sysmgt.reboot       bos"
-                				 echo "Command run: $(which ifdown) $NETINTF"
-                				 echo "Command run: $(which ifup) $NETINTF"
-                				 echo "Command run: $(which reboot) -f --verbose; exit"
+                        		 echo "Before command completion, additional instructions may appear below"
+                            	 echo
+                            	 echo "File                                 Fileset                 Type"
+                        		 echo "-----------------------------------------------------------------"
+                        		 echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        		 echo "$(which ifdown)                      bos.ipmgt.ifdown        exec"
+                            	 echo "$(which ifup)                        bos.ipmgt.ifup          exec"
+                            	 echo "$(which reboot)                      bos.sysmgt.reboot       bos"
+                        		 echo "Command run: $(which ifdown) $NETINTF"
+                        		 echo "Command run: $(which ifup) $NETINTF"
+                        		 echo "Command run: $(which reboot) -f --verbose; exit"
+                            	 sleep 1
+                            	 update_spinner
                         		 sleep 1
                         		 update_spinner
-                				 sleep 1
-                				 update_spinner
-                				 echo "Setting IP address: $ipAddr on network interface: $NETINTF"
+                        		 echo "Setting IP address: $ipAddr on network interface: $NETINTF"
+                            	 sleep 1
+                            	 update_spinner
+                        		 sleep 1
+                        		 $(which sed) -i 's/iface $NETINTF/#iface $NETINTF/g' /etc/network/interfaces
+                        		 echo "iface $NETINTF inet static" >> /etc/network/interfaces
+                            	 $(which sed) -i 's/address/#address/g' /etc/network/interface
+                            	 echo "address $ipAddr" >> /etc/network/interfaces
+                        		 $(which sed) -i 's/netmask/#netmask/g' /etc/network/interface
+                        		 echo "netmask $netMask" >> /etc/network/interfaces
+                        		 $(which sed) -i 's/broadcast/#broadcast/g' /etc/network/interface
+                            	 echo "broadcast $bcastAddr" >> /etc/network/interfaces
+                            	 $(which sed) -i 's/gateway/#gateway/g' /etc/network/interface
+                        		 echo "gateway $defGway" >> /etc/network/interfaces
+                        		 $(which sed) -i 's/dns-nameservers/#dns_nameservers' /etc/network/interface
+                        		 echo "dns-nameservers $dnsSrvAddr" >> /etc/network/interfaces
+                            	 sleep 1
+                            	 update_spinner
                         		 sleep 1
                         		 update_spinner
-                				 sleep 1
-                				 $(which sed) -i 's/iface $NETINTF/#iface $NETINTF/g' /etc/network/interfaces
-                				 echo "iface $NETINTF inet static" >> /etc/network/interfaces
-                        		 $(which sed) -i 's/address/#address/g' /etc/network/interface
-                        		 echo "address $ipAddr" >> /etc/network/interfaces
-                				 $(which sed) -i 's/netmask/#netmask/g' /etc/network/interface
-                				 echo "netmask $netMask" >> /etc/network/interfaces
-                				 $(which sed) -i 's/broadcast/#broadcast/g' /etc/network/interface
-                        		 echo "broadcast $bcastAddr" >> /etc/network/interfaces
-                        		 $(which sed) -i 's/gateway/#gateway/g' /etc/network/interface
-                				 echo "gateway $defGway" >> /etc/network/interfaces
-                				 $(which sed) -i 's/dns-nameservers/#dns_nameservers' /etc/network/interface
-                				 echo "dns-nameservers $dnsSrvAddr" >> /etc/network/interfaces
+                        		 echo "Restarting network interface: $NETINTF"
+                            	 sleep 1
+                            	 update_spinner
                         		 sleep 1
-                        		 update_spinner
-                				 sleep 1
-                				 update_spinner
-                				 echo "Restarting network interface: $NETINTF"
-                        		 sleep 1
-                        		 update_spinner
-                				 sleep 1
-                				 $(which ifdown) $NETINTF
-                				 $(which ifup) $NETINTF
-                        		 echo "##################################################################" >> /var/log/smx-log/success.log
-                				 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				 echo "Successfuly set IP address: $ipAddr on network interface: $NETINTF" >> /var/log/smx-log/success.log
-                				 echo "Command run: echo 'address $ipAddr' >> /etc/network/interface" >> /var/log/smx-log/success.log
+                        		 $(which ifdown) $NETINTF
+                        		 $(which ifup) $NETINTF
+                        	     echo "##################################################################" >> /var/log/smx-log/success.log
+                        		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		 echo "Successfuly set IP address: $ipAddr on network interface: $NETINTF" >> /var/log/smx-log/success.log
+                        		 echo "Command run: echo 'address $ipAddr' >> /etc/network/interface" >> /var/log/smx-log/success.log
+                            	 echo "" >> /var/log/smx-log/success.log
+                            	 echo "##################################################################" >> /var/log/smx-log/success.log
                         		 echo "" >> /var/log/smx-log/success.log
-                        		 echo "##################################################################" >> /var/log/smx-log/success.log
-                				 echo "" >> /var/log/smx-log/success.log
-                				 read -p "Press [enter] to continue..." ReadDamKey
+                        		 read -p "Press [enter] to continue..." ReadDamKey
                                  clear
-                				 echo
-                          	     cat /var/log/smx-log/success.log | tail -n 7
-                        		 echo
-                        		 echo
-                				 echo "IP address successfuly set, system must now reboot"
-                				 if [ "$ans" = "" ]; then
+                		         echo
+                              	 cat /var/log/smx-log/success.log | tail -n 7
+                            	 echo
+                            	 echo
+                        		 echo "IP address successfuly set, system must now reboot"
+                        		 if [ "$ans" = "" ]; then
                                        $(which reboot) -f --verbose; exit
 				                 else
                                        echo "System will not reboot..."
@@ -5475,8 +5482,8 @@ function ip_menu() {
                                       echo "NETWORK='$networkAddr'" >> /etc/sysconfig/network/ifcgf=$NETINTF
 		                              $(which sed) -i 's/default/#default/g' /etc/sysconfig/network/routes
                                       echo "default $defGway" >> /etc/sysconfig/network/routes
-                        		      $(which sed) -i 's/nameserver/#nameserver/g' /etc/resolv.conf
-                    			      echo "nameserver $dnsSrvAddr" >> /etc/resolv.conf
+                            	      $(which sed) -i 's/nameserver/#nameserver/g' /etc/resolv.conf
+                        		      echo "nameserver $dnsSrvAddr" >> /etc/resolv.conf
                                       /etc/init.d/network restart
                                       echo "#############################################################################" >> /var/log/smx-log/success.log
                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -5558,8 +5565,8 @@ function ip_menu() {
               	       cat /var/log/smx-log/success.log | tail -n 7
               	       echo
                        read -p "Press [enter] to continue..." ReadDamKey
-		          else
-		               echo "############################################################" >> /var/log/smx-log/fail.log
+        		  else
+        		       echo "############################################################" >> /var/log/smx-log/fail.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                        echo "Not disabled network adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
 		               echo "Command run: $(which ifdown) $NETINTF" >> /var/log/smx-log/fail.log
@@ -5617,8 +5624,8 @@ function ip_menu() {
             	     cat /var/log/smx-log/success.log | tail -n 7
                      echo
                      read -p "Press [enter] to continue..." ReadDamKey
-		        else
-		             echo "#############################################################" >> /var/log/smx-log/fail.log
+        		else
+        		     echo "#############################################################" >> /var/log/smx-log/fail.log
                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                      echo "Not brought up network adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
 		             echo "Command run: $(which ifup) $NETINTF" >> /var/log/smx-log/fail.log
@@ -5631,8 +5638,8 @@ function ip_menu() {
           	         cat /var/log/smx-log/fail.log | tail -n 7
             	     echo
                      read -p "Press [enter] to continue..." ReadDamKey
-            	  fi
-            	  ;;
+            	fi
+                ;;
 	       trace)
                    $(which whois) > /dev/null
 		           if [ $? -eq 0 ]; then
@@ -5695,8 +5702,8 @@ function ip_menu() {
               	   if [ $? -eq 0 ]; then
 		                echo "###########################################" >> /var/log/smx-log/success.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                  	    echo "successfuly sent ping test to host: $ipAddr" >> /var/log/smx-log/success.log
-                  		echo "Command run: $(which ping) -c 5 $ipAddr" >> /var/log/smx-log/success.log
+                      	echo "successfuly sent ping test to host: $ipAddr" >> /var/log/smx-log/success.log
+                      	echo "Command run: $(which ping) -c 5 $ipAddr" >> /var/log/smx-log/success.log
                         echo "" >> /var/log/smx-log/success.log
                         echo "###########################################" >> /var/log/smx-log/success.log
                         echo "" >> /var/log/smx-log/success.log
@@ -5706,8 +5713,8 @@ function ip_menu() {
                         cat /var/log/smx-log/success.log | tail -n 7
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
-		           else
-		                echo "#########################################################" >> /var/log/smx-log/fail.log
+        		   else
+        		        echo "#########################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not sent ping test to host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
                         echo "Command run: $(which ping) -c 5 $ipAddr" >> /var/log/smx-log/fail.log
@@ -5726,96 +5733,96 @@ function ip_menu() {
                    $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log
                    if [ $PIPESTATUS -eq 0 ]; then
 		                echo "###########################################################################################" >> /var/log/smx-log/success.log
-               			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-              			echo "successfuly traced host: $ipAddr" >> /var/log/smx-log/success.log
-              			echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/success.log
-              			echo "" >> /var/log/smx-log/success.log
-                  		echo "###########################################################################################" >> /var/log/smx-log/success.log
+                   		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                  		echo "successfuly traced host: $ipAddr" >> /var/log/smx-log/success.log
+                  		echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/success.log
                   		echo "" >> /var/log/smx-log/success.log
-                  		read -p "Press [enter] to continue..." ReadDamKey
+                      	echo "###########################################################################################" >> /var/log/smx-log/success.log
+                      	echo "" >> /var/log/smx-log/success.log
+                      	read -p "Press [enter] to continue..." ReadDamKey
                         clear
                     	echo
-                  		cat /var/log/smx-log/success.log | tail -n 7
-                  		echo
-            			read -p "Press [enter] to continue..." ReadDamKey
-		           else
-		                echo "###########################################################################################" >> /var/log/smx-log/fail.log
-                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                  		echo "Not traced host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-            			echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
-              			echo "###########################################################################################" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
-                  		read -p "Press [enter] to continue..." ReadDamKey
+                      	cat /var/log/smx-log/success.log | tail -n 7
+                      	echo
+                		read -p "Press [enter] to continue..." ReadDamKey
+        		   else
+        		        echo "###########################################################################################" >> /var/log/smx-log/fail.log
+                      	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	echo "Not traced host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+                		echo "Command run: $(which traceroute) $ipAddr | $(which tee) /var/log/smx-log/traceroute.log" >> /var/log/smx-log/fail.log
+                  		echo "" >> /var/log/smx-log/fail.log
+                  		echo "###########################################################################################" >> /var/log/smx-log/fail.log
+                  		echo "" >> /var/log/smx-log/fail.log
+                      	read -p "Press [enter] to continue..." ReadDamKey
                         clear
-                  		echo
-                  		cat /var/log/smx-log/fail.log | tail -n 7
-            			echo
-              			read -p "Press [enter] to continue..." ReadDamKey
-              			exit 1
+                      	echo
+                      	cat /var/log/smx-log/fail.log | tail -n 7
+                		echo
+                  		read -p "Press [enter] to continue..." ReadDamKey
+                  		exit 1
 		           fi
             	   clear
                    $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup.log
                    if [ $PIPESTATUS -eq 0 ]; then
 		                echo "####################################################################################" >> /var/log/smx-log/success.log
-               			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-              			echo "successfuly looked up host: $ipAddr" >> /var/log/smx-log/success.log
-              			echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/success.log
-              			echo "" >> /var/log/smx-log/success.log
-                  		echo "###################################################################################" >> /var/log/smx-log/success.log
+                   		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                  		echo "successfuly looked up host: $ipAddr" >> /var/log/smx-log/success.log
+                  		echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/success.log
                   		echo "" >> /var/log/smx-log/success.log
-                  		read -p "Press [enter] to continue..." ReadDamKey
+                      	echo "###################################################################################" >> /var/log/smx-log/success.log
+                      	echo "" >> /var/log/smx-log/success.log
+                      	read -p "Press [enter] to continue..." ReadDamKey
                         clear
-            			echo
-              			cat /var/log/smx-log/success.log | tail -n 7
-              			echo
-              			read -p "Press [enter] to continue..." ReadDamKey
-		           else
-		                echo "###################################################################################" >> /var/log/smx-log/fail.log
-                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                  		echo "Not looked up host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-            			echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
-              			echo "###################################################################################" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
-                  		read -p "Press [enter] to continue..." ReadDamKey
-                        clear
+                		echo
+                  		cat /var/log/smx-log/success.log | tail -n 7
                   		echo
-                  		cat /var/log/smx-log/fail.log | tail -n 7
-            			echo
-              			read -p "Press [enter] to continue..." ReadDamKey
-              			exit 1
+                  		read -p "Press [enter] to continue..." ReadDamKey
+        		   else
+        		        echo "###################################################################################" >> /var/log/smx-log/fail.log
+                      	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	echo "Not looked up host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+                		echo "Command run: $(which nslookup) $ipAddr | $(which tee) /var/log/smx-log/nslookup" >> /var/log/smx-log/fail.log
+                  		echo "" >> /var/log/smx-log/fail.log
+                  		echo "###################################################################################" >> /var/log/smx-log/fail.log
+                  		echo "" >> /var/log/smx-log/fail.log
+                      	read -p "Press [enter] to continue..." ReadDamKey
+                        clear
+                      	echo
+                      	cat /var/log/smx-log/fail.log | tail -n 7
+                		echo
+                  		read -p "Press [enter] to continue..." ReadDamKey
+                  		exit 1
               	   fi
               	   clear
                    $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log
                    if [ $PIPESTATUS -eq 0 ]; then
 		                echo "#################################################################################" >> /var/log/smx-log/success.log
-                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                  		echo "successfuly displayed domain information for host: $ipAddr" >> /var/log/smx-log/success.log
-            			echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/success.log
-              			echo "" >> /var/log/smx-log/success.log
-              			echo "#################################################################################" >> /var/log/smx-log/success.log
-              			echo "" >> /var/log/smx-log/success.log
-                  		read -p "Press [enter] to continue..." ReadDamKey
+                      	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	echo "successfuly displayed domain information for host: $ipAddr" >> /var/log/smx-log/success.log
+                		echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/success.log
+                  		echo "" >> /var/log/smx-log/success.log
+                  		echo "#################################################################################" >> /var/log/smx-log/success.log
+                  		echo "" >> /var/log/smx-log/success.log
+                      	read -p "Press [enter] to continue..." ReadDamKey
                         clear
-                  		echo
-                  		cat /var/log/smx-log/success.log | tail -n 7
-            			echo
-              			read -p "Press [enter] to continue..." ReadDamKey
-		           else
-		                echo "#################################################################################" >> /var/log/smx-log/fail.log
-                  		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                  		echo "Not displayed domain information for host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
-            			echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
-              			echo "#################################################################################" >> /var/log/smx-log/fail.log
-              			echo "" >> /var/log/smx-log/fail.log
+                      	echo
+                      	cat /var/log/smx-log/success.log | tail -n 7
+                		echo
                   		read -p "Press [enter] to continue..." ReadDamKey
+        		   else
+        		        echo "#################################################################################" >> /var/log/smx-log/fail.log
+                      	echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	echo "Not displayed domain information for host: $ipAddr, check command syntax" >> /var/log/smx-log/fail.log
+                		echo "Command run: $(which whois) $ipAddr | $(which tee) /var/log/smx-log/whois.log" >> /var/log/smx-log/fail.log
+                  		echo "" >> /var/log/smx-log/fail.log
+                  		echo "#################################################################################" >> /var/log/smx-log/fail.log
+                  		echo "" >> /var/log/smx-log/fail.log
+                      	read -p "Press [enter] to continue..." ReadDamKey
                         clear
                         echo
-                  		cat /var/log/smx-log/fail.log | tail -n 7
-            			echo
-              			read -p "Press [enter] to continue..." ReadDamKey
+                      	cat /var/log/smx-log/fail.log | tail -n 7
+                		echo
+                  		read -p "Press [enter] to continue..." ReadDamKey
                    fi
                    ;;
            help)
@@ -5841,7 +5848,7 @@ function ip_menu() {
                   echo "" >> /var/log/smx-log/exit.log
             	  sys_menu
             	  ;;
-	       exit-mas)
+	        exit-mas)
     	              clear
 		              echo "#################################" >> /var/log/smx-log/exit.log
             	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
@@ -5891,8 +5898,8 @@ function fire_menu() {
                      echo "$(which iptables)                     bos.firemgt.iptables   exec"
 		             echo "Command run: $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log"
                      sleep 2
-		             clear
-                     $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log
+        		     clear
+        		     $(which iptables) -L -n -v | $(which tee) /var/log/smx-log/iptables.log
                      if [ $PIPESTATUS -eq 0 ]; then
 			              echo "########################################################################################" >> /var/log/smx-log/success.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -5932,8 +5939,8 @@ function fire_menu() {
                               NETINTF=""
                               read netIntf
                               NETINTF=$NETINTF
-                  		fi
-                  		if [ "$netIntf" = "" ]; then
+                      	fi
+                      	if [ "$netIntf" = "" ]; then
                               NETINTF=""
                               NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
 			            fi      
@@ -6008,8 +6015,8 @@ function fire_menu() {
                                NETINTF=""
                                read netIntf
                                NETINTF=$NETINTF
-                  		 fi
-                  		 if [ "$netIntf" = "" ]; then
+                      	 fi
+                      	 if [ "$netIntf" = "" ]; then
                                NETINTF=""
                                NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
 			             fi
@@ -6083,10 +6090,10 @@ function fire_menu() {
                            printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
 			               if [ "$netIntf" = "" ]; then
                                  NETINTF=""
-                        		 read netIntf
-                        		 NETINTF=$NETINTF
-                  		   fi
-                  		   if [ "$netIntf" = "" ]; then
+                            	 read netIntf
+                            	 NETINTF=$NETINTF
+                      	   fi
+                      	   if [ "$netIntf" = "" ]; then
                                  NETINTF=""
 				                 NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
 			               fi
@@ -6124,8 +6131,8 @@ function fire_menu() {
                            $(which iptables) -A OUTPUT -i $NETINTF -p tcp -d $domainName -j DROP
                            if [ $? -eq 0 ]; then
 			                    echo "##################################################################################" >> /var/log/smx-log/success.log
-                  				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				echo "successfuly blocked domain: $domainName on adaptor: $NETINTF" >> /var/log/smx-log/success.log
+                          		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		echo "successfuly blocked domain: $domainName on adaptor: $NETINTF" >> /var/log/smx-log/success.log
                                 echo "Command run: $(which iptables) -A OUTPUT -i $NETINTF -p tcp -d $domainName -j DROP" >> /var/log/smx-log/success.log
                                 echo "" >> /var/log/smx-log/success.log
                                 echo "##################################################################################" >> /var/log/smx-log/success.log
@@ -6215,7 +6222,7 @@ function fire_menu() {
                             read -p "Press [enter] to continue..." ReadDamKey
                        else
 		                    echo "##########################################################################" >> /var/log/smx-log/fail.log
-                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+			                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "Not blocked ip address: $ipAddr on adaptor: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
 			                echo "Command run: $(which iptables) -A OUTPUT -I $NETINTF -d $ipAddr -j DROP" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
@@ -7145,7 +7152,7 @@ function pkg_menu() {
                                          fi
                                     fi
                                fi
-                         fi
+                          fi
                      fi
                      ;;
 	        install_deb)
@@ -7195,8 +7202,8 @@ function pkg_menu() {
                       	       cat /var/log/smx-log/success.log | tail -n 7
                       	       echo
                       	       read -p "Press [enter] to continue..." ReadDamKey
-			              else
-			                   echo "##################################################################################" >> /var/log/smx-log/fail.log
+            			  else
+            			       echo "##################################################################################" >> /var/log/smx-log/fail.log
                       	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                       	       echo "Package not installed at location: $pkgLoc, check command syntax" >> /var/log/smx-log/fail.log
 			                   echo "Command run: $(which dpkg) -i $pkgLoc | $(which tee) /var/log/smx-log/dpkg.log" >> /var/log/smx-log/fail.log
@@ -7220,22 +7227,22 @@ function pkg_menu() {
                                 clear
                                 echo "$(date)                                     $(whoami)@$(hostname)"
                                 echo "You must know the location of the rpm file on the filesystem"
-                        		echo "For example: /home/user/file.rpm"
-                				echo "[TOP]                                     [Entry Fields]"
-                				read -p " Enter rpm file location -------------- > " pkgLoc
-                				clear
-                        		echo "         COMMAND STATUS                       "
-                        		echo
-                				echo "$(date)                                     $(whoami)@$(hostname)"
+                        	    echo "For example: /home/user/file.rpm"
+                        		echo "[TOP]                                     [Entry Fields]"
+                        		read -p " Enter rpm file location -------------- > " pkgLoc
+                        		clear
+                            	echo "         COMMAND STATUS                       "
+                            	echo
+                		        echo "$(date)                                     $(whoami)@$(hostname)"
                           	    echo
                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            	echo
+                            	echo "Before command completion, additional instructions may appear below"
                         		echo
-                        		echo "Before command completion, additional instructions may appear below"
-                				echo
-                				echo "File                                 Fileset                 Type"
-                				echo "-----------------------------------------------------------------"
-                        		echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
-                        		echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log"
+                        		echo "File                                 Fileset                 Type"
+                        		echo "-----------------------------------------------------------------"
+                            	echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
+                            	echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log"
                             	sleep 1
                                 update_spinner
                                 sleep 1
@@ -7251,54 +7258,54 @@ function pkg_menu() {
                                 update_spinner
 				                $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log
                                 if [ $PIPESTATUS -eq 0 ]; then
-                        		     echo "##################################################################################" >> /var/log/smx-log/success.log
-                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				     echo "successfuly installed package at location: $pkgLoc" >> /var/log/smx-log/success.log
-                				     echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/success.log
-                        			 echo "" >> /var/log/smx-log/success.log
-                        			 echo "##################################################################################" >> /var/log/smx-log/success.log
-                        		     echo "" >> /var/log/smx-log/success.log
+                        	         echo "##################################################################################" >> /var/log/smx-log/success.log
+                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		     echo "successfuly installed package at location: $pkgLoc" >> /var/log/smx-log/success.log
+                        		     echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/success.log
+                            	     echo "" >> /var/log/smx-log/success.log
+                            	     echo "##################################################################################" >> /var/log/smx-log/success.log
+                            	     echo "" >> /var/log/smx-log/success.log
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      clear
-                    			     echo
-                				     cat /var/log/smx-log/success.log | tail -n 7
-                				     echo
+                    		         echo
+                        		     cat /var/log/smx-log/success.log | tail -n 7
+                        		     echo
                                      read -p "Press [enter] to continue..." ReadDamKey
                   		        else
-                        			 echo "##################################################################################" >> /var/log/smx-log/fail.log
-                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			     echo "Not installed package at location: $pkgLoc, check command syntax" >> /var/log/smx-log/fail.log
-                				     echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
-                        			 echo "" >> /var/log/smx-log/fail.log
-                        		     echo "##################################################################################" >> /var/log/smx-log/fail.log
-                    			     echo "" >> /var/log/smx-log/fail.log
-                        			 read -p "Press [enter] to continue..." ReadDamKey
+                            	     echo "##################################################################################" >> /var/log/smx-log/fail.log
+                            	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		     echo "Not installed package at location: $pkgLoc, check command syntax" >> /var/log/smx-log/fail.log
+                		             echo "Command run: $(which rpm) -ivh $pkgLoc | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
+                            	     echo "" >> /var/log/smx-log/fail.log
+                            	     echo "##################################################################################" >> /var/log/smx-log/fail.log
+                        		     echo "" >> /var/log/smx-log/fail.log
+                            	     read -p "Press [enter] to continue..." ReadDamKey
                                      clear
                               	     echo
                               	     cat /var/log/smx-log/fail.log | tail -n 7
-                        			 echo
-                        		     read -p "Press [enter] to continue..." ReadDamKey
-                    			fi
-                		  else
+                            	     echo
+                            	     read -p "Press [enter] to continue..." ReadDamKey
+                        		fi
+                	      else
       			                clear
-                        		echo "$(date)                                     $(whoami)@$(hostname)"
-                				echo "pkgName example: iptables"
-                				echo "[TOP]                                   [Entry Fields]"
-                				read -p " Enter package name ----------------- > " pkgName
-                        		clear
-                        		echo "         COMMAND STATUS        "
-                				echo
-                				echo "$(date)                                     $(whoami)@$(hostname)"
-                				echo
-                        		echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        	    echo "$(date)                                     $(whoami)@$(hostname)"
+                        		echo "pkgName example: iptables"
+                        		echo "[TOP]                                   [Entry Fields]"
+                        		read -p " Enter package name ----------------- > " pkgName
+                            	clear
+                            	echo "         COMMAND STATUS        "
                         		echo
-                				echo "Before command completion, additional instructions may appear below"
-                				echo
-                				echo "File                                 Fileset                 Type"
-                        		echo "-----------------------------------------------------------------"
-                        		echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
-                				echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log"
-                				sleep 1
+                        		echo "$(date)                                     $(whoami)@$(hostname)"
+                        		echo
+                            	echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            	echo
+                        		echo "Before command completion, additional instructions may appear below"
+                        		echo
+                        		echo "File                                 Fileset                 Type"
+                            	echo "-----------------------------------------------------------------"
+                            	echo "$(which rpm)                         bos.pkgmgt.rpm          exec"
+                        		echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log"
+                        		sleep 1
                                 update_spinner
                                 sleep 1
                                 update_spinner
@@ -7311,36 +7318,36 @@ function pkg_menu() {
                                 update_spinner
                                 sleep 1
                                 update_spinner
-                        		RPM_FULL=`rpm -qa | grep $pkgName`
-                        		$(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log
-                				if [ $PIPESTATUS -eq 0 ]; then
-                        			 echo "##################################################################################" >> /var/log/smx-log/success.log
-                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            	RPM_FULL=`rpm -qa | grep $pkgName`
+                            	$(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log
+                		        if [ $PIPESTATUS -eq 0 ]; then
+                            	     echo "##################################################################################" >> /var/log/smx-log/success.log
+                            	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               	     echo "successfuly removed package: $RPM_FULL" >> /var/log/smx-log/success.log
                               	     echo "Command run: $(which rpm) -e $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/success.log
-                    			     echo "" >> /var/log/smx-log/success.log
-                				     echo "##################################################################################" >> /var/log/smx-log/success.log
-                				     echo "" >> /var/log/smx-log/success.log
-                				     read -p "Press [enter] to continue..." ReadDamKey
+                    		         echo "" >> /var/log/smx-log/success.log
+                        		     echo "##################################################################################" >> /var/log/smx-log/success.log
+                        		     echo "" >> /var/log/smx-log/success.log
+                        		     read -p "Press [enter] to continue..." ReadDamKey
                                      clear
                               	     echo
                               	     cat /var/log/smx-log/success.log | tail -n 7
                               	     echo
 				                     read -p "Press [enter] to continue..." ReadDamKey
                   		        else
-                        			 echo "###################################################################################" >> /var/log/smx-log/fail.log
-                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			     echo "Not removed package: $RPM_FULL, check command syntax" >> /var/log/smx-log/fail.log
-                				     echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
-                				     echo "" >> /var/log/smx-log/fail.log
-                				     echo "###################################################################################" >> /var/log/smx-log/fail.log
-                        			 echo "" >> /var/log/smx-log/fail.log
+                            	     echo "###################################################################################" >> /var/log/smx-log/fail.log
+                            	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		     echo "Not removed package: $RPM_FULL, check command syntax" >> /var/log/smx-log/fail.log
+                        		     echo "Command run: $(which rpm) -qa $RPM_FULL | $(which tee) /var/log/smx-log/rpm.log" >> /var/log/smx-log/fail.log
+                        		     echo "" >> /var/log/smx-log/fail.log
+                        		     echo "###################################################################################" >> /var/log/smx-log/fail.log
+                        	         echo "" >> /var/log/smx-log/fail.log
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      clear
+                        	         echo
+                        		     cat /var/log/smx-log/fail.log | tail -n 7
                         		     echo
-                				     cat /var/log/smx-log/fail.log | tail -n 7
-                				     echo
-                				     read -p "Press [enter] to continue..." ReadDamKey
+                        		     read -p "Press [enter] to continue..." ReadDamKey
                 		        fi
                           fi
 			              ;;
@@ -7349,22 +7356,22 @@ function pkg_menu() {
                      cat /proc/version | grep "Red Hat" > /dev/null
                      if [ $? -eq 0 ]; then
                           clear
-                  		  echo "OS = Red Hat"
-                  		  echo "            COMMAND STATUS            "
-                   	      echo
+                      	  echo "OS = Red Hat"
+                      	  echo "            COMMAND STATUS            "
+                       	  echo
                           echo "$(date)                                     $(whoami)@$(hostname)"
+                      	  echo
+                      	  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                      	  echo
+                    	  echo "Before command completion, additional instructions may appear below"
                   		  echo
-                  		  echo "Command: RUNNING    stdout: yes    stderr: no     "
-                  		  echo
-                		  echo "Before command completion, additional instructions may appear below"
-              			  echo
-                  	      echo "File                                 Fileset                 Type"
+                      	  echo "File                                 Fileset                 Type"
                           echo "-----------------------------------------------------------------"
-                  	      echo "$(which yum)                         bos.pkgmgt.yum          exec"
-                  		  echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log"
-                  		  echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log"
-            			  sleep 2
-              			  clear
+                      	  echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                      	  echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log"
+                      	  echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log"
+                		  sleep 2
+                  		  clear
                           sleep 1
                           update_spinner
                           sleep 1
@@ -7385,8 +7392,8 @@ function pkg_menu() {
                       	       echo "successfuly listed updates" >> /var/log/smx-log/success.log
                       	       echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
                       	       echo "" >> /var/log/smx-log/success.log
-                  	  	       echo "##################################################################################" >> /var/log/smx-log/success.log
-                  	           echo "" >> /var/log/smx-log/success.log
+                      	       echo "##################################################################################" >> /var/log/smx-log/success.log
+                      	       echo "" >> /var/log/smx-log/success.log
                                read -p "Press [enter] to continue..." ReadDamKey
                                clear
                       	       echo
@@ -7399,8 +7406,8 @@ function pkg_menu() {
                     	       echo "Not listed updates, check command syntax" >> /var/log/smx-log/fail.log
 			                   echo "Command run: $(which yum) list updates | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
-                  		       echo "##################################################################################" >> /var/log/smx-log/fail.log
-                  		       echo "" >> /var/log/smx-log/fail.log
+                      	       echo "##################################################################################" >> /var/log/smx-log/fail.log
+                      	       echo "" >> /var/log/smx-log/fail.log
                     	       read -p "Press [enter] to continue..." ReadDamKey
                                clear
                                echo
@@ -7429,8 +7436,8 @@ function pkg_menu() {
                       	       echo "successfuly installed updates" >> /var/log/smx-log/success.log
                       	       echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
                       	       echo "" >> /var/log/smx-log/success.log
-                  			   echo "############################################################################" >> /var/log/smx-log/success.log
-                  			   echo "" >> /var/log/smx-log/success.log
+                      	       echo "############################################################################" >> /var/log/smx-log/success.log
+                      	       echo "" >> /var/log/smx-log/success.log
                                read -p "Press [enter] to continue..." ReadDamKey
                                clear
                       	       echo
@@ -7441,10 +7448,10 @@ function pkg_menu() {
 			                   echo "############################################################################" >> /var/log/smx-log/fail.log
                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not installed updates, check command syntax" >> /var/log/smx-log/fail.log
-                  		       echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
-                  		       echo "" >> /var/log/smx-log/success.log
-                  		       echo "############################################################################" >> /var/log/smx-log/fail.log
-                  		       echo "" >> /var/log/smx-log/fail.log
+                      	       echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                      	       echo "" >> /var/log/smx-log/success.log
+                      	       echo "############################################################################" >> /var/log/smx-log/fail.log
+                      	       echo "" >> /var/log/smx-log/fail.log
                       	       read -p "Press [enter] to continue..." ReadDamKey
                                clear
                       	       echo
@@ -7456,8 +7463,8 @@ function pkg_menu() {
                           clear
                           cat /proc/version | grep "Debian" > /dev/null
                           if [ $? -eq 0 ]; then
-                  			   clear
-                  		       echo "OS = Debian"
+                      	       clear
+                      	       echo "OS = Debian"
                       	       echo "          COMMAND STATUS           "
                       	       echo
                                echo "$(date)                                     $(whoami)@$(hostname)"
@@ -7487,34 +7494,34 @@ function pkg_menu() {
                                update_spinner
                       	       $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log
                       	       if [ $? -eq 0 ]; then
-                        			echo "####################################################################################################" >> /var/log/smx-log/success.log
-                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            	    echo "####################################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               	    echo "successfuly listed all avalible updates" >> /var/log/smx-log/success.log
                               	    echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                               	    echo "" >> /var/log/smx-log/success.log
-                    			    echo "####################################################################################################" >> /var/log/smx-log/success.log
-                				    echo "" >> /var/log/smx-log/success.log
-                				    read -p "Press [enter] to continue..." ReadDamKey
+                    		        echo "####################################################################################################" >> /var/log/smx-log/success.log
+                        		    echo "" >> /var/log/smx-log/success.log
+                        		    read -p "Press [enter] to continue..." ReadDamKey
                                     clear
-                				    echo
+                		            echo
                               	    cat /var/log/smx-log/success.log | tail -n 7
                               	    echo
 				                    read -p "Press [enter] to continue..." ReadDamKey
 			                   else
-                        			echo "####################################################################################################" >> /var/log/smx-log/fail.log
-                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			    echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
-                				    echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                				    echo "" >> /var/log/smx-log/fail.log
-                				    echo "####################################################################################################" >> /var/log/smx-log/fail.log
-                        			echo "" >> /var/log/smx-log/fail.log
+                            	    echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                            	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		    echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
+                        		    echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                        		    echo "" >> /var/log/smx-log/fail.log
+                        		    echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                        	        echo "" >> /var/log/smx-log/fail.log
                             	    read -p "Press [enter] to continue..." ReadDamKey
                                     clear
+                            	    echo
+                        		    cat /var/log/smx-log/fail.log | tail -n 7
                         		    echo
-                    			    cat /var/log/smx-log/fail.log | tail -n 7
-                				    echo
-                				    read -p "Press [enter] to continue..." ReadDamKey
-                				    exit 1
+                        		    read -p "Press [enter] to continue..." ReadDamKey
+                        		    exit 1
 			                   fi
                                sleep 1
                                update_spinner
@@ -7531,34 +7538,34 @@ function pkg_menu() {
                                update_spinner
                                $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
                                if [ $PIPESTATUS -eq 0 ]; then
-                        			echo "####################################################################################" >> /var/log/smx-log/success.log
-                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			    echo "successfuly updated sources" >> /var/log/smx-log/success.log
-                				    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                				    echo "" >> /var/log/smx-log/success.log
-                                    echo "####################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "####################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		    echo "successfuly updated sources" >> /var/log/smx-log/success.log
+                        		    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                         		    echo "" >> /var/log/smx-log/success.log
-                          	        read -p "Press [enter] to continue..." ReadDamKey
+                                    echo "####################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "" >> /var/log/smx-log/success.log
+                              	    read -p "Press [enter] to continue..." ReadDamKey
                                     clear
+                            	    echo
+                        		    cat /var/log/smx-log/success.log | tail -n 7
                         		    echo
-                    			    cat /var/log/smx-log/success.log | tail -n 7
-                				    echo
-                				    read -p "Press [enter] to continue..." ReadDamKey
+                        		    read -p "Press [enter] to continue..." ReadDamKey
     		                   else
 				                    echo "####################################################################################" >> /var/log/smx-log/fail.log
                               	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                               	    echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
-                        			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                            	    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                            	    echo "" >> /var/log/smx-log/fail.log
+                        		    echo "####################################################################################" >> /var/log/smx-log/fail.log
                         		    echo "" >> /var/log/smx-log/fail.log
-                    			    echo "####################################################################################" >> /var/log/smx-log/fail.log
-                				    echo "" >> /var/log/smx-log/fail.log
-                				    read -p "Press [enter] to continue..." ReadDamKey
+                        		    read -p "Press [enter] to continue..." ReadDamKey
                                     clear
                               	    echo
                               	    cat /var/log/smx-log/fail.log | tail -n 7
                               	    echo
-                        			read -p "Press [enter] to continue..." ReadDamKey
-                        		    exit 1
+                            	    read -p "Press [enter] to continue..." ReadDamKey
+                            	    exit 1
                 	           fi
                     	       sleep 1
                                update_spinner
@@ -7579,10 +7586,10 @@ function pkg_menu() {
                               	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                               	    echo "successfuly updated software" >> /var/log/smx-log/success.log
                               	    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                        		    echo "" >> /var/log/smx-log/success.log
-                        			echo "#####################################################################################" >> /var/log/smx-log/success.log
-                        			echo "" >> /var/log/smx-log/success.log
-                        		    read -p "Press [enter] to continue..." ReadDamKey
+                            	    echo "" >> /var/log/smx-log/success.log
+                            	    echo "#####################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "" >> /var/log/smx-log/success.log
+                            	    read -p "Press [enter] to continue..." ReadDamKey
                                     clear
                               	    echo
                               	    cat /var/log/smx-log/success.log | tail -n 7
@@ -7592,38 +7599,38 @@ function pkg_menu() {
 				                    echo "#####################################################################################" >> /var/log/smx-log/fail.log
                             	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             	    echo "Not updated software, check command syntax" >> /var/log/smx-log/fail.log
-                        		    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    			    echo "" >> /var/log/smx-log/fail.log
-                				    echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                				    echo "" >> /var/log/smx-log/fail.log
-                				    read -p "Press [enter] to continue..." ReadDamKey
+                            	    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                        		    echo "" >> /var/log/smx-log/fail.log
+                        		    echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                        		    echo "" >> /var/log/smx-log/fail.log
+                        		    read -p "Press [enter] to continue..." ReadDamKey
                                     clear
                               	    echo
                               	    cat /var/log/smx-log/fail.log | tail -n 7
                               	    echo
 				                    read -p "Press [enter] to continue..." ReadDamKey
-                    	         fi
+                    	       fi
                           else
                                clear
                                cat /proc/version | grep "Ubuntu" > /dev/null
                                if [ $? -eq 0 ]; then
-                        			clear
-                        		    echo "OS = Ubuntu"
+                            	    clear
+                            	    echo "OS = Ubuntu"
                               	    echo "          COMMAND STATUS           "
                               	    echo
-                        			echo "$(date)                                     $(whoami)@$(hostname)"
+                            	    echo "$(date)                                     $(whoami)@$(hostname)"
+                            	    echo
+                        		    echo "Command: RUNNING    stdout: yes    stderr: no     "
                         		    echo
-                    			    echo "Command: RUNNING    stdout: yes    stderr: no     "
-                				    echo
-                				    echo "Before command completion, additional instructions may appear below"
-                				    echo
-                        			echo "File                                 Fileset                 Type"
+                        		    echo "Before command completion, additional instructions may appear below"
+                        		    echo
+                        	        echo "File                                 Fileset                 Type"
                               	    echo "-----------------------------------------------------------------"
                               	    echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
                               	    echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log"
-                        		    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                    			    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-                				    sleep 1
+                            	    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                        		    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+                		            sleep 1
                                     update_spinner
                                     sleep 1
                                     update_spinner
@@ -7636,37 +7643,37 @@ function pkg_menu() {
                                     update_spinner
                                     sleep 1
                                     update_spinner
-                        			$(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log
-                        		    if [ $? -eq 0 ]; then
+                            	    $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log
+                            	    if [ $? -eq 0 ]; then
 					                     echo "####################################################################################################" >> /var/log/smx-log/success.log
                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                              			 echo "successfuly listed all avalible updates" >> /var/log/smx-log/success.log
-                        				 echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
-                      					 echo "####################################################################################################" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                              		     echo "successfuly listed all avalible updates" >> /var/log/smx-log/success.log
+                                		 echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                              			 echo "" >> /var/log/smx-log/success.log
+                              			 echo "####################################################################################################" >> /var/log/smx-log/success.log
+                              			 echo "" >> /var/log/smx-log/success.log
+                              		     read -p "Press [enter] to continue..." ReadDamKey
                                          clear
+                              		     echo
+                                		 cat /var/log/smx-log/success.log | tail -n 7
                               			 echo
-                        				 cat /var/log/smx-log/success.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
+                              			 read -p "Press [enter] to continue..." ReadDamKey
 				                    else
-                            			 echo "####################################################################################################" >> /var/log/smx-log/fail.log
-                            			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        				 echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
-                    					 echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    					 echo "" >> /var/log/smx-log/fail.log
-                    					 echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                                		 echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                                		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		 echo "Not listed all avalible updates, check command syntax" >> /var/log/smx-log/fail.log
+                            			 echo "Command run: $(which apt-get) -u upgrade --assume-no | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                             			 echo "" >> /var/log/smx-log/fail.log
-                            			 read -p "Press [enter] to continue..." ReadDamKey
+                            			 echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                                		 echo "" >> /var/log/smx-log/fail.log
+                                		 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                        				 echo
-                    					 cat /var/log/smx-log/fail.log | tail -n 7
-                    					 echo
-                    					 read -p "Press [enter] to continue..." ReadDamKey
-                            			 exit 1
-        				            fi
+                                		 echo
+                            			 cat /var/log/smx-log/fail.log | tail -n 7
+                            			 echo
+                            			 read -p "Press [enter] to continue..." ReadDamKey
+                            		     exit 1
+        			                fi
                             	    sleep 1
                                     update_spinner
                                     sleep 1
@@ -7682,34 +7689,34 @@ function pkg_menu() {
                                     update_spinner
                               	    $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
                               	    if [ $PIPESTATUS -eq 0 ]; then
-                              			 echo "####################################################################################" >> /var/log/smx-log/success.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        				 echo "successfuly updated sources" >> /var/log/smx-log/success.log
-                      					 echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
-                      					 echo "####################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "####################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		 echo "successfuly updated sources" >> /var/log/smx-log/success.log
+                              			 echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                               			 echo "" >> /var/log/smx-log/success.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                              			 echo "####################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "" >> /var/log/smx-log/success.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                        				 echo
-                      					 cat /var/log/smx-log/success.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
+                                		 echo
+                              			 cat /var/log/smx-log/success.log | tail -n 7
+                              			 echo
+                              			 read -p "Press [enter] to continue..." ReadDamKey
 				                    else
-                              			 echo "####################################################################################" >> /var/log/smx-log/fail.log
-                    					 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                      					 echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
-                      					 echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                      					 echo "" >> /var/log/smx-log/fail.log
-                              			 echo "####################################################################################" >> /var/log/smx-log/fail.log
+                              		     echo "####################################################################################" >> /var/log/smx-log/fail.log
+                            			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                              			 echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
+                              			 echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                               			 echo "" >> /var/log/smx-log/fail.log
-                        				 read -p "Press [enter] to continue..." ReadDamKey
+                                  		 echo "####################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "" >> /var/log/smx-log/fail.log
+                        		         read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                      					 echo
-                      					 cat /var/log/smx-log/fail.log | tail -n 7
-                      					 echo
-                              			 read -p "Press [enter] to continue..." ReadDamKey
-                              			 exit 1
+                              			 echo
+                              			 cat /var/log/smx-log/fail.log | tail -n 7
+                              			 echo
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
+                                  		 exit 1
                             	    fi
                             	    sleep 1
                                     update_spinner
@@ -7726,55 +7733,55 @@ function pkg_menu() {
                                     update_spinner
                             	    $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log
 				                    if [ $PIPESTATUS -eq 0 ]; then
-                      					 echo "#####################################################################################" >> /var/log/smx-log/success.log
-                      					 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                      					 echo "successfuly updated software" >> /var/log/smx-log/success.log
-                      					 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                              			 echo "" >> /var/log/smx-log/success.log
                               			 echo "#####################################################################################" >> /var/log/smx-log/success.log
-                        				 echo "" >> /var/log/smx-log/success.log
-                      					 read -p "Press [enter] to continue..." ReadDamKey
+                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              			 echo "successfuly updated software" >> /var/log/smx-log/success.log
+                              			 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                  		 echo "" >> /var/log/smx-log/success.log
+                                  		 echo "#####################################################################################" >> /var/log/smx-log/success.log
+                                		 echo "" >> /var/log/smx-log/success.log
+                              			 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                      					 echo
-                      					 cat /var/log/smx-log/success.log | tail -n 7
+                              			 echo
+                              			 cat /var/log/smx-log/success.log | tail -n 7
+                                  		 echo
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
+				                    else
+                                  		 echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		 echo "Not updated software, check command syntax" >> /var/log/smx-log/fail.log
+                              			 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                              			 echo "" >> /var/log/smx-log/fail.log
+                              			 echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "" >> /var/log/smx-log/fail.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
+                                         clear
+                                		 echo
+                              			 cat /var/log/smx-log/fail.log | tail -n 7
                               			 echo
                               			 read -p "Press [enter] to continue..." ReadDamKey
-				                    else
-                              			 echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        				 echo "Not updated software, check command syntax" >> /var/log/smx-log/fail.log
-                      					 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                      					 echo "" >> /var/log/smx-log/fail.log
-                      					 echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                              			 echo "" >> /var/log/smx-log/fail.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
-                                         clear
-                        				 echo
-                      					 cat /var/log/smx-log/fail.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
                     		        fi
                                else
                                     clear
-                        			cat /proc/version | grep "SUSE" > /dev/null
-                        		    if [ $? -eq 0 ]; then
+                            	    cat /proc/version | grep "SUSE" > /dev/null
+                            	    if [ $? -eq 0 ]; then
                                          clear
-                              			 echo "OS = SuSE"
-                              			 echo "        COMMAND STATUS       "
-                        				 echo
-                      					 echo "$(date)                                      $(whoami)@$(hostname)"
-                      					 echo
-                      					 echo "Command: RUNNING    stdout: yes    stderr: no      "
+                                  		 echo "OS = SuSE"
+                                  		 echo "        COMMAND STATUS       "
+                                		 echo
+                              			 echo "$(date)                                      $(whoami)@$(hostname)"
                               			 echo
-                              			 echo "Before command completion, additional instructions may appear below"
-                        				 echo
-                      					 echo "File                                 Fileset                 Type"
-                      					 echo "-----------------------------------------------------------------"
-                      					 echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                              			 echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log"
-                              			 echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
-                        				 echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log"
-                      					 sleep 1
+                              			 echo "Command: RUNNING    stdout: yes    stderr: no      "
+                                  		 echo
+                                  		 echo "Before command completion, additional instructions may appear below"
+                                		 echo
+                              			 echo "File                                 Fileset                 Type"
+                              			 echo "-----------------------------------------------------------------"
+                              			 echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                                  		 echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log"
+                                  		 echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
+                                		 echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log"
+                              			 sleep 1
                                          update_spinner
                                          sleep 1
                                          update_spinner
@@ -7787,38 +7794,38 @@ function pkg_menu() {
                                          update_spinner
                                          sleep 1
                                          update_spinner
-                              			 $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log
-                              			 if [ $? -eq 0 ]; then
-                              				  echo "########################################################################################" >> /var/log/smx-log/success.log
-                              			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                              			      echo "successfuly listed updates for system" >> /var/log/smx-log/success.log
-                    					      echo "Command run: $(which zypper) list_updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                      					      echo "" >> /var/log/smx-log/success.log
-                      					      echo "########################################################################################" >> /var/log/smx-log/success.log
-                      					      echo "" >> /var/log/smx-log/success.log
-                              				  read -p "Press [enter] to continue..." ReadDamKey
+                                  		 $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log
+                                  		 if [ $? -eq 0 ]; then
+                                  		      echo "########################################################################################" >> /var/log/smx-log/success.log
+                                  		      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  		      echo "successfuly listed updates for system" >> /var/log/smx-log/success.log
+                            			      echo "Command run: $(which zypper) list_updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                              			      echo "" >> /var/log/smx-log/success.log
+                              			      echo "########################################################################################" >> /var/log/smx-log/success.log
+                              			      echo "" >> /var/log/smx-log/success.log
+                              		          read -p "Press [enter] to continue..." ReadDamKey
                                               clear
-                              			      echo
-                              			      cat /var/log/smx-log/success.log | tail -n 7
-                    					      echo
-                      					      read -p "Press [Enter] to continue..." ReadDamKey
-                              			 else
-                              				  echo "########################################################################################" >> /var/log/smx-log/fail.log
-                              			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              			      echo "Not listed updates for system, check command syntax" >> /var/log/smx-log/fail.log
-                    					      echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                      					      echo "" >> /var/log/smx-log/fail.log
-                      					      echo "########################################################################################" >> /var/log/smx-log/fail.log
+                                  		      echo
+                                  		      cat /var/log/smx-log/success.log | tail -n 7
+                            			      echo
+                              			      read -p "Press [Enter] to continue..." ReadDamKey
+                              		     else
+                                  		      echo "########################################################################################" >> /var/log/smx-log/fail.log
+                                  		      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  		      echo "Not listed updates for system, check command syntax" >> /var/log/smx-log/fail.log
+                            			      echo "Command run: $(which zypper) list-updates | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                              			      echo "" >> /var/log/smx-log/fail.log
+                              			      echo "########################################################################################" >> /var/log/smx-log/fail.log
                                               echo "" >> /var/log/smx-log/fail.log
-                              			      read -p "Press [enter] to continue..." ReadDamKey
+                              		          read -p "Press [enter] to continue..." ReadDamKey
                                               clear
-                    					      echo
-                      					      cat /var/log/smx-log/fail.log | tail -n 7
-                      					      echo
-                              				  read -p "Press [enter] to continue..." ReadDamKey
-                              			      exit 1
-                              			 fi
-                              			 sleep 1
+                            			      echo
+                              			      cat /var/log/smx-log/fail.log | tail -n 7
+                              			      echo
+                                  		      read -p "Press [enter] to continue..." ReadDamKey
+                                  		      exit 1
+                                  		 fi
+                                  		 sleep 1
                                          update_spinner
                                          sleep 1
                                          update_spinner
@@ -7831,38 +7838,38 @@ function pkg_menu() {
                                          update_spinner
                                          sleep 1
                                          update_spinner
-                              			 $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log
-                        				 if [ $PIPESTATUS -eq 0 ]; then
-                              				  echo "###################################################################################" >> /var/log/smx-log/success.log
-                              			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                              			      echo "successfuly refreshed repositories" >> /var/log/smx-log/success.log
-                    					      echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                      					      echo "" >> /var/log/smx-log/success.log
-                      					      echo "###################################################################################" >> /var/log/smx-log/success.log
-                              				  echo "" >> /var/log/smx-log/success.log
-                              			      read -p "Press [enter] to continue..." ReadDamKey
+                              		     $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log
+                        		         if [ $PIPESTATUS -eq 0 ]; then
+                                  		      echo "###################################################################################" >> /var/log/smx-log/success.log
+                                  		      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  		      echo "successfuly refreshed repositories" >> /var/log/smx-log/success.log
+                            			      echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                              			      echo "" >> /var/log/smx-log/success.log
+                              			      echo "###################################################################################" >> /var/log/smx-log/success.log
+                                  		      echo "" >> /var/log/smx-log/success.log
+                                  		      read -p "Press [enter] to continue..." ReadDamKey
                                               clear
+                              		          echo
+                            			      cat /var/log/smx-log/success.log | tail -n 7
                               			      echo
-                    					      cat /var/log/smx-log/success.log | tail -n 7
-                      					      echo
-                      					      read -p "Press [enter] to continue..." ReadDamKey
-                              			 else
-                              				  echo "###################################################################################" >> /var/log/smx-log/fail.log
-                              			      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              			      echo "Not refreshed repositories, check command syntax, and network connection" >> /var/log/smx-log/fail.log
-                    					      echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                      					      echo "" >> /var/log/smx-log/fail.log
-                      					      echo "###################################################################################" >> /var/log/smx-log/fail.log
-                              				  echo "" >> /var/log/smx-log/fail.log
                               			      read -p "Press [enter] to continue..." ReadDamKey
+                              		     else
+                                  		      echo "###################################################################################" >> /var/log/smx-log/fail.log
+                                  		      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  		      echo "Not refreshed repositories, check command syntax, and network connection" >> /var/log/smx-log/fail.log
+                            			      echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                              			      echo "" >> /var/log/smx-log/fail.log
+                              			      echo "###################################################################################" >> /var/log/smx-log/fail.log
+                                  		      echo "" >> /var/log/smx-log/fail.log
+                                  		      read -p "Press [enter] to continue..." ReadDamKey
                                               clear
+                              		          echo
+                            			      cat /var/log/smx-log/fail.log | tail -n 7
                               			      echo
-                    					      cat /var/log/smx-log/fail.log | tail -n 7
-                      					      echo
-                      					      read -p "Press [enter] to continue..." ReadDamKey
-                              				  exit 1
-                              			 fi
-                              			 sleep 1
+                              			      read -p "Press [enter] to continue..." ReadDamKey
+                              		          exit 1
+                                  		 fi
+                                  		 sleep 1
                                          update_spinner
                                          sleep 1
                                          update_spinner
@@ -7875,35 +7882,35 @@ function pkg_menu() {
                                          update_spinner
                                          sleep 1
                                          update_spinner
-                              			 $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log
-                              			 if [ $PIPESTATUS -eq 0 ]; then
-                              				  echo "##################################################################################" >> /var/log/smx-log/success.log
-                              			      echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                              			      echo "successfuly updated packages" >> /var/log/smx-log/success.log
-                    					      echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                      					      echo "" >> /var/log/smx-log/success.log
-                      					      echo "##################################################################################" >> /var/log/smx-log/success.log
-                              				  echo "" >> /var/log/smx-log/success.log
-                              			      read -p "Press [enter] to continue..." ReadDamKey
+                                  		 $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log
+                                  		 if [ $PIPESTATUS -eq 0 ]; then
+                                  		      echo "##################################################################################" >> /var/log/smx-log/success.log
+                                  		      echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  		      echo "successfuly updated packages" >> /var/log/smx-log/success.log
+                            			      echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                              			      echo "" >> /var/log/smx-log/success.log
+                              			      echo "##################################################################################" >> /var/log/smx-log/success.log
+                                  		      echo "" >> /var/log/smx-log/success.log
+                                  		      read -p "Press [enter] to continue..." ReadDamKey
                                               clear
+                              		          echo
+                            			      cat /var/log/smx-log/success.log | tail -n 7
                               			      echo
-                    					      cat /var/log/smx-log/success.log | tail -n 7
-                      					      echo
                                               read -p "Press [enter] to continue..." ReadDamKey
           				                 else
-                              			      echo "##################################################################################" >> /var/log/smx-log/fail.log
-                        				      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                      					      echo "Not updated packages, check command syntax and internet connection" >> /var/log/smx-log/fail.log
-                      					      echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                      					      echo "" >> /var/log/smx-log/fail.log
-                              				  echo "##################################################################################" >> /var/log/smx-log/fail.log
+                              		          echo "##################################################################################" >> /var/log/smx-log/fail.log
+                                		      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                              			      echo "Not updated packages, check command syntax and internet connection" >> /var/log/smx-log/fail.log
+                              			      echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                              			      echo "" >> /var/log/smx-log/fail.log
+                              		          echo "##################################################################################" >> /var/log/smx-log/fail.log
                               	     	      echo "" >> /var/log/smx-log/fail.log
-                              			      read -p "Press [enter] to continue..." ReadDamKey
+                              		          read -p "Press [enter] to continue..." ReadDamKey
                                               clear
-                    					      echo
-                      					      cat /var/log/smx-log/fail.log | tail -n 7
-                      					      echo
-                              				  read -p "Press [enter] to continue..." ReadDamKey
+                            			      echo
+                              			      cat /var/log/smx-log/fail.log | tail -n 7
+                              			      echo
+                              		          read -p "Press [enter] to continue..." ReadDamKey
                     			         fi
 				                    fi
                                fi
@@ -7915,8 +7922,8 @@ function pkg_menu() {
                       cat /proc/version | grep "Red Hat" > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-                  		   echo "OS = Red Hat"
-                  		   echo "$(date)                                      $(whoami)@$(hostname)"
+                      	   echo "OS = Red Hat"
+                      	   echo "$(date)                                      $(whoami)@$(hostname)"
                            echo "[TOP]                                           [Entry Fields]"
 			               read -p " Add or remove a repository ---- (add/remove) > " ans_repo
                            if [ "$ans_repo" = "add" ]; then
@@ -7959,9 +7966,9 @@ function pkg_menu() {
                                       echo "successfuly added repository: $repoName" >> /var/log/smx-log/success.log
                               	      echo "Command run: $(which yum-config-manager) --add-repo $repoName" >> /var/log/smx-log/success.log
                               	      echo "" >> /var/log/smx-log/success.log
-                        		      echo "#############################################################" >> /var/log/smx-log/success.log
-                    			      echo "" >> /var/log/smx-log/success.log
-                          	          read -p "Press [enter] to continue..." ReadDamKey
+                            	      echo "#############################################################" >> /var/log/smx-log/success.log
+                        		      echo "" >> /var/log/smx-log/success.log
+                              	      read -p "Press [enter] to continue..." ReadDamKey
                                       clear
                                       echo
                                       cat /var/log/smx-log/success.log | tail -n 7
@@ -7972,9 +7979,9 @@ function pkg_menu() {
                              	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                       echo "Not added repository, check command syntax, and internet access" >> /var/log/smx-log/fail.log
 				                      echo "Command run: $(which yum-config-manager) --add-repo $repoName" >> /var/log/smx-log/fail.log
-                          	          echo "" >> /var/log/smx-log/fail.log
-                        		      echo "###############################################################" >> /var/log/smx-log/fail.log
-                				      echo "" >> /var/log/smx-log/fail.log
+                              	      echo "" >> /var/log/smx-log/fail.log
+                            	      echo "###############################################################" >> /var/log/smx-log/fail.log
+                		              echo "" >> /var/log/smx-log/fail.log
                               	      read -p "Press [enter] to continue..." ReadDamKey
                                       clear
                               	      echo
@@ -8003,8 +8010,8 @@ function pkg_menu() {
                                       echo "successfuly updated system" >> /var/log/smx-log/success.log
                                       echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
                             	      echo "" >> /var/log/smx-log/success.log
-                        		      echo "###############################################################################" >> /var/log/smx-log/success.log
-                				      echo "" >> /var/log/smx-log/success.log
+                        	          echo "###############################################################################" >> /var/log/smx-log/success.log
+                		              echo "" >> /var/log/smx-log/success.log
                               	      read -p "Press [enter] to continue..." ReadDamKey
                                       clear
                               	      echo
@@ -8015,10 +8022,10 @@ function pkg_menu() {
 				                      echo "###############################################################################" >> /var/log/smx-log/fail.log
                             	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             	      echo "Not added repository, check command syntax, and internet access" >> /var/log/smx-log/fail.log
-                        		      echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
-                				      echo "" >> /var/log/smx-log/fail.log
-                				      echo "###############################################################################" >> /var/log/smx-log/fail.log
-                				      echo "" >> /var/log/smx-log/fail.log
+                        	          echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                        		      echo "" >> /var/log/smx-log/fail.log
+                        		      echo "###############################################################################" >> /var/log/smx-log/fail.log
+                        		      echo "" >> /var/log/smx-log/fail.log
                                       read -p "Press [enter] to continue..." ReadDamKey
                                       clear
                               	      echo
@@ -8065,8 +8072,8 @@ function pkg_menu() {
                               	      echo "successfuly deleted repository: /etc/yum.repos.d/$repoName" >> /var/log/smx-log/success.log
                               	      echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName" >> /var/log/smx-log/success.log
                               	      echo "" >> /var/log/smx-log/success.log
-                        		      echo "##########################################################" >> /var/log/smx-log/success.log
-                    			      echo "" >> /var/log/smx-log/success.log
+                            	      echo "##########################################################" >> /var/log/smx-log/success.log
+                        		      echo "" >> /var/log/smx-log/success.log
                                       read -p "Press [enter] to continue..." ReadDamKey
                                       clear
                               	      echo
@@ -8079,14 +8086,14 @@ function pkg_menu() {
                                       echo "Not found repository, check command syntax" >> /var/log/smx-log/fail.log
 				                      echo "Command run: $(which rm) -rf /etc/yum.repos.d/$repoName" >> /var/log/smx-log/fail.log
                             	      echo "" >> /var/log/smx-log/fail.log
-                        		      echo "#######################################################" >> /var/log/smx-log/fail.log
-                    			      echo "" >> /var/log/smx-log/fail.log
+                            	      echo "#######################################################" >> /var/log/smx-log/fail.log
+                        		      echo "" >> /var/log/smx-log/fail.log
                               	      read -p "Press [enter] to continue..." ReadDamKey
                                       clear
                               	      echo
                                       cat /var/log/smx-log/fail.log | tail -n 7
                                       echo
-                            	        read -p "Press [enter] to continue..." ReadDamKey
+                            	      read -p "Press [enter] to continue..." ReadDamKey
               			         fi
                       	   fi
                       else
@@ -8094,31 +8101,31 @@ function pkg_menu() {
                            cat /proc/version | grep "Debian" > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-                        		echo "OS = Debian"
-                        		echo "$(date)                                     $(whoami)@$(hostname)"
-                				echo "[TOP]                                          [Entry Fields]"
-                				read -p "Add or remove repository ------ (add/remove) > " ans_repo
-                				if [ "$ans_repo" = "add" ]; then
-                        			  clear
-                        		      echo "$(date)                                     $(whoami)@$(hostname)"
-                    			      echo "[TOP]                          [Entry Fields]"
-                				      read -p "Enter repository name ------ > " repoName
-                				      clear
-                				      echo "        COMMAND STATUS             "
-                        			  echo
-                        		      echo "$(date)                                     $(whoami)@$(hostname)"
-                    			      echo
-                				      echo "command: RUNNING    stdout: yes    stderr: no      "
-                				      echo
-                        			  echo "Before command completion, additional instructions may appear below"
+                            	echo "OS = Debian"
+                            	echo "$(date)                                     $(whoami)@$(hostname)"
+                        		echo "[TOP]                                          [Entry Fields]"
+                        		read -p "Add or remove repository ------ (add/remove) > " ans_repo
+                        		if [ "$ans_repo" = "add" ]; then
+                            	      clear
+                            	      echo "$(date)                                     $(whoami)@$(hostname)"
+                        		      echo "[TOP]                          [Entry Fields]"
+                        		      read -p "Enter repository name ------ > " repoName
+                        		      clear
+                        		      echo "        COMMAND STATUS             "
+                            	      echo
+                            	      echo "$(date)                                     $(whoami)@$(hostname)"
                         		      echo
-                    			      echo "File                                 Fileset                           Type"
-                				      echo "---------------------------------------------------------------------------"
-                				      echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
-                        			  echo "$(which apt-get) update              bos.pkgmgt.apt-get update         exec"
-                        		      echo "Command run: $(which add-apt-repository) $repoName"
-                    			      echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                				      sleep 1
+                        		      echo "command: RUNNING    stdout: yes    stderr: no      "
+                        		      echo
+                            	      echo "Before command completion, additional instructions may appear below"
+                            	      echo
+                        		      echo "File                                 Fileset                           Type"
+                        		      echo "---------------------------------------------------------------------------"
+                        		      echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
+                            	      echo "$(which apt-get) update              bos.pkgmgt.apt-get update         exec"
+                            	      echo "Command run: $(which add-apt-repository) $repoName"
+                        		      echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                		              sleep 1
                                       update_spinner
                                       sleep 1
                                       update_spinner
@@ -8131,38 +8138,38 @@ function pkg_menu() {
                                       update_spinner
                                       sleep 1
                                       update_spinner
-                        			  $(which add-apt-repository) $repoName
-                        		      if [ $? -eq 0 ]; then
-                      					   echo "##################################################" >> /var/log/smx-log/success.log
-                      					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                      					   echo "successfuly added repository: $repoName to system" >> /var/log/smx-log/success.log
-                      					   echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/success.log
-                              			   echo "" >> /var/log/smx-log/success.log
+                            	      $(which add-apt-repository) $repoName
+                            	      if [ $? -eq 0 ]; then
                               			   echo "##################################################" >> /var/log/smx-log/success.log
-                              			   echo "" >> /var/log/smx-log/success.log
-                    					   read -p "Press [enter] to continue..." ReadDamKey
+                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              			   echo "successfuly added repository: $repoName to system" >> /var/log/smx-log/success.log
+                              			   echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/success.log
+                                  		   echo "" >> /var/log/smx-log/success.log
+                                  		   echo "##################################################" >> /var/log/smx-log/success.log
+                                  		   echo "" >> /var/log/smx-log/success.log
+                    			           read -p "Press [enter] to continue..." ReadDamKey
                                            clear
-                      					   echo
-                      					   cat /var/log/smx-log/success.log | tail -n 7
                               			   echo
-                              		 	   read -p "Press [enter] to continue..." ReadDamKey
+                              			   cat /var/log/smx-log/success.log | tail -n 7
+                                  		   echo
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
 				                      else
-                              			   echo "####################################################" >> /var/log/smx-log/fail.log
-                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              			   echo "Not added repository $repoName, check command syntax" >> /var/log/smx-log/fail.log
-                    					   echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/fail.log
-                      					   echo "" >> /var/log/smx-log/fail.log
-                      					   echo "####################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "####################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  		   echo "Not added repository $repoName, check command syntax" >> /var/log/smx-log/fail.log
+                            			   echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/fail.log
                               			   echo "" >> /var/log/smx-log/fail.log
-                              			   read -p "Press [enter] to continue..." ReadDamKey
+                              			   echo "####################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "" >> /var/log/smx-log/fail.log
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
                                            clear
+                              		       echo
+                            			   cat /var/log/smx-log/fail.log | tail -n 7
                               			   echo
-                    					   cat /var/log/smx-log/fail.log | tail -n 7
-                      					   echo
-                      					   read -p "Press [enter] to continue..." ReadDamKey
-                              			   exit 1
-                        		      fi
-                        			  sleep 1
+                              			   read -p "Press [enter] to continue..." ReadDamKey
+                              		       exit 1
+                            	      fi
+                            	      sleep 1
                                       update_spinner
                                       sleep 1
                                       update_spinner
@@ -8175,59 +8182,59 @@ function pkg_menu() {
                                       update_spinner
                                       sleep 1
                                       update_spinner
-                        			  $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-                        		      if [ $PIPESTATUS -eq 0 ]; then
-                      					   echo "####################################################################################" >> /var/log/smx-log/success.log
-                      					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                      					   echo "successfuly updated package sources" >> /var/log/smx-log/success.log
-                          				   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                              			   echo "" >> /var/log/smx-log/success.log
+                            	      $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
+                            	      if [ $PIPESTATUS -eq 0 ]; then
                               			   echo "####################################################################################" >> /var/log/smx-log/success.log
-                    					   echo "" >> /var/log/smx-log/success.log
-                      					   read -p "Press [enter] to continue..." ReadDamKey
-                                           clear
-                      	     			   echo
-                           			       cat /var/log/smx-log/success.log | tail -n 7
-                              			   echo
+                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              			   echo "successfuly updated package sources" >> /var/log/smx-log/success.log
+                                  		   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                  		   echo "" >> /var/log/smx-log/success.log
+                                  		   echo "####################################################################################" >> /var/log/smx-log/success.log
+                            			   echo "" >> /var/log/smx-log/success.log
                               			   read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                      	     		       echo
+                           		           cat /var/log/smx-log/success.log | tail -n 7
+                                  		   echo
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
 				                      else
+                                  		   echo "####################################################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  		   echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
+                            			   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                              			   echo "" >> /var/log/smx-log/fail.log
                               			   echo "####################################################################################" >> /var/log/smx-log/fail.log
-                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              			   echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
-                    					   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                      					   echo "" >> /var/log/smx-log/fail.log
-                      					   echo "####################################################################################" >> /var/log/smx-log/fail.log
-                      					   echo "" >> /var/log/smx-log/fail.log
-                              			   read -p "Press [enter] to continue..." ReadDamKey
+                              			   echo "" >> /var/log/smx-log/fail.log
+                              		       read -p "Press [enter] to continue..." ReadDamKey
                                            clear
-                              			   echo
-                              			   cat /var/log/smx-log/fail.log | tail -n 7
-                    					   echo
-                      					   read -p "Press [enter] to continue..." ReadDamKey
-                      					   exit 1
+                                  		   echo
+                                  		   cat /var/log/smx-log/fail.log | tail -n 7
+                            			   echo
+                              			   read -p "Press [enter] to continue..." ReadDamKey
+                              			   exit 1
 				                      fi
           		                else
 			                          clear
-                        		      echo "$(date)                                    $(whoami)@$(hostname)"
-                    			      echo "[TOP]                       [Entry Fields]"
-                				      read -p "repository name --------- > " repoName
-                				      clear
-                				      echo "          COMMAND STATUS        "
-                        			  echo
-                        		      echo "$(date)                                    $(whoami)@$(hostname)"
-                    			      echo
-                				      echo "Command: RUNNING    stdout: yes    stderr: no    "
-                				      echo
-                        			  echo "Before command completion, additional instructions may appear below"
+                            	      echo "$(date)                                    $(whoami)@$(hostname)"
+                        		      echo "[TOP]                       [Entry Fields]"
+                        		      read -p "repository name --------- > " repoName
+                        		      clear
+                        		      echo "          COMMAND STATUS        "
+                            	      echo
+                            	      echo "$(date)                                    $(whoami)@$(hostname)"
                         		      echo
-                    			      echo "File                                 Fileset                            Type"
-                				      echo "----------------------------------------------------------------------------"
-                				      echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
-                        			  echo "$(which apt-get)                     bos.pkgmgt.apt-get                 exec"
-                        		      echo "Command run: $(which add-apt-repository) -r $repoName"
-                    			      echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                				      read -p "Press [enter] to continue..." ReadDamKey
-                				      sleep 1
+                        		      echo "Command: RUNNING    stdout: yes    stderr: no    "
+                        		      echo
+                            	      echo "Before command completion, additional instructions may appear below"
+                            	      echo
+                        		      echo "File                                 Fileset                            Type"
+                        		      echo "----------------------------------------------------------------------------"
+                        		      echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
+                            	      echo "$(which apt-get)                     bos.pkgmgt.apt-get                 exec"
+                            	      echo "Command run: $(which add-apt-repository) -r $repoName"
+                        		      echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                        		      read -p "Press [enter] to continue..." ReadDamKey
+                        		      sleep 1
                                       update_spinner
                                       sleep 1
                                       update_spinner
@@ -8240,36 +8247,36 @@ function pkg_menu() {
                                       update_spinner
                                       sleep 1
                                       update_spinner
-                        			  $(which add-apt-repository) -r $repoName
-                        		      if [ $? -eq 0 ]; then
-                              			   echo "#####################################################" >> /var/log/smx-log/success.log
-                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        				   echo "successfuly removed repository: $repoName from system" >> /var/log/smx-log/success.log
-                      					   echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/success.log
-                      					   echo "" >> /var/log/smx-log/success.log
-                                           echo "#####################################################" >> /var/log/smx-log/success.log
+                            	      $(which add-apt-repository) -r $repoName
+                            	      if [ $? -eq 0 ]; then
+                                  		   echo "#####################################################" >> /var/log/smx-log/success.log
+                                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		   echo "successfuly removed repository: $repoName from system" >> /var/log/smx-log/success.log
+                              			   echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/success.log
                               			   echo "" >> /var/log/smx-log/success.log
-                              			   read -p "Press [enter] to continue..." ReadDamKey
-                                           clear
-                        				   echo
-                      					   cat /var/log/smx-log/success.log | tail -n 7
-                      					   echo
-                      					   read -p "Press [enter] to continue..." ReadDamKey
-			                          else
-                              			   echo "###################################################################" >> /var/log/smx-log/fail.log
-                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              			   echo "Not removed repository: $repoName from system, check command syntax" >> /var/log/smx-log/fail.log
-                    					   echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/fail.log
-                      					   echo "" >> /var/log/smx-log/fail.log
-                      					   echo "###################################################################" >> /var/log/smx-log/fail.log
-                              			   read -p "Press [enter] to continue..." ReadDamKey
+                                           echo "#####################################################" >> /var/log/smx-log/success.log
+                                  		   echo "" >> /var/log/smx-log/success.log
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
                                            clear
                                 		   echo
-                        				   cat /var/log/smx-log/fail.log | tail -n 7
-                      					   echo
-                      					   read -p "Press [enter] to continue..." ReadDamKey
-                      					   exit 1
-          				              fi
+                              			   cat /var/log/smx-log/success.log | tail -n 7
+                              			   echo
+                              			   read -p "Press [enter] to continue..." ReadDamKey
+			                          else
+                                  		   echo "###################################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  		   echo "Not removed repository: $repoName from system, check command syntax" >> /var/log/smx-log/fail.log
+                            			   echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/fail.log
+                              			   echo "" >> /var/log/smx-log/fail.log
+                              			   echo "###################################################################" >> /var/log/smx-log/fail.log
+                              		       read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                                	       echo
+                                		   cat /var/log/smx-log/fail.log | tail -n 7
+                              			   echo
+                              			   read -p "Press [enter] to continue..." ReadDamKey
+                              			   exit 1
+          			                  fi
                                       sleep 1
                                       update_spinner
                                       sleep 1
@@ -8283,67 +8290,67 @@ function pkg_menu() {
                                       update_spinner
                                       sleep 1
                                       update_spinner
-                        			  $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-                        		      if [ $PIPESTATUS -eq 0 ]; then
-                      					   echo "######################################################################################" >> /var/log/smx-log/success.log
-                      					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                      					   echo "successfuly updated package sources" >> /var/log/smx-log/success.log
-                      					   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                              			   echo "" >> /var/log/smx-log/success.log
+                            	      $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
+                            	      if [ $PIPESTATUS -eq 0 ]; then
                               			   echo "######################################################################################" >> /var/log/smx-log/success.log
-                        				   echo "" >> /var/log/smx-log/success.log
-                      					   read -p "Press [enter] to continue..." ReadDamKey
-                                           clear
-                      					   echo
-                      					   cat /var/log/smx-log/success.log | tail -n 7
-                              			   echo
+                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              			   echo "successfuly updated package sources" >> /var/log/smx-log/success.log
+                              			   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                  		   echo "" >> /var/log/smx-log/success.log
+                                  		   echo "######################################################################################" >> /var/log/smx-log/success.log
+                                		   echo "" >> /var/log/smx-log/success.log
                               			   read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                              			   echo
+                              			   cat /var/log/smx-log/success.log | tail -n 7
+                                  		   echo
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
 				                      else
-                              			   echo "######################################################################################" >> /var/log/smx-log/fail.log
-                              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                              			   echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
-                    					   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                      					   echo "" >> /var/log/smx-log/fail.log
-                      					   echo "######################################################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "######################################################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  		   echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
+                            			   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                               			   echo "" >> /var/log/smx-log/fail.log
-                              			   read -p "Press [enter] to continue..." ReadDamKey
+                              			   echo "######################################################################################" >> /var/log/smx-log/fail.log
+                                  		   echo "" >> /var/log/smx-log/fail.log
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
                                            clear
-                        				   echo
-                      					   cat /var/log/smx-log/fail.log | tail -n 7
-                              			   echo
-                              			   read -p "Press [enter] to continue..." ReadDamKey
+                                		   echo
+                              			   cat /var/log/smx-log/fail.log | tail -n 7
+                                  		   echo
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
 				                      fi
 				                fi
                            else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
                                 if [ $? -eq 0 ]; then
-                        			 clear
-                        		     echo "OS = Ubuntu"
-                    			     echo "$(date)                                     $(whoami)@$(hostname)"
-                				     echo "[TOP]                                          [Entry Fields]"
-                				     read -p "Add or remove repository ------ (add/remove) > " ans_repo
-                        			 if [ "$ans_repo" = "add" ]; then
-                              			   clear
-                    					   echo "$(date)                                     $(whoami)@$(hostname)"
-                      					   echo "[TOP]                          [Entry Fields]"
-                      					   read -p "Enter repository name ------ > " repoName
-                              			   clear
-                              			   echo "        COMMAND STATUS             "
+                            	     clear
+                            	     echo "OS = Ubuntu"
+                        		     echo "$(date)                                     $(whoami)@$(hostname)"
+                        		     echo "[TOP]                                          [Entry Fields]"
+                        		     read -p "Add or remove repository ------ (add/remove) > " ans_repo
+                            	     if [ "$ans_repo" = "add" ]; then
+                                  		   clear
+                            			   echo "$(date)                                     $(whoami)@$(hostname)"
+                              			   echo "[TOP]                          [Entry Fields]"
+                              			   read -p "Enter repository name ------ > " repoName
+                                  		   clear
+                                  		   echo "        COMMAND STATUS             "
+                                  		   echo
+                            			   echo "$(date)                                     $(whoami)@$(hostname)"
                               			   echo
-                    					   echo "$(date)                                     $(whoami)@$(hostname)"
-                      					   echo
-                      					   echo "command: RUNNING    stdout: yes    stderr: no      "
-                              			   echo
-                              			   echo "Before command completion, additional instructions may appear below"
-                              			   echo
-                    					   echo "File                                 Fileset                           Type"
-                      					   echo "---------------------------------------------------------------------------"
-                      					   echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
-                              			   echo "$(which apt-get) update              bos.pkgmgt.apt-get update         exec"
-                              			   echo "Command run: $(which add-apt-repository) $repoName"
-                            			   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                      					   sleep 1
+                              			   echo "command: RUNNING    stdout: yes    stderr: no      "
+                                  		   echo
+                                  		   echo "Before command completion, additional instructions may appear below"
+                                  		   echo
+                            			   echo "File                                 Fileset                           Type"
+                              			   echo "---------------------------------------------------------------------------"
+                              			   echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository     exec"
+                                  		   echo "$(which apt-get) update              bos.pkgmgt.apt-get update         exec"
+                                  		   echo "Command run: $(which add-apt-repository) $repoName"
+                                		   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                      			           sleep 1
                                            update_spinner
                                            sleep 1
                                            update_spinner
@@ -8356,38 +8363,38 @@ function pkg_menu() {
                                            update_spinner
                                            sleep 1
                                            update_spinner
-                              			   $(which add-apt-repository) $repoName
-                              			   if [ $? -eq 0 ]; then
-                    					        echo "##################################################" >> /var/log/smx-log/success.log
-                                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        						echo "successfuly added repository: $repoName to system" >> /var/log/smx-log/success.log
-                        						echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/success.log
-                        						echo "" >> /var/log/smx-log/success.log
-                                    			echo "##################################################" >> /var/log/smx-log/success.log
+                                  		   $(which add-apt-repository) $repoName
+                                  		   if [ $? -eq 0 ]; then
+                    			                echo "##################################################" >> /var/log/smx-log/success.log
+                                    		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                    			echo "successfuly added repository: $repoName to system" >> /var/log/smx-log/success.log
+                                    			echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/success.log
                                     			echo "" >> /var/log/smx-log/success.log
-                        						read -p "Press [enter] to continue..." ReadDamKey
+                                        		echo "##################################################" >> /var/log/smx-log/success.log
+                                        		echo "" >> /var/log/smx-log/success.log
+                        			            read -p "Press [enter] to continue..." ReadDamKey
                                                 clear
-                        						echo
-                        						cat /var/log/smx-log/success.log | tail -n 7
                                     			echo
-                                    			read -p "Press [enter] to continue..." ReadDamKey
+                                    			cat /var/log/smx-log/success.log | tail -n 7
+                                        		echo
+                                        		read -p "Press [enter] to continue..." ReadDamKey
               		                       else
 					                            echo "####################################################" >> /var/log/smx-log/fail.log
-                                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        						echo "Not added repository $repoName, check command syntax" >> /var/log/smx-log/fail.log
-                        						echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/fail.log
-                        						echo "" >> /var/log/smx-log/fail.log
-                                    			echo "####################################################" >> /var/log/smx-log/fail.log
+                                    		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                    			echo "Not added repository $repoName, check command syntax" >> /var/log/smx-log/fail.log
+                                    			echo "Command run: $(which add-apt-repository) $repoName" >> /var/log/smx-log/fail.log
                                     			echo "" >> /var/log/smx-log/fail.log
-                        						read -p "Press [enter] to continue..." ReadDamKey
+                                        		echo "####################################################" >> /var/log/smx-log/fail.log
+                                        		echo "" >> /var/log/smx-log/fail.log
+                        			            read -p "Press [enter] to continue..." ReadDamKey
                                                 clear
-                        						echo
-                        						cat /var/log/smx-log/fail.log | tail -n 7
                                     			echo
-                                    			read -p "Press [enter] to continue..." ReadDamKey
-                        						exit 1
-                              			   fi
-                              			   sleep 1
+                                    			cat /var/log/smx-log/fail.log | tail -n 7
+                                        		echo
+                                        		read -p "Press [enter] to continue..." ReadDamKey
+                        			            exit 1
+                                  		   fi
+                                  		   sleep 1
                                            update_spinner
                                            sleep 1
                                            update_spinner
@@ -8400,59 +8407,59 @@ function pkg_menu() {
                                            update_spinner
                                            sleep 1
                                            update_spinner
-                              			   $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-                    					   if [ $PIPESTATUS -eq 0 ]; then
+                              		       $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
+                    			           if [ $PIPESTATUS -eq 0 ]; then
                                                 echo "####################################################################################" >> /var/log/smx-log/success.log
-                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        						echo "successfuly updated package sources" >> /var/log/smx-log/success.log
-                                    			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                    			echo "successfuly updated package sources" >> /var/log/smx-log/success.log
+                                        		echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                        		echo "" >> /var/log/smx-log/success.log
+                                    			echo "####################################################################################" >> /var/log/smx-log/success.log
                                     			echo "" >> /var/log/smx-log/success.log
-                        						echo "####################################################################################" >> /var/log/smx-log/success.log
-                        						echo "" >> /var/log/smx-log/success.log
-                        						read -p "Press [enter] to continue..." ReadDamKey
+                                    			read -p "Press [enter] to continue..." ReadDamKey
                                                 clear
+                                        		echo
+                                        		cat /var/log/smx-log/success.log | tail -n 7
                                     			echo
-                                    			cat /var/log/smx-log/success.log | tail -n 7
-                        						echo
-                        						read -p "Press [enter] to continue..." ReadDamKey
+                                    			read -p "Press [enter] to continue..." ReadDamKey
 			                               else
 					                            echo "####################################################################################" >> /var/log/smx-log/fail.log
-                                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        						echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
-                        						echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                        						echo "" >> /var/log/smx-log/fail.log
-                                    			echo "####################################################################################" >> /var/log/smx-log/fail.log
+                                    		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                    			echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
+                                    			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                                     			echo "" >> /var/log/smx-log/fail.log
-                        						read -p "Press [enter] to continue..." ReadDamKey
+                                        		echo "####################################################################################" >> /var/log/smx-log/fail.log
+                                        		echo "" >> /var/log/smx-log/fail.log
+                        			            read -p "Press [enter] to continue..." ReadDamKey
                                                 clear
-                        						echo
-                        						cat /var/log/smx-log/fail.log | tail -n 7
                                     			echo
+                                    			cat /var/log/smx-log/fail.log | tail -n 7
+                                    		    echo
                                               	read -p "Press [enter] to continue..." ReadDamKey
                                                	exit 1
 				                           fi
           			                 else
+                                  		   clear
+                                  		   echo "$(date)                                    $(whoami)@$(hostname)"
+                                  		   echo "[TOP]                        [Entry Fields]"
+                            			   read -p " repository name --------- > " repoName
                               			   clear
-                              			   echo "$(date)                                    $(whoami)@$(hostname)"
-                              			   echo "[TOP]                        [Entry Fields]"
-                    					   read -p " repository name --------- > " repoName
-                      					   clear
-                      					   echo "          COMMAND STATUS        "
+                              			   echo "          COMMAND STATUS        "
                                            echo
-                              			   echo "$(date)                                    $(whoami)@$(hostname)"
+                                  		   echo "$(date)                                    $(whoami)@$(hostname)"
+                                  		   echo
+                            			   echo "Command: RUNNING    stdout: yes    stderr: no    "
                               			   echo
-                    					   echo "Command: RUNNING    stdout: yes    stderr: no    "
-                      					   echo
-                      					   echo "Before command completion, additional instructions may appear below"
-                      					   echo
-                              			   echo "File                                 Fileset                            Type"
-                              			   echo "----------------------------------------------------------------------------"
-                              			   echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
+                              			   echo "Before command completion, additional instructions may appear below"
+                              			   echo
+                                  		   echo "File                                 Fileset                            Type"
+                                  		   echo "----------------------------------------------------------------------------"
+                                  		   echo "$(which add-apt-repository)          bos.pkgmgt.add-apt-repository      exec"
                                            echo "$(which apt-get)                     bos.pkgmgt.apt-get                 exec"
-                              			   echo "Command run: $(which add-apt-repository) -r $repoName"
-                              			   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                              			   read -p "Press [enter] to continue..." ReadDamKey
-                    					   sleep 1
+                                  		   echo "Command run: $(which add-apt-repository) -r $repoName"
+                                  		   echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                                  		   read -p "Press [enter] to continue..." ReadDamKey
+                    			           sleep 1
                                            update_spinner
                                            sleep 1
                                            update_spinner
@@ -8465,35 +8472,35 @@ function pkg_menu() {
                                            update_spinner
                                            sleep 1
                                            update_spinner
-                              			   $(which add-apt-repository) -r $repoName
-                              			   if [ $? -eq 0 ]; then
-                    					        echo "#####################################################" >> /var/log/smx-log/success.log
-                                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                    			echo "successfuly removed repository: $repoName from system" >> /var/log/smx-log/success.log
-                        						echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/success.log
-                        						echo "" >> /var/log/smx-log/success.log
-                        						echo "#####################################################" >> /var/log/smx-log/success.log
+                                  		   $(which add-apt-repository) -r $repoName
+                                  		   if [ $? -eq 0 ]; then
+                    			                echo "#####################################################" >> /var/log/smx-log/success.log
+                                        		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                        		echo "successfuly removed repository: $repoName from system" >> /var/log/smx-log/success.log
+                                    			echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/success.log
                                     			echo "" >> /var/log/smx-log/success.log
-                                    			read -p "Press [enter] to continue..." ReadDamKey
-                                                clear
-                        						echo
-                        						cat /var/log/smx-log/success.log | tail -n 7
-                        						echo
-                                    			read -p "Press [enter] to continue..." ReadDamKey
-				                           else
-					                            echo "###################################################################" >> /var/log/smx-log/fail.log
-                                    		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                                    			echo "Not removed repository: $repoName from system, check command syntax" >> /var/log/smx-log/fail.log
-                        						echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/fail.log
-                        						echo "" >> /var/log/smx-log/fail.log
-                        						echo "###################################################################" >> /var/log/smx-log/fail.log
-                                    			read -p "Press [enter] to continue..." ReadDamKey
+                                    			echo "#####################################################" >> /var/log/smx-log/success.log
+                                        		echo "" >> /var/log/smx-log/success.log
+                                        		read -p "Press [enter] to continue..." ReadDamKey
                                                 clear
                                     			echo
-                        						cat /var/log/smx-log/fail.log | tail -n 7
-                        						echo
-                        						read -p "Press [enter] to continue..." ReadDamKey
-                                    			exit 1
+                                    			cat /var/log/smx-log/success.log | tail -n 7
+                                    			echo
+                                    		    read -p "Press [enter] to continue..." ReadDamKey
+				                           else
+					                            echo "###################################################################" >> /var/log/smx-log/fail.log
+                                        		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                        		echo "Not removed repository: $repoName from system, check command syntax" >> /var/log/smx-log/fail.log
+                                    			echo "Command run: $(which add-apt-repository) -r $repoName" >> /var/log/smx-log/fail.log
+                                    			echo "" >> /var/log/smx-log/fail.log
+                                    			echo "###################################################################" >> /var/log/smx-log/fail.log
+                                    		    read -p "Press [enter] to continue..." ReadDamKey
+                                                clear
+                                    		    echo
+                                    			cat /var/log/smx-log/fail.log | tail -n 7
+                                    			echo
+                                    			read -p "Press [enter] to continue..." ReadDamKey
+                                    		    exit 1
 					                       fi
                                            sleep 1
                                            update_spinner
@@ -8511,38 +8518,38 @@ function pkg_menu() {
   					                       $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
                                	           if [ $PIPESTATUS -eq 0 ]; then
 					                            echo "######################################################################################" >> /var/log/smx-log/success.log
-                                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        						echo "successfuly updated package sources" >> /var/log/smx-log/success.log
-                        						echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                        						echo "" >> /var/log/smx-log/success.log
-                                    			echo "######################################################################################" >> /var/log/smx-log/success.log
+                                    		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                    			echo "successfuly updated package sources" >> /var/log/smx-log/success.log
+                                    			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                                     			echo "" >> /var/log/smx-log/success.log
-                        						read -p "Press [enter] to continue..." ReadDamKey
+                                        		echo "######################################################################################" >> /var/log/smx-log/success.log
+                                        		echo "" >> /var/log/smx-log/success.log
+                        			            read -p "Press [enter] to continue..." ReadDamKey
                                                 clear
-                        						echo
-                        						cat /var/log/smx-log/success.log | tail -n 7
                                     			echo
-                                    			read -p "Press [enter] to continue..." ReadDamKey
+                                    			cat /var/log/smx-log/success.log | tail -n 7
+                                        		echo
+                                        		read -p "Press [enter] to continue..." ReadDamKey
 					                       else
 					                            echo "######################################################################################" >> /var/log/smx-log/fail.log
-                                    			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        						echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
-                        						echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                        						echo "" >> /var/log/smx-log/fail.log
-                                    			echo "######################################################################################" >> /var/log/smx-log/fail.log
+                                    		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                    			echo "Not updated package sources, check command syntax" >> /var/log/smx-log/fail.log
+                                    			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                                     			echo "" >> /var/log/smx-log/fail.log
-                        						read -p "Press [enter] to continue..." ReadDamKey
+                                        		echo "######################################################################################" >> /var/log/smx-log/fail.log
+                                        		echo "" >> /var/log/smx-log/fail.log
+                        			            read -p "Press [enter] to continue..." ReadDamKey
                                                 clear
-                        						echo
-                        						cat /var/log/smx-log/fail.log | tail -n 7
                                     			echo
-                                    			read -p "Press [enter] to continue..." ReadDamKey
-				                           fi
-				                     fi
+                                    			cat /var/log/smx-log/fail.log | tail -n 7
+                                        		echo
+                                        		read -p "Press [enter] to continue..." ReadDamKey
+                				           fi
+                				     fi
                                 else
-                        			 clear
-                        		     cat /proc/version | grep "SUSE" > /dev/null
-                    			     if [ $? -eq 0 ]; then
+                        	         clear
+                            	     cat /proc/version | grep "SUSE" > /dev/null
+                        		     if [ $? -eq 0 ]; then
                                           clear
                                           echo "OS = SuSE"
                                           echo "$(date)                                     $(whoami)@$(hostname)"
@@ -8556,20 +8563,20 @@ function pkg_menu() {
                                                 read -p " Enter repository URL ----------------- > " repoUrl
                                                 read -p " Enter repository alias --------------- > " repoAlias
                                                 clear
-                                    			echo "        COMMAND STATUS       "
+                                        		echo "        COMMAND STATUS       "
+                                        		echo
+                                    			echo "$(date)                                      $(whoami)@$(hostname)"
                                     			echo
-                        						echo "$(date)                                      $(whoami)@$(hostname)"
-                        						echo
-                        						echo "Command: RUNNING    stdout: yes    stderr: no      "
+                                    			echo "Command: RUNNING    stdout: yes    stderr: no      "
+                                        		echo
+                                        		echo "Before command completion, additional instructions may appear below"
                                     			echo
-                                    			echo "Before command completion, additional instructions may appear below"
-                        						echo
-                        						echo "File                                 Fileset                 Type"
-                        						echo "-----------------------------------------------------------------"
-                                    			echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                    			echo "Command run: $(which zypper) ar $repoUrl $repoAlias"
-                        						echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
-                        						echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log"
+                                    			echo "File                                 Fileset                 Type"
+                                    			echo "-----------------------------------------------------------------"
+                                        		echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                                        		echo "Command run: $(which zypper) ar $repoUrl $repoAlias"
+                                    			echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log"
+                                    			echo "Command run: $(which zypper) update -y | $(which tee) /var/log/smx-log/zypper.log"
                                                 sleep 1
                                                 update_spinner
                                                 sleep 1
@@ -8583,38 +8590,38 @@ function pkg_menu() {
                                                 update_spinner
                                                 sleep 1
                                                 update_spinner
-                                    			$(which zypper) ar $repoUrl $repoAlias
-                                    			if [ $? -eq 0 ]; then
-                                    				 echo "########################################################################################" >> /var/log/smx-log/success.log
-                                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            					     echo "successfuly listed updates for system" >> /var/log/smx-log/success.log
-                        						     echo "Command run: $(which zypper) ar $repoUrl $repoAlias" >> /var/log/smx-log/success.log
-                        						     echo "" >> /var/log/smx-log/success.log
-                                    				 echo "########################################################################################" >> /var/log/smx-log/success.log
+                                        		$(which zypper) ar $repoUrl $repoAlias
+                                        		if [ $? -eq 0 ]; then
+                                        		     echo "########################################################################################" >> /var/log/smx-log/success.log
+                                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			             echo "successfuly listed updates for system" >> /var/log/smx-log/success.log
+                                    			     echo "Command run: $(which zypper) ar $repoUrl $repoAlias" >> /var/log/smx-log/success.log
                                     			     echo "" >> /var/log/smx-log/success.log
-                            					     read -p "Press [enter] to continue..." ReadDamKey
+                                        		     echo "########################################################################################" >> /var/log/smx-log/success.log
+                                        		     echo "" >> /var/log/smx-log/success.log
+                            			             read -p "Press [enter] to continue..." ReadDamKey
                                                      clear
-                        						     echo
-                        						     cat /var/log/smx-log/success.log | tail -n 7
-                                    				 echo
-                                    			     read -p "Press [Enter] to continue..." ReadDamKey
+                                    			     echo
+                                    			     cat /var/log/smx-log/success.log | tail -n 7
+                                        		     echo
+                                        		     read -p "Press [Enter] to continue..." ReadDamKey
                       				            else
-                                    				 echo "########################################################################################" >> /var/log/smx-log/fail.log
-                                    				 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                                    			     echo "Not listed updates for system, check command syntax" >> /var/log/smx-log/fail.log
-                            					     echo "Command run: $(which zypper) ar $repoUrl $repoAlias" >> /var/log/smx-log/fail.log
-                        						     echo "" >> /var/log/smx-log/fail.log
-                        						     echo "########################################################################################" >> /var/log/smx-log/fail.log
-                                    				 echo "" >> /var/log/smx-log/fail.log
-                                    			     read -p "Press [enter] to continue..." ReadDamKey
+                                        		     echo "########################################################################################" >> /var/log/smx-log/fail.log
+                                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                        		     echo "Not listed updates for system, check command syntax" >> /var/log/smx-log/fail.log
+                            			             echo "Command run: $(which zypper) ar $repoUrl $repoAlias" >> /var/log/smx-log/fail.log
+                                    			     echo "" >> /var/log/smx-log/fail.log
+                                    			     echo "########################################################################################" >> /var/log/smx-log/fail.log
+                                        		     echo "" >> /var/log/smx-log/fail.log
+                                        		     read -p "Press [enter] to continue..." ReadDamKey
                                                      clear
-                            					     echo
-                        						     cat /var/log/smx-log/fail.log | tail -n 7
-                        						     echo
-                                    				 read -p "Press [enter] to continue..." ReadDamKey
-                                        		     exit 1
-                                    			fi
-                                    			sleep 1
+                            			             echo
+                                    			     cat /var/log/smx-log/fail.log | tail -n 7
+                                    			     echo
+                                        		     read -p "Press [enter] to continue..." ReadDamKey
+                                            	     exit 1
+                                        		fi
+                                        		sleep 1
                                                 update_spinner
                                                 sleep 1
                                                 update_spinner
@@ -8627,37 +8634,37 @@ function pkg_menu() {
                                                 update_spinner
                                                 sleep 1
                                                 update_spinner
-                                    			$(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log
-                                    			if [ $PIPESTATUS -eq 0 ]; then
-                                    				 echo "###################################################################################" >> /var/log/smx-log/success.log
-                                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                            					     echo "successfuly refreshed repositories" >> /var/log/smx-log/success.log
-                        						     echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                        						     echo "" >> /var/log/smx-log/success.log
-                                    				 echo "###################################################################################" >> /var/log/smx-log/success.log
+                                        		$(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log
+                                        		if [ $PIPESTATUS -eq 0 ]; then
+                                        		     echo "###################################################################################" >> /var/log/smx-log/success.log
+                                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			             echo "successfuly refreshed repositories" >> /var/log/smx-log/success.log
+                                    			     echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
                                     			     echo "" >> /var/log/smx-log/success.log
-                            					     read -p "Press [enter] to continue..." ReadDamKey
+                                        		     echo "###################################################################################" >> /var/log/smx-log/success.log
+                                        		     echo "" >> /var/log/smx-log/success.log
+                            			             read -p "Press [enter] to continue..." ReadDamKey
                                                      clear
-                        						     echo
-                        						     cat /var/log/smx-log/success.log | tail -n 7
-                                    				 echo
-                                    			     read -p "Press [enter] to continue..." ReadDamKey
+                                    			     echo
+                                    			     cat /var/log/smx-log/success.log | tail -n 7
+                                        		     echo
+                                        		     read -p "Press [enter] to continue..." ReadDamKey
                         		                else
-                                    				 echo "###################################################################################" >> /var/log/smx-log/fail.log
-                                    			     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                            					     echo "Not refreshed repositories, check command syntax, and network connection" >> /var/log/smx-log/fail.log
-                        						     echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                        						     echo "" >> /var/log/smx-log/fail.log
-                                    				 echo "###################################################################################" >> /var/log/smx-log/fail.log
+                                        		     echo "###################################################################################" >> /var/log/smx-log/fail.log
+                                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			             echo "Not refreshed repositories, check command syntax, and network connection" >> /var/log/smx-log/fail.log
+                                    			     echo "Command run: $(which zypper) refresh | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
                                     			     echo "" >> /var/log/smx-log/fail.log
-                            					     read -p "Press [enter] to continue..." ReadDamKey
+                                        		     echo "###################################################################################" >> /var/log/smx-log/fail.log
+                                        		     echo "" >> /var/log/smx-log/fail.log
+                            			             read -p "Press [enter] to continue..." ReadDamKey
                                                      clear
-                        						     echo
-                        						     cat /var/log/smx-log/fail.log | tail -n 7
-                                    				 echo
-                                    			     read -p "Press [enter] to continue..." ReadDamKey
-                            					     exit 1
-                        						fi
+                                    			     echo
+                                    			     cat /var/log/smx-log/fail.log | tail -n 7
+                                        		     echo
+                                        		     read -p "Press [enter] to continue..." ReadDamKey
+                            			             exit 1
+                        			            fi
                                           else
                                                 echo "$(date)                                     $(whoami)@$(hostname)"
                                                 echo "Repository alias example: update"
@@ -8828,33 +8835,33 @@ function pkg_menu() {
 		           clear
             	   echo "#######################################################" >> /var/log/smx-log/exit.log
             	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
-        		   echo "successfuly terminated $(basename $0)/sys_menu#pkg_menu" >> /var/log/smx-log/exit.log
-        		   echo "" >> /var/log/smx-log/exit.log
-        		   echo "#######################################################" >> /var/log/smx-log/exit.log
+            	   echo "successfuly terminated $(basename $0)/sys_menu#pkg_menu" >> /var/log/smx-log/exit.log
+            	   echo "" >> /var/log/smx-log/exit.log
+            	   echo "#######################################################" >> /var/log/smx-log/exit.log
             	   echo "" >> /var/log/smx-log/exit.log
             	   sys_menu
 		           ;;
 	        exit-mas)
-        		       clear
+        	           clear
             	       echo "#################################" >> /var/log/smx-log/exit.log
             	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                	       echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
                	       echo "" >> /var/log/smx-log/exit.log
             	       echo "#################################" >> /var/log/smx-log/exit.log
-        		       echo "" >> /var/log/smx-log/exit.log
+        	           echo "" >> /var/log/smx-log/exit.log
                	       exit 0
 		               ;;
     	    *)
     	        clear
             	echo "      COMMAND STATUS       "
-        		echo
-        		echo "$(date)                                     $(whoami)@$(hostname)"
-        		echo
+            	echo
+            	echo "$(date)                                     $(whoami)@$(hostname)"
+            	echo
                 echo "Command: FAIL    stdout: yes    stderr: no        "
             	echo
-        		echo "Before command completion, additional instructions may appear below"
-        		echo
-        		echo "Command unknown, please consult the command list, executed with pid - 2721 (0x1)"
+            	echo "Before command completion, additional instructions may appear below"
+            	echo
+            	echo "Command unknown, please consult the command list, executed with pid - 2721 (0x1)"
             	read -p "Press [enter] to continue..." ReadDamKey;;
         esac
     done
@@ -8967,8 +8974,8 @@ function grp_menu() {
                       update_spinner
               	      $(which groupadd) -g $sysgrpId -r $sysgrpName
               	      if [ $? -eq 0 ]; then
-                  		   echo "#################################################################" >> /var/log/smx-log/success.log
-                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	   echo "#################################################################" >> /var/log/smx-log/success.log
+                      	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                       	   echo "successfuly created system group: $sysgrpName with GID: $sysgrpId" >> /var/log/smx-log/success.log
                       	   echo "Command run: $(which groupadd) -g $sysgrpId -r $sysgrpName" >> /var/log/smx-log/success.log
                       	   echo "" >> /var/log/smx-log/success.log
@@ -9030,30 +9037,30 @@ function grp_menu() {
                   update_spinner
                   $(which groupmod) -g $grpId $grpName
                   if [ $? -eq 0 ]; then
-            		   echo "#################################################" >> /var/log/smx-log/success.log
-            		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            	       echo "#################################################" >> /var/log/smx-log/success.log
+            	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                        echo "successfuly changed group: $grpName id to: $grpId" >> /var/log/smx-log/success.log
-            		   echo "Command run: $(which groupmod) -g $grpId $grpName" >> /var/log/smx-log/success.log
-            		   echo "" >> /var/log/smx-log/success.log
-            		   echo "#################################################" >> /var/log/smx-log/success.log
-            		   echo "" >> /var/log/smx-log/success.log
-            		   read -p "Press [enter] to continue..." ReadDamKey
+            	       echo "Command run: $(which groupmod) -g $grpId $grpName" >> /var/log/smx-log/success.log
+            	       echo "" >> /var/log/smx-log/success.log
+            	       echo "#################################################" >> /var/log/smx-log/success.log
+            	       echo "" >> /var/log/smx-log/success.log
+            	       read -p "Press [enter] to continue..." ReadDamKey
                        clear
               	       echo
               	       cat /var/log/smx-log/success.log | tail -n 7
               	       echo
 		               read -p "Press [enter] to continue..." ReadDamKey
                   else
-            		   echo "###############################################################" >> /var/log/smx-log/fail.log
-            		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-            		   echo "Not changed group: $grpName id to: $grpId, check command syntax" >> /var/log/smx-log/fail.log
-            		   echo "Command run: $(which groupmod) -g $grpId $grpName" >> /var/log/smx-log/fail.log
-            		   echo "" >> /var/log/smx-log/fail.log
-            		   echo "###############################################################" >> /var/log/smx-log/fail.log
-            		   echo "" >> /var/log/smx-log/fail.log
-            		   read -p "Press [enter] to continue..." ReadDamKey
+            	       echo "###############################################################" >> /var/log/smx-log/fail.log
+            	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+            	       echo "Not changed group: $grpName id to: $grpId, check command syntax" >> /var/log/smx-log/fail.log
+            	       echo "Command run: $(which groupmod) -g $grpId $grpName" >> /var/log/smx-log/fail.log
+            	       echo "" >> /var/log/smx-log/fail.log
+            	       echo "###############################################################" >> /var/log/smx-log/fail.log
+            	       echo "" >> /var/log/smx-log/fail.log
+            	       read -p "Press [enter] to continue..." ReadDamKey
                        clear
-            		   echo
+            	       echo
               	       cat /var/log/smx-log/fail.log | tail -n 7
               	       echo
 		               read -p "Press [enter] to continue..." ReadDamKey
@@ -9296,8 +9303,8 @@ function grp_menu() {
 			                echo "############################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                             echo "User: $userName not modified, not added to group: sudo, check command syntax" >> /var/log/smx-log/fail.log
-                  			echo "Command run: $(which gpasswd) -a $userName wheel" >> /var/log/smx-log/fail.log
-                  	        echo "" >> /var/log/smx-log/fail.log
+                      	    echo "Command run: $(which gpasswd) -a $userName wheel" >> /var/log/smx-log/fail.log
+                      	    echo "" >> /var/log/smx-log/fail.log
                             echo "############################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
                             read -p "Press [enter] to continue..." ReadDamKey
@@ -9329,7 +9336,7 @@ function grp_menu() {
 		          echo "Command run: $(which cat) /etc/group | $(which grep) $grpName | $(which tee) /var/log/smx-log/cat.log"
                   sleep 2
             	  clear
-        		  $(which cat) /etc/group | $(which grep) $grpName | $(which tee) /var/log/smx-log/group.log
+        	      $(which cat) /etc/group | $(which grep) $grpName | $(which tee) /var/log/smx-log/group.log
                   if [ $PIPESTATUS -eq 0 ]; then
 		               echo "###########################################################################################################" >> /var/log/smx-log/success.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
@@ -9377,7 +9384,7 @@ function grp_menu() {
                      echo "File                                  Fileset                Type"
                      echo "-----------------------------------------------------------------"
                      echo "$(which groups)                       bos.grpmgt.groups      exec"
-            		 echo "Command run: $(which groups) $userName | $(which tee) /var/log/smx-log/groups.log"
+            	     echo "Command run: $(which groups) $userName | $(which tee) /var/log/smx-log/groups.log"
             	     sleep 2
             	     clear
                      $(which groups) $userName | $(which tee) /var/log/smx-log/groups.log
@@ -9525,8 +9532,8 @@ function grp_menu() {
 		                echo "#############################################################" >> /var/log/smx-log/fail.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                         echo "Not removed group: $grpName from system, check command syntax" >> /var/log/smx-log/fail.log
-                  		echo "Command run: $(which groupdel) $grpName" >> /var/log/smx-log/fail.log
-                  		echo "" >> /var/log/smx-log/fail.log
+                      	echo "Command run: $(which groupdel) $grpName" >> /var/log/smx-log/fail.log
+                      	echo "" >> /var/log/smx-log/fail.log
                         echo "#############################################################" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         read -p "Press [enter] to continue..." ReadDamKey
@@ -9566,10 +9573,10 @@ function grp_menu() {
     	             clear
             	     echo "########################################" >> /var/log/smx-log/exit.log
             	     echo "$(date)::$(whoami)@$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
-        		     echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
-        		     echo "" >> /var/log/smx-log/exit.log
-        		     echo "########################################" >> /var/log/smx-log/exit.log
-        		     echo "" >> /var/log/smx-log/exit.log
+            	     echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
+            	     echo "" >> /var/log/smx-log/exit.log
+            	     echo "########################################" >> /var/log/smx-log/exit.log
+            	     echo "" >> /var/log/smx-log/exit.log
                      exit 0
                      ;;
           *)     clear
@@ -9599,8 +9606,8 @@ function system_upd() {
 
         case "$choice_upd" in
             update)
-		             clear
-                     cat /proc/version | grep "Red Hat" > /dev/null
+        		     clear
+        		     cat /proc/version | grep "Red Hat" > /dev/null
                      if [ $? -eq 0 ]; then
                           clear
 			              echo "OS = Red Hat"
@@ -9711,34 +9718,34 @@ function system_upd() {
                                update_spinner
                                $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
                                if [ $PIPESTATUS -eq 0 ]; then
-                        		    echo "################################################################################" >> /var/log/smx-log/success.log
-                				    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				    echo "successfuly updated sources" >> /var/log/smx-log/success.log
-                				    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get" >> /var/log/smx-log/success.log
-                        			echo "" >> /var/log/smx-log/success.log
-                        		    echo "################################################################################" >> /var/log/smx-log/success.log
-                    			    echo "" >> /var/log/smx-log/success.log
-                				    read -p "Press [enter] to continue..." ReadDamKey
+                        	        echo "################################################################################" >> /var/log/smx-log/success.log
+                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		    echo "successfuly updated sources" >> /var/log/smx-log/success.log
+                        		    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get" >> /var/log/smx-log/success.log
+                            	    echo "" >> /var/log/smx-log/success.log
+                            	    echo "################################################################################" >> /var/log/smx-log/success.log
+                        		    echo "" >> /var/log/smx-log/success.log
+                		            read -p "Press [enter] to continue..." ReadDamKey
                                     clear
-                				    echo
+                		            echo
                                     cat /var/log/smx-log/success.log | tail -n 7
-                        		    echo
-                    			    read -p "Press [enter] to continue..." ReadDamKey
+                            	    echo
+                        		    read -p "Press [enter] to continue..." ReadDamKey
                                else
-                        		    echo "#########################################################################" >> /var/log/smx-log/fail.log
-                    			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                				    echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
-                				    echo "Command run: $(which sed) -i 's/$currVer/$updVer/g' /etc/apt/sources.list" >> /var/log/smx-log/fail.log
-                        			echo "" >> /var/log/smx-log/fail.log
-                        		    echo "#########################################################################" >> /var/log/smx-log/fail.log
-                    			    echo "" >> /var/log/smx-log/success.log
-                				    read -p "Press [enter] to continue..." ReadDamKey
+                            	    echo "#########################################################################" >> /var/log/smx-log/fail.log
+                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		    echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
+                        		    echo "Command run: $(which sed) -i 's/$currVer/$updVer/g' /etc/apt/sources.list" >> /var/log/smx-log/fail.log
+                            	    echo "" >> /var/log/smx-log/fail.log
+                            	    echo "#########################################################################" >> /var/log/smx-log/fail.log
+                        		    echo "" >> /var/log/smx-log/success.log
+                		            read -p "Press [enter] to continue..." ReadDamKey
                                     clear
-                				    echo
-                        			cat /var/log/smx-log/fail.log | tail -n 7
-                        		    echo
-                    			    read -p "press [enter] to continue..." ReadDamKey
-                				    exit 1
+                		            echo
+                            	    cat /var/log/smx-log/fail.log | tail -n 7
+                            	    echo
+                        		    read -p "press [enter] to continue..." ReadDamKey
+                		            exit 1
                                fi
 			                   sleep 1
                                update_spinner
@@ -9755,34 +9762,34 @@ function system_upd() {
                                update_spinner
                                $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log
                                if [ $PIPESTATUS -eq 0 ]; then
-                        			echo "#####################################################################################" >> /var/log/smx-log/success.log
-                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			    echo "successfuly upgraded packages" >> /var/log/smx-log/success.log
-                				    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                				    echo "" >> /var/log/smx-log/success.log
-                 				    echo "#####################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "#####################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		    echo "successfuly upgraded packages" >> /var/log/smx-log/success.log
+                        		    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                         		    echo "" >> /var/log/smx-log/success.log
-                        		    read -p "Press [enter] to continue..." ReadDamKey
+                         		    echo "#####################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "" >> /var/log/smx-log/success.log
+                            	    read -p "Press [enter] to continue..." ReadDamKey
                                     clear
-                        			echo
-                        		    cat /var/log/smx-log/success.log | tail -n 7
-                    			    echo
-                				    read -p "Press [enter] to continue..." ReadDamKey
-                               else
-                        		    echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                    			    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                				    echo "Not upgraded packages, check command syntax" >> /var/log/smx-log/fail.log
-                				    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                        		    echo "" >> /var/log/smx-log/fail.log
-                        		    echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                				    echo "" >> /var/log/smx-log/fail.log
-                				    read -p "Press [enter] to continue..." ReadDamKey
-                                    clear
-                				    echo
-                        			cat /var/log/smx-log/fail.log | tail -n 7
                             	    echo
-                    			    read -p "Press [enter] to continue..." ReadDamKey
-                				    exit 1
+                            	    cat /var/log/smx-log/success.log | tail -n 7
+                        		    echo
+                		            read -p "Press [enter] to continue..." ReadDamKey
+                               else
+                            	   echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                        		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		   echo "Not upgraded packages, check command syntax" >> /var/log/smx-log/fail.log
+                        		   echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                            	   echo "" >> /var/log/smx-log/fail.log
+                            	   echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                        		   echo "" >> /var/log/smx-log/fail.log
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+                                   clear
+                		           echo
+                        	       cat /var/log/smx-log/fail.log | tail -n 7
+                            	   echo
+                    		       read -p "Press [enter] to continue..." ReadDamKey
+                		           exit 1
                                fi
 			                   sleep 1
                                update_spinner
@@ -9799,33 +9806,33 @@ function system_upd() {
                                update_spinner
                                $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log
                                if [ $PIPESTATUS -eq 0 ]; then
-                        			echo "##########################################################################################" >> /var/log/smx-log/success.log
-                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    			    echo "successfuly upgraded distrobution" >> /var/log/smx-log/success.log
-                				    echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                				    echo "" >> /var/log/smx-log/success.log
-                        			echo "##########################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "##########################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		    echo "successfuly upgraded distrobution" >> /var/log/smx-log/success.log
+                        		    echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                         		    echo "" >> /var/log/smx-log/success.log
-                    			    read -p "Press [enter] to continue..." ReadDamKey
-                                    clear
-                				    echo
-                				    cat /var/log/smx-log/success.log | tail -n 7
-                        			echo
+                            	    echo "##########################################################################################" >> /var/log/smx-log/success.log
+                            	    echo "" >> /var/log/smx-log/success.log
                         		    read -p "Press [enter] to continue..." ReadDamKey
+                                    clear
+                        		    echo
+                        		    cat /var/log/smx-log/success.log | tail -n 7
+                            	    echo
+                            	    read -p "Press [enter] to continue..." ReadDamKey
                                else
-                        			echo "##########################################################################################" >> /var/log/smx-log/fail.log
-                        		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    			    echo "Not upgraded distrobution, check command syntax" >> /var/log/smx-log/fail.log
-                				    echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                				    echo "" >> /var/log/smx-log/fail.log
-                        			echo "##########################################################################################" >> /var/log/smx-log/fail.log
+                            	    echo "##########################################################################################" >> /var/log/smx-log/fail.log
+                            	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		    echo "Not upgraded distrobution, check command syntax" >> /var/log/smx-log/fail.log
+                        		    echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                         		    echo "" >> /var/log/smx-log/fail.log
-                    			    read -p "Press [enter] to continue..." ReadDamKey
-                                    clear
-                				    echo
-                				    cat /var/log/smx-log/fail.log | tail -n 7
-                        			echo
+                            	    echo "##########################################################################################" >> /var/log/smx-log/fail.log
+                            	    echo "" >> /var/log/smx-log/fail.log
                         		    read -p "Press [enter] to continue..." ReadDamKey
+                                    clear
+                        		    echo
+                        		    cat /var/log/smx-log/fail.log | tail -n 7
+                            	    echo
+                            	    read -p "Press [enter] to continue..." ReadDamKey
                                fi
                                echo "The system must reboot, to apply the update, you can choose not to, but the update will not be appled until next reboot"
                                read -p "Reboot system (Y/N) > " rebootSys
@@ -9839,33 +9846,33 @@ function system_upd() {
                                cat /proc/version | grep "Ubuntu" > /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                        			echo "OS = Ubuntu"
-                        		    echo "$(date)                                     $(whoami)@$(hostname)"
-                    			    echo "[TOP]                                 [Entry Fields]"
-                				    read -p "Enter current version ------------- > " currVer
-                				    read -p "Enter version to upgrade to ------- > " updVer
-                        			clear
-                        		    echo "        COMMAND STATUS         "
-                    			    echo
-                				    echo "$(date)                                     $(whoami)@$(hostname)"
-                				    echo
-                        			echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            	    echo "OS = Ubuntu"
+                            	    echo "$(date)                                     $(whoami)@$(hostname)"
+                        		    echo "[TOP]                                 [Entry Fields]"
+                        		    read -p "Enter current version ------------- > " currVer
+                        		    read -p "Enter version to upgrade to ------- > " updVer
+                            	    clear
+                            	    echo "        COMMAND STATUS         "
                         		    echo
-                    			    echo "Before command completion, additional instructions may appear below"
-                				    echo
-                				    echo "File                                 Fileset                 Type"
-                        			echo "-----------------------------------------------------------------"
-                        		    echo "$(which sed)                         bos.sysmgt.sed          exec"
-                    			    echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                				    echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                				    echo "Command run: $(which sed) -i 's/$currVer/$updVer/g' /etc/apt/sources.list"
-                        			echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
-                        		    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-                        		    echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log"
-                				    echo "Command run: $(which reboot)"
-                				    sleep 2
-                				    clear
-                        			$(which sed) -i "s/$currVer/$updVer/g" /etc/apt/sources.list
+                        		    echo "$(date)                                     $(whoami)@$(hostname)"
+                        		    echo
+                            	    echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            	    echo
+                        		    echo "Before command completion, additional instructions may appear below"
+                        		    echo
+                        		    echo "File                                 Fileset                 Type"
+                            	    echo "-----------------------------------------------------------------"
+                            	    echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        		    echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        		    echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+                        		    echo "Command run: $(which sed) -i 's/$currVer/$updVer/g' /etc/apt/sources.list"
+                            	    echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log"
+                            	    echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+                            	    echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log"
+                        		    echo "Command run: $(which reboot)"
+                        		    sleep 2
+                        		    clear
+                        	        $(which sed) -i "s/$currVer/$updVer/g" /etc/apt/sources.list
                                     sleep 1
                                     update_spinner
                                     sleep 1
@@ -9879,37 +9886,37 @@ function system_upd() {
                                     update_spinner
                                     sleep 1
                                     update_spinner
-                        			$(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
-                        		    if [ $PIPESTATUS -eq 0 ]; then
+                            	    $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get.log
+                            	    if [ $PIPESTATUS -eq 0 ]; then
+                                  		 echo "################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		 echo "successfuly updated sources" >> /var/log/smx-log/success.log
+                              			 echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get" >> /var/log/smx-log/success.log
+                              			 echo "" >> /var/log/smx-log/success.log
                               			 echo "################################################################################" >> /var/log/smx-log/success.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        				 echo "successfuly updated sources" >> /var/log/smx-log/success.log
-                      					 echo "Command run: $(which apt-get) update | $(which tee) /var/log/smx-log/apt-get" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
-                      					 echo "################################################################################" >> /var/log/smx-log/success.log
-                              			 echo "" >> /var/log/smx-log/success.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                                  		 echo "" >> /var/log/smx-log/success.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                        				 echo
-                      					 cat /var/log/smx-log/success.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
+                                		 echo
+                              			 cat /var/log/smx-log/success.log | tail -n 7
+                              			 echo
+                              			 read -p "Press [enter] to continue..." ReadDamKey
 				                    else
+                                  		 echo "#########################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		 echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
+                              			 echo "Command run: $(which sed) -i 's/$currVer/$updVer/g' /etc/apt/sources.list" >> /var/log/smx-log/fail.log
+                              			 echo "" >> /var/log/smx-log/fail.log
                               			 echo "#########################################################################" >> /var/log/smx-log/fail.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        				 echo "Not updated sources, check command syntax" >> /var/log/smx-log/fail.log
-                      					 echo "Command run: $(which sed) -i 's/$currVer/$updVer/g' /etc/apt/sources.list" >> /var/log/smx-log/fail.log
-                      					 echo "" >> /var/log/smx-log/fail.log
-                      					 echo "#########################################################################" >> /var/log/smx-log/fail.log
-                              			 echo "" >> /var/log/smx-log/success.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                                  		 echo "" >> /var/log/smx-log/success.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                        				 echo
-                      					 cat /var/log/smx-log/fail.log | tail -n 7
-                      					 echo
-                      					 read -p "press [enter] to continue..." ReadDamKey
-                              			 exit 1
-                          		    fi
+                                		 echo
+                              			 cat /var/log/smx-log/fail.log | tail -n 7
+                              			 echo
+                              			 read -p "press [enter] to continue..." ReadDamKey
+                              		     exit 1
+                          	        fi
 				                    sleep 1
                                     update_spinner
                                     sleep 1
@@ -9923,38 +9930,38 @@ function system_upd() {
                                     update_spinner
                                     sleep 1
                                     update_spinner
-                        			$(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log
-                        		    if [ $PIPESTATUS -eq 0 ]; then
-                              			 echo "#####################################################################################" >> /var/log/smx-log/success.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        				 echo "successfuly upgraded packages" >> /var/log/smx-log/success.log
-                      					 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
-                      					 echo "#####################################################################################" >> /var/log/smx-log/success.log
+                            	    $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log
+                            	    if [ $PIPESTATUS -eq 0 ]; then
+                                  		 echo "#####################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		 echo "successfuly upgraded packages" >> /var/log/smx-log/success.log
+                              			 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                               			 echo "" >> /var/log/smx-log/success.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                              			 echo "#####################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "" >> /var/log/smx-log/success.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                        				 echo
-                      					 cat /var/log/smx-log/success.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
-				                    else
-                              			 echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        				 echo "Not upgraded packages, check command syntax" >> /var/log/smx-log/fail.log
-                      					 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                      					 echo "" >> /var/log/smx-log/fail.log
-                      					 echo "#####################################################################################" >> /var/log/smx-log/fail.log
-                              			 echo "" >> /var/log/smx-log/fail.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                                		 echo
+                              			 cat /var/log/smx-log/success.log | tail -n 7
                               			 echo
-                        				 cat /var/log/smx-log/fail.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
-                      					 exit 1
-                        			fi
-                        		    sleep 1
-                    			    update_spinner
+                              			 read -p "Press [enter] to continue..." ReadDamKey
+				                    else
+                                  		 echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		 echo "Not upgraded packages, check command syntax" >> /var/log/smx-log/fail.log
+                              			 echo "Command run: $(which apt-get) -y upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                              			 echo "" >> /var/log/smx-log/fail.log
+                              			 echo "#####################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "" >> /var/log/smx-log/fail.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
+                                  		 echo
+                                		 cat /var/log/smx-log/fail.log | tail -n 7
+                              			 echo
+                              			 read -p "Press [enter] to continue..." ReadDamKey
+                              			 exit 1
+                            	    fi
+                            	    sleep 1
+                        		    update_spinner
                                     sleep 1
                                     update_spinner
                                     sleep 1
@@ -9966,86 +9973,86 @@ function system_upd() {
                                     update_spinner
                                     sleep 1
                                     update_spinner
-                        			$(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log
-                        		    if [ $PIPESTATUS -eq 0 ]; then
-                              			 echo "##########################################################################################" >> /var/log/smx-log/success.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                        				 echo "successfuly upgraded distrobution" >> /var/log/smx-log/success.log
-                      					 echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
-                      					 echo "##########################################################################################" >> /var/log/smx-log/success.log
+                            	    $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log
+                            	    if [ $PIPESTATUS -eq 0 ]; then
+                                  		 echo "##########################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                		 echo "successfuly upgraded distrobution" >> /var/log/smx-log/success.log
+                              			 echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                               			 echo "" >> /var/log/smx-log/success.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                              			 echo "##########################################################################################" >> /var/log/smx-log/success.log
+                                  		 echo "" >> /var/log/smx-log/success.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                        				 echo
-                      					 cat /var/log/smx-log/success.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
+                                		 echo
+                              			 cat /var/log/smx-log/success.log | tail -n 7
+                              			 echo
+                              			 read -p "Press [enter] to continue..." ReadDamKey
 				                    else
-                              			 echo "##########################################################################################" >> /var/log/smx-log/fail.log
-                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                        				 echo "Not upgraded distrobution, check command syntax" >> /var/log/smx-log/fail.log
-                      					 echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                      					 echo "" >> /var/log/smx-log/fail.log
-                      					 echo "##########################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "##########################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                		 echo "Not upgraded distrobution, check command syntax" >> /var/log/smx-log/fail.log
+                              			 echo "Command run: $(which apt-get) dist-upgrade | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                               			 echo "" >> /var/log/smx-log/fail.log
-                              			 read -p "Press [enter] to continue..." ReadDamKey
+                              			 echo "##########################################################################################" >> /var/log/smx-log/fail.log
+                                  		 echo "" >> /var/log/smx-log/fail.log
+                                  		 read -p "Press [enter] to continue..." ReadDamKey
                                          clear
-                        				 echo
-                      					 cat /var/log/smx-log/fail.log | tail -n 7
-                      					 echo
-                      					 read -p "Press [enter] to continue..." ReadDamKey
-                        			fi
-                        		    echo "The system must reboot, to apply the update, you can choose not to, but the update will not be appled until next reboot"
-                    			    read -p "Reboot system (Y/N) > " rebootSys
-                				    if [ "$rebootSys" = "Y" ]; then
+                                		 echo
+                              			 cat /var/log/smx-log/fail.log | tail -n 7
+                              			 echo
+                              			 read -p "Press [enter] to continue..." ReadDamKey
+                            	    fi
+                            	    echo "The system must reboot, to apply the update, you can choose not to, but the update will not be appled until next reboot"
+                        		    read -p "Reboot system (Y/N) > " rebootSys
+                		            if [ "$rebootSys" = "Y" ]; then
     				                      $(which reboot) -f now --verbose; exit
-				                    else
-        					              echo "System will not reboot"
-        				            fi
+                				    else
+                        				  echo "System will not reboot"
+        			                fi
                                else
                                     clear
                                     cat /proc/version | grep "SUSE" > /dev/null
                                     if [ $? -eq 0 ]; then
                                          clear
-                              			 echo "OS = SuSE"
-                              			 echo "$(date)                                   $(whoami)@$(hostname)"
-                        				 echo "Current version example: 12.3"
-                      					 echo "version to upgrade to example: 13.1"
-                      					 echo "Current version for sed example: 12\.3"
-                      					 echo "version to upgrade to for sed example: 13\.1"
-                              			 echo "Sed versions for replacing repository url's"
-                              			 echo "[TOP]                                 [Entry Fields]"
-                        				 read -p "Enter current version ------------- > " currVer
-                      					 read -p "Enter version to upgrade to ------- > " updVer
-                      					 read -p "Enter current version for sed ----- > " currSed
-                      					 read -p "Enter version to upgrade for sed -- > " updSed
-                              			 clear
-                              			 echo "        COMMAND STATUS         "
-                        				 echo
-                      					 echo "$(date)                                     $(whoami)@$(hostname)"
-                      					 echo
-                      					 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                  		 echo "OS = SuSE"
+                                  		 echo "$(date)                                   $(whoami)@$(hostname)"
+                                		 echo "Current version example: 12.3"
+                              			 echo "version to upgrade to example: 13.1"
+                              			 echo "Current version for sed example: 12\.3"
+                              			 echo "version to upgrade to for sed example: 13\.1"
+                                  		 echo "Sed versions for replacing repository url's"
+                                  		 echo "[TOP]                                 [Entry Fields]"
+                                		 read -p "Enter current version ------------- > " currVer
+                              			 read -p "Enter version to upgrade to ------- > " updVer
+                              			 read -p "Enter current version for sed ----- > " currSed
+                              			 read -p "Enter version to upgrade for sed -- > " updSed
+                                  		 clear
+                                  		 echo "        COMMAND STATUS         "
+                                		 echo
+                              			 echo "$(date)                                     $(whoami)@$(hostname)"
                               			 echo
-                              			 echo "Before command completion, additional instructions may appear below"
-                        				 echo
-                      					 echo "File                                 Fileset                 Type"
-                      					 echo "-----------------------------------------------------------------"
-                      					 echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                              			 echo "$(which cp)                          bos.sysmgt.cp           exec"
-                              			 echo "$(which sed)                         bos.sysmgt.sed          exec"
-                        				 echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                      					 echo "Command run: $(which zypper) repos --uri"
-                      					 echo "Command run: $(which zypper) modifyrepo --enable repo-update"
-                      					 echo "Command run: $(which zypper) addrepo --check --refresh --name 'openSUSE-$currVer-Update' http://download.opensuse.org/update/$currVer/ repo-update"
-                              			 echo "Command run: $(which zypper) refresh"
-                              			 echo "Command run: $(which zypper) update -y"
-                        				 echo "Command run: $(which cp) -Rv /etc/zypp/repos.d /etc/zypp/repos.d.bak"
-                      					 echo "Command run: $(which sed) -i 's/$currSed/$updSed/g' /etc/zypp/repos.d/*"
-                      					 echo "Command run: $(which zypper) ar -f http://download.opensuse.org/update/$updVer-non-oss/ repo-update-non-oss"
-                      					 echo "Command run: $(which zypper) ref"
-                              			 echo "Command run: $(which zypper) dup"
-                              			 echo "Command run: $(which reboot) -f now --verbose; exit"
+                              			 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                  		 echo
+                                  		 echo "Before command completion, additional instructions may appear below"
+                                		 echo
+                              			 echo "File                                 Fileset                 Type"
+                              			 echo "-----------------------------------------------------------------"
+                              			 echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                                  		 echo "$(which cp)                          bos.sysmgt.cp           exec"
+                                  		 echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                		 echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+                              			 echo "Command run: $(which zypper) repos --uri"
+                              			 echo "Command run: $(which zypper) modifyrepo --enable repo-update"
+                              			 echo "Command run: $(which zypper) addrepo --check --refresh --name 'openSUSE-$currVer-Update' http://download.opensuse.org/update/$currVer/ repo-update"
+                                  		 echo "Command run: $(which zypper) refresh"
+                                  		 echo "Command run: $(which zypper) update -y"
+                                		 echo "Command run: $(which cp) -Rv /etc/zypp/repos.d /etc/zypp/repos.d.bak"
+                              			 echo "Command run: $(which sed) -i 's/$currSed/$updSed/g' /etc/zypp/repos.d/*"
+                              			 echo "Command run: $(which zypper) ar -f http://download.opensuse.org/update/$updVer-non-oss/ repo-update-non-oss"
+                              			 echo "Command run: $(which zypper) ref"
+                                  		 echo "Command run: $(which zypper) dup"
+                                  		 echo "Command run: $(which reboot) -f now --verbose; exit"
                                          update_spinner
                                          sleep 1
                                          update_spinner
@@ -10126,26 +10133,26 @@ function system_upd() {
                                          update_spinner
                                          sleep 1
                     		             $(which zypper) dup
-                    					 echo "##############################################" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
-                      					 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                              			 echo "successfuly updated opensuse to latest version" >> /var/log/smx-log/success.log
+                            			 echo "##############################################" >> /var/log/smx-log/success.log
                               			 echo "" >> /var/log/smx-log/success.log
-                        				 echo "##############################################" >> /var/log/smx-log/success.log
-                      					 echo "" >> /var/log/smx-log/success.log
+                              			 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  		 echo "successfuly updated opensuse to latest version" >> /var/log/smx-log/success.log
+                                  		 echo "" >> /var/log/smx-log/success.log
+                                		 echo "##############################################" >> /var/log/smx-log/success.log
+                              			 echo "" >> /var/log/smx-log/success.log
                                          read -p "Press [enter] to continue..." ReadDamKey
                                          clear
                                          echo
                                          cat /var/log/smx-log/success.log | tail -n 6
                                          echo
-                              			 sleep 2
-                              			 echo "The system must now reboot, you can choose not to, however the update will not be appled until next reboot"
-                              			 read -p "Reboot system (Y/N) > " rebootSys
-                        				 if [ "$rebootSys" = "Y" ]; then
-                      					       $(which reboot) -f now --verbose; exit
-                      					 else
-                      					       echo "System will not reboot"
-                              			 fi
+                                  		 sleep 2
+                                  		 echo "The system must now reboot, you can choose not to, however the update will not be appled until next reboot"
+                                  		 read -p "Reboot system (Y/N) > " rebootSys
+                                		 if [ "$rebootSys" = "Y" ]; then
+                              			       $(which reboot) -f now --verbose; exit
+                              			 else
+                      			               echo "System will not reboot"
+                              		     fi
                                     fi
                                fi
                           fi
@@ -10166,9 +10173,9 @@ function system_upd() {
                         echo "File                                 Fileset                        Type"
                         echo "------------------------------------------------------------------------"
                         echo "$(which yum)                         bos.pkgmgt.yum                 exec"
-                  		echo "$(which fedora-upgrade)              bos.sysmgt.fedora-upgrade      exec"
-                  		echo "Command run: $(which yum) -y install fedora-upgrade | $(which tee) /var/log/smx-log/yum.log"
-                  		echo "Command run: $(which fedora-upgrade) | $(which tee) /var/log/smx-log/yum.log"
+                      	echo "$(which fedora-upgrade)              bos.sysmgt.fedora-upgrade      exec"
+                      	echo "Command run: $(which yum) -y install fedora-upgrade | $(which tee) /var/log/smx-log/yum.log"
+                      	echo "Command run: $(which fedora-upgrade) | $(which tee) /var/log/smx-log/yum.log"
                         update_spinner
                         sleep 1
                         update_spinner
@@ -10192,8 +10199,8 @@ function system_upd() {
                       	     echo
                              read -p "Press [enter] to continue..." ReadDamKey
                         else
-                  			 echo "###############################################################################################" >> /var/log/smx-log/fail.log
-                  		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	     echo "###############################################################################################" >> /var/log/smx-log/fail.log
+                      	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                              echo "Not upgraded fedora to latest version, check command syntax" >> /var/log/smx-log/fail.log
 			                 echo "Command run: $(which yum) -y install fedora-upgrade | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
                              echo "" >> /var/log/smx-log/fail.log
@@ -10229,8 +10236,8 @@ function system_upd() {
                       	     cat /var/log/smx-log/success.log | tail -n 7
                       	     echo
                       	     read -p "Press [enter] to continue..." ReadDamKey
-			            else
-			                 echo "###########################################################################################" >> /var/log/smx-log/fail.log
+            			else
+            			     echo "###########################################################################################" >> /var/log/smx-log/fail.log
                       	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                       	     echo "Not upgraded system, check command syntax" >> /var/log/smx-log/fail.log
 			                 echo "Command run: $(which fedora-upgrade) | $(which tee) /var/log/smx-log/fedora-upgrade.log" >> /var/log/smx-log/fail.log
@@ -10243,81 +10250,81 @@ function system_upd() {
                       	     cat /var/log/smx-log/fail.log | tail -n 7
                       	     echo
                       	     read -p "Press [enter] to continue..." ReadDamKey
-                  		fi
-                  		echo "The system must now reboot, you can choose not to, but the update will not be appled until next reboot"
+                      	fi
+                      	echo "The system must now reboot, you can choose not to, but the update will not be appled until next reboot"
                      	read -p "Reboot system (Y/N) > " rebootSys
                   	    if [ "$rebootSys" = "Y" ]; then
                               $(which reboot) -f now --verbose; exit
 			            else
                               echo "System will not reboot"
-                  	    fi
-                  		;;
+                      	fi
+                      	;;
 	        updatekrnl)
 		                 clear
                          cat /proc/version | grep "Red Hat" > /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-                  			  echo "OS = Red Hat"
-                  		      echo "WARNING: this update process will take a while, it took up to an hour on my system"                 # But you know that
-                  		      echo "Kernel major version example: v3.x"
-                  		      echo "Kernel minor version example: 3.18.3"
-            			      echo "Kernel build root example: /usr/src"
-              			      KRNLNAME=`uname -r`
-              			      echo "Current running kernel: $KRNLNAME"
-              			      echo "$(date)                                     $(whoami)@$(hostname)"
-                  		      echo "[TOP]                                            [Entry Fields]"
-                  		      read -p " Enter kernel major version ------------------ > " krnlMajor
-                  		      read -p " Enter kernel minor version ------------------ > " krnlMinor
-                  		      printf " Enter kernel build root ---------------------- [/usr/src] >  "
-            			      if [ "$krnlRoot" = "" ]; then
-                				    KRNLROOT=""
-                    				read krnlRoot
-                            	    KRNLROOT=$krnlRoot
-                  	          fi
-                  		      if [ "$krnlRoot" = "" ]; then
-                				    KRNLROOT=""
-                				    KRNLROOT=/usr/src
-                  			  fi
-                  		      read -p " Reboot after completion --------------- (Y/N) > " rebootSys
-                  			  clear
-                  		      echo "         COMMAND STATUS               "
-                  		      echo
+                      	      echo "OS = Red Hat"
+                      	      echo "WARNING: this update process will take a while, it took up to an hour on my system"                 # But you know that
+                      	      echo "Kernel major version example: v3.x"
+                      	      echo "Kernel minor version example: 3.18.3"
+                		      echo "Kernel build root example: /usr/src"
+                  		      KRNLNAME=`uname -r`
+                  		      echo "Current running kernel: $KRNLNAME"
                   		      echo "$(date)                                     $(whoami)@$(hostname)"
-            			      echo
-              			      echo "Command: RUNNING    stdout: yes    stderr: no     "
-              			      echo
-              			      echo "Before command completion, additional instructions may appear below"
-                  			  echo
-                  		      echo "File                                 Fileset                 Type"
-                  		      echo "-----------------------------------------------------------------"
-                  		      echo "$(which yum)                         bos.pkgmgt.yum          exec"
-            			      echo "$(which wget)                        bos.sysmgt.wget         exec"
-              			      echo "$(which tar)                         bos.sysmgt.tar          exec"
-              			      echo "$(which sh)                          bos.sysmgt.sh           exec"
-              			      echo "$(which make)                        bos.sysmgt.make         exec"
-                  			  echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                  		      echo "Command run: $(which yum) -y groupinstall 'Development Tools' | $(which tee) /var/log/smx-log/yum.log"
-                  		      echo "Command run: $(which yum) -y install ncurses-devel | $(which tee) /var/log/smx-log/yum.log"
-                  		      echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log"
-            			      echo "Command run: cd /tmp"
-              			      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-              			      echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
-              			      echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
-                  			  echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
-                  		      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
+                      	      echo "[TOP]                                            [Entry Fields]"
+                      	      read -p " Enter kernel major version ------------------ > " krnlMajor
+                      	      read -p " Enter kernel minor version ------------------ > " krnlMinor
+                      	      printf " Enter kernel build root ---------------------- [/usr/src] >  "
+                		      if [ "$krnlRoot" = "" ]; then
+                		            KRNLROOT=""
+                    		        read krnlRoot
+                            	    KRNLROOT=$krnlRoot
+                      	      fi
+                      	      if [ "$krnlRoot" = "" ]; then
+                        		    KRNLROOT=""
+                        		    KRNLROOT=/usr/src
+                      	      fi
+                      	      read -p " Reboot after completion --------------- (Y/N) > " rebootSys
+                      	      clear
+                      	      echo "         COMMAND STATUS               "
+                      	      echo
+                      	      echo "$(date)                                     $(whoami)@$(hostname)"
+                		      echo
+                  		      echo "Command: RUNNING    stdout: yes    stderr: no     "
+                  		      echo
+                  		      echo "Before command completion, additional instructions may appear below"
+                      	      echo
+                      	      echo "File                                 Fileset                 Type"
+                      	      echo "-----------------------------------------------------------------"
+                      	      echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                		      echo "$(which wget)                        bos.sysmgt.wget         exec"
+                  		      echo "$(which tar)                         bos.sysmgt.tar          exec"
+                  		      echo "$(which sh)                          bos.sysmgt.sh           exec"
+                  		      echo "$(which make)                        bos.sysmgt.make         exec"
+                      	      echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+                      	      echo "Command run: $(which yum) -y groupinstall 'Development Tools' | $(which tee) /var/log/smx-log/yum.log"
+                      	      echo "Command run: $(which yum) -y install ncurses-devel | $(which tee) /var/log/smx-log/yum.log"
+                      	      echo "Command run: $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log"
+                		      echo "Command run: cd /tmp"
+                  		      echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+                  		      echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
+                  		      echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
+                      	      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
+                      	      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
                     	      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build_rhel.log"
-                  		      echo "Command run: $(which reboot) -f --verbose; exit"
-            			      update_spinner
+                      	      echo "Command run: $(which reboot) -f --verbose; exit"
+                		      update_spinner
                               sleep 1
                               update_spinner
                               echo "Installing group file 'Development Tools'"
                               sleep 1
                               update_spinner
                               sleep 1
-                  			  $(which yum) -y groupinstall "Development Tools" | $(which tee) /var/log/smx-log/yum.log
-                  		      echo "" >> /var/log/smx-log/yum.log
-                  		      echo "#############################################" >> /var/log/smx-log/yum.log
-                  		      echo "" >> /var/log/smx-log/yum.log
+                      	      $(which yum) -y groupinstall "Development Tools" | $(which tee) /var/log/smx-log/yum.log
+                      	      echo "" >> /var/log/smx-log/yum.log
+                      	      echo "#############################################" >> /var/log/smx-log/yum.log
+                      	      echo "" >> /var/log/smx-log/yum.log
                               update_spinner
                               sleep 1
                               update_spinner
@@ -10325,10 +10332,10 @@ function system_upd() {
                               sleep 1
                               update_spinner
                               sleep 1
-                  		      $(which yum) -y install ncurses-devel wget | $(which tee) /var/log/smx-log/yum.log
-                  		      echo "" >> /var/log/smx-log/yum.log
-                  		      echo "#############################################" >> /var/log/smx-log/yum.log
-                  		      echo "" >> /var/log/smx-log/yum.log
+                      	      $(which yum) -y install ncurses-devel wget | $(which tee) /var/log/smx-log/yum.log
+                      	      echo "" >> /var/log/smx-log/yum.log
+                      	      echo "#############################################" >> /var/log/smx-log/yum.log
+                      	      echo "" >> /var/log/smx-log/yum.log
                               update_spinner
                               sleep 1
                               update_spinner
@@ -10336,8 +10343,8 @@ function system_upd() {
                               sleep 1
                               update_spinner
                               sleep 1
-                  			  $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log
-                  		      cd /tmp
+                      	      $(which yum) -y update | $(which tee) /var/log/smx-log/yum.log
+                      	      cd /tmp
                               update_spinner
                               sleep 1
                               update_spinner
@@ -10353,8 +10360,8 @@ function system_upd() {
                               sleep 1
                               update_spinner
                               sleep 1
-                  			  $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
-                  		      cd $KRNLROOT/linux-$krnlMinor
+                      	      $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
+                      	      cd $KRNLROOT/linux-$krnlMinor
                               update_spinner
                               sleep 1
                               update_spinner
@@ -10362,8 +10369,8 @@ function system_upd() {
                               sleep 1
                               update_spinner
                               sleep 1
-                  			  $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_rhel.log
-                  		      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+                      	      $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+                      	      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
                               update_spinner
                               sleep 1
                               update_spinner
@@ -10371,8 +10378,8 @@ function system_upd() {
                               sleep 1
                               update_spinner
                               sleep 1
-                  			  $(which make) | $(which tee) /var/log/smx-log/kernel_build_rhel.log
-                  		      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+                      	      $(which make) | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+                      	      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
                               update_spinner
                               sleep 1
                               update_spinner
@@ -10380,98 +10387,98 @@ function system_upd() {
                               sleep 1
                               update_spinner
                               sleep 1
-            			      $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build_rhel.log
-                  		      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
-                  		      echo "######################################################################################################" >> /var/log/smx-log/success.log
-                  		      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-            			      echo "successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
-              			      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-              			      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-              			      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
-                  			  echo "" >> /var/log/smx-log/success.log
-                  		      echo "###################################################################################################" >> /var/log/smx-log/success.log
-                  		      echo "" >> /var/log/smx-log/success.log
+                		      $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+                      	      echo "" | $(which tee) /var/log/smx-log/kernel_build_rhel.log
+                      	      echo "######################################################################################################" >> /var/log/smx-log/success.log
+                      	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                		      echo "successfuly built new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+                  		      echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+                  		      echo "Command run: $(which make) | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+                  		      echo "Command run: $(which make) modules_install install | $(which tee) /var/log/smx-log/kernel_build.log" >> /var/log/smx-log/success.log
+                      	      echo "" >> /var/log/smx-log/success.log
+                      	      echo "###################################################################################################" >> /var/log/smx-log/success.log
+                      	      echo "" >> /var/log/smx-log/success.log
                               read -p "Press [enter] to continue..." ReadDamKey
                               clear
-            			      echo
-              			      cat /var/log/smx-log/success.log | tail -n 8
-              			      echo
-              			      read -p "Press [enter] to continue..." ReadDamKey
-                  			  if [ "$rebootSys" = "Y" ]; then
-                    			    echo "System will now reboot!!"
-                				    $(which reboot) -f --verbose; exit
+                		      echo
+                  		      cat /var/log/smx-log/success.log | tail -n 8
+                  		      echo
+                  		      read -p "Press [enter] to continue..." ReadDamKey
+                      	      if [ "$rebootSys" = "Y" ]; then
+                        		    echo "System will now reboot!!"
+                		            $(which reboot) -f --verbose; exit
 	                          else
-                        			echo "System will not reboot, reboot to use new kernel"
-                        		    read -p "Press [enter] to continue..." ReadDamKey
+                            	    echo "System will not reboot, reboot to use new kernel"
+                            	    read -p "Press [enter] to continue..." ReadDamKey
 			                  fi
                          else
                               clear
                               cat /proc/version | grep "Debian" > /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-                        		   echo "OS = Debian"
-                        		   echo "Kernel major version example: v3.x"
-                    			   echo "Kernel minor version example: 3.18.3"
-                				   KRNLNAME=`uname -r`
-                				   echo "Current running kernel: $KRNLNAME"
-                        		   echo "$(date)                                     $(whoami)@$(hostname)"
-                        		   echo "[TOP]                                            [Entry Fields]"
-                				   read -p " Enter kernel major version -------------------- > " krnlMajor
-                				   read -p " Enter kernel minor version -------------------- > " krnlMinor
-                				   echo "System concurrency level is the number of processor cores in the system + 1, example: 4 cores = concurrency level of 5" # Not required, but helps speed up compile of kernel
-                        		   read -p " Enter system concurrency level ---------------- > " conLevel
-                        		   printf " Enter kernel build root ---------------------- [/usr/src] >  "
-                				   if [ "$krnlRoot" = "" ]; then
-                				         KRNLROOT=""
-                      					 read krnlRoot
-                              			 KRNLROOT=$krnlRoot
-                        		   fi
+                            	   echo "OS = Debian"
+                            	   echo "Kernel major version example: v3.x"
+                        		   echo "Kernel minor version example: 3.18.3"
+                        		   KRNLNAME=`uname -r`
+                        		   echo "Current running kernel: $KRNLNAME"
+                            	   echo "$(date)                                     $(whoami)@$(hostname)"
+                            	   echo "[TOP]                                            [Entry Fields]"
+                        		   read -p " Enter kernel major version -------------------- > " krnlMajor
+                        		   read -p " Enter kernel minor version -------------------- > " krnlMinor
+                        		   echo "System concurrency level is the number of processor cores in the system + 1, example: 4 cores = concurrency level of 5" # Not required, but helps speed up compile of kernel
+                            	   read -p " Enter system concurrency level ---------------- > " conLevel
+                            	   printf " Enter kernel build root ---------------------- [/usr/src] >  "
                         		   if [ "$krnlRoot" = "" ]; then
-                				         KRNLROOT=""
+                        		         KRNLROOT=""
+                              			 read krnlRoot
+                              		     KRNLROOT=$krnlRoot
+                            	   fi
+                            	   if [ "$krnlRoot" = "" ]; then
+                		                 KRNLROOT=""
   			                             KRNLROOT=/usr/src
-                				   fi
-                        		   read -p " Reboot after completion ----------------- (Y/N) > " rebootSys
-                        		   clear
-                				   echo "          COMMAND STATUS               "
-                				   echo
-                				   echo "$(date)                                     $(whoami)@$(hostname)"
+                		           fi
+                            	   read -p " Reboot after completion ----------------- (Y/N) > " rebootSys
+                            	   clear
+                        		   echo "          COMMAND STATUS               "
                         		   echo
-                        		   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        		   echo "$(date)                                     $(whoami)@$(hostname)"
+                            	   echo
+                            	   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            	   echo
+                        		   echo "Before command completion, additional instructions may appear below"
                         		   echo
-                				   echo "Before command completion, additional instructions may appear below"
-                				   echo
-                				   echo "File                                 Fileset                 Type"
-                        		   echo "-----------------------------------------------------------------"
-                        		   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                				   echo "$(which wget)                        bos.sysmgt.wget         exec"
-                				   echo "$(which tar)                         bos.sysmgt.tar          exec"
-                				   echo "$(which sh)                          bos.sysmgt.sh           exec"
-                        		   echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
-                        		   echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
-                				   echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
-                				   echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                				   echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
-                        		   echo "Command run: cd /tmp"
-                        		   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-                				   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
-                				   echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
-                				   echo "Command run: cp /boot/config-`uname -r` $KRNLROOT/linux-$krnlMinor/.config"
-                        		   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
-                        		   echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
-                				   echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
-                				   echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
-                				   echo "Command run: cd $KRNLROOT"
-                        		   echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
-                        		   echo "Command run: $(which reboot) -f --verbose; exit"
-                    			   update_spinner
+                        		   echo "File                                 Fileset                 Type"
+                            	   echo "-----------------------------------------------------------------"
+                            	   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        		   echo "$(which wget)                        bos.sysmgt.wget         exec"
+                        		   echo "$(which tar)                         bos.sysmgt.tar          exec"
+                        		   echo "$(which sh)                          bos.sysmgt.sh           exec"
+                            	   echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
+                            	   echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
+                        		   echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
+                        		   echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+                        		   echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
+                            	   echo "Command run: cd /tmp"
+                            	   echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+                        		   echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
+                        		   echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
+                        		   echo "Command run: cp /boot/config-`uname -r` $KRNLROOT/linux-$krnlMinor/.config"
+                            	   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+                            	   echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+                        		   echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
+                        		   echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+                        		   echo "Command run: cd $KRNLROOT"
+                            	   echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
+                            	   echo "Command run: $(which reboot) -f --verbose; exit"
+                        		   update_spinner
                                    sleep 1
                                    update_spinner
                                    echo "Installing packages: fakeroot kernel-package, libncurses5-dev"
                                    sleep 1
                                    update_spinner
                                    sleep 1
-                        		   $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log
-                        		   cd /tmp
+                            	   $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log
+                            	   cd /tmp
                                    update_spinner
                                    sleep 1
                                    update_spinner
@@ -10487,8 +10494,8 @@ function system_upd() {
                                    sleep 1
                                    update_spinner
                                    sleep 1
-                        		   $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
-                        		   cd $KRNLROOT/linux-$krnlMinor
+                            	   $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
+                            	   cd $KRNLROOT/linux-$krnlMinor
                                    update_spinner
                                    sleep 1
                                    update_spinner
@@ -10504,8 +10511,8 @@ function system_upd() {
                                    sleep 1
                                    update_spinner
                                    sleep 1
-                				   $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                				   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		   $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
                                    update_spinner
                                    sleep 1
                                    update_spinner
@@ -10513,9 +10520,9 @@ function system_upd() {
                                    sleep 1
                                    update_spinner
                                    sleep 1
-                        		   $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                        		   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                    			   export CONCURRENCY_LEVEL=$conLevel
+                            	   $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                            	   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		   export CONCURRENCY_LEVEL=$conLevel
                                    update_spinner
                                    sleep 1
                                    update_spinner
@@ -10523,9 +10530,9 @@ function system_upd() {
                                    sleep 1
                                    update_spinner
                                    sleep 1
-                				   $(which fakeroot) make-kpkg --append-to-version "-customkernel" --revision "1" --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                				   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                				   cd $KRNLROOT
+                        		   $(which fakeroot) make-kpkg --append-to-version "-customkernel" --revision "1" --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		   echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		   cd $KRNLROOT
                                    update_spinner
                                    sleep 1
                                    update_spinner
@@ -10533,97 +10540,97 @@ function system_upd() {
                                    sleep 1
                                    update_spinner
                                    sleep 1
-                				   $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log
+                		           $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log
+                            	   echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
+                        		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		   echo "successfuly build new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+                        		   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+                            	   echo "Command run: $(which kpkg-make) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+                            	   echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+                        		   echo "" >> /var/log/smx-log/success.log
                         		   echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
-                    			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				   echo "successfuly build new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
-                				   echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
-                        		   echo "Command run: $(which kpkg-make) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
-                        		   echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
-                    			   echo "" >> /var/log/smx-log/success.log
-                				   echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
-                				   echo "" >> /var/log/smx-log/success.log
+                        		   echo "" >> /var/log/smx-log/success.log
                                    read -p "Press [enter] to continue..." ReadDamKey
-                        		   echo
-                        		   cat /var/log/smx-log/success.log | tail -n 8
+                            	   echo
+                            	   cat /var/log/smx-log/success.log | tail -n 8
                                    clear
-                    			   echo
-                				   read -p "Press [enter] to continue..." ReadDamKey
-                				   if [ "$rebootSys" = "Y" ]; then
-                        	   	    	 echo "System will now reboot!!"
-					                     $(which reboot) -f --verbose; exit
-				                   else
-				                         echo "System will not reboot, reboot to use new kernel"
-					                     read -p "Press [enter] to continue..." ReadDamKey
+                    		       echo
+                        		   read -p "Press [enter] to continue..." ReadDamKey
+                        		   if [ "$rebootSys" = "Y" ]; then
+                            	         echo "System will now reboot!!"
+    					                 $(which reboot) -f --verbose; exit
+            				       else
+                				         echo "System will not reboot, reboot to use new kernel"
+    					                 read -p "Press [enter] to continue..." ReadDamKey
 				                   fi
                               else
                                    clear
                                    cat /proc/version | grep "Ubuntu" > /dev/null
                                    if [ $? -eq 0 ]; then
                                         clear
-                              			echo "OS = Ubuntu"
-                              			echo "Kernel major version example: v3.x"
-                        				echo "Kernel minor version example: 3.18.3"
-                      					KRNLNAME=`uname -r`
-                      					echo "Current running kernel: $KRNLNAME"
-                      					echo "$(date)                                     $(whoami)@$(hostname)"
-                              			echo "[TOP]                                            [Entry Fields]"
-                              			read -p " Enter kernel major version -------------------- > " krnlMajor
-                        				read -p " Enter kernel minor version -------------------- > " krnlMinor
-                      					echo "System concurrency level is the number of processor cores in the system + 1, example: 5 cores = concurrency level of 6"
-                      					read -p " Enter system concurrency level ---------------- > " conLevel
-                      					printf " Enter kernel build root ---------------------- [/usr/src] >  "
-                              			if [ "$krnlRoot" = "" ]; then
-                              			      KRNLROOT=""
-                        				      read krnlRoot
-                      					      KRNLROOT=$krnlRoot
-                      					fi
-                      					if [ "$krnlRoot" = "" ]; then
-                              				  KRNLROOT=""
-                              			      KRNLROOT=/usr/src
+                                  		echo "OS = Ubuntu"
+                                  		echo "Kernel major version example: v3.x"
+                                		echo "Kernel minor version example: 3.18.3"
+                              			KRNLNAME=`uname -r`
+                              			echo "Current running kernel: $KRNLNAME"
+                              			echo "$(date)                                     $(whoami)@$(hostname)"
+                                  		echo "[TOP]                                            [Entry Fields]"
+                                  		read -p " Enter kernel major version -------------------- > " krnlMajor
+                                		read -p " Enter kernel minor version -------------------- > " krnlMinor
+                              			echo "System concurrency level is the number of processor cores in the system + 1, example: 5 cores = concurrency level of 6"
+                              			read -p " Enter system concurrency level ---------------- > " conLevel
+                              			printf " Enter kernel build root ---------------------- [/usr/src] >  "
+                                  		if [ "$krnlRoot" = "" ]; then
+                                  		      KRNLROOT=""
+                                		      read krnlRoot
+                              			      KRNLROOT=$krnlRoot
                               			fi
-                    					read -p " Reboot after completion ----------------- (Y/N) > " rebootSys
-                      					clear
-                      					echo "          COMMAND STATUS               "
-                      					echo
-                              		    echo "$(date)                                     $(whoami)@$(hostname)"
+                              			if [ "$krnlRoot" = "" ]; then
+                                  		      KRNLROOT=""
+                                  		      KRNLROOT=/usr/src
+                              		    fi
+                            			read -p " Reboot after completion ----------------- (Y/N) > " rebootSys
+                              			clear
+                              			echo "          COMMAND STATUS               "
                               			echo
-                        				echo "Command: RUNNING    stdout: yes    stderr: no     "
-                      					echo
-                      					echo "Before command completion, additional instructions may appear below"
-                      					echo
-                              		    echo "File                                 Fileset                 Type"
-                              			echo "-----------------------------------------------------------------"
-                        				echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                      					echo "$(which wget)                        bos.sysmgt.wget         exec"
-                      					echo "$(which tar)                         bos.sysmgt.tar          exec"
-                      					echo "$(which sh)                          bos.sysmgt.sh           exec"
-                              		    echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
-                              			echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
-                        				echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
-                      					echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                      					echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
-                      					echo "Command run: cd /tmp"
-                              			echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-                              			echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
-                        				echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
-                      					echo "Command run: cp /boot/config-`uname -r` $KRNLROOT/linux-$krnlMinor/.config"
-                      					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
-                      					echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
-                              			echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
-                              			echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
-                        				echo "Command run: cd $KRNLROOT"
-                      					echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
-                      					echo "Command run: $(which reboot) -f --verbose; exit"
-                      					update_spinner
+                                  		echo "$(date)                                     $(whoami)@$(hostname)"
+                                  		echo
+                                		echo "Command: RUNNING    stdout: yes    stderr: no     "
+                              			echo
+                              			echo "Before command completion, additional instructions may appear below"
+                              			echo
+                                  		echo "File                                 Fileset                 Type"
+                                  		echo "-----------------------------------------------------------------"
+                                		echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                              			echo "$(which wget)                        bos.sysmgt.wget         exec"
+                              			echo "$(which tar)                         bos.sysmgt.tar          exec"
+                              			echo "$(which sh)                          bos.sysmgt.sh           exec"
+                                  		echo "$(which make-kpkg)                   bos.sysmgt.make-kpkg    exec"
+                                  		echo "$(which fakeroot)                    bos.sysmgt.fakeroot     exec"
+                                		echo "$(which dpkg)                        bos.pkgmgt.dpkg         exec"
+                              			echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+                              			echo "Command run: $(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log"
+                              			echo "Command run: cd /tmp"
+                                  		echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+                                  		echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
+                                		echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
+                              			echo "Command run: cp /boot/config-`uname -r` $KRNLROOT/linux-$krnlMinor/.config"
+                              			echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+                              			echo "Command run: $(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+                                  		echo "Command run: export CONCURRENCY_LEVEL=$conLevel"
+                                  		echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log"
+                                		echo "Command run: cd $KRNLROOT"
+                              			echo "Command run: $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log"
+                              			echo "Command run: $(which reboot) -f --verbose; exit"
+                              			update_spinner
                                         sleep 1
                                         update_spinner
                                         echo "Installing packages: fakeroot, kernel-package libncurses5-dev"
                                         sleep 1
                                         update_spinner
                                         sleep 1
-                              			$(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log
-                              			cd /tmp
+                                  		$(which apt-get) install fakeroot kernel-package libncurses5-dev | $(which tee) /var/log/smx-log/apt-get.log
+                                  		cd /tmp
                                         update_spinner
                                         sleep 1
                                         update_spinner
@@ -10639,8 +10646,8 @@ function system_upd() {
                                         sleep 1
                                         update_spinner
                                         sleep 1
-                              			$(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
-                        				cd $KRNLROOT/linux-$krnlMinor
+                              		    $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
+                        		        cd $KRNLROOT/linux-$krnlMinor
                                         update_spinner
                                         sleep 1
                                         update_spinner
@@ -10656,8 +10663,8 @@ function system_upd() {
                                         sleep 1
                                         update_spinner
                                         sleep 1
-                              			$(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                        				echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                              		    $(which sh) -c 'yes "" | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		        echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
                                         update_spinner
                                         sleep 1
                                         update_spinner
@@ -10665,9 +10672,9 @@ function system_upd() {
                                         sleep 1
                                         update_spinner
                                         sleep 1
-                              			$(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                              			echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                        				export CONCURRENCY_LEVEL=$conLevel
+                                  		$(which make-kpkg) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                                  		echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		        export CONCURRENCY_LEVEL=$conLevel
                                         update_spinner
                                         sleep 1
                                         update_spinner
@@ -10675,9 +10682,9 @@ function system_upd() {
                                         sleep 1
                                         update_spinner
                                         sleep 1
-                              			$(which fakeroot) make-kpkg --append-to-version "-customkernel" --revision "1" --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                              			echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
-                        				cd $KRNLROOT
+                                  		$(which fakeroot) make-kpkg --append-to-version "-customkernel" --revision "1" --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                                  		echo "" | $(which tee) /var/log/smx-log/kernel_build_deb.log
+                        		        cd $KRNLROOT
                                         update_spinner
                                         sleep 1
                                         update_spinner
@@ -10685,93 +10692,93 @@ function system_upd() {
                                         sleep 1
                                         update_spinner
                                         sleep 1
-                    					$(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log
-                              			echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
-                        				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                      					echo "successfuly build new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
-                      					echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
-                      					echo "Command run: $(which kpkg-make) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
-                              			echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+                    			        $(which dpkg) -i *.deb | $(which tee) /var/log/smx-log/dpkg.log
+                              		    echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
+                                		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              			echo "successfuly build new kernel: linux-$krnlMinor" >> /var/log/smx-log/success.log
+                              			echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+                              			echo "Command run: $(which kpkg-make) clean | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+                                  		echo "Command run: $(which fakeroot) make-kpkg --append-to-version '-customkernel' --revision '1' --initrd kernel_image kernel_headers | $(which tee) /var/log/smx-log/kernel_build_deb.log" >> /var/log/smx-log/success.log
+                                  		echo "" >> /var/log/smx-log/success.log
+                                		echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
                               			echo "" >> /var/log/smx-log/success.log
-                        				echo "#####################################################################################################################################################################################" >> /var/log/smx-log/success.log
-                      					echo "" >> /var/log/smx-log/success.log
-                                        read -p "Press [enter] to conitnue..." ReadDamKey
+                                        read -p "Press [enter] to continue..." ReadDamKey
                                         clear
-                              			echo
-                              			cat /var/log/smx-log/success.log | tail -n 8
-                        				echo
-                      					read -p "Press [enter] to continue..." ReadDamKey
-                      					if [ "$rebootSys" = "Y" ]; then
-                      					      echo "System will now reboot!!"
-                              				  $(which reboot) -f --verbose; exit
-          					            else
-                              			      echo "System will not reboot, reboot to use new kernel"
-                        				      read -p "Press [enter] to continue..." ReadDamKey
+                                  		echo
+                                  		cat /var/log/smx-log/success.log | tail -n 8
+                                		echo
+                              			read -p "Press [enter] to continue..." ReadDamKey
+                              			if [ "$rebootSys" = "Y" ]; then
+                              			      echo "System will now reboot!!"
+                              		          $(which reboot) -f --verbose; exit
+          				                else
+                              		         echo "System will not reboot, reboot to use new kernel"
+                        		             read -p "Press [enter] to continue..." ReadDamKey
           			                    fi
                                    else
                                         clear
                                         cat /proc/version | grep "SUSE" > /dev/null
                                         if [ $? -eq 0 ]; then
                                              clear
-                              				 echo "OS = SuSE"
-                              			     echo "Kernel major version example: v3.x"
-                              			     echo "Kernel minor version example: 3.18.3"
-                    					     KRNLNAME=`uname -r`
-                      					     echo "Current running kernel: $KRNLNAME"
-                      					     echo "$(date)                                     $(whoami)@$(hostname)"
-                              				 echo "[TOP]                                            [Entry Fields]"
-                              			     read -p " Enter kernel major version ------------------ > " krnlMajor
-                              			     read -p " Enter kernel minor version ------------------ > " krnlMinor
-                    					     printf " Enter kernel build root ---------------------- [/usr/src] >  "
-                      					     if [ "$krnlRoot" = "" ]; then
-                        						   KRNLROOT=""
-                                    			   read krnlRoot
-                                    			   KRNLROOT=$krnlRoot
-                                		     fi
-                        				     if [ "$krnlRoot" = "" ]; then
-                        						   KRNLROOT=""
-                        						   KRNLROOT=/usr/src
-                              				 fi
-                              			     read -p " Reboot after completion --------------- (Y/N) > " rebootSys
-                              			     clear
-                    					     echo "         COMMAND STATUS               "
-                      					     echo
-                      					     echo "$(date)                                     $(whoami)@$(hostname)"
-                      					     echo
-                              				 echo "Command: RUNNING    stdout: yes    stderr: no   "
+                                  		     echo "OS = SuSE"
+                                  		     echo "Kernel major version example: v3.x"
+                                  		     echo "Kernel minor version example: 3.18.3"
+                            			     KRNLNAME=`uname -r`
+                              			     echo "Current running kernel: $KRNLNAME"
+                              			     echo "$(date)                                     $(whoami)@$(hostname)"
+                                  		     echo "[TOP]                                            [Entry Fields]"
+                                  		     read -p " Enter kernel major version ------------------ > " krnlMajor
+                                  		     read -p " Enter kernel minor version ------------------ > " krnlMinor
+                            			     printf " Enter kernel build root ---------------------- [/usr/src] >  "
+                              			     if [ "$krnlRoot" = "" ]; then
+                        			               KRNLROOT=""
+                                        		   read krnlRoot
+                                        		   KRNLROOT=$krnlRoot
+                                	         fi
+                        		             if [ "$krnlRoot" = "" ]; then
+                                    			   KRNLROOT=""
+                                    			   KRNLROOT=/usr/src
+                                  		     fi
+                                  		     read -p " Reboot after completion --------------- (Y/N) > " rebootSys
+                                  		     clear
+                            			     echo "         COMMAND STATUS               "
                               			     echo
-                              			     echo "Before command completion, additional instructions may appear below"
-                    					     echo
-                      					     echo "File                                 Fileset                 Type"
-                      					     echo "-----------------------------------------------------------------"
-                              				 echo "$(which zypper)                      bos.sysmgt.zypper       exec"
-                              			     echo "$(which wget)                        bos.sysmgt.wget         exec"
-                              			     echo "$(which tar)                         bos.sysmgt.tar          exec"
-                    					     echo "$(which make)                        bos.sysmgt.make         exec"
-                      					     echo "$(which sh)                          bos.sysmgt.sh           exec"
-                      					     echo "$(which rpm)                         bos.sysmgt.rpm          exec"
-                              				 echo "$(which mkinitrd)                    bos.sysmgt.mkinitrd     exec"
-                              			     echo "$(which reboot)                      bos.sysmgt.reboot       exec"
-                              			     echo "Command run: $(which zypper) in -y ncurses-devel make gcc | $(which tee) /var/log/smx-log/zypper.log"
-                    					     echo "Command run: cd /tmp"
-                      					     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
-                      					     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
-                              				 echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
-                              				 echo "Command run: $(which make) mrproper"
-                              			     echo "Command run: cp /boot/config-`uname -r` $KRNLROOT/linux-$krnlMinor/.config"
-                              			     echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_suse.log"
-                    					     echo "Command run: $(which make) rpm | $(which tee) /var/log/smx-log/kernel_build_suse.log"
-                      					     echo "Command run: $(which rpm) -ivh /usr/src/packages/RPMS/`uname -m`/kernel-$krnlMinor* | $(which tee) /var/log/smx-log/kernel_build_suse.log"
-                      					     echo "Command run: $(which reboot) -f --verbose; exit"
-                              				 update_spinner
-                              			     sleep 1
+                              			     echo "$(date)                                     $(whoami)@$(hostname)"
+                              			     echo
+                                  		     echo "Command: RUNNING    stdout: yes    stderr: no   "
+                                  		     echo
+                                  		     echo "Before command completion, additional instructions may appear below"
+                            			     echo
+                              			     echo "File                                 Fileset                 Type"
+                              			     echo "-----------------------------------------------------------------"
+                                  		     echo "$(which zypper)                      bos.sysmgt.zypper       exec"
+                                  		     echo "$(which wget)                        bos.sysmgt.wget         exec"
+                                  		     echo "$(which tar)                         bos.sysmgt.tar          exec"
+                            			     echo "$(which make)                        bos.sysmgt.make         exec"
+                              			     echo "$(which sh)                          bos.sysmgt.sh           exec"
+                              			     echo "$(which rpm)                         bos.sysmgt.rpm          exec"
+                                  		     echo "$(which mkinitrd)                    bos.sysmgt.mkinitrd     exec"
+                                  		     echo "$(which reboot)                      bos.sysmgt.reboot       exec"
+                                  		     echo "Command run: $(which zypper) in -y ncurses-devel make gcc | $(which tee) /var/log/smx-log/zypper.log"
+                            			     echo "Command run: cd /tmp"
+                              			     echo "Command run: $(which wget) https://www.kernel.org/pub/linux/kernel/$krnlMajor/linux-$krnlMinor.tar.gz"
+                              			     echo "Command run: $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT"
+                                  		     echo "Command run: cd $KRNLROOT/linux-$krnlMinor"
+                                  		     echo "Command run: $(which make) mrproper"
+                                  		     echo "Command run: cp /boot/config-`uname -r` $KRNLROOT/linux-$krnlMinor/.config"
+                                  		     echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_suse.log"
+                            			     echo "Command run: $(which make) rpm | $(which tee) /var/log/smx-log/kernel_build_suse.log"
+                              			     echo "Command run: $(which rpm) -ivh /usr/src/packages/RPMS/`uname -m`/kernel-$krnlMinor* | $(which tee) /var/log/smx-log/kernel_build_suse.log"
+                              			     echo "Command run: $(which reboot) -f --verbose; exit"
+                                  		     update_spinner
+                                  		     sleep 1
                                              update_spinner
                                              echo "Installing packages: ncurses-devel make gcc"
                                              sleep 1
                                              update_spinner
                                              sleep 1
-                              				 $(which zypper) in -y ncurses-devel make gcc | $(which tee) /var/log/smx-log/zypper.log
-                              			     cd /tmp
+                                  		     $(which zypper) in -y ncurses-devel make gcc | $(which tee) /var/log/smx-log/zypper.log
+                                  		     cd /tmp
                                              update_spinner
                                              sleep 1
                                              update_spinner
@@ -10787,8 +10794,8 @@ function system_upd() {
                                              sleep 1
                                              update_spinner
                                              sleep 1
-                              				 $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
-                              			     cd $KRNLROO/linux-$krnlMinor
+                                  		     $(which tar) -zxvf /tmp/linux-$krnlMinor.tar.gz -C $KRNLROOT
+                                  		     cd $KRNLROO/linux-$krnlMinor
                                              update_spinner
                                              sleep 1
                                              update_spinner
@@ -10820,10 +10827,10 @@ function system_upd() {
                                              sleep 1
                                              update_spinner
                                              sleep 1
-                     					     $(which rpm) -ivh /usr/src/packages/RPMS/`uname -m`/kernel-$krnlMinor* | $(which tee) /var/log/smx-log/kernel_build_suse.log
+                     			             $(which rpm) -ivh /usr/src/packages/RPMS/`uname -m`/kernel-$krnlMinor* | $(which tee) /var/log/smx-log/kernel_build_suse.log
                                              echo "###########################################################################################################" >> /var/log/smx-log/success.log
                                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                             echo "Successfully built new kernel: kernel-$krnlMinor" >> /var/log/smx-log/success.log
+                                             echo "Successfuly built new kernel: kernel-$krnlMinor" >> /var/log/smx-log/success.log
                                              echo "Command run: $(which sh) -c 'yes '' | make oldconfig' | $(which tee) /var/log/smx-log/kernel_build_suse.log" >> /var/log/smx-log/success.log
                                              echo "Command run: $(which make) rpm | $(which tee) /var/log/smx-log/kernel_build_suse.log" >> /var/log/smx-log/success.log
                                              echo "" >> /var/log/smx-log/success.log
@@ -10835,11 +10842,11 @@ function system_upd() {
                                              cat /var/log/smx-log/success.log | tail -n 7
                                              echo
 					                         if [ "$rebootSys" = "Y" ]; then
-                                				   echo "System will now reboot!!"
-                        						   $(which reboot) -f --verbose; exit
+                                		           echo "System will now reboot!!"
+                        			               $(which reboot) -f --verbose; exit
 		                                     else
-                                    			   echo "System will not reboot, reboot to use new kernel"
-                                    			   read -p "Press [enter] to continue..." ReadDamKey
+                                        		   echo "System will not reboot, reboot to use new kernel"
+                                        		   read -p "Press [enter] to continue..." ReadDamKey
 					                         fi
                                         fi
                                    fi
@@ -11502,8 +11509,8 @@ function usr_menuosx() {
 			              echo "##########################################################" >> /var/log/smx-log/fail.log
                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not changed user: $userName password, check command syntax" >> /var/log/smx-log/fail.log
-                  		  echo "Command run: $(which passwd) $userName" >> /var/log/smx-log/fail.log
-                  		  echo "" >> /var/log/smx-log/fail.log
+                      	  echo "Command run: $(which passwd) $userName" >> /var/log/smx-log/fail.log
+                      	  echo "" >> /var/log/smx-log/fail.log
                           echo "##########################################################" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           read -p "Press [enter] to continue..." ReadDamKey
@@ -11670,7 +11677,6 @@ function usr_menuosx() {
                       	   echo
                            read -p "Press [enter] to continue..." ReadDamKey
                       else
-
 			               echo "#########################################################" >> /var/log/smx-log/fail.log
                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                            echo "Not disabled user: $userName, check command syntax" >> /var/log/smx-log/fail.log
@@ -11808,9 +11814,9 @@ function usr_menuosx() {
                       	  echo
                           read -p "Press [enter] to continue..." ReadDamKey
                      else
-                  		  echo "#############################################################" >> /var/log/smx-log/fail.log
-                  		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                  		  echo "Not removed user: $userName from system, check command syntax" >> /var/log/smx-log/fail.log
+                      	  echo "#############################################################" >> /var/log/smx-log/fail.log
+                      	  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	  echo "Not removed user: $userName from system, check command syntax" >> /var/log/smx-log/fail.log
                           echo "Command run: $(which dscl) . -delete /Users/$userName" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
                           echo "#############################################################" >> /var/log/smx-log/fail.log
@@ -12146,8 +12152,8 @@ function grp_menuosx() {
                     sleep 1
                     $(which dscl) . -create /Groups/$grpName gid $GROUP_ID
                     if [ $? -eq 0 ]; then
-                  		 echo "#####################################################################" >> /var/log/smx-log/success.log
-                  		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	 echo "#####################################################################" >> /var/log/smx-log/success.log
+                      	 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                          echo "successfuly changed gid of group: $grpName, gid now set to: $GROUP_ID" >> /var/log/smx-log/success.log
                          echo "Command run: $(which dscl) . -create /Groups/$grpName gid $GROUP_ID" >> /var/log/smx-log/success.log
                          echo "" >> /var/log/smx-log/success.log
@@ -12223,8 +12229,8 @@ function grp_menuosx() {
                       	   echo
                            read -p "Press [enter] to continue..." ReadDamKey
                       else
-                  		   echo "#############################################################################" >> /var/log/smx-log/fail.log
-                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	   echo "#############################################################################" >> /var/log/smx-log/fail.log
+                      	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                            echo "Not changed real name of group: $grpName check command syntax" >> /var/log/smx-log/fail.log
                            echo "Command run: $(which dscl) . -create /Groups/$grpName RealName "$grprealName"" >> /var/log/smx-log/fail.log
                            echo "" >> /var/log/smx-log/fail.log
@@ -12354,8 +12360,8 @@ function grp_menuosx() {
                           sleep 1
                           $(which dscl) . -create /Users/$userName PrimaryGroupID $USER_GROUP
                           if [ $? -eq 0 ]; then
-                  			   echo "################################################################################" >> /var/log/smx-log/success.log
-                  		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	       echo "################################################################################" >> /var/log/smx-log/success.log
+                      	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "successfuly set primary group of user: $userName" >> /var/log/smx-log/success.log
                                echo "Command run: $(which dscl) . -create /Users/$userName PrimaryGroupID $USER_GROUP" >> /var/log/smx-log/success.log
                                echo "" >> /var/log/smx-log/success.log
@@ -12464,7 +12470,7 @@ function grp_menuosx() {
                     echo "$(which cat)                         bos.sysmgt.cat          exec"
                     echo "Command run: $(which cat) /etc/group | $(which grep) $grpName | $(which tee) /var/log/smx-log/group-osx.log"
                     sleep 2
-            		clear
+            	    clear
             	    $(which cat) /etc/group | $(which grep) $grpName | $(which tee) /var/log/smx-log/group-osx.log
                     if [ $PIPESTATUS -eq 0 ]; then
 			             echo "###############################################################################################################" >> /var/log/smx-log/success.log
@@ -12594,8 +12600,8 @@ function grp_menuosx() {
                       	     echo
                              read -p "Press [enter] to continue..." ReadDamKey
                         else
-                  		     echo "####################################################################################################" >> /var/log/smx-log/fail.log
-                  		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	     echo "####################################################################################################" >> /var/log/smx-log/fail.log
+                      	     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                              echo "Not displayed information for group: $grpName, check command syntax" >> /var/log/smx-log/fail.log
                              echo "Command run: $(which dscl) . -read /Groups/$grpName | $(which tee) /var/log/smx-log/dscl-osx.log" >> /var/log/smx-log/fail.log
                              echo "" >> /var/log/smx-log/fail.log
@@ -12951,8 +12957,8 @@ function dsk_menuosx() {
                         read -p "Press [enter] to continue..." ReadDamKey
                    else
 		                echo "########################################################################################" >> /var/log/smx-log/fail.log
-               			echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-              			echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
+                   		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                  		echo "Not displayed filesystem information for disk: $DISK_NAME, check command syntax" >> /var/log/smx-log/fail.log
                         echo "Command run: $(which fstyp) $DISK_NAME | $(which tee) /var/log/smx-log/fstyp-osx.log" >> /var/log/smx-log/fail.log
                         echo "" >> /var/log/smx-log/fail.log
                         echo "########################################################################################" >> /var/log/smx-log/fail.log
@@ -13117,8 +13123,8 @@ function dsk_menuosx() {
                           sleep 1
                           $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log
                           if [ $PIPESTATUS -eq 0 ]; then
-                  		       echo "########################################################################################" >> /var/log/smx-log/success.log
-                  		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	       echo "########################################################################################" >> /var/log/smx-log/success.log
+                      	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "successfuly displayed information for disk: $DISK_NAME" >> /var/log/smx-log/success.log
                                echo "Command run: $(which df) -a -h $DISK_NAME | $(which tee) /var/log/smx-log/df-osx.log" >> /var/log/smx-log/success.log
                                echo "" >> /var/log/smx-log/success.log
@@ -13365,8 +13371,8 @@ function dsk_menuosx() {
                       	  echo
                           read -p "Press [enter] to continue..." ReadDamKey
                      else
-			              echo "###################################################################" >> /var/log/smx-log/fail.log
-                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+            			  echo "###################################################################" >> /var/log/smx-log/fail.log
+            			  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not renamed disk: $diskName, check command syntax" >> /var/log/smx-log/fail.log
                           echo "Command run: $(which diskutil) rename /Volumes/$diskName $diskLabel" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -13587,7 +13593,6 @@ function dsk_menuosx() {
                    $(which newfs_$FSYS_NAME) $DISK_NAME
                    if [ $? -eq 0 ]; then
     		            echo "#############################################################" >> /var/log/smx-log/success.log
-                        echo "" >> /var/log/smx-log/success.log
                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                         echo "successfuly created $FSYS_NAME filesystem on disk: $DISK_NAME" >> /var/log/smx-log/success.log
                         echo "Command run: $(which newfs_$FSYS_NAME) $DISK_NAME" >> /var/log/smx-log/success.log
@@ -13878,8 +13883,8 @@ function sys_menuosx() {
 		              clear
                       $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps-osx.log
                       if [ $PIPESTATUS -eq 0 ]; then
-                  		   echo "########################################################################################################" >> /var/log/smx-log/success.log
-            			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	   echo "########################################################################################################" >> /var/log/smx-log/success.log
+                		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                            echo "successfuly displayed process: $procName" >> /var/log/smx-log/success.log
                            echo "Command run: $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps-osx.log" >> /var/log/smx-log/success.log
                            echo "" >> /var/log/smx-log/success.log
@@ -13892,8 +13897,8 @@ function sys_menuosx() {
                       	   echo
                            read -p "Press [enter] to continue..." ReadDamKey
                       else
-              			   echo "########################################################################################################" >> /var/log/smx-log/fail.log
-              			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                  		   echo "########################################################################################################" >> /var/log/smx-log/fail.log
+                  		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                            echo "Not displayed process: $procName, check command syntax" >> /var/log/smx-log/fail.log
                            echo "Command run: $(which ps) auxwww | $(which grep) $procName | $(which tee) /var/log/smx-log/ps-osx.log" >> /var/log/smx-log/fail.log
                            echo "" >> /var/log/smx-log/fail.log
@@ -13925,8 +13930,8 @@ function sys_menuosx() {
                             sleep 2
                             $(which kill) -9 `$(which ps) -ef | $(which grep) $procName | $(which grep) -v $(which grep) | $(which awk) '{print $2}'`
                             if [ $PIPESTATUS -eq 0 ]; then
-                        		 echo "#############################################################################################################################" >> /var/log/smx-log/success.log
-                        		 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            	 echo "#############################################################################################################################" >> /var/log/smx-log/success.log
+                            	 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                  echo "successfuly killed process: $procName" >> /var/log/smx-log/success.log
                                  echo "Command run: $(which kill) -9 `$(which ps) -ef | $(which grep) $procName | $(which grep) -v $(which grep) | $(which awk) '{print $2}'`" >> /var/log/smx-log/success.log
                                  echo "" >> /var/log/smx-log/success.log
@@ -14004,7 +14009,7 @@ function sys_menuosx() {
                          read -p "Press [enter] to continue..." ReadDamKey
                     fi
                     ;;
-	        vmstatus)
+	    vmstatus)
                        clear
               	       echo "          COMMAND STATUS         "
               	       echo "$(date)                                     $(whoami)@$(hostname)"
@@ -14020,8 +14025,8 @@ function sys_menuosx() {
               	       sleep 2
               	       $(which vm_stat) 2 6 | $(which tee) /var/log/smx-log/vm_statosx.log
               	       if [ $PIPESTATUS -eq 0 ]; then
-                  		    echo "####################################################################################" >> /var/log/smx-log/success.log
-                  		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	    echo "####################################################################################" >> /var/log/smx-log/success.log
+                      	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                       	    echo "successfuly displayed virtual memory status" >> /var/log/smx-log/success.log
                       	    echo "Command run: $(which vm_stat) 2 6 | $(which tee) /var/log/smx-log/vm_statosx.log" >> /var/log/smx-log/success.log
                       	    echo "" >> /var/log/smx-log/success.log
@@ -14179,9 +14184,9 @@ function sys_menuosx() {
                      clear
                      $(which dmesg) | $(which tee) /var/log/smx-log/dmesg-osx.log
                      if [ $PIPESTATUS -eq 0 ]; then
-                  		  echo "#############################################################################" >> /var/log/smx-log/success.log
-                  		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                  		  echo "successfuly displayed boot messages" >> /var/log/smx-log/success.log
+                      	  echo "#############################################################################" >> /var/log/smx-log/success.log
+                      	  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	  echo "successfuly displayed boot messages" >> /var/log/smx-log/success.log
                           echo "Command run: $(which dmesg) | $(which tee) /var/log/smx-log/dmesg-osx.log" >> /var/log/smx-log/success.log
                           echo "" >> /var/log/smx-log/success.log
                           echo "#############################################################################" >> /var/log/smx-log/success.log
@@ -14193,8 +14198,8 @@ function sys_menuosx() {
                           echo
                           read -p "Press [enter] to continue..." ReadDamKey
            	         else
-            			  echo "#############################################################################" >> /var/log/smx-log/fail.log
-              			  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                		  echo "#############################################################################" >> /var/log/smx-log/fail.log
+                  		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                           echo "Not displayed boot message, check command syntax" >> /var/log/smx-log/fail.log
                           echo "Command run: $(which dmesg) | $(which tee) /var/log/smx-log/dmesg-osx.log" >> /var/log/smx-log/fail.log
                           echo "" >> /var/log/smx-log/fail.log
@@ -14270,8 +14275,8 @@ function sys_menuosx() {
 			                 clear
                              $(which ssh) -t $remUser@$remSys '$SMX_PATH --main-menu'
                              if [ $? -eq 0 ]; then
-                    			  echo "#######################################################################" >> /var/log/smx-log/success.log
-                				  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    		      echo "#######################################################################" >> /var/log/smx-log/success.log
+                		          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                   echo "successfuly run sysExec from: $SMX_PATH --main-menu" >> /var/log/smx-log/success.log
                                   echo "Command run: $(which ssh) -t $remUser@$remSys $SMX_PATH --main-menu" >> /var/log/smx-log/success.log
                                   echo "" >> /var/log/smx-log/success.log
@@ -14284,8 +14289,8 @@ function sys_menuosx() {
                               	  echo
                                   read -p "Press [enter] to continue..." ReadDamKey
                              else
-                        		  echo "################################################################################################################" >> /var/log/smx-log/fail.log
-                        		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            	  echo "################################################################################################################" >> /var/log/smx-log/fail.log
+                            	  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                   echo "Not run sysExec from path: $SMX_PATH --main-menu, check command syntax, network connection and system status" >> /var/log/smx-log/fail.log
                                   echo "Command run: $(which ssh) -t $remUser@$remSys $SMX_PATH --main-menu" >> /var/log/smx-log/fail.log
                                   echo "" >> /var/log/smx-log/fail.log
@@ -14331,8 +14336,8 @@ function sys_menuosx() {
                            echo "$(which zip)                          bos.sysmgt.zip          exec"
 			               echo "$(which rm) -rf                       bos.sysmgt.rm           exec"
                            echo "Command run: $(which pax) -w >$bakName $fileBak | $(which zip) $bakName.zip $bakName"
-                  	       echo "Command run: $(which rm) -rf $bakName"
-                  		   update_spinner
+                      	   echo "Command run: $(which rm) -rf $bakName"
+                      	   update_spinner
                            sleep 1
                            update_spinner
                            sleep 1
@@ -14525,8 +14530,8 @@ function sys_menuosx() {
                               	  echo
                                   read -p "Press [enter] to continue..." ReadDamKey
                              else
-                        		  echo "###########################################################################################" >> /var/log/smx-log/fail.log
-                        		  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            	  echo "###########################################################################################" >> /var/log/smx-log/fail.log
+                            	  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                   echo "Not scanned ip address: $IP_ADDR, check command syntax" >> /var/log/smx-log/fail.log
                                   echo "Command run: $(which nmap) -A -T4 $IP_ADDR | $(which tee) /var/log/smx-log/nmap-osx.log" >> /var/log/smx-log/fail.log
                                   echo "" >> /var/log/smx-log/fail.log
@@ -14609,8 +14614,8 @@ function sys_menuosx() {
                       	       echo
                                read -p "Press [enter] to continue..." ReadDamKey
                           else
-                  		       echo "#########################################################################################" >> /var/log/smx-log/fail.log
-                  		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                      	       echo "#########################################################################################" >> /var/log/smx-log/fail.log
+                      	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                echo "Not scanned ip address: $IP_RANGE, check command syntax" >> /var/log/smx-log/fail.log
                                echo "Command run: $(which nmap) -Sp $IP_RANGE | $(which tee) /var/log/smx-log/nmap-osx.log" >> /var/log/smx-log/fail.log
                                echo "" >> /var/log/smx-log/fail.log
@@ -14661,7 +14666,7 @@ function sys_menuosx() {
             exit-mas)
                        clear
             	       echo "#################################" >> /var/log/smx-log/exit.log
-        		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
+        	           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                        echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
                        echo "" >> /var/log/smx-log/exit.log
                        echo "#################################" >> /var/log/smx-log/exit.log
@@ -14750,8 +14755,8 @@ function pkg_menuosx() {
                           sleep 1
                           $(which hdiutil) mount "$binPath"
                           if [ $? -eq 0 ]; then
-                  			   echo "############################################" >> /var/log/smx-log/success.log
-                  			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	       echo "############################################" >> /var/log/smx-log/success.log
+                      	       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                echo "successfuly mounted disk: $binPath" >> /var/log/smx-log/success.log
                                echo "Command run: $(which hdiutil) mount $binPath" >> /var/log/smx-log/success.log
                                echo "" >> /var/log/smx-log/success.log
@@ -15101,8 +15106,8 @@ function ip_menuosx() {
                         echo "[TOP]                                    [Entry Fields]"    
                         read -p " Enter new ip address ---------------- > " ipAddr
                         read -p " Enter system netmask ---------------- > " netMask
-                  		read -p " Enter default gateway --------------- > " defGway
-            			read -p " Enter new connection name ----------- > " conName
+                      	read -p " Enter default gateway --------------- > " defGway
+                		read -p " Enter new connection name ----------- > " conName
                         clear
                         echo "         COMMAND STATUS                   "
                         echo
@@ -15395,8 +15400,8 @@ function ip_menuosx() {
                    ;;
             exit-mas)
                        clear
-		               echo "#################################" >> /var/log/smx-log/exit.log
-                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
+        		       echo "#################################" >> /var/log/smx-log/exit.log
+        		       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                        echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
                        echo "" >> /var/log/smx-log/exit.log
                        echo "#################################" >> /var/log/smx-log/exit.log
@@ -15461,8 +15466,8 @@ function passwd_menu() {
                        sleep 1
                        $(which passwd) $userName
                        if [ $? -eq 0 ]; then
-                  			echo "###############################################" >> /var/log/smx-log/success.log
-                  		    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                      	    echo "###############################################" >> /var/log/smx-log/success.log
+                      	    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             echo "successfuly changed password of user: $userName" >> /var/log/smx-log/success.log
                             echo "Command run: $(which passwd) $userName" >> /var/log/smx-log/success.log
                             echo "" >> /var/log/smx-log/success.log
@@ -16001,8 +16006,8 @@ function passwd_menu() {
                    read -p "Press [enter] to continue..." ReadDamKey
                    ;;           
             exit)
-    		       clear
-    		       echo "##########################################################" >> /var/log/smx-log/exit.log
+        		   clear
+        		   echo "##########################################################" >> /var/log/smx-log/exit.log
                    echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                    echo "successfuly terminated $(basename $0)/usr_menu#passwd_menu" >> /var/log/smx-log/exit.log
                    echo "" >> /var/log/smx-log/exit.log
@@ -16011,7 +16016,7 @@ function passwd_menu() {
                    usr_menu
                    ;;
             exit-mas)
-            		   clear
+            	       clear
             	       echo "#################################" >> /var/log/smx-log/exit.log
                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                        echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
@@ -16135,15 +16140,26 @@ function srv_menu() {
                   ;;
 	        snmp)
 		           clear
-        		   echo "##############################################" >> /var/log/smx-log/success.log
-        		   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-        		   echo "Entering snmp_menu" >> /var/log/smx-log/success.log
-        		   echo "Command run: $(basename $0)/srv_menu/snmp_menu" >> /var/log/smx-log/success.log
-        		   echo "" >> /var/log/smx-log/success.log
-        		   echo "##############################################" >> /var/log/smx-log/success.log
-        		   echo "" >> /var/log/smx-log/success.log
-        		   snmp_menu
-        		   ;;
+            	   echo "##############################################" >> /var/log/smx-log/success.log
+            	   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+            	   echo "Entering snmp_menu" >> /var/log/smx-log/success.log
+            	   echo "Command run: $(basename $0)/srv_menu/snmp_menu" >> /var/log/smx-log/success.log
+            	   echo "" >> /var/log/smx-log/success.log
+            	   echo "##############################################" >> /var/log/smx-log/success.log
+            	   echo "" >> /var/log/smx-log/success.log
+            	   snmp_menu
+            	   ;;
+            dns)
+                  clear
+                  echo "###############################################" >> /var/log/smx-log/success.log
+                  echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                  echo "Entering dns_menu" >> /var/log/smx-log/success.log
+                  echo "Command run: $(basename $0)/srv_menu/dns_menu" >> /var/log/smx-log/success.log
+                  echo "" >> /var/log/smx-log/success.log
+                  echo "###############################################" >>/var/log/smx-log/success.log
+                  echo "" >> /var/log/smx-log/success.log
+                  dns_menu
+                  ;;
             help)
                    echo "apache > Apache server management"
                    echo "nfs > NFS server management"
@@ -16154,6 +16170,7 @@ function srv_menu() {
                    echo "ssh > SSH server management"
                    echo "vnc > VNC server management"
                    echo "snmp > SNMP server management"
+                   echo "dns > DNS server management"
                    echo "help > This menu"
                    echo "exit > Exit back to main menu"
                    echo "exit-mas > Exit back to shell"
@@ -16210,23 +16227,23 @@ function apache_menu(){
         case "$choice_www" in
 	        install)
 		              clear
-        		      cat /proc/version | grep "Red Hat" > /dev/null
-        		      if [ $? -eq 0 ]; then
-            			   clear
-            			   echo "OS = Red Hat"
+            	      cat /proc/version | grep "Red Hat" > /dev/null
+            	      if [ $? -eq 0 ]; then
+                		   clear
+                		   echo "OS = Red Hat"
                            echo "$(date)                                                                  $(whoami)@$(hostname)"
                            echo "[TOP]                                                                                                          [Entry Fields]"
                            printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
 			               if [ "$netIntf" = "" ]; then
                                  NETINTF=""
-                				 read netIntf
-                				 NETINTF=$NETINTF
-            			   fi
-            			   if [ "$netIntf" = "" ]; then
+                        		 read netIntf
+                        		 NETINTF=$NETINTF
+                		   fi
+                		   if [ "$netIntf" = "" ]; then
                                  NETINTF=""
 				                 NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
-            			   fi            
-            			   printf " Enter admin email address [root@localhost] ----------------------------------------------------------------- > "
+                		   fi            
+                		   printf " Enter admin email address [root@localhost] ----------------------------------------------------------------- > "
                            if [ "$adminEmail" = "" ]; then
                                  ADMIN_EMAIL=""
                                  read adminEmail
@@ -16286,32 +16303,32 @@ function apache_menu(){
                            $(which yum) -y install httpd | $(which tee) /var/log/smx-log/yum.log
                            if [ $PIPESTATUS -eq 0 ]; then
                                 echo "######################################################################################" >> /var/log/smx-log/success.log
-                				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
-                				echo "Command run: $(which yum) -y install httpd | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
-                				echo "" >> /var/log/smx-log/success.log
-                				echo "######################################################################################" >> /var/log/smx-log/success.log
-                				echo "" >> /var/log/smx-log/success.log
-                				read -p "Press [enter] to continue..." ReadDamKey
+                        		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
+                        		echo "Command run: $(which yum) -y install httpd | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                        		echo "" >> /var/log/smx-log/success.log
+                        		echo "######################################################################################" >> /var/log/smx-log/success.log
+                        		echo "" >> /var/log/smx-log/success.log
+                        		read -p "Press [enter] to continue..." ReadDamKey
                                 clear
-                				echo
-                				cat /var/log/smx-log/success.log | tail -n 7
-                				echo
-                				read -p "Press [enter] to continue..." ReadDamKey
+                        		echo
+                        		cat /var/log/smx-log/success.log | tail -n 7
+                        		echo
+                        		read -p "Press [enter] to continue..." ReadDamKey
                            else
 			                    echo "######################################################################################" >> /var/log/smx-log/success.log
-                				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                				echo "Not installed apache on system: $(hostname), check command syntax" >> /var/log/smx-log/success.log
-                				echo "Command run: $(which yum) -y install httpd | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
-                				echo "" >> /var/log/smx-log/fail.log
-                				echo "######################################################################################" >> /var/log/smx-log/success.log
-                				echo "" >> /var/log/smx-log/fail.log
-                				read -p "Press [enter] to continue..." ReadDamKey
+                        		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		echo "Not installed apache on system: $(hostname), check command syntax" >> /var/log/smx-log/success.log
+                        		echo "Command run: $(which yum) -y install httpd | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                        		echo "" >> /var/log/smx-log/fail.log
+                        		echo "######################################################################################" >> /var/log/smx-log/success.log
+                        		echo "" >> /var/log/smx-log/fail.log
+                        		read -p "Press [enter] to continue..." ReadDamKey
                                 clear
-                				echo
-                				cat /var/log/smx-log/fail.log | tail -n 7
-                				echo
-                				read -p "Press [enter] to continue..." ReadDamKey
+                        		echo
+                        		cat /var/log/smx-log/fail.log | tail -n 7
+                        		echo
+                        		read -p "Press [enter] to continue..." ReadDamKey
                                 exit 1
                            fi
                            $(which rm) -rf /etc/httpd/conf.d/welcome.conf
@@ -16545,7 +16562,7 @@ function apache_menu(){
                                  read -p "Press [enter] to continue..." ReadDamKey
 			               else
                                  echo "Perl will not be installed on this system..."
-								 read -p "Press [enter] to continue..." ReadDamKey
+				                 read -p "Press [enter] to continue..." ReadDamKey
                            fi
                            if [ "$ansPhp" = "Y" ]; then
 			                     clear
@@ -16578,8 +16595,8 @@ function apache_menu(){
                                  update_spinner
                                  sleep 1
                             	 $(which yum) -y install php php-mbstring php-pear | $(which tee) /var/log/smx-log/yum.log
-                				 if [ $PIPESTATUS -eq 0 ]; then
-                				      echo "##########################################################################################################" >> /var/log/smx-log/success.log
+                        		 if [ $PIPESTATUS -eq 0 ]; then
+                        		      echo "##########################################################################################################" >> /var/log/smx-log/success.log
                             	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             	      echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
                             	      echo "Command run: $(which yum) -y install php php-mbstring php-pear | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
@@ -16592,8 +16609,8 @@ function apache_menu(){
                             	      cat /var/log/smx-log/success.log | tail -n 7
                             	      echo
                             	      read -p "Press [enter] to continue..." ReadDamKey
-                				 else
-                				      echo "##########################################################################################################" >> /var/log/smx-log/fail.log
+                        		 else
+                        		      echo "##########################################################################################################" >> /var/log/smx-log/fail.log
                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                       echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
                                       echo "Command run: $(which yum) -y install php php-mbstring php-pear | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
@@ -16796,8 +16813,8 @@ function apache_menu(){
                                  sleep 1
                                  $(which yum) -y install mod_ssl | $(which tee) /var/log/smx-log/yum.log
                                  if [ $PIPESTATUS -eq 0 ]; then
-				                      echo "########################################################################################" >> /var/log/smx-log/success.log
-                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                				      echo "########################################################################################" >> /var/log/smx-log/success.log
+                				      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                       echo "successfuly installed ssl on system: $(hostname)" >> /var/log/smx-log/success.log
 				                      echo "Command run: $(which yum) -y install mod_ssl | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
                                       echo "" >> /var/log/smx-log/success.log
@@ -16810,8 +16827,8 @@ function apache_menu(){
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
                                  else
-                				      echo "########################################################################################" >> /var/log/smx-log/fail.log
-                				      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		      echo "########################################################################################" >> /var/log/smx-log/fail.log
+                        		      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                       echo "Not installed ssl on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
                                       echo "Command run: $(which yum) -y install mod_ssl | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
                                       echo "" >> /var/log/smx-log/fail.log
@@ -16915,1711 +16932,1711 @@ function apache_menu(){
                                  read -p "Press [enter] to continue..." ReadDamKey
                            fi
 		              else
-            			   clear
-            			   cat /proc/version | grep "Debian" > /dev/null
-            			   if [ $? -eq 0 ]; then
-            			        clear
-                				echo "OS = Debian"
-                				echo "$(date)                                     $(whoami)@$(hostname)"
-                				echo "[TOP]                                                                                                        [Entry Fields]"
-                			        printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] ---------------------- > "
-                				if [ "$netIntf" = "" ]; then
-                				      NETINTF=""
-                				      read netIntf
-                				      NETINTF=$NETINTF
-                				fi
-                				if [ "$netIntf" = "" ]; then
-                				      NETINTF=""
-                				      NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
-                				fi          
-                				printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] ------------ > "
-                				if [ "$ipAddr" = "" ]; then
+                		   clear
+                		   cat /proc/version | grep "Debian" > /dev/null
+                		   if [ $? -eq 0 ]; then
+                		        clear
+                        		echo "OS = Debian"
+                        		echo "$(date)                                     $(whoami)@$(hostname)"
+                        		echo "[TOP]                                                                                                        [Entry Fields]"
+                        		printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] ---------------------- > "
+                        		if [ "$netIntf" = "" ]; then
+                        		      NETINTF=""
+                        		      read netIntf
+                        		      NETINTF=$NETINTF
+                        		fi
+                        		if [ "$netIntf" = "" ]; then
+                        		      NETINTF=""
+                        		      NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
+                        		fi          
+                        		printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] ------------ > "
+                        		if [ "$ipAddr" = "" ]; then
+				                      IP_ADDR=""
+                        		      read ipAddr
+                        		      IP_ADDR=$ipAddr
+                        		fi
+                        		if [ "$ipAddr" = "" ]; then
                                       IP_ADDR=""
-                				      read ipAddr
-                				      IP_ADDR=$ipAddr
-                				fi
-                				if [ "$ipAddr" = "" ]; then
-                                                      IP_ADDR=""
-                				      IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
-                				fi          
-                				printf " Enter admin email [root@localhost] ----------------------------------------------------------------------- > "
-                				if [ "$adminEmail" = "" ]; then
-                                      ADMIN_EMAIL=""
-                				      read adminEmail
-                				      ADMIN_EMAIL=$adminEmail
-                				fi
-                				if [ "$adminEmail" = "" ]; then
-                                      ADMIN_EMAIL=""
-                				      ADMIN_EMAIL=root@localhost
-                				fi        
-                				read -p " Use Perl ------------------------------------------------------------------------------------------ (Y/N) > " ansPerl
-                				read -p " Use PHP ------------------------------------------------------------------------------------------- (Y/N) > " ansPhp
-                				read -p " Use SSL ------------------------------------------------------------------------------------------- (Y/N) > " ansSsl
-                				clear
-                				echo "        COMMAND STATUS         "
-                				echo
-                				echo "$(date)                                     $(whoami)@$(hostname)"
-                				echo
-                				echo "Command: RUNNING    stdout: yes    stderr: no     "
-                				echo
-                				echo "Before command completion, additional instructions may appear below"
-                				echo
-                				echo "File                                 Fileset                 Type"
-                				echo "-----------------------------------------------------------------"
-                				echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                				echo "$(which sed)                         bos.sysmgt.sed          exec"
-                				echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                				echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log"
-                				echo "Command run: /etc/init.d/apache2 start"
+                		              IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
+                        		fi          
+                        		printf " Enter admin email [root@localhost] ----------------------------------------------------------------------- > "
+                        		if [ "$adminEmail" = "" ]; then
+				                      ADMIN_EMAIL=""
+                        		      read adminEmail
+                        		      ADMIN_EMAIL=$adminEmail
+                        		fi
+                        		if [ "$adminEmail" = "" ]; then
+				                      ADMIN_EMAIL=""
+                		              ADMIN_EMAIL=root@localhost
+                        		fi        
+                        		read -p " Use Perl ------------------------------------------------------------------------------------------ (Y/N) > " ansPerl
+                        		read -p " Use PHP ------------------------------------------------------------------------------------------- (Y/N) > " ansPhp
+                        		read -p " Use SSL ------------------------------------------------------------------------------------------- (Y/N) > " ansSsl
+                        		clear
+                        		echo "        COMMAND STATUS         "
+                        		echo
+                        		echo "$(date)                                     $(whoami)@$(hostname)"
+                        		echo
+                        		echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        		echo
+                        		echo "Before command completion, additional instructions may appear below"
+                        		echo
+                        		echo "File                                 Fileset                 Type"
+                        		echo "-----------------------------------------------------------------"
+                        		echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        		echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        		echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        		echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log"
+                        		echo "Command run: /etc/init.d/apache2 start"
+                        		update_spinner
+                				sleep 1
                 				update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Installing apache web server"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                				$(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log
-                				if [ $PIPESTATUS -eq 0 ]; then
-                				     echo "#######################################################################################" >> /var/log/smx-log/success.log
-                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				     echo "successfuly installed apache2 on system: $(hostname)" >> /var/log/smx-log/success.log
-                				     echo "Command run: $(apt-get) install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                				     echo "" >> /var/log/smx-log/success.log
-                				     echo "#######################################################################################" >> /var/log/smx-log/success.log
-                				     echo "" >> /var/log/smx-log/success.log
-                				     read -p "Press [enter] to continue..." ReadDamKey
-                                     clear
-                				     echo
-                				     cat /var/log/smx-log/success.log | tail -n 7
-                				     echo
-                				     read -p "Press [enter] to continue..." ReadDamKey
-                				else
-                				     echo "################################################################################################" >> /var/log/smx-log/fail.log
-                				     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                				     echo "Not installed apache2 on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                				     echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                				     echo "" >> /var/log/smx-log/fail.log
-                				     echo "################################################################################################" >> /var/log/smx-log/fail.log
-                				     echo "" >> /var/log/smx-log/fail.log
-                				     read -p "Press [enter] to continue..." ReadDamKey
-                                     clear
-                				     echo
-                				     cat /var/log/smx-log/fail.log | tail -n 7
-                				     echo
-                				     read -p "Press [enter] to continue..." ReadDamKey
-                				     exit 1
-                				fi
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Changing ServerTokens to Prod"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-				                $(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf.d/security
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Setting ServerSignature to Off"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-				                $(which sed) -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf.d/security
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Setting ServerAdmin to: $ADMIN_EMAIL"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-				                $(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Removing Indexes from Options"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-				                $(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks MultiViews/g' /etc/apache2/sites-available/default
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Enabling AllowOverride"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-				                $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Setting ServerName to: $IP_ADDR"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-				                echo "ServerName $IP_ADDR" >> /etc/apache2/apache2.conf
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Starting apache web server"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-				                /etc/init.d/apache2 start
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Creating html test page"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                				$(which rm) /var/www/index.html
-                				echo "<html>" >> /var/www/index.html
-                				echo "<body>" >> /var/www/index.html
-                				echo "<div style='width: 100%; font-size: 40px; font-weight: bold; text-align: center;'>" >> /var/www/index.html
-                				echo "Test Page for apache on: $(hostname)" >> /var/www/index.html
-                				echo "</div>" >> /var/www/index.html
-                				echo "</body>" >> /var/www/index.html
-                				echo "</html>" >> /var/www/index.html
-                				echo "###################################################" >> /var/log/smx-log/success.log
-                				echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
-                				echo "" >> /var/log/smx-log/success.log
-                				echo "###################################################" >> /var/log/smx-log/success.log
-                				echo "" >> /var/log/smx-log/success.log
-                                read -p "Press [enter] to continue..." ReadDamKey
-                                clear
-                				echo
-                				cat /var/log/smx-log/success.log | tail -n 7
-                				echo
-                				echo "Apache successfuly installed on system, goto: http://$(hostname)/index.html"
+                				sleep 1
+                				update_spinner
+                				echo "Installing apache web server"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                        		$(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log
+                        		if [ $PIPESTATUS -eq 0 ]; then
+                        		     echo "#######################################################################################" >> /var/log/smx-log/success.log
+                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		     echo "successfuly installed apache2 on system: $(hostname)" >> /var/log/smx-log/success.log
+                        		     echo "Command run: $(apt-get) install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                        		     echo "" >> /var/log/smx-log/success.log
+                        		     echo "#######################################################################################" >> /var/log/smx-log/success.log
+                        		     echo "" >> /var/log/smx-log/success.log
+                        		     read -p "Press [enter] to continue..." ReadDamKey
+				                     clear
+                        		     echo
+                        		     cat /var/log/smx-log/success.log | tail -n 7
+                        		     echo
+                        		     read -p "Press [enter] to continue..." ReadDamKey
+                        		else
+                        		     echo "################################################################################################" >> /var/log/smx-log/fail.log
+                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        		     echo "Not installed apache2 on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        		     echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                        		     echo "" >> /var/log/smx-log/fail.log
+                        		     echo "################################################################################################" >> /var/log/smx-log/fail.log
+                        		     echo "" >> /var/log/smx-log/fail.log
+                        		     read -p "Press [enter] to continue..." ReadDamKey
+				                     clear
+                        		     echo
+                        		     cat /var/log/smx-log/fail.log | tail -n 7
+                        		     echo
+                        		     read -p "Press [enter] to continue..." ReadDamKey
+                        		     exit 1
+                        		fi
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Changing ServerTokens to Prod"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				$(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf.d/security
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Setting ServerSignature to Off"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				$(which sed) -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf.d/security
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Setting ServerAdmin to: $ADMIN_EMAIL"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				$(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Removing Indexes from Options"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				$(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks MultiViews/g' /etc/apache2/sites-available/default
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Enabling AllowOverride"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				$(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Setting ServerName to: $IP_ADDR"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				echo "ServerName $IP_ADDR" >> /etc/apache2/apache2.conf
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Starting apache web server"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				/etc/init.d/apache2 start
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				echo "Creating html test page"
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                				update_spinner
+                				sleep 1
+                        		$(which rm) /var/www/index.html
+                        		echo "<html>" >> /var/www/index.html
+                        		echo "<body>" >> /var/www/index.html
+                        		echo "<div style='width: 100%; font-size: 40px; font-weight: bold; text-align: center;'>" >> /var/www/index.html
+                        		echo "Test Page for apache on: $(hostname)" >> /var/www/index.html
+                        		echo "</div>" >> /var/www/index.html
+                        		echo "</body>" >> /var/www/index.html
+                        		echo "</html>" >> /var/www/index.html
+                        		echo "###################################################" >> /var/log/smx-log/success.log
+                        		echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
+                        		echo "" >> /var/log/smx-log/success.log
+                        		echo "###################################################" >> /var/log/smx-log/success.log
+                        		echo "" >> /var/log/smx-log/success.log
                 				read -p "Press [enter] to continue..." ReadDamKey
-                				if [ "$ansPerl" = "Y" ]; then
-                				      clear
-                				      echo "     COMMAND STATUS       "
-                				      echo
-                				      echo "$(date)                                     $(whoami)@$(hostname)"
-                				      echo
-                				      echo "Command: RUNNING    stdout: yes    stderr: no     "
-                				      echo
-                				      echo "Before command completion, additional instructions may appear below"
-                				      echo
-                				      echo "File                                 Fileset                 Type"
-                				      echo "-----------------------------------------------------------------"
-                				      echo "$(which sed)                         bos.sysmgt.sed          exec"
-                				      echo "$(which ln)                          bos.sysmgt.ln           exec"
-                				      echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                				      echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
-                				      echo "Command run: /etc/init.d/apache2 restart"
+                				clear
+                        		echo
+                        		cat /var/log/smx-log/success.log | tail -n 7
+                        		echo
+                        		echo "Apache successfuly installed on system, goto: http://$(hostname)/index.html"
+                        		read -p "Press [enter] to continue..." ReadDamKey
+                        		if [ "$ansPerl" = "Y" ]; then
+                        		      clear
+                        		      echo "     COMMAND STATUS       "
+                        		      echo
+                        		      echo "$(date)                                     $(whoami)@$(hostname)"
+                        		      echo
+                        		      echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        		      echo
+                        		      echo "Before command completion, additional instructions may appear below"
+                        		      echo
+                        		      echo "File                                 Fileset                 Type"
+                        		      echo "-----------------------------------------------------------------"
+                        		      echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        		      echo "$(which ln)                          bos.sysmgt.ln           exec"
+                        		      echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        		      echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
+                        		      echo "Command run: /etc/init.d/apache2 restart"
+                        		      update_spinner
+                				      sleep 1
                 				      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Adding .cgi and .pl to AddHandler"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which sed) -i 's/#AddHandler cgi-script/AddHandler .cgi .pl' /etc/apache2/mods-enabled/mime.conf
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Adding ExecCGI to Options"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      $(which sed) -i 's/Options FollowSymLinks MultiViews/Options FollowSymLinks MultiViews ExecCGI/g' /etc/apache2/sites-available/default
-                				      $(which ln) -s /usr/bin/perl /usr/local/bin/perl
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo ""
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      /etc/init.d/apache2 restart
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Creating perl test page"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      echo "#!/usr/local/bin/perl" >> /var/www/html/index.cgi
-                				      echo "" >> /var/www/html/index.cgi
-                				      echo "print 'Content-type: text/html\n\n';" >> /var/www/index.cgi
-                				      echo "print '<html>\n</html>\n';" >> /var/www/index.cgi
-                				      echo "print '<div style=\'width: 100%; font-size: 40px; font-weight: bold; text-align: center;\'>';" >> /var/www/index.cgi
-                				      echo "print 'CGI Test Page for server: $(hostname)';" >> /var/www/index.cgi
-                				      echo "print '\n</div>\n';" >> /var/www/index.cgi
-                				      echo "print '</body>\n</html>\n';" >> /var/www/index.html
+                				      sleep 1
+                				      update_spinner
+                				      echo "Adding .cgi and .pl to AddHandler"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      $(which sed) -i 's/#AddHandler cgi-script/AddHandler .cgi .pl' /etc/apache2/mods-enabled/mime.conf
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Adding ExecCGI to Options"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                        		      $(which sed) -i 's/Options FollowSymLinks MultiViews/Options FollowSymLinks MultiViews ExecCGI/g' /etc/apache2/sites-available/default
+                        		      $(which ln) -s /usr/bin/perl /usr/local/bin/perl
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Restarting apache"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      /etc/init.d/apache2 restart
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Creating perl test page"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                        		      echo "#!/usr/local/bin/perl" >> /var/www/html/index.cgi
+                        		      echo "" >> /var/www/html/index.cgi
+                        		      echo "print 'Content-type: text/html\n\n';" >> /var/www/index.cgi
+                        		      echo "print '<html>\n</html>\n';" >> /var/www/index.cgi
+                        		      echo "print '<div style=\'width: 100%; font-size: 40px; font-weight: bold; text-align: center;\'>';" >> /var/www/index.cgi
+                        		      echo "print 'CGI Test Page for server: $(hostname)';" >> /var/www/index.cgi
+                        		      echo "print '\n</div>\n';" >> /var/www/index.cgi
+                        		      echo "print '</body>\n</html>\n';" >> /var/www/index.html
                             	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             	      echo "successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
                             	      echo "" >> /var/log/smx-log/success.log
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                      clear
+                				      read -p "Press [enter] to continue..." ReadDamKey
+                				      clear
                             	      echo
                             	      cat /var/log/smx-log/success.log | tail -n 7
                             	      echo
                             	      echo "successfuly installed perl on system, goto: http://$(hostname)/index.cgi"
-                				      read -p "Press [enter] to continue..." ReadDamKey
-                				else
-                				      echo "Perl not installed on system..."
-                				      read -p "Press [enter] to continue..." ReadDamKey
-                				fi
-                				if [ "$ansPhp" = "Y" ]; then
-                				      clear
-                				      echo "      COMMAND STATUS        "
-                				      echo
-                				      echo "$(date)                                     $(whoami)@$(hostname)"
-                				      echo
-                				      echo "Command: RUNNING    stdout: yes    stder: no      "
-                				      echo
-                				      echo "Before command completion, additional instructions may appear below"
-                				      echo
-                				      echo "File                                 Fileset                 Type"
-                				      echo "-----------------------------------------------------------------"
-                				      echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                				      echo "$(which sed)                         bos.sysmgt.sed          exec"
-                				      echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                				      echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log"
-                				      echo "Command run: /etc/init.d/apache2 restart"
+                        		      read -p "Press [enter] to continue..." ReadDamKey
+                        		else
+                        		      echo "Perl not installed on system..."
+                        		      read -p "Press [enter] to continue..." ReadDamKey
+                        		fi
+                        		if [ "$ansPhp" = "Y" ]; then
+                        		      clear
+                        		      echo "      COMMAND STATUS        "
+                        		      echo
+                        		      echo "$(date)                                     $(whoami)@$(hostname)"
+                        		      echo
+                        		      echo "Command: RUNNING    stdout: yes    stder: no      "
+                        		      echo
+                        		      echo "Before command completion, additional instructions may appear below"
+                        		      echo
+                        		      echo "File                                 Fileset                 Type"
+                        		      echo "-----------------------------------------------------------------"
+                        		      echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        		      echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        		      echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        		      echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log"
+                        		      echo "Command run: /etc/init.d/apache2 restart"
+                        		      update_spinner
+                				      sleep 1
                 				      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Installing packages: libapache2-mod-php5 php5-common php-pear"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log
-                				      if [ $PIPESTATUS -eq 0 ]; then
-                    					   echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
-                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    					   echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
-                    					   echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    					   echo "" >> /var/log/smx-log/success.log
-                    					   echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
-                    					   echo "" >> /var/log/smx-log/success.log
-                    					   read -p "Press [enter] to continue..." ReadDamKey
-                                           clear
-                    					   echo
-                    					   cat /var/log/smx-log/success.log | tail -n 7
-                    					   echo
-                    					   read -p "Press [enter] to continue..." ReadDamKey
+                				      sleep 1
+                				      update_spinner
+                				      echo "Installing packages: libapache2-mod-php5 php5-common php-pear"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                        		      $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log
+                        		      if [ $PIPESTATUS -eq 0 ]; then
+                            			   echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
+                            			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			   echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
+                            			   echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			   echo "" >> /var/log/smx-log/success.log
+                            			   echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
+                            			   echo "" >> /var/log/smx-log/success.log
+                            			   read -p "Press [enter] to continue..." ReadDamKey
+					                       clear
+                            			   echo
+                            			   cat /var/log/smx-log/success.log | tail -n 7
+                            			   echo
+                            			   read -p "Press [enter] to continue..." ReadDamKey
 				                      else
-                    					   echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
-                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    					   echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                    					   echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    					   echo "" >> /var/log/smx-log/fail.log
-                    					   echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
-                    					   echo "" >> /var/log/smx-log/fail.log
-                    					   read -p "Press [enter] to continue..." ReadDamKey
-                                           clear
-                    					   echo
-                    					   cat /var/log/smx-log/fail.log | tail -n 7
-                    					   echo
-                    					   read -p "Press [enter] to continue..." ReadDamKey
-                    					   exit 1
-				                      fi
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Adding AddHandler php5-script .php to /etc/apache2/mods-enabled/mime.conf"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      echo "AddHandler php5-script .php" >> /etc/apache2/mods-enabled/mime.conf
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Restarting apache2"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      /etc/init.d/apache2 restart
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Creating test php page"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      echo "<html>" >> /var/www/index.php
-                				      echo "<body>" >> /var/www/index.php
-                				      echo "<div style='width: 100%; font-size: 40px: font-weight: bold: text-align: center;'>" >> /var/www/index.php
-                				      echo "<?php" >> /var/www/index.php
-                				      echo "print Date('Y/m/d');" >> /var/www/index.php
-                				      echo "?>" >> /var/www/index.php
-                				      echo "</div>" >> /var/www/index.php
-                				      echo "</body>" >> /var/www/index.php
-                				      echo "</html>" >> /var/www/index.php
-                				      echo "###################################################" >> /var/log/smx-log/success.log
+                            			   echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
+                            			   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			   echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                            			   echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                            			   echo "" >> /var/log/smx-log/fail.log
+                            			   echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
+                            			   echo "" >> /var/log/smx-log/fail.log
+                            			   read -p "Press [enter] to continue..." ReadDamKey
+					                       clear
+                            			   echo
+                            			   cat /var/log/smx-log/fail.log | tail -n 7
+                            			   echo
+                            			   read -p "Press [enter] to continue..." ReadDamKey
+                            			   exit 1
+                				      fi
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Adding AddHandler php5-script .php to /etc/apache2/mods-enabled/mime.conf"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      echo "AddHandler php5-script .php" >> /etc/apache2/mods-enabled/mime.conf
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Restarting apache2"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      /etc/init.d/apache2 restart
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Creating test php page"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                        		      echo "<html>" >> /var/www/index.php
+                        		      echo "<body>" >> /var/www/index.php
+                        		      echo "<div style='width: 100%; font-size: 40px: font-weight: bold: text-align: center;'>" >> /var/www/index.php
+                        		      echo "<?php" >> /var/www/index.php
+                        		      echo "print Date('Y/m/d');" >> /var/www/index.php
+                        		      echo "?>" >> /var/www/index.php
+                        		      echo "</div>" >> /var/www/index.php
+                        		      echo "</body>" >> /var/www/index.php
+                        		      echo "</html>" >> /var/www/index.php
+                        		      echo "###################################################" >> /var/log/smx-log/success.log
                             	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             	      echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
                             	      echo "" >> /var/log/smx-log/success.log
-                				      echo "###################################################" >> /var/log/smx-log/success.log
-                				      echo "" >> /var/log/smx-log/success.log
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                      clear
-                				      echo
-                				      cat /var/log/smx-log/success.log | tail -n 7
-                				      echo
-                				      echo
-                				      echo "PHP has been successfuly installed on system, goto: http://$(hostname)/index.php"
+                        		      echo "###################################################" >> /var/log/smx-log/success.log
+                        		      echo "" >> /var/log/smx-log/success.log
                 				      read -p "Press [enter] to continue..." ReadDamKey
-                				else
-                				      echo "PHP not installed on system..."
-                				      read -p "Press [enter] to continue..." ReadDamKey
-                				fi
-                				if [ "$ansSsl" = "Y" ]; then
                 				      clear
-                				      echo "       COMMAND STATUS          "
-                				      echo
-                				      echo "$(date)                                     $(whoami)@$(hostname)"
-                				      echo
-                				      echo "Command: RUNNING    stdout: yes    stderr: no     "
-                				      echo
-                				      echo "Before command completion, additional instructions may appear below"
-                				      echo
-                				      echo "File                                 Fileset                 Type"
-                				      echo "-----------------------------------------------------------------"
-                				      echo "$(which openssl)                     bos.sysmgt.openssl      exec"
-                				      echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-                				      echo "$(which sed)                         bos.sysmgt.sed          exec"
-                				      echo "$(which a2ensite)                    bos.sysmgt.a2ensite     exec"
-                				      echo "$(which a2enmod)                     bos.sysmgt.a2enmod      exec"
-                				      echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                				      echo "Command run: $(which openssl) genrsa -des3 -out server.key 1024"
-                				      echo "Command run: $(which openssl) rsa -in server.key -out server.key"
-                				      echo "Command run: $(which openssl) req -new -days 9999 -key server.key -out server.csr"
+                        		      echo
+                        		      cat /var/log/smx-log/success.log | tail -n 7
+                        		      echo
+                        		      echo
+                        		      echo "PHP has been successfuly installed on system, goto: http://$(hostname)/index.php"
+                        		      read -p "Press [enter] to continue..." ReadDamKey
+                        		else
+                        		      echo "PHP not installed on system..."
+                        		      read -p "Press [enter] to continue..." ReadDamKey
+                        		fi
+                        		if [ "$ansSsl" = "Y" ]; then
+                        		      clear
+                        		      echo "       COMMAND STATUS          "
+                        		      echo
+                        		      echo "$(date)                                     $(whoami)@$(hostname)"
+                        		      echo
+                        		      echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        		      echo
+                        		      echo "Before command completion, additional instructions may appear below"
+                        		      echo
+                        		      echo "File                                 Fileset                 Type"
+                        		      echo "-----------------------------------------------------------------"
+                        		      echo "$(which openssl)                     bos.sysmgt.openssl      exec"
+                        		      echo "$(which chmod)                       bos.sysmgt.chmod        exec"
+                        		      echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        		      echo "$(which a2ensite)                    bos.sysmgt.a2ensite     exec"
+                        		      echo "$(which a2enmod)                     bos.sysmgt.a2enmod      exec"
+                        		      echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        		      echo "Command run: $(which openssl) genrsa -des3 -out server.key 1024"
+                        		      echo "Command run: $(which openssl) rsa -in server.key -out server.key"
+                        		      echo "Command run: $(which openssl) req -new -days 9999 -key server.key -out server.csr"
                             	      echo "Command run: $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999"
                             	      echo "Command run: $(which chmod) 400 server.*"
                             	      echo "Command run: $(which a2ensite) default-ssl"
-                				      echo "Command run: $(which a2enmod) ssl"
-                				      echo "Command run: /etc/init.d/apache2 restart"
-                				      sleep 2
-                				      clear
-                				      cd /etc/ssl/certs
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Creating server.key"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which openssl) genrsa -des3 -out server.key 1024
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Removing password from server.key"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which openssl) rsa -in server.key -out server.key
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Creating server.csr"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
+                        		      echo "Command run: $(which a2enmod) ssl"
+                        		      echo "Command run: /etc/init.d/apache2 restart"
+                        		      sleep 2
+                        		      clear
+                        		      cd /etc/ssl/certs
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Creating server.key"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      $(which openssl) genrsa -des3 -out server.key 1024
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Removing password from server.key"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      $(which openssl) rsa -in server.key -out server.key
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Creating server.csr"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
                             	      $(which openssl) req -new -days 9999 -key server.key -out server.csr
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Creating server.crt"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Creating server.crt"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
                             	      $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999
                             	      $(which chmod) 400 server.*
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting ServerAdmin to: $ADMIN_EMAIL"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default-ssl
-                                      update_spinner
-                                      sleep 1
-                                      echo "Adding ExecCGI to Options"
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                        	          $(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks ExecCGI/g' /etc/apache2/sites-available/default-ssl
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Enabling AllowOverride"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default-ssl
-                				      $(which sed) -i 's/SSLCertificateFile/#SSLCertificateFile' /etc/apache2/sites-available/default-ssl
-                				      $(which sed) -i 's/SSLCertificateKeyFile/#SSLCertificateKeyFile' /etc/apache2/sites-available/default-ssl
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting SSLCertificateFile to: /etc/ssl/certs/server.crt"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      echo "SSLCertificateFile /etc/ssl/certs/server.crt" >> /etc/apache2/sites-available/default-ssl
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting SSLCertificateKeyFile to: /etc/ssl/certs/server.key"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      echo "SSLCertificateKeyFile /etc/ssl/certs/server.key" >> /etc/apache2/sites-available/default-ssl
                 				      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Enabling default-ssl"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
+                				      sleep 1
+                				      update_spinner
+                				      echo "Setting ServerAdmin to: $ADMIN_EMAIL"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      $(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default-ssl
+                				      update_spinner
+                				      sleep 1
+                				      echo "Adding ExecCGI to Options"
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                        	          $(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks ExecCGI/g' /etc/apache2/sites-available/default-ssl
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Enabling AllowOverride"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                        		      $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default-ssl
+                        		      $(which sed) -i 's/SSLCertificateFile/#SSLCertificateFile' /etc/apache2/sites-available/default-ssl
+                        		      $(which sed) -i 's/SSLCertificateKeyFile/#SSLCertificateKeyFile' /etc/apache2/sites-available/default-ssl
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Setting SSLCertificateFile to: /etc/ssl/certs/server.crt"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      echo "SSLCertificateFile /etc/ssl/certs/server.crt" >> /etc/apache2/sites-available/default-ssl
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Setting SSLCertificateKeyFile to: /etc/ssl/certs/server.key"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
+                        		      echo "SSLCertificateKeyFile /etc/ssl/certs/server.key" >> /etc/apache2/sites-available/default-ssl
+                        		      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Enabling default-ssl"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
                             	      $(which a2ensite) default-ssl
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Enabling ssl"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Enabling ssl"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
                             	      $(which a2enmod) ssl
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Restarting apache2"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
+                				      update_spinner
+                				      sleep 1
+                				      update_spinner
+                				      echo "Restarting apache2"
+                				      sleep 1
+                				      update_spinner
+                				      sleep 1
                             	      /etc/init.d/apache2 restart
                             	      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				      echo "successfuly installed SSL on system: $(hostname)" >> /var/log/smx-log/success.log
-                				      echo "" >> /var/log/smx-log/success.log
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                				      clear
-                				      echo
-                				      cat /var/log/smx-log/success.log | tail -n 7
-                				      echo
-                				      echo
-                				      echo "successfuly installed SSL on system. goto: https://$(hostname)/index.html"
-                				else
-                				      echo "SSL not installed on system..."
-                				      read -p "Press [enter] to continue..." ReadDamKey
-                				fi
-			               else
-			                    clear
-                				cat /proc/version | grep "Ubuntu" > /dev/null
-                				if [ $? -eq 0 ]; then
-                				     clear
-                				     echo "OS = Ubuntu"
-                				     echo "$(date)                                     $(whoami)@$(hostname)"
-                				     echo "[TOP]                                                                                                        [Entry Fields]"
-                				     printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] ---------------------- > "
-                				     if [ "$netIntf" = "" ]; then
-                                           NETINTF=""
-                                           read netIntf
-                                           NETINTF=$NETINTF
-                				     fi
-                				     if [ "$netIntf" = "" ]; then
-                                           NETINTF=""
-                                           NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
-                				     fi
-                				     printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] ------------ > "
-                				     if [ "$ipAddr" = "" ]; then
-                                           IP_ADDR=""
-                                            read ipAddr
-                                            IP_ADDR=$ipAddr
-                				     fi
-                				     if [ "$ipAddr" = "" ]; then
-                                           NETINTF=""
-                					       IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
-                				     fi          
-                				     printf " Enter admin email [root@localhost] ----------------------------------------------------------------------- > "
-                				     if [ "$adminEmail" = "" ]; then
-                                           ADMIN_EMAIL=""
-                					       read adminEmail
-                					       ADMIN_EMAIL=$adminEmail
-                				     fi
-                				     if [ "$adminEmail" = "" ]; then
-                                           ADMIN_EMAIL=""
-                					       ADMIN_EMAIL=root@localhost
-                				     fi        
-                				     read -p " Use Perl ------------------------------------------------------------------------------------------ (Y/N) > " ansPerl
-                				     read -p " Use PHP ------------------------------------------------------------------------------------------- (Y/N) > " ansPhp
-                				     read -p " Use SSL ------------------------------------------------------------------------------------------- (Y/N) > " ansSsl
-                				     clear
-                				     echo "        COMMAND STATUS         "
-                				     echo
-                				     echo "$(date)                                     $(whoami)@$(hostname)"
-                				     echo
-                				     echo "Command: RUNNING    stdout: yes    stderr: no     "
-                				     echo
-                				     echo "Before command completion, additional instructions may appear below"
-                				     echo
-                				     echo "File                                 Fileset                 Type"
-                				     echo "-----------------------------------------------------------------"
-                				     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                				     echo "$(which sed)                         bos.sysmgt.sed          exec"
-                				     echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                				     echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log"
-                				     echo "Command run: /etc/init.d/apache2 start"
+                        		      echo "successfuly installed SSL on system: $(hostname)" >> /var/log/smx-log/success.log
+                        		      echo "" >> /var/log/smx-log/success.log
+				                      read -p "Press [enter] to continue..." ReadDamKey
+                        		      clear
+                        		      echo
+                        		      cat /var/log/smx-log/success.log | tail -n 7
+                        		      echo
+                        		      echo
+                        		      echo "successfuly installed SSL on system. goto: https://$(hostname)/index.html"
+                        		else
+                        		      echo "SSL not installed on system..."
+                        		      read -p "Press [enter] to continue..." ReadDamKey
+                        		fi
+            			   else
+            			        clear
+                        		cat /proc/version | grep "Ubuntu" > /dev/null
+                        		if [ $? -eq 0 ]; then
+                        		     clear
+                        		     echo "OS = Ubuntu"
+                        		     echo "$(date)                                     $(whoami)@$(hostname)"
+                        		     echo "[TOP]                                                                                                        [Entry Fields]"
+                        		     printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] ---------------------- > "
+                        		     if [ "$netIntf" = "" ]; then
+                    					   NETINTF=""
+                    					   read netIntf
+                    					   NETINTF=$NETINTF
+                        		     fi
+                        		     if [ "$netIntf" = "" ]; then
+                    					   NETINTF=""
+                    					   NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
+                        		     fi
+                        		     printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] ------------ > "
+                        		     if [ "$ipAddr" = "" ]; then
+                    					   IP_ADDR=""
+                    					   read ipAddr
+                    					   IP_ADDR=$ipAddr
+                        		     fi
+                        		     if [ "$ipAddr" = "" ]; then
+					                       NETINTF=""
+                			               IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
+                        		     fi          
+                        		     printf " Enter admin email [root@localhost] ----------------------------------------------------------------------- > "
+                        		     if [ "$adminEmail" = "" ]; then
+					                       ADMIN_EMAIL=""
+                            			   read adminEmail
+                            			   ADMIN_EMAIL=$adminEmail
+                        		     fi
+                        		     if [ "$adminEmail" = "" ]; then
+					                       ADMIN_EMAIL=""
+                			               ADMIN_EMAIL=root@localhost
+                        		     fi        
+                        		     read -p " Use Perl ------------------------------------------------------------------------------------------ (Y/N) > " ansPerl
+                        		     read -p " Use PHP ------------------------------------------------------------------------------------------- (Y/N) > " ansPhp
+                        		     read -p " Use SSL ------------------------------------------------------------------------------------------- (Y/N) > " ansSsl
+                        		     clear
+                        		     echo "        COMMAND STATUS         "
+                        		     echo
+                        		     echo "$(date)                                     $(whoami)@$(hostname)"
+                        		     echo
+                        		     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        		     echo
+                        		     echo "Before command completion, additional instructions may appear below"
+                        		     echo
+                        		     echo "File                                 Fileset                 Type"
+                        		     echo "-----------------------------------------------------------------"
+                        		     echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                        		     echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        		     echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        		     echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log"
+                        		     echo "Command run: /etc/init.d/apache2 start"
+                        		     update_spinner
+                				     sleep 1
                 				     update_spinner
-                                     sleep 1
-                                     update_spinner
-                                     sleep 1
-                                     update_spinner
-                                     sleep 1
-                                     echo "Installing package: apache2"
-                                     update_spinner
-                                     sleep 1
-                                     update_spinner
-                                     sleep 1
-                                     update_spinner
-                                     sleep 1
-                				     $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log
-                				     if [ $PIPESTATUS -eq 0 ]; then
-                    					  echo "#######################################################################################" >> /var/log/smx-log/success.log
-                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                    					  echo "successfuly installed apache2 on system: $(hostname)" >> /var/log/smx-log/success.log
-                    					  echo "Command run: $(apt-get) install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                    					  echo "" >> /var/log/smx-log/success.log
-                    					  echo "#######################################################################################" >> /var/log/smx-log/success.log
-                    					  echo "" >> /var/log/smx-log/success.log
-                    					  read -p "Press [enter] to continue..." ReadDamKey
-                                          clear
-                    					  echo
-                    					  cat /var/log/smx-log/success.log | tail -n 7
-                    					  echo
-                    					  read -p "Press [enter] to continue..." ReadDamKey
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     echo "Installing package: apache2"
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                        		     $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log
+                        		     if [ $PIPESTATUS -eq 0 ]; then
+                            			  echo "#######################################################################################" >> /var/log/smx-log/success.log
+                            			  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                            			  echo "successfuly installed apache2 on system: $(hostname)" >> /var/log/smx-log/success.log
+                            			  echo "Command run: $(apt-get) install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                            			  echo "" >> /var/log/smx-log/success.log
+                            			  echo "#######################################################################################" >> /var/log/smx-log/success.log
+                            			  echo "" >> /var/log/smx-log/success.log
+                            			  read -p "Press [enter] to continue..." ReadDamKey
+					                      clear
+                            			  echo
+                            			  cat /var/log/smx-log/success.log | tail -n 7
+                            			  echo
+                            			  read -p "Press [enter] to continue..." ReadDamKey
 				                     else
-                    					  echo "################################################################################################" >> /var/log/smx-log/fail.log
-                    					  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                    					  echo "Not installed apache2 on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                    					  echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                    					  echo "" >> /var/log/smx-log/fail.log
-                    					  echo "################################################################################################" >> /var/log/smx-log/fail.log
-                    					  echo "" >> /var/log/smx-log/fail.log
-                    					  read -p "Press [enter] to continue..." ReadDamKey
-                                          clear
-                    					  echo
-                    					  cat /var/log/smx-log/fail.log | tail -n 7
-                    					  echo
-                    					  read -p "Press [enter] to continue..." ReadDamKey
-                    					  exit 1
-            			              fi
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting ServerTokens to: Prod"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf.d/security
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting ServerSignature to: Off"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which sed) -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf.d/security
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting ServerAdmin to: $ADMIN_EMAIL"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Removing Indexes from Options"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks MultiViews/g' /etc/apache2/sites-available/default
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting AllowOverride to: All"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Setting ServerName to: $IP_ADDR"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-				                      echo "ServerName $IP_ADDR" >> /etc/apache2/apache2.conf
-                                      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Starting apache2"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      /etc/init.d/apache2 start
-                				      $(which rm) /var/www/index.html
-                				      update_spinner
-                                      sleep 1
-                                      update_spinner
-                                      echo "Creating test html page"
-                                      sleep 1
-                                      update_spinner
-                                      sleep 1
-                				      echo "<html>" >> /var/www/index.html
-                				      echo "<body>" >> /var/www/index.html
-                            	      echo "<div style='width: 100%; font-size: 40px; font-weight: bold; text-align: center;'>" >> /var/www/index.html
-                            	      echo "Test Page for apache on: $(hostname)" >> /var/www/index.html
-                				      echo "</div>" >> /var/www/index.html
-                				      echo "</body>" >> /var/www/index.html
-                				      echo "</html>" >> /var/www/index.html
-                				      echo "###################################################" >> /var/log/smx-log/success.log
-                				      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                				      echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
-                				      echo "" >> /var/log/smx-log/success.log
-                				      echo "###################################################" >> /var/log/smx-log/success.log
-                				      echo "" >> /var/log/smx-log/success.log
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                      clear
-                				      echo
-                				      cat /var/log/smx-log/success.log | tail -n 7
-                				      echo
-                				      echo "Apache successfuly installed on system, goto: http://$(hostname)/index.html"
-                				      read -p "Press [enter] to continue..." ReadDamKey    
-                				      if [ "$ansPerl" = "Y" ]; then
-                                            clear
-                                            echo "     COMMAND STATUS       "
-                                            echo
-                                            echo "$(date)                                     $(whoami)@$(hostname)"
-                                            echo
-                                            echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                            echo
-                                            echo "Before command completion, additional instructions may appear below"
-                                            echo
-                                            echo "File                                 Fileset                 Type"
-                                            echo "-----------------------------------------------------------------"
-                                            echo "$(which sed)                         bos.sysmgt.sed          exec"
-                                            echo "$(which ln)                          bos.sysmgt.ln           exec"
-                                            echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                                            echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
-                                            echo "Command run: /etc/init.d/apache2 restart"
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Changing AddHandler to .cgi .pl"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        $(which sed) -i 's/#AddHandler cgi-script/AddHandler .cgi .pl' /etc/apache2/mods-enabled/mime.conf
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Adding ExecCGI to Options"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            $(which sed) -i 's/Options FollowSymLinks MultiViews/Options FollowSymLinks MultiViews ExecCGI/g' /etc/apache2/sites-available/default
-                                            $(which ln) -s /usr/bin/perl /usr/local/bin/perl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Restarting apache2"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        /etc/init.d/apache2 restart
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Creating perl test page"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            echo "#!/usr/local/bin/perl" >> /var/www/html/index.cgi
-                                            echo "" >> /var/www/html/index.cgi
-                                            echo "print 'Content-type: text/html\n\n';" >> /var/www/index.cgi
-                                            echo "print '<html>\n</html>\n';" >> /var/www/index.cgi
-                                            echo "print '<div style=\'width: 100%; font-size: 40px; font-weight: bold; text-align: center;\'>';" >> /var/www/index.cgi
-                                            echo "print 'CGI Test Page for server: $(hostname)';" >> /var/www/index.cgi
-                                            echo "print '\n</div>\n';" >> /var/www/index.cgi
-                                            echo "print '</body>\n</html>\n';" >> /var/www/index.html
-                                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                            echo "successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
-                                            echo "" >> /var/log/smx-log/success.log
-                                            read -p "Press [enter] to continue..." ReadDamKey
-                                            clear
-                                            echo
-                                            cat /var/log/smx-log/success.log | tail -n 7
-                                            echo
-                                            echo "successfuly installed perl on system, goto: http://$(hostname)/index.cgi"
-                                            read -p "Press [enter] to continue..." ReadDamKey
-				                      else
-                                            echo "Perl not installed on system..."
-                                            read -p "Press [enter] to continue..." ReadDamKey
-                                      fi
-                                      if [ "$ansPhp" = "Y" ]; then
-                                            clear
-                                            echo "      COMMAND STATUS        "
-                                            echo
-                                            echo "$(date)                                     $(whoami)@$(hostname)"
-                                            echo
-                                            echo "Command: RUNNING    stdout: yes    stder: no      "
-                                            echo
-                                            echo "Before command completion, additional instructions may appear below"
-                                            echo
-                                            echo "File                                 Fileset                 Type"
-                                            echo "-----------------------------------------------------------------"
-                                            echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
-                                            echo "$(which sed)                         bos.sysmgt.sed          exec"
-                                            echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                                            echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log"
-                                            echo "Command run: /etc/init.d/apache2 restart"
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Installing package: php5 php5-cgi libapache2-mod-php5 php5-common php-pear"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log
-                                            if [ $PIPESTATUS -eq 0 ]; then
-                                                 echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-                                                 clear
-                                                 echo
-                                                 cat /var/log/smx-log/success.log | tail -n 7
-                                                 echo
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-					                        else
-                                                 echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
-                                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                                                 echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                                                 echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
-                                                 echo "" >> /var/log/smx-log/fail.log
-                                                 echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
-                                                 echo "" >> /var/log/smx-log/fail.log
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-                                                 clear
-                                                 echo
-                                                 cat /var/log/smx-log/fail.log | tail -n 7
-                                                 echo
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-                                                 exit 1
-					                        fi
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Adding AddHandler php5-script .php to: /etc/apache2/mods-enabled/mime.conf"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            echo "AddHandler php5-script .php" >> /etc/apache2/mods-enabled/mime.conf
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Restarting apache2"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        /etc/init.d/apache2 restart
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Creating php test page"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            echo "<html>" >> /var/www/index.php
-                                            echo "<body>" >> /var/www/index.php
-                                            echo "<div style='width: 100%; font-size: 40px: font-weight: bold: text-align: center;'>" >> /var/www/index.php
-                                            echo "<?php" >> /var/www/index.php
-                                            echo "print Date('Y/m/d');" >> /var/www/index.php
-                                            echo "?>" >> /var/www/index.php
-                                            echo "</div>" >> /var/www/index.php
-                                            echo "</body>" >> /var/www/index.php
-                                            echo "</html>" >> /var/www/index.php
-                                            echo "###################################################" >> /var/log/smx-log/success.log
-                                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                            echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
-                                            echo "" >> /var/log/smx-log/success.log
-                                            echo "###################################################" >> /var/log/smx-log/success.log
-                                            echo "" >> /var/log/smx-log/success.log
-                                            read -p "Press [enter] to continue..." ReadDamKey
-                                            clear
-                                            echo
-                                            cat /var/log/smx-log/success.log | tail -n 7
-                                            echo
-                                            echo
-                                            echo "PHP has been successfuly installed on system, goto: http://$(hostname)/index.php"
-                                            read -p "Press [enter] to continue..." ReadDamKey
-				                      else
-                                            echo "PHP not installed on system..."
-                                            read -p "Press [enter] to continue..." ReadDamKey
-                                      fi
-                                      if [ "$ansSsl" = "Y" ]; then
-                                            clear
-                                            echo "       COMMAND STATUS          "
-                                            echo
-                                            echo "$(date)                                     $(whoami)@$(hostname)"
-                                            echo
-                                            echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                            echo
-                                            echo "Before command completion, additional instructions may appear below"
-                                            echo
-                                            echo "File                                 Fileset                 Type"
-                                            echo "-----------------------------------------------------------------"
-                                            echo "$(which openssl)                     bos.sysmgt.openssl      exec"
-                                            echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-                                            echo "$(which sed)                         bos.sysmgt.sed          exec"
-                                            echo "$(which a2ensite)                    bos.sysmgt.a2ensite     exec"
-                                            echo "$(which a2enmod)                     bos.sysmgt.a2enmod      exec"
-                                            echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                                            echo "Command run: $(which openssl) genrsa -des3 -out server.key 1024"
-                                            echo "Command run: $(which openssl) rsa -in server.key -out server.key"
-                                            echo "Command run: $(which openssl) req -new -days 9999 -key server.key -out server.csr"
-                                            echo "Command run: $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999"
-                                            echo "Command run: $(which chmod) 400 server.*"
-                                            echo "Command run: $(which a2ensite) default-ssl"
-                                            echo "Command run: $(which a2enmod) ssl"
-                                            echo "Command run: /etc/init.d/apache2 restart"
-                                            sleep 2
-                                            clear
-                                            cd /etc/ssl/certs
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Creating server.key"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        $(which openssl) genrsa -des3 -out server.key 1024
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Removing password from server.key"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        $(which openssl) rsa -in server.key -out server.key
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Creating server.csr"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        $(which openssl) req -new -days 9999 -key server.key -out server.csr
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Creating certificate request"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999
-                                            $(which chmod) 400 server.*
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Setting ServerAdmin to: $ADMIN_EMAIL"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        $(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default-ssl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Adding ExecCGI and removing Indexes and MultiViews from Options"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        $(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks ExecCGI/g' /etc/apache2/sites-available/default-ssl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Setting AllowOverride to All"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default-ssl
-                                            $(which sed) -i 's/SSLCertificateFile/#SSLCertificateFile' /etc/apache2/sites-available/default-ssl
-                                            $(which sed) -i 's/SSLCertificateKeyFile/#SSLCertificateKeyFile' /etc/apache2/sites-available/default-ssl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Setting SSLCertificateFile to: /etc/ssl/certs/server.crt"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        echo "SSLCertificateFile /etc/ssl/certs/server.crt" >> /etc/apache2/sites-available/default-ssl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Setting SSLCertificateKeyFile to: /etc/ssl/certs/server.key"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            echo "SSLCertificateKeyFile /etc/ssl/certs/server.key" >> /etc/apache2/sites-available/default-ssl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Enabling default-ssl"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-					                        $(which a2ensite) default-ssl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Enabling ssl"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            $(which a2enmod) ssl
-                                            update_spinner
-                                            sleep 1
-                                            update_spinner
-                                            echo "Restarting apache2"
-                                            sleep 1
-                                            update_spinner
-                                            sleep 1
-                                            /etc/init.d/apache2 restart
-                                            echo "################################################" >> /var/log/smx-log/success.log
-                                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                            echo "successfuly installed SSL on system: $(hostname)" >> /var/log/smx-log/success.log
-                                            echo "" >> /var/log/smx-log/success.log
-                                            echo "################################################" >> /var/log/smx-log/success.log
-                                            echo "" >> /var/log/smx-log/success.log
-                                            read -p "Press [enter] to continue..." ReadDamKey
-                                            clear
-                                            echo
-                                            cat /var/log/smx-log/success.log | tail -n 7
-                                            echo
-                                            echo
-                                            echo "successfuly installed SSL on system. goto: https://$(hostname)/index.html"
-                                      else
-                                            echo "SSL not installed on system..."
-                                            read -p "Press [enter] to continue..." ReadDamKey
-                                      fi
-                                else
-                                      clear
-                                      cat /proc/version | grep "SUSE" > /dev/null
-				                      if [ $? -eq 0 ]; then
-                                           clear
-                                           echo "OS = SuSE"
-                                           echo "$(date)                                     $(whoami)@$(hostname)"
-                                           echo "[TOP]                                                                                                     [Entry Fields]"
-                                           printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] ------------------- > "
-                                           if [ "$netIntf" = "" ]; then
-                                                 NETINTF=""
-                                                 read netIntf
-                                                 NETINTF=$NETINTF
-                                           fi
-                                           if [ "$netIntf" = "" ]; then
-                                                 NETINTF=""
+                            			  echo "################################################################################################" >> /var/log/smx-log/fail.log
+                            			  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                            			  echo "Not installed apache2 on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                            			  echo "Command run: $(which apt-get) -y install apache2 | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                            			  echo "" >> /var/log/smx-log/fail.log
+                            			  echo "################################################################################################" >> /var/log/smx-log/fail.log
+                            			  echo "" >> /var/log/smx-log/fail.log
+                            			  read -p "Press [enter] to continue..." ReadDamKey
+					                      clear
+                            			  echo
+                            			  cat /var/log/smx-log/fail.log | tail -n 7
+                            			  echo
+                            			  read -p "Press [enter] to continue..." ReadDamKey
+                            			  exit 1
+                    			     fi
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Setting ServerTokens to: Prod"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     $(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf.d/security
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Setting ServerSignature to: Off"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     $(which sed) -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf.d/security
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Setting ServerAdmin to: $ADMIN_EMAIL"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     $(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Removing Indexes from Options"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     $(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks MultiViews/g' /etc/apache2/sites-available/default
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Setting AllowOverride to: All"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Setting ServerName to: $IP_ADDR"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                				     echo "ServerName $IP_ADDR" >> /etc/apache2/apache2.conf
+                				     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Starting apache2"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                        		     /etc/init.d/apache2 start
+                        		     $(which rm) /var/www/index.html
+                        		     update_spinner
+                				     sleep 1
+                				     update_spinner
+                				     echo "Creating test html page"
+                				     sleep 1
+                				     update_spinner
+                				     sleep 1
+                        		     echo "<html>" >> /var/www/index.html
+                        		     echo "<body>" >> /var/www/index.html
+                            	     echo "<div style='width: 100%; font-size: 40px; font-weight: bold; text-align: center;'>" >> /var/www/index.html
+                            	     echo "Test Page for apache on: $(hostname)" >> /var/www/index.html
+                        		     echo "</div>" >> /var/www/index.html
+                        		     echo "</body>" >> /var/www/index.html
+                        		     echo "</html>" >> /var/www/index.html
+                        		     echo "###################################################" >> /var/log/smx-log/success.log
+                        		     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        		     echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
+                        		     echo "" >> /var/log/smx-log/success.log
+                        		     echo "###################################################" >> /var/log/smx-log/success.log
+                        		     echo "" >> /var/log/smx-log/success.log
+                				     read -p "Press [enter] to continue..." ReadDamKey
+                				     clear
+                        		     echo
+                        		     cat /var/log/smx-log/success.log | tail -n 7
+                        		     echo
+                        		     echo "Apache successfuly installed on system, goto: http://$(hostname)/index.html"
+                        		     read -p "Press [enter] to continue..." ReadDamKey    
+                        		     if [ "$ansPerl" = "Y" ]; then
+                    					   clear
+                    					   echo "     COMMAND STATUS       "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                 Fileset                 Type"
+                    					   echo "-----------------------------------------------------------------"
+                    					   echo "$(which sed)                         bos.sysmgt.sed          exec"
+                    					   echo "$(which ln)                          bos.sysmgt.ln           exec"
+                    					   echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                    					   echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
+                    					   echo "Command run: /etc/init.d/apache2 restart"
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Changing AddHandler to .cgi .pl"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which sed) -i 's/#AddHandler cgi-script/AddHandler .cgi .pl' /etc/apache2/mods-enabled/mime.conf
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Adding ExecCGI to Options"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which sed) -i 's/Options FollowSymLinks MultiViews/Options FollowSymLinks MultiViews ExecCGI/g' /etc/apache2/sites-available/default
+                    					   $(which ln) -s /usr/bin/perl /usr/local/bin/perl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Restarting apache2"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   /etc/init.d/apache2 restart
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Creating perl test page"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   echo "#!/usr/local/bin/perl" >> /var/www/html/index.cgi
+                    					   echo "" >> /var/www/html/index.cgi
+                    					   echo "print 'Content-type: text/html\n\n';" >> /var/www/index.cgi
+                    					   echo "print '<html>\n</html>\n';" >> /var/www/index.cgi
+                    					   echo "print '<div style=\'width: 100%; font-size: 40px; font-weight: bold; text-align: center;\'>';" >> /var/www/index.cgi
+                    					   echo "print 'CGI Test Page for server: $(hostname)';" >> /var/www/index.cgi
+                    					   echo "print '\n</div>\n';" >> /var/www/index.cgi
+                    					   echo "print '</body>\n</html>\n';" >> /var/www/index.html
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   clear
+                    					   echo
+                    					   cat /var/log/smx-log/success.log | tail -n 7
+                    					   echo
+                    					   echo "successfuly installed perl on system, goto: http://$(hostname)/index.cgi"
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+				                     else
+                    					   echo "Perl not installed on system..."
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                				     fi
+                				     if [ "$ansPhp" = "Y" ]; then
+                    					   clear
+                    					   echo "      COMMAND STATUS        "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: RUNNING    stdout: yes    stder: no      "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                 Fileset                 Type"
+                    					   echo "-----------------------------------------------------------------"
+                    					   echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                    					   echo "$(which sed)                         bos.sysmgt.sed          exec"
+                    					   echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                    					   echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log"
+                    					   echo "Command run: /etc/init.d/apache2 restart"
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Installing package: php5 php5-cgi libapache2-mod-php5 php5-common php-pear"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log
+                    					   if [ $PIPESTATUS -eq 0 ]; then
+                                                echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						echo "###############################################################################################################################################" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo
+                        						cat /var/log/smx-log/success.log | tail -n 7
+                        						echo
+                        						read -p "Press [enter] to continue..." ReadDamKey
+					                       else
+                                                echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        						echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        						echo "Command run: $(which apt-get) -y install php5 php5-cgi libapache2-mod-php5 php5-common php-pear | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                        						echo "" >> /var/log/smx-log/fail.log
+                        						echo "###############################################################################################################################################" >> /var/log/smx-log/fail.log
+                        						echo "" >> /var/log/smx-log/fail.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo
+                        						cat /var/log/smx-log/fail.log | tail -n 7
+                        						echo
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						exit 1
+                    					   fi
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Adding AddHandler php5-script .php to: /etc/apache2/mods-enabled/mime.conf"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   echo "AddHandler php5-script .php" >> /etc/apache2/mods-enabled/mime.conf
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Restarting apache2"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   /etc/init.d/apache2 restart
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Creating php test page"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   echo "<html>" >> /var/www/index.php
+                    					   echo "<body>" >> /var/www/index.php
+                    					   echo "<div style='width: 100%; font-size: 40px: font-weight: bold: text-align: center;'>" >> /var/www/index.php
+                    					   echo "<?php" >> /var/www/index.php
+                    					   echo "print Date('Y/m/d');" >> /var/www/index.php
+                    					   echo "?>" >> /var/www/index.php
+                    					   echo "</div>" >> /var/www/index.php
+                    					   echo "</body>" >> /var/www/index.php
+                    					   echo "</html>" >> /var/www/index.php
+                    					   echo "###################################################" >> /var/log/smx-log/success.log
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   echo "###################################################" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   clear
+                    					   echo
+                    					   cat /var/log/smx-log/success.log | tail -n 7
+                    					   echo
+                    					   echo
+                    					   echo "PHP has been successfuly installed on system, goto: http://$(hostname)/index.php"
+					                       read -p "Press [enter] to continue..." ReadDamKey
+				                     else
+                    					   echo "PHP not installed on system..."
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                				     fi
+                				     if [ "$ansSsl" = "Y" ]; then
+                    					   clear
+                    					   echo "       COMMAND STATUS          "
+                    					   echo
+                    					   echo "$(date)                                     $(whoami)@$(hostname)"
+                    					   echo
+                    					   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					   echo
+                    					   echo "Before command completion, additional instructions may appear below"
+                    					   echo
+                    					   echo "File                                 Fileset                 Type"
+                    					   echo "-----------------------------------------------------------------"
+                    					   echo "$(which openssl)                     bos.sysmgt.openssl      exec"
+                    					   echo "$(which chmod)                       bos.sysmgt.chmod        exec"
+                    					   echo "$(which sed)                         bos.sysmgt.sed          exec"
+                    					   echo "$(which a2ensite)                    bos.sysmgt.a2ensite     exec"
+                    					   echo "$(which a2enmod)                     bos.sysmgt.a2enmod      exec"
+                    					   echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                    					   echo "Command run: $(which openssl) genrsa -des3 -out server.key 1024"
+                    					   echo "Command run: $(which openssl) rsa -in server.key -out server.key"
+                    					   echo "Command run: $(which openssl) req -new -days 9999 -key server.key -out server.csr"
+                    					   echo "Command run: $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999"
+                    					   echo "Command run: $(which chmod) 400 server.*"
+                    					   echo "Command run: $(which a2ensite) default-ssl"
+                    					   echo "Command run: $(which a2enmod) ssl"
+                    					   echo "Command run: /etc/init.d/apache2 restart"
+                    					   sleep 2
+                    					   clear
+                    					   cd /etc/ssl/certs
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Creating server.key"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which openssl) genrsa -des3 -out server.key 1024
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Removing password from server.key"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which openssl) rsa -in server.key -out server.key
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Creating server.csr"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which openssl) req -new -days 9999 -key server.key -out server.csr
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Creating certificate request"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999
+                    					   $(which chmod) 400 server.*
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Setting ServerAdmin to: $ADMIN_EMAIL"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which sed) -i "s/ServerAdmin webmaster@localhost/ServerAdmin $ADMIN_EMAIL/g" /etc/apache2/sites-available/default-ssl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Adding ExecCGI and removing Indexes and MultiViews from Options"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which sed) -i 's/Options Indexes FollowSymLinks MultiViews/Options FollowSymLinks ExecCGI/g' /etc/apache2/sites-available/default-ssl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Setting AllowOverride to All"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/default-ssl
+                    					   $(which sed) -i 's/SSLCertificateFile/#SSLCertificateFile' /etc/apache2/sites-available/default-ssl
+                    					   $(which sed) -i 's/SSLCertificateKeyFile/#SSLCertificateKeyFile' /etc/apache2/sites-available/default-ssl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Setting SSLCertificateFile to: /etc/ssl/certs/server.crt"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   echo "SSLCertificateFile /etc/ssl/certs/server.crt" >> /etc/apache2/sites-available/default-ssl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Setting SSLCertificateKeyFile to: /etc/ssl/certs/server.key"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   echo "SSLCertificateKeyFile /etc/ssl/certs/server.key" >> /etc/apache2/sites-available/default-ssl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Enabling default-ssl"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which a2ensite) default-ssl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Enabling ssl"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   $(which a2enmod) ssl
+                    					   update_spinner
+                    					   sleep 1
+                    					   update_spinner
+                    					   echo "Restarting apache2"
+                    					   sleep 1
+                    					   update_spinner
+                    					   sleep 1
+                    					   /etc/init.d/apache2 restart
+                    					   echo "################################################" >> /var/log/smx-log/success.log
+                    					   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "successfuly installed SSL on system: $(hostname)" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   echo "################################################" >> /var/log/smx-log/success.log
+                    					   echo "" >> /var/log/smx-log/success.log
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                    					   clear
+                    					   echo
+                    					   cat /var/log/smx-log/success.log | tail -n 7
+                    					   echo
+                    					   echo
+                    					   echo "successfuly installed SSL on system. goto: https://$(hostname)/index.html"
+				                     else 
+                    					   echo "SSL not installed on system..."
+                    					   read -p "Press [enter] to continue..." ReadDamKey
+                				     fi
+                				else
+                				     clear
+                				     cat /proc/version | grep "SUSE" > /dev/null
+                				     if [ $? -eq 0 ]; then
+                    					  clear
+                    					  echo "OS = SuSE"
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo "[TOP]                                                                                                     [Entry Fields]"
+                    					  printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] ------------------- > "
+                    					  if [ "$netIntf" = "" ]; then
+                                                NETINTF=""
+                        					 	read netIntf
+                        						NETINTF=$NETINTF
+                    					  fi
+                    					  if [ "$netIntf" = "" ]; then
+                                                NETINTF=""
 						                        NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
-                                           fi            
-                                           printf " Enter admin email [root@localhost] -------------------------------------------------------------------- > "
-                                           if [ "$adminEmail" = "" ]; then
-                                                 ADMIN_EMAIL=""
-                                                 read adminEmail
-                                                 ADMIN_EMAIL=$adminEmail
-                                           fi
-					                       if [ "$adminEmail" = "" ]; then
-                                                 ADMIN_EMAIL=""
-						                         ADMIN_EMAIL=root@localhost
-                                           fi          
-                                           printf " Enter server ip address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] --------- > "
-                                           if [ "$ipAddr" = "" ]; then
-                                                 IP_ADDR=""
-                                                 read ipAddr
-                                                 IP_ADDR=$ipAddr
-                                           fi
-                                           if [ "$ipAddr" = "" ]; then
-                                                 IP_ADDR=""
-						                         IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
-                                           fi         
-                                           read -p " Use Perl --------------------------------------------------------------------------------------- (Y/N) > " ansPerl
-                                           read -p " Use PHP ---------------------------------------------------------------------------------------- (Y/N) > " ansPhp
-                                           read -p " Use SSL ---------------------------------------------------------------------------------------- (Y/N) > " ansSsl
-                                           clear
-                                           echo "        COMMAND STATUS                  "
-                                           echo
-                                           echo "$(date)                                     $(whoami)@$(hostname)"
-                                           echo
-                                           echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                           echo
-                                           echo "Before command completion, additional instructions may appear below"
-                                           echo
-                                           echo "File                                 Fileset                 Type"
-                                           echo "-----------------------------------------------------------------"
-                                           echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                           echo "$(which sed)                         bos.sysmgt.sed          exec"
-                                           echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                                           echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log"
-                                           echo "Command run: /etc/init.d/apache2 start"
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Installing package: apache2"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-                                           $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log
-                                           if [ $PIPESTATUS -eq 0 ]; then
+                    					  fi            
+                    					  printf " Enter admin email [root@localhost] -------------------------------------------------------------------- > "
+                    					  if [ "$adminEmail" = "" ]; then
+                                                ADMIN_EMAIL=""
+                        						read adminEmail
+                        						ADMIN_EMAIL=$adminEmail
+                    					  fi
+                    					  if [ "$adminEmail" = "" ]; then
+                                                ADMIN_EMAIL=""
+						                        ADMIN_EMAIL=root@localhost
+                    					  fi          
+                    					  printf " Enter server ip address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] --------- > "
+                    					  if [ "$ipAddr" = "" ]; then
+                                                IP_ADDR=""
+                        						read ipAddr
+                        						IP_ADDR=$ipAddr
+                    					  fi
+                    					  if [ "$ipAddr" = "" ]; then
+                                                IP_ADDR=""
+						                        IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
+                    					  fi         
+                    					  read -p " Use Perl --------------------------------------------------------------------------------------- (Y/N) > " ansPerl
+                    					  read -p " Use PHP ---------------------------------------------------------------------------------------- (Y/N) > " ansPhp
+                    					  read -p " Use SSL ---------------------------------------------------------------------------------------- (Y/N) > " ansSsl
+                    					  clear
+                    					  echo "        COMMAND STATUS                  "
+                    					  echo
+                    					  echo "$(date)                                     $(whoami)@$(hostname)"
+                    					  echo
+                    					  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                    					  echo
+                    					  echo "Before command completion, additional instructions may appear below"
+                    					  echo
+                    					  echo "File                                 Fileset                 Type"
+                    					  echo "-----------------------------------------------------------------"
+                    					  echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                    					  echo "$(which sed)                         bos.sysmgt.sed          exec"
+                    					  echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                    					  echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log"
+                    					  echo "Command run: /etc/init.d/apache2 start"
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Installing package: apache2"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log
+                    					  if [ $PIPESTATUS -eq 0 ]; then
+                                               clear
+                                               echo "#########################################################################################" >> /var/log/smx-log/success.log
+                                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                               echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
+                                               echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               echo "#########################################################################################" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               echo
+                                               cat /var/log/smx-log/success.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+					                      else
+                                               clear
+					                           echo "#########################################################################################" >> /var/log/smx-log/fail.log
+                                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                               echo "Not installed apache on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                                               echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                                               echo "" >> /var/log/smx-log/fail.log
+                                               echo "#########################################################################################" >> /var/log/smx-log/fail.log
+                                               echo "" >> /var/log/smx-log/fail.log
+                                               read -p "Press [enter] to continue.." ReadDamKey
+                                               echo
+                                               cat /var/log/smx-log/fail.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               exit 1
+                    					  fi
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting ServerSignature to: off"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which sed) -i 's/ServerSignature on/ServerSignature off/g' /etc/apache2/sysconfig.d/global.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting ServerTokens to: Prod"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/sysconfig.d/global.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting Options to: FollowSymLinks"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which sed) -i 's/Options None/Options FollowSymLinks/g' /etc/apache2/default-server.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting AllowOverride to All"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/default-server.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting ServerName to: $IP_ADDR"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  echo "ServerName $IP_ADDR" >> /etc/apache2/default-server.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting ServerAdmin: $ADMIN_EMAIL"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  echo "ServerAdmin $ADMIN_EMAIL" >> /etc/apache2/default-server.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting DirectoryIndex to: index.html"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which sed) -i 's/DirectoryIndex index.html index.html.var/DirectoryIndex index.html/g' /etc/apache2/httpd.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting AllowOverride to: All"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which sed) -i 's/AllowOverride FileInfo AuthConfig Limit Indexes/AllowOverride All/g' /etc/apache2/mod_userdir.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Setting Options to: FollowSymLinks"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  $(which sed) -i 's/Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec/Options FollowSymLinks/g' /etc/apache2/mod_userdir.conf
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Starting apache2"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  /etc/init.d/apache2 start
+                    					  update_spinner
+                    					  sleep 1
+                    					  update_spinner
+                    					  echo "Creating test html page"
+                    					  sleep 1
+                    					  update_spinner
+                    					  sleep 1
+                    					  echo "<html>" >> /srv/www/htdocs/index.html
+                    					  echo "<body>" >> /srv/www/htdocs/index.html
+                    					  echo "<div style='width: 100%; font-size: 40px; font-weight: bold; text-align: center;'>" >> /srv/www/htdocs/index.html
+                    					  echo "Test Page for apache on: $(hostname)" >> /srv/www/htdocs/index.html
+                    					  echo "</div>" >> /srv/www/htdocs/index.html
+                    					  echo "</body>" >> /srv/www/htdocs/index.html
+                    					  echo "</html>" >> /srv/www/htdocs/index.html
+                    					  clear
+                    					  echo
+                    					  echo "Apache has been successfuly install on system, goto: http://$(hostname)/index.html"
+                    					  read -p "Press [enter] to continue..." ReadDamKey
+                    					  if [ "$ansPerl" = "Y" ]; then
                                                 clear
-                                                echo "#########################################################################################" >> /var/log/smx-log/success.log
-                                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                                echo "successfuly installed apache on system: $(hostname)" >> /var/log/smx-log/success.log
-                                                echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                                                echo "" >> /var/log/smx-log/success.log
-                                                echo "#########################################################################################" >> /var/log/smx-log/success.log
-                                                echo "" >> /var/log/smx-log/success.log
-                                                read -p "Press [enter] to continue..." ReadDamKey
-                                                echo
-                                                cat /var/log/smx-log/success.log | tail -n 7
-                                                echo
-                                                read -p "Press [enter] to continue..." ReadDamKey
-					                       else
+                        						echo "       COMMAND STATUS        "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        						echo "$(which ln)                          bos.sysmgt.ln           exec"
+                        						echo "$(which chmod)                       bos.sysmgt.chmod        exec"
+                        						echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        						echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log"
+                        						echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
+                        						echo "Command run: $(which chmod) 705 /srv/www/htdocs/index.cgi"
+                        						echo "/etc/init.d/apache2 restart"
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						echo "Installing package: apache2-mod_perl"
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log
+                        						if [ $PIPESTATUS -eq 0 ]; then
+                        						     echo "##################################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     echo "##################################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo
+                        						     cat /var/log/smx-log/success.log | tail -n 7
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						else
+                        						     echo "##################################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        						     echo "Not installed perl on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        						     echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     echo "##################################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo
+                        						     cat /var/log/smx-log/fail.log | tail -n 7
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     exit 1
+                        						fi
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting Options to: ExecCGI"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which sed) -i 's/Options FollowSymLinks/Options FollowSymLinks ExecCGI/g' /etc/apache2/default-server.conf
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting DirectoryIndex to: index.html and index.cgi"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which sed) -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.cgi/g' /etc/apache2/httpd.conf
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting AddHandler to: cgi-script .cgi .pl"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						echo "AddHandler cgi-script .cgi .pl" >> /etc/apache2/mod_mime-defaults.conf
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting Options to: ExecCGI"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which sed) -i 's/Options FollowSymLinks/Options FollowSymLinks ExecCGI/g' /etc/apache2/mod_userdir.conf
+                        						$(which ln) -s /usr/bin/perl /usr/local/bin/perl
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Creating test perl page"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						echo "#!/usr/local/bin/perl" >> /srv/www/htdocs/index.cgi
+                        						echo "" >> /srv/www/htdocs/index.cgi
+                        						echo "print 'Content-type: text/html\n\n';" >> /srv/www/htdocs/index.cgi
+                        						echo "print '<html>\n</html>\n';" >> /srv/www/htdocs/index.cgi
+                        						echo "print '<div style=\'width: 100%; font-size: 40px; font-weight: bold; text-align: center;\'>';" >> /srv/www/htdocs/index.cgi
+                        						echo "print 'CGI Test Page for server: $(hostname)';" >> /srv/www/htdocs/index.cgi
+                        						echo "print '\n</div>\n';" >> /srv/www/htdocs/index.cgi
+                        						echo "print '</body>\n</html>\n';" >> /srv/www/htdocs/index.cgi
+                        						$(which chmod) 705 /srv/www/htdocs/index.cgi
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Restarting apache2"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						/etc/init.d/apache2 restart
+                        						clear
+                        						echo "##############################################################################################" >> /var/log/smx-log/success.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						echo "successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						echo "##############################################################################################" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo
+                        						cat /var/log/smx-log/success.log | tail -n 7
+                        						echo
+                        						echo "Perl has been successfuly installed on system, goto: http://$(hostname)/index.cgi"
+                        						read -p "Press [enter] to continue..." ReadDamKey
+					                      else
+					                            echo "Perl not installed on system..."
+						                        read -p "Press [enter] to continue..." ReadDamKey
+                    					  fi
+                    					  if [ "$ansPhp" = "Y" ]; then
                                                 clear
-					                            echo "#########################################################################################" >> /var/log/smx-log/fail.log
-                                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                                                echo "Not installed apache on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                                                echo "Command run: $(which zypper) in -y apache2 | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                                                echo "" >> /var/log/smx-log/fail.log
-                                                echo "#########################################################################################" >> /var/log/smx-log/fail.log
-                                                echo "" >> /var/log/smx-log/fail.log
-                                                read -p "Press [enter] to continue.." ReadDamKey
-                                                echo
-                                                cat /var/log/smx-log/fail.log | tail -n 7
-                                                echo
-                                                read -p "Press [enter] to continue..." ReadDamKey
-                                                exit 1
-					                       fi
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting ServerSignature to: off"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       $(which sed) -i 's/ServerSignature on/ServerSignature off/g' /etc/apache2/sysconfig.d/global.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting ServerTokens to: Prod"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       $(which sed) -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/sysconfig.d/global.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting Options to: FollowSymLinks"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       $(which sed) -i 's/Options None/Options FollowSymLinks/g' /etc/apache2/default-server.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting AllowOverride to All"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       $(which sed) -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/default-server.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting ServerName to: $IP_ADDR"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       echo "ServerName $IP_ADDR" >> /etc/apache2/default-server.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting ServerAdmin: $ADMIN_EMAIL"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       echo "ServerAdmin $ADMIN_EMAIL" >> /etc/apache2/default-server.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting DirectoryIndex to: index.html"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       $(which sed) -i 's/DirectoryIndex index.html index.html.var/DirectoryIndex index.html/g' /etc/apache2/httpd.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting AllowOverride to: All"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       $(which sed) -i 's/AllowOverride FileInfo AuthConfig Limit Indexes/AllowOverride All/g' /etc/apache2/mod_userdir.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Setting Options to: FollowSymLinks"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       $(which sed) -i 's/Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec/Options FollowSymLinks/g' /etc/apache2/mod_userdir.conf
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Starting apache2"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-					                       /etc/init.d/apache2 start
-                                           update_spinner
-                                           sleep 1
-                                           update_spinner
-                                           echo "Creating test html page"
-                                           sleep 1
-                                           update_spinner
-                                           sleep 1
-                                           echo "<html>" >> /srv/www/htdocs/index.html
-                                           echo "<body>" >> /srv/www/htdocs/index.html
-                                           echo "<div style='width: 100%; font-size: 40px; font-weight: bold; text-align: center;'>" >> /srv/www/htdocs/index.html
-                                           echo "Test Page for apache on: $(hostname)" >> /srv/www/htdocs/index.html
-                                           echo "</div>" >> /srv/www/htdocs/index.html
-                                           echo "</body>" >> /srv/www/htdocs/index.html
-                                           echo "</html>" >> /srv/www/htdocs/index.html
-                                           clear
-                                           echo
-                                           echo "Apache has been successfuly install on system, goto: http://$(hostname)/index.html"
-                                           read -p "Press [enter] to continue..." ReadDamKey
-                                           if [ "$ansPerl" = "Y" ]; then
-                                                 clear
-                                                 echo "       COMMAND STATUS        "
-                                                 echo
-                                                 echo "$(date)                                     $(whoami)@$(hostname)"
-                                                 echo
-                                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                                 echo
-                                                 echo "Before command completion, additional instructions may appear below"
-                                                 echo
-                                                 echo "File                                 Fileset                 Type"
-                                                 echo "-----------------------------------------------------------------"
-                                                 echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                                 echo "$(which sed)                         bos.sysmgt.sed          exec"
-                                                 echo "$(which ln)                          bos.sysmgt.ln           exec"
-                                                 echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-                                                 echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                                                 echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log"
-                                                 echo "Command run: $(which ln) -s /usr/bin/perl /usr/local/bin/perl"
-                                                 echo "Command run: $(which chmod) 705 /srv/www/htdocs/index.cgi"
-                                                 echo "/etc/init.d/apache2 restart"
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 echo "Installing package: apache2-mod_perl"
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log
-                                                 if [ $PIPESTATUS -eq 0 ]; then
-                                                      echo "##################################################################################################" >> /var/log/smx-log/success.log
-                                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                                      echo "successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
-                                                      echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                                                      echo "" >> /var/log/smx-log/success.log
-                                                      echo "##################################################################################################" >> /var/log/smx-log/success.log
-                                                      echo "" >> /var/log/smx-log/success.log
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                      clear
-                                                      echo
-                                                      cat /var/log/smx-log/success.log | tail -n 7
-                                                      echo
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                 else
-                                                      echo "##################################################################################################" >> /var/log/smx-log/fail.log
-                                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                                                      echo "Not installed perl on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                                                      echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                                                      echo "" >> /var/log/smx-log/fail.log
-                                                      echo "##################################################################################################" >> /var/log/smx-log/fail.log
-                                                      echo "" >> /var/log/smx-log/fail.log
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                      clear
-                                                      echo
-                                                      cat /var/log/smx-log/fail.log | tail -n 7
-                                                      echo
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                      exit 1
-                                                 fi
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting Options to: ExecCGI"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 $(which sed) -i 's/Options FollowSymLinks/Options FollowSymLinks ExecCGI/g' /etc/apache2/default-server.conf
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting DirectoryIndex to: index.html and index.cgi"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         $(which sed) -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.cgi/g' /etc/apache2/httpd.conf
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting AddHandler to: cgi-script .cgi .pl"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         echo "AddHandler cgi-script .cgi .pl" >> /etc/apache2/mod_mime-defaults.conf
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting Options to: ExecCGI"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 $(which sed) -i 's/Options FollowSymLinks/Options FollowSymLinks ExecCGI/g' /etc/apache2/mod_userdir.conf
-                                                 $(which ln) -s /usr/bin/perl /usr/local/bin/perl
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Creating test perl page"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 echo "#!/usr/local/bin/perl" >> /srv/www/htdocs/index.cgi
-                                                 echo "" >> /srv/www/htdocs/index.cgi
-                                                 echo "print 'Content-type: text/html\n\n';" >> /srv/www/htdocs/index.cgi
-                                                 echo "print '<html>\n</html>\n';" >> /srv/www/htdocs/index.cgi
-                                                 echo "print '<div style=\'width: 100%; font-size: 40px; font-weight: bold; text-align: center;\'>';" >> /srv/www/htdocs/index.cgi
-                                                 echo "print 'CGI Test Page for server: $(hostname)';" >> /srv/www/htdocs/index.cgi
-                                                 echo "print '\n</div>\n';" >> /srv/www/htdocs/index.cgi
-                                                 echo "print '</body>\n</html>\n';" >> /srv/www/htdocs/index.cgi
-                                                 $(which chmod) 705 /srv/www/htdocs/index.cgi
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Restarting apache2"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 /etc/init.d/apache2 restart
-                                                 clear
-                                                 echo "##############################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "successfuly installed perl on system: $(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "Command run: $(which zypper) in -y apache2-mod_perl | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 echo "##############################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-                                                 clear
-                                                 echo
-                                                 cat /var/log/smx-log/success.log | tail -n 7
-                                                 echo
-                                                 echo "Perl has been successfuly installed on system, goto: http://$(hostname)/index.cgi"
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-					                       else
-					                              echo "Perl not installed on system..."
-						                          read -p "Press [enter] to continue..." ReadDamKey
-                                           fi
-                                           if [ "$ansPhp" = "Y" ]; then
-                                                 clear
-                                                 echo "       COMMAND STATUS        "
-                                                 echo
-                                                 echo "$(date)                                     $(whoami)@$(hostname)"
-                                                 echo
-                                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                                 echo
-                                                 echo "Before command completion, additional instructions may appear below"
-                                                 echo
-                                                 echo "File                                 Fileset                 Type"
-                                                 echo "-----------------------------------------------------------------"
-                                                 echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                                 echo "$(which sed)                         bos.sysmgt.sed          exec"
-                                                 echo "$(which a2enmod)                     bos.sysmgt.a2enmod      exec"
-                                                 echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                                                 echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log"
-                                                 echo "Command run: $(which a2enmod) php5"
-                                                 echo "Command run: /etc/init.d/apache2 restart"
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Installing packages: apache2-mod_php5 php5 php5-mbstring php5-pear"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log
-                                                 if [ $PIPESTATUS -eq 0 ]; then
-                                                      echo "###############################################################################################################################" >> /var/log/smx-log/success.log
-                                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                                      echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
-                                                      echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                                                      echo "" >> /var/log/smx-log/success.log
-                                                      echo "###############################################################################################################################" >> /var/log/smx-log/success.log
-                                                      echo "" >> /var/log/smx-log/success.log
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                      clear
-                                                      echo
-                                                      cat /var/log/smx-log/success.log | tail -n 7
-                                                      echo
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                 else
-                                                      echo "###############################################################################################################################" >> /var/log/smx-log/fail.log
-                                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
-                                                      echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                                                      echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
-                                                      echo "" >> /var/log/smx-log/fail.log
-                                                      echo "###############################################################################################################################" >> /var/log/smx-log/fail.log
-                                                      echo "" >> /var/log/smx-log/fail.log
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                      clear
-                                                      echo
-                                                      cat /var/log/smx-log/fail.log | tail -n 7
-                                                      echo
-                                                      read -p "Press [enter] to continue..." ReadDamKey
-                                                      exit 1
-                                                 fi
-                                                 if [ "$ansPerl" = "Y" ]; then
-                                                       update_spinner
-                                                       sleep 1
-                                                       update_spinner
-                                                       echo "Setting DirectoryIndex to: index.html index.cgi index.php"
-                                                       sleep 1
-                                                       update_spinner
-                                                       sleep 1
-                                                       $(which sed) -i 's/DirectoryIndex index.html index.cgi/DirectoryIndex index.html index.cgi index.php/g' /etc/apache2/httpd.conf
-                                                 else
-                                                       update_spinner
-                                                       sleep 1
-                                                       update_spinner
-                                                       echo "Setting DirectoryIndex to: index.html index.php"
-                                                       sleep 1
-                                                       update_spinner
-                                                       sleep 1
-						                               $(which sed) -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.php/g' /etc/apache2/httpd.conf
-						                         fi
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Enabling php5"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         $(which a2enmod) php5
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Restarting apache2"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         /etc/init.d/apache2 restart
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Creating php test page"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 echo "<html>" >> /srv/www/htdocs/index.php
-                                                 echo "<body>" >> /srv/www/htdocs/index.php
-                                                 echo "<div style='width: 100%; font-size: 40px: font-weight: bold: text-align: center;'>" >> /srv/www/htdocs/index.php
-                                                 echo "<?php" >> /srv/www/htdocs/index.php
-                                                 echo "print Date('Y/m/d');" >> /srv/www/htdocs/index.php
-                                                 echo "?>" >> /srv/www/htdocs/index.php
-                                                 echo "</div>" >> /srv/www/htdocs/index.php
-                                                 echo "</body>" >> /srv/www/htdocs/index.php
-                                                 echo "</html>" >> /srv/www/htdocs/index.php
-                                                 echo "######################################################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "Command run: $(which zypper) in -y apache2-mod_php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 echo "######################################################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-                                                 clear
-                                                 echo
-                                                 cat /var/log/smx-log/success.log | tail -n 7
-                                                 echo
-                                                 echo
-                                                 echo "successfuly installed php on system, goto: http://$(hostname)/index.php"
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-					                       else
-                                                 echo "PHP not installed on system..."
-						                         read -p "Press [enter] to continue..." ReadDamKey
-                                           fi
-                                           if [ "$ansSsl" = "Y" ]; then
-                                                 clear
-                                                 echo "         COMMAND STATUS        "
-                                                 echo
-                                                 echo "$(date)                                     $(whoami)@$(hostname)"
-                                                 echo
-                                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                                 echo
-                                                 echo "Before command completion, additional instructions may appear below"
-                                                 echo
-                                                 echo "File                                 Fileset                 Type"
-                                                 echo "-----------------------------------------------------------------"
-                                                 echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
-                                                 echo "cd                                   bos.sysmgt.cd           exec"
-                                                 echo "$(which openssl)                     bos.sysmgt.openssl      exec"
-                                                 echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-                                                 echo "cp                                   bos.sysmgt.cp           exec"
-                                                 echo "$(which sed)                         bos.sysmgt.sed          exec"
-                                                 echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
-                                                 echo "Command run: $(which mkdir) -p /etc/ssl/CA"
-                                                 echo "Command run: cd /etc/ssl/CA"
-                                                 echo "Command run: $(which openssl) genrsa -des3 -out server.key 1024"
-                                                 echo "Command run: $(which openssl) rsa -in server.key -out server.key"
-                                                 echo "Command run: $(which openssl) req -new -days 9999 -key server.key -out server.csr"
-                                                 echo "Command run: $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999"
-                                                 echo "Command run: $(which chmod) 400 server.*"
-                                                 echo "Command run: /etc/init.d/apache2 restart"
-                                                 sleep 2
-                                                 clear
-                                                 $(which mkdir) -p /etc/ssl/CA
-                                                 cd /etc/ssl/CA
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Creating server.key"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         $(which openssl) genrsa -des3 -out server.key 1024
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Removing password from server.key"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         $(which openssl) rsa -in server.key -out server.key
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Creating server.csr"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         $(which openssl) req -new -days 9999 -key server.key -out server.csr
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Creating certificate request"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999
-                                                 $(which chmod) 400 server.*
-                                                 $(which sed) -i 's/APACHE_SERVER_FLAGS/#APACHE_SERVER_FLAGS/g' /etc/sysconfig/apache2
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting apache to use SSL"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 echo 'APACHE_SERVER_FLAGS="SSL"' >> /etc/sysconfig/apache2
-                                                 cp /etc/apache2/vhosts.d/vhost-ssl.template /etc/apache2/vhosts.d/vhost-ssl.conf
-                                                 echo "Include /etc/apache2/conf.d/*.conf" >> /etc/apache2/default-server.conf
-                                                 echo "Include /etc/apache2/vhosts.d/*.conf" >> /etc/apache2/default-server.conf
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting ServerName to: $IP_ADDR:443"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         $(which sed) -i "s/#ServerName www.example.com:443/ServerName $IP_ADDR:443/g" /etc/apache2/vhosts.d/vhost-ssl.conf
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting SSLCertificateFile to: /etc/apache2/ssl.crt/server.crt"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-						                         $(which sed) -i 's,etc/apache2/ssl.crt/server.crt,etc/ssl/CA/server.crt,g' /etc/apache2/vhosts.d/vhost-ssl.conf
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Setting SSLCertificateKeyFile to: /etc/apache2/ssl.key/server.key"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 $(which sed) -i 's,etc/apache2/ssl.key/server.key,etc/ssl/CA/server.key,g' /etc/apache2/vhosts.d/vhost-ssl.conf
-                                                 echo "NameVirtualHost *:443" >> /etc/apache2/httpd.conf
-                                                 update_spinner
-                                                 sleep 1
-                                                 update_spinner
-                                                 echo "Restarting apache2"
-                                                 sleep 1
-                                                 update_spinner
-                                                 sleep 1
-                                                 /etc/init.d/apache2 restart
-                                                 echo "#############################################################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "Successfully installed ssl on system: $(hostname)" >> /var/log/smx-log/success.log
-                                                 echo "Command run: $(which sed) -i 's,etc/apache2/ssl.crt/server.crt,etc/ssl/CA/server.crt,g' /etc/apache2/vhosts.d/vhost-ssl.conf" >> /var/log/smx-log/success.log
-                                                 echo "Command run: $(which sed) -i 's,etc/apache2/ssl.key/server.key,etc/ssl/CA/server.key,g' /etc/apache2/vhosts.d/vhosts-ssl.conf" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 echo "#############################################################################################################################" >> /var/log/smx-log/success.log
-                                                 echo "" >> /var/log/smx-log/success.log
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-                                                 clear
-                                                 echo
-                                                 cat /var/log/smx-log/success.log | tail -n 7
-                                                 echo
-                                                 read -p "Press [enter] to continue..." ReadDamKey
-					                       else
-					                             echo "SSL not installed on system..."
-						                         read -p "Press [enter] to continue..."
-					                       fi
-				                      fi
+                        						echo "       COMMAND STATUS        "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
+                        						echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        						echo "$(which a2enmod)                     bos.sysmgt.a2enmod      exec"
+                        						echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        						echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log"
+                        						echo "Command run: $(which a2enmod) php5"
+                        						echo "Command run: /etc/init.d/apache2 restart"
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Installing packages: apache2-mod_php5 php5 php5-mbstring php5-pear"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log
+                        						if [ $PIPESTATUS -eq 0 ]; then
+                        						     echo "###############################################################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						     echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     echo "###############################################################################################################################" >> /var/log/smx-log/success.log
+                        						     echo "" >> /var/log/smx-log/success.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo
+                        						     cat /var/log/smx-log/success.log | tail -n 7
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						else
+                        						     echo "###############################################################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                        						     echo "Not installed php on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                        						     echo "Command run: $(which zypper) in -y apache2-mod_php5 php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     echo "###############################################################################################################################" >> /var/log/smx-log/fail.log
+                        						     echo "" >> /var/log/smx-log/fail.log
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     clear
+                        						     echo
+                        						     cat /var/log/smx-log/fail.log | tail -n 7
+                        						     echo
+                        						     read -p "Press [enter] to continue..." ReadDamKey
+                        						     exit 1
+                        						fi
+                        						if [ "$ansPerl" = "Y" ]; then
+                        						      update_spinner
+                        						      sleep 1
+                        						      update_spinner
+                        						      echo "Setting DirectoryIndex to: index.html index.cgi index.php"
+                        						      sleep 1
+                        						      update_spinner
+                        						      sleep 1
+                        						      $(which sed) -i 's/DirectoryIndex index.html index.cgi/DirectoryIndex index.html index.cgi index.php/g' /etc/apache2/httpd.conf
+                        						else
+                        						      update_spinner
+                        						      sleep 1
+                        						      update_spinner
+                        						      echo "Setting DirectoryIndex to: index.html index.php"
+                        						      sleep 1
+                        						      update_spinner
+                        						      sleep 1
+                        						      $(which sed) -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.php/g' /etc/apache2/httpd.conf
+                        						fi
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Enabling php5"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which a2enmod) php5
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Restarting apache2"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						/etc/init.d/apache2 restart
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Creating php test page"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						echo "<html>" >> /srv/www/htdocs/index.php
+                        						echo "<body>" >> /srv/www/htdocs/index.php
+                        						echo "<div style='width: 100%; font-size: 40px: font-weight: bold: text-align: center;'>" >> /srv/www/htdocs/index.php
+                        						echo "<?php" >> /srv/www/htdocs/index.php
+                        						echo "print Date('Y/m/d');" >> /srv/www/htdocs/index.php
+                        						echo "?>" >> /srv/www/htdocs/index.php
+                        						echo "</div>" >> /srv/www/htdocs/index.php
+                        						echo "</body>" >> /srv/www/htdocs/index.php
+                        						echo "</html>" >> /srv/www/htdocs/index.php
+                        						echo "######################################################################################################################" >> /var/log/smx-log/success.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						echo "successfuly installed php on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Command run: $(which zypper) in -y apache2-mod_php5 php5-mbstring php5-pear | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						echo "######################################################################################################################" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo
+                        						cat /var/log/smx-log/success.log | tail -n 7
+                        						echo
+                        						echo
+                        						echo "successfuly installed php on system, goto: http://$(hostname)/index.php"
+                        						read -p "Press [enter] to continue..." ReadDamKey
+					                      else
+                                                echo "PHP not installed on system..."
+						                        read -p "Press [enter] to continue..." ReadDamKey
+                    					  fi
+                    					  if [ "$ansSsl" = "Y" ]; then
+                                                clear
+                        						echo "         COMMAND STATUS        "
+                        						echo
+                        						echo "$(date)                                     $(whoami)@$(hostname)"
+                        						echo
+                        						echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        						echo
+                        						echo "Before command completion, additional instructions may appear below"
+                        						echo
+                        						echo "File                                 Fileset                 Type"
+                        						echo "-----------------------------------------------------------------"
+                        						echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+                        						echo "cd                                   bos.sysmgt.cd           exec"
+                        						echo "$(which openssl)                     bos.sysmgt.openssl      exec"
+                        						echo "$(which chmod)                       bos.sysmgt.chmod        exec"
+                        						echo "cp                                   bos.sysmgt.cp           exec"
+                        						echo "$(which sed)                         bos.sysmgt.sed          exec"
+                        						echo "/etc/init.d/apache2                  bos.sysmgt.apache2      exec"
+                        						echo "Command run: $(which mkdir) -p /etc/ssl/CA"
+                        						echo "Command run: cd /etc/ssl/CA"
+                        						echo "Command run: $(which openssl) genrsa -des3 -out server.key 1024"
+                        						echo "Command run: $(which openssl) rsa -in server.key -out server.key"
+                        						echo "Command run: $(which openssl) req -new -days 9999 -key server.key -out server.csr"
+                        						echo "Command run: $(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999"
+                        						echo "Command run: $(which chmod) 400 server.*"
+                        						echo "Command run: /etc/init.d/apache2 restart"
+                        						sleep 2
+                        						clear
+                        						$(which mkdir) -p /etc/ssl/CA
+                        						cd /etc/ssl/CA
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Creating server.key"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which openssl) genrsa -des3 -out server.key 1024
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Removing password from server.key"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which openssl) rsa -in server.key -out server.key
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Creating server.csr"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which openssl) req -new -days 9999 -key server.key -out server.csr
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Creating certificate request"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which openssl) x509 -in server.csr -out server.crt -req -signkey server.key -days 9999
+                        						$(which chmod) 400 server.*
+                        						$(which sed) -i 's/APACHE_SERVER_FLAGS/#APACHE_SERVER_FLAGS/g' /etc/sysconfig/apache2
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting apache to use SSL"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						echo 'APACHE_SERVER_FLAGS="SSL"' >> /etc/sysconfig/apache2
+                        						cp /etc/apache2/vhosts.d/vhost-ssl.template /etc/apache2/vhosts.d/vhost-ssl.conf
+                        						echo "Include /etc/apache2/conf.d/*.conf" >> /etc/apache2/default-server.conf
+                        						echo "Include /etc/apache2/vhosts.d/*.conf" >> /etc/apache2/default-server.conf
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting ServerName to: $IP_ADDR:443"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which sed) -i "s/#ServerName www.example.com:443/ServerName $IP_ADDR:443/g" /etc/apache2/vhosts.d/vhost-ssl.conf
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting SSLCertificateFile to: /etc/apache2/ssl.crt/server.crt"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which sed) -i 's,etc/apache2/ssl.crt/server.crt,etc/ssl/CA/server.crt,g' /etc/apache2/vhosts.d/vhost-ssl.conf
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Setting SSLCertificateKeyFile to: /etc/apache2/ssl.key/server.key"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						$(which sed) -i 's,etc/apache2/ssl.key/server.key,etc/ssl/CA/server.key,g' /etc/apache2/vhosts.d/vhost-ssl.conf
+                        						echo "NameVirtualHost *:443" >> /etc/apache2/httpd.conf
+                        						update_spinner
+                        						sleep 1
+                        						update_spinner
+                        						echo "Restarting apache2"
+                        						sleep 1
+                        						update_spinner
+                        						sleep 1
+                        						/etc/init.d/apache2 restart
+                        						echo "#############################################################################################################################" >> /var/log/smx-log/success.log
+                        						echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Successfuly installed ssl on system: $(hostname)" >> /var/log/smx-log/success.log
+                        						echo "Command run: $(which sed) -i 's,etc/apache2/ssl.crt/server.crt,etc/ssl/CA/server.crt,g' /etc/apache2/vhosts.d/vhost-ssl.conf" >> /var/log/smx-log/success.log
+                        						echo "Command run: $(which sed) -i 's,etc/apache2/ssl.key/server.key,etc/ssl/CA/server.key,g' /etc/apache2/vhosts.d/vhosts-ssl.conf" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						echo "#############################################################################################################################" >> /var/log/smx-log/success.log
+                        						echo "" >> /var/log/smx-log/success.log
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                        						clear
+                        						echo
+                        						cat /var/log/smx-log/success.log | tail -n 7
+                        						echo
+                        						read -p "Press [enter] to continue..." ReadDamKey
+                    					  else
+                    					        echo "SSL not installed on system..."
+						                        read -p "Press [enter] to continue..."
+					                      fi
+				                     fi
 				                fi
 			               fi
                       fi
@@ -18920,7 +18937,7 @@ function apache_menu(){
                                 echo
                                 read -p "Press [enter] to continue..." ReadDamKey
               		       else
-                           		echo "######################################################" >> /var/log/smx-log/fail.log
+                                echo "######################################################" >> /var/log/smx-log/fail.log
                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                 echo "Not restarted apache successfuly, check command syntax" >> /var/log/smx-log/fail.log
                                 echo "Command run: $(which service) httpd restart" >> /var/log/smx-log/fail.log
@@ -19304,7 +19321,7 @@ function apache_menu(){
                                         cat /var/log/smx-log/fail.log | tail -n 7
                                         echo
                                         read -p "Press [enter] to continue..." ReadDamKey
-				                   fi
+				                  fi
 			                  else
                                    clear
                                    cat /proc/version | grep "SUSE" > /dev/null
@@ -20638,8 +20655,8 @@ function nfs_menu(){
                                       sleep 1
                                       update_spinner
                                       sleep 1
-				                      /etc/init.d/rpcbind stop
-                                      update_spinner
+                				      /etc/init.d/rpcbind stop
+                				      update_spinner
                                       sleep 1
                                       update_spinner
                                       echo "Stopping nfsserver"
@@ -21251,7 +21268,7 @@ function nfs_menu(){
                               sleep 1
                               update_spinner
                               sleep 1
-                		      /etc/init.d/portmap restart
+                	          /etc/init.d/portmap restart
                               update_spinner
                               sleep 1
                               update_spinner
@@ -21421,8 +21438,8 @@ function nfs_menu(){
                   read -p "Press [enter] to continue..." ReadDamKey
                   ;;         
 	       exit)
-	              clear
-    		      echo "#######################################################" >> /var/log/smx-log/exit.log
+    	          clear
+        		  echo "#######################################################" >> /var/log/smx-log/exit.log
                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                   echo "successfuly terminated $(basename $0)/srv_menu/nfs_menu" >> /var/log/smx-log/exit.log
             	  echo "" >> /var/log/smx-log/exit.log
@@ -21431,8 +21448,8 @@ function nfs_menu(){
                   srv_menu
                   ;;
 	       exit-mas)
-	                  clear
-    		          echo "#################################" >> /var/log/smx-log/exit.log
+    	              clear
+        		      echo "#################################" >> /var/log/smx-log/exit.log
                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
                       echo "successfuly terminated sysExec.sh" >> /var/log/smx-log/exit.log
                       echo "" >> /var/log/smx-log/exit.log
@@ -21441,11 +21458,11 @@ function nfs_menu(){
                       exit 0
                       ;;
 	       *)         clear
-    		          echo "          COMMAND STATUS         "
-    		          echo
-    		          echo "$(date)                                     $(whoami)@$(hostname)"
-    		          echo
-    		          echo "Command: FAIL    stdout: yes    stderr: no       "
+        		      echo "          COMMAND STATUS         "
+        		      echo
+        		      echo "$(date)                                     $(whoami)@$(hostname)"
+        		      echo
+        		      echo "Command: FAIL    stdout: yes    stderr: no       "
                       echo
                       echo "Before command completion, additional instructions may appear below"
                       echo
@@ -21464,8 +21481,8 @@ function nis_menu() {
     	read -p "(config-nis)#" choice_nis
     	echo
 	
-	    case "$choice_nis" in
-	        install)
+    	case "$choice_nis" in
+    	    install)
 		              clear
                       cat /proc/version | grep "Red Hat" > /dev/null
                       if [ $? -eq 0 ]; then
@@ -21482,7 +21499,7 @@ function nis_menu() {
                                 echo "IP class example: 192.168.1.0"
                                 echo "Netmask range example: 255.255.255.0"
                                 echo "Hostname example: nisServer"
-                                echo "FQDN example: nisServer.doamin.local"
+                                echo "FQDN example: nisServer.domain.local"
                                 echo "[TOP]                                                                                              [Entry Fields]"
                                 read -p " Enter domain name ----------------------------------------------------------------------------- > " dnsName
                                 read -p " Enter IP class -------------------------------------------------------------------------------- > " ipClass
@@ -21826,7 +21843,7 @@ function nis_menu() {
                                       echo "System will not reboot, Cannot be used as NIS client untill next reboot!!"
                                       read -p "Press [enter] to continue..." ReadDamKey
                                 fi      
-			               fi
+			                fi
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
@@ -22366,7 +22383,7 @@ function nis_menu() {
                                                echo "File                                 Fileset                 Type"
                                                echo "-----------------------------------------------------------------"
                                                echo "$(which zypper)                      bos.pkgmgt.zypper       exec"
-                                               echo "$(which ypdoaminname)                bos.sysmgt.ypdomainname exec"
+                                               echo "$(which ypdomainname)                bos.sysmgt.ypdomainname exec"
                                                echo "$(which sed)                         bos.sysmgt.sed          exec"
                                                echo "/etc/init.d/rpcbind                  bos.sysmgt.rpcbind      exec"
                                                echo "/etc/init.d/ypserv                   bos.sysmgt.ypserv       exec"
@@ -23264,8 +23281,8 @@ function nis_menu() {
                       echo
                       echo "Unkonwn command, please consult the command list, executed with pid - 5636 (0x1)"
                       read -p "Press [enter] to continue..." ReadDamKey;;
-	  esac
-  done
+	    esac
+    done
 }
 
 function dhcp_menu() {
@@ -23612,7 +23629,7 @@ function dhcp_menu() {
                                 update_spinner
                                 sleep 1
                                 update_spinner
-                                echo "Setting doamin name server IP address to: $dnsSrvAddr"
+                                echo "Setting domain name server IP address to: $dnsSrvAddr"
                                 sleep 1
                                 update_spinner
                                 sleep 1
@@ -23692,7 +23709,7 @@ function dhcp_menu() {
 				                     if [ $? -eq 0 ]; then
                                           echo "#################################################################################################" >> /var/log/smx-log/success.log
                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
-                                          echo "Successfully installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Successfuly installed dhcp server on system: $(hostname)" >> /var/log/smx-log/success.log
                                           echo "Command run: $(which apt-get) -y install dhcp3-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                                           echo "" >> /var/log/smx-log/success.log
                                           echo "#################################################################################################" >> /var/log/smx-log/success.log
@@ -23929,7 +23946,7 @@ function dhcp_menu() {
                                           update_spinner
                                           sleep 1
                                           update_spinner
-                                          echo "Setting doamin name server IP address to: $dnsSrvAddr"
+                                          echo "Setting domain name server IP address to: $dnsSrvAddr"
                                           sleep 1
                                           update_spinner
                                           sleep 1
@@ -24416,7 +24433,7 @@ function dhcp_menu() {
                                      echo "" >> /var/log/smx-log/success.log
                                      echo "#################################################" >> /var/log/smx-log/success.log
                                      echo "" >> /var/log/smx-log/success.log
-                                     read -p "Press [enter] to conitnue..." ReadDamKey
+                                     read -p "Press [enter] to continue..." ReadDamKey
                                      clear
                                      echo
                                      cat /var/log/smx-log/success.log | tail -n 7
@@ -24749,7 +24766,7 @@ function dhcp_menu() {
                                             cat /var/log/smx-log/success.log | tail -n 7
                                             echo
                                             read -p "Press [enter] to continue..." ReadDamKey
-				                      else
+				                     else
                                             clear
                                             echo "$(date)                                     $(whoami)@$(hostname)"
                                             echo "max lease time (in mins) example: 236544"
@@ -24862,8 +24879,8 @@ function dhcp_menu() {
                                                  cat /var/log/smx-log/success.log | tail -n 7
                                                  echo
                                                  read -p "Press [enter] to continue..." ReadDamKey
-					                       else
-					                             clear
+                    					   else
+                    					         clear
                                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                                  echo "max lease time (in mins) example: 124399"
                                                  echo "[TOP]                                            [Entry Fields]"
@@ -25265,7 +25282,7 @@ function sql_menu () {
                                 read -p "Press [enter] to continue..." ReadDamKey
                   	       else
 			                    echo "#######################################################################################################" >> /var/log/smx-log/fail.log
-                                echo "$(date)::$(whoami)@$(hosname)" >> /var/log/smx-log/fail.log
+                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                 echo "Not installed mysql on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
                                 echo "Command run: $(which yum) -y install mysql-server mariadb-server| $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
@@ -26133,8 +26150,8 @@ function sql_menu () {
             	     read -p "Press [enter] to continue..." ReadDamKey
             	     ;;
 	        chpwd)
-        	        clear
-        	        echo "$(date)                                     $(whoami)@$(hostname)"
+            	    clear
+            	    echo "$(date)                                     $(whoami)@$(hostname)"
               	    echo "[TOP]                                  [Entry Fields]"
               	    read -p " Enter new password ---------------- > " pwdWord
               	    read -p " Enter username -------------------- > " userName
@@ -26321,7 +26338,7 @@ function sql_menu () {
                                  echo
                                  read -p "Press [enter] to continue..." ReadDamKey
                                  exit 1
-			                fi
+			                 fi
                             echo "Enter SQL root password to flush privileges..."
                             $(which mysql) -u root -p -e 'FLUSH PRIVILEGES;'
                             read -p "Press [enter] to continue..." ReadDamKey
@@ -26489,12 +26506,12 @@ function sql_menu () {
                             echo "" >> /var/log/smx-log/success.log
                             echo "####################################################################################################################" >> /var/log/smx-log/success.log
                             echo "" >> /var/log/smx-log/success.log
-                            read -p "Press [enter] to conitnue..." ReadDamKey
+                            read -p "Press [enter] to continue..." ReadDamKey
                             clear
                             echo
                             cat /var/log/smx-log/success.log | tail -n 7
                             echo
-                            read -p "Press [enter] to conitnue..." ReadDamKey
+                            read -p "Press [enter] to continue..." ReadDamKey
 		               else
                             echo "####################################################################################################################" >> /var/log/smx-log/fail.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
@@ -26503,12 +26520,12 @@ function sql_menu () {
                             echo "" >> /var/log/smx-log/fail.log
                             echo "####################################################################################################################" >> /var/log/smx-log/fail.log
                             echo "" >> /var/log/smx-log/fail.log
-                            read -p "Press [enter] to conitnue..." ReadDamKey
+                            read -p "Press [enter] to continue..." ReadDamKey
                             clear
                             echo
                             cat /var/log/smx-log/fail.log | tail -n 7
                             echo
-			                read -p "Press [enter] to conitnue..." ReadDamKey
+			                read -p "Press [enter] to continue..." ReadDamKey
                             exit 1
                        fi
                        echo "Enter mysql root password to flush privilege tables..."
@@ -26590,7 +26607,7 @@ function sql_menu () {
                              echo "" >> /var/log/smx-log/success.log
                              echo "###############################################################################################################" >> /var/log/smx-log/success.log
                              echo "" >> /var/log/smx-log/success.log
-                             read -p "Press [enter] to conitnue..." ReadDamKey
+                             read -p "Press [enter] to continue..." ReadDamKey
                              clear
                              echo
                              cat /var/log/smx-log/success.log | tail -n 7
@@ -26671,7 +26688,7 @@ function sql_menu () {
                                   echo "" >> /var/log/smx-log/success.log
                                   echo "###############################################################################################################" >> /var/log/smx-log/success.log
                                   echo "" >> /var/log/smx-log/success.log
-                                  read -p "Press [enter] to conitnue..." ReadDamKey
+                                  read -p "Press [enter] to continue..." ReadDamKey
                                   clear
                                   echo
                                   cat /var/log/smx-log/success.log | tail -n 7
@@ -26752,7 +26769,7 @@ function sql_menu () {
                                        echo "" >> /var/log/smx-log/success.log
                                        echo "###############################################################################################################" >> /var/log/smx-log/success.log
                                        echo "" >> /var/log/smx-log/success.log
-                                       read -p "Press [enter] to conitnue..." ReadDamKey
+                                       read -p "Press [enter] to continue..." ReadDamKey
                                        clear
                                        echo
                                        cat /var/log/smx-log/success.log | tail -n 7
@@ -26833,7 +26850,7 @@ function sql_menu () {
                                             echo "" >> /var/log/smx-log/success.log
                                             echo "###############################################################################################################" >> /var/log/smx-log/success.log
                                             echo "" >> /var/log/smx-log/success.log
-                                            read -p "Press [enter] to conitnue..." ReadDamKey
+                                            read -p "Press [enter] to continue..." ReadDamKey
                                             clear
                                             echo
                                             cat /var/log/smx-log/success.log | tail -n 7
@@ -26883,7 +26900,7 @@ function sql_menu () {
                            echo
                            cat /var/log/smx-log/success.log | tail -n 7
                            echo
-                           read -p "Press [enter] to conitnue..." ReadDamKey
+                           read -p "Press [enter] to continue..." ReadDamKey
 		              else
                            echo "######################################################################################" >> /var/log/smx-log/fail.log
                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
@@ -26897,7 +26914,7 @@ function sql_menu () {
                            echo
                            cat /var/log/smx-log/fail.log | tail -n 7
                            echo
-                           read -p "Press [enter] to conitnue..." ReadDamKey
+                           read -p "Press [enter] to continue..." ReadDamKey
                       fi
                       ;;
             help)
@@ -27027,8 +27044,8 @@ function smb_menu() {
                                       cat /var/log/smx-log/success.log | tail -n 7
                                       echo
                                       read -p "Press [enter] to continue..." ReadDamKey
-				                 else
-				                      echo "###############################################################################################" >> /var/log/smx-log/fail.log
+                				 else
+                				      echo "###############################################################################################" >> /var/log/smx-log/fail.log
                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                       echo "Not installed samba on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
                                       echo "Command run: $(which yum) -y install samba samba-client | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
@@ -27433,8 +27450,8 @@ function smb_menu() {
                                       echo "" >> /etc/samba/smb.conf
                                       /etc/init.d/samba start
                                       read -p "Press [enter] to continue..." ReadDamKey
-				                else
-				                      clear
+                				else
+                				      clear
                                       echo "$(date)                                     $(whoami)@$(hostname)"
                                       echo "Folder share name example: /samba/share"
                                       echo "Share name example: samba-test"
@@ -27788,7 +27805,7 @@ function smb_menu() {
                                            update_spinner
                                            sleep 1
                     			           $(which groupadd) samba
-                                           update_spinner
+					                       update_spinner
                                            sleep 1
                                            update_spinner
                                            echo "Creating new samba share point at: $folderName"
@@ -27963,8 +27980,8 @@ function smb_menu() {
                                                 $(which chkconfig) smb on
                                                 echo "To successfuly use samba, DISABLE apparmor..."
                                                 read -p "Press [enter] to continue..." ReadDamKey
-					                      else
-					                            clear
+                    					  else
+                    					        clear
                                                 echo "$(date)                                     $(whoami)@$(hostname)"
                                                 echo "Folder name example: /samba/share"
                                                 echo "Share name example: samba-test"
@@ -29036,7 +29053,7 @@ function ssh_menu() {
                                           sleep 1
                                           update_spinner
                                           sleep 1
-                    			          $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+                    			           $(which sed) -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
                                           update_spinner
                                           sleep 1
                                           update_spinner
@@ -29229,8 +29246,8 @@ function ssh_menu() {
                                         echo
                                         read -p "Press [enter] to continue..." ReadDamKey
                                    fi
-			                  fi
-			             fi
+            			      fi
+            			 fi
                     fi
                     ;;
             stop)
@@ -29272,8 +29289,8 @@ function ssh_menu() {
                         cat /var/log/smx-log/success.log | tail -n 7
                         echo
                         read -p "Press [enter] to continue..." ReadDamKey
-		           else
-		                clear
+        		   else
+        		        clear
                         cat /proc/version | grep "Debian" > /dev/null
                         if [ $? -eq 0 ]; then
                              clear
@@ -29651,7 +29668,7 @@ function vnc_menu() {
                            update_spinner
                            sleep 1
                            $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log
-                           if [ $? -eq 0 ]; then
+                           if [ $PIPESTATUS -eq 0 ]; then
                                 echo "################################################################################################" >> /var/log/smx-log/success.log
                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                 echo "successfuly installed vnc on system: $(hostname)" >> /var/log/smx-log/success.log
@@ -30052,7 +30069,7 @@ function vnc_menu() {
                          echo
                          cat /var/log/smx-log/success.log | tail -n 7
                          echo
-                         read -p "Press [enter] to conitnue..." ReadDamKey
+                         read -p "Press [enter] to continue..." ReadDamKey
                     else
                          clear
                          cat /proc/version | grep "Debian" > /dev/null
@@ -30091,7 +30108,7 @@ function vnc_menu() {
                               echo
                               cat /var/log/smx-log/success.log | tail -n 7
                               echo
-                              read -p "Press [enter] to conitnue..." ReadDamKey
+                              read -p "Press [enter] to continue..." ReadDamKey
                          else    
                               clear
                               cat /proc/version | grep "Ubuntu" > /dev/null
@@ -30130,7 +30147,7 @@ function vnc_menu() {
                                    echo
                                    cat /var/log/smx-log/success.log | tail -n 7
                                    echo
-                                   read -p "Press [enter] to conitnue..." ReadDamKey
+                                   read -p "Press [enter] to continue..." ReadDamKey
                              else
                                    clear
                                    cat /proc/version | grep "SUSE" > /dev/null
@@ -30169,7 +30186,7 @@ function vnc_menu() {
                                         echo
                                         cat /var/log/smx-log/success.log | tail -n 7
                                         echo
-                                        read -p "Press [enter] to conitnue..." ReadDamKey
+                                        read -p "Press [enter] to continue..." ReadDamKey
                                    fi
                              fi
                          fi
@@ -30213,7 +30230,7 @@ function vnc_menu() {
                         echo
                         cat /var/log/smx-log/success.log | tail -n 7
                         echo
-                        read -p "Press [enter] to conitnue..." ReadDamKey
+                        read -p "Press [enter] to continue..." ReadDamKey
                    else
                         clear
                         cat /proc/version | grep "Debian" > /dev/null
@@ -30252,7 +30269,7 @@ function vnc_menu() {
                              echo
                              cat /var/log/smx-log/success.log | tail -n 7
                              echo
-                             read -p "Press [enter] to conitnue..." ReadDamKey
+                             read -p "Press [enter] to continue..." ReadDamKey
                         else    
                              clear
                              cat /proc/version | grep "Ubuntu" > /dev/null
@@ -30291,7 +30308,7 @@ function vnc_menu() {
                                   echo
                                   cat /var/log/smx-log/success.log | tail -n 7
                                   echo
-                                  read -p "Press [enter] to conitnue..." ReadDamKey
+                                  read -p "Press [enter] to continue..." ReadDamKey
                              else
                                   clear
                                   cat /proc/version | grep "SUSE" > /dev/null
@@ -30329,7 +30346,7 @@ function vnc_menu() {
                                        echo
                                        cat /var/log/smx-log/success.log | tail -n 7
                                        echo
-                                       read -p "Press [enter] to conitnue..." ReadDamKey
+                                       read -p "Press [enter] to continue..." ReadDamKey
                                   fi
                              fi
                         fi
@@ -30373,7 +30390,7 @@ function vnc_menu() {
                            echo
                            cat /var/log/smx-log/success.log | tail -n 7
                            echo
-                           read -p "Press [enter] to conitnue..." ReadDamKey
+                           read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
                            cat /proc/version | grep "Debian" > /dev/null
@@ -30412,7 +30429,7 @@ function vnc_menu() {
                                 echo
                                 cat /var/log/smx-log/success.log | tail -n 7
                                 echo
-                                read -p "Press [enter] to conitnue..." ReadDamKey
+                                read -p "Press [enter] to continue..." ReadDamKey
                            else    
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
@@ -30451,7 +30468,7 @@ function vnc_menu() {
                                      echo
                                      cat /var/log/smx-log/success.log | tail -n 7
                                      echo
-                                     read -p "Press [enter] to conitnue..." ReadDamKey
+                                     read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
                                      cat /proc/version | grep "SUSE" > /dev/null
@@ -30490,7 +30507,7 @@ function vnc_menu() {
                                           echo
                                           cat /var/log/smx-log/success.log | tail -n 7
                                           echo
-                                          read -p "Press [enter] to conitnue..." ReadDamKey
+                                          read -p "Press [enter] to continue..." ReadDamKey
                                      fi
                                 fi
                            fi
@@ -30604,7 +30621,7 @@ function snmp_menu() {
                            update_spinner
                            sleep 1
                            $(which yum) -y install net-snmp-utils | $(which tee) /var/log/smx-log/yum.log
-                           if [ $? -eq 0 ]; then
+                           if [ $PIPESTATUS -eq 0 ]; then
                                 echo "###########################################################################################" >> /var/log/smx-log/success.log
                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                 echo "Successfuly installed SNMP on system: $(hostname)" >> /var/log/smx-log/success.log
@@ -30617,16 +30634,16 @@ function snmp_menu() {
                                 echo
                                 cat /var/log/smx-log/success.log | tail -n 7
                                 echo
-                                read -p "Press [enter] to conitnue..." ReadDamKey
-			               else
-			                    echo "###############################################################################################" >> /var/log/smx-log/fail.log
+                                read -p "Press [enter] to continue..." ReadDamKey
+            			   else
+            			        echo "###############################################################################################" >> /var/log/smx-log/fail.log
                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                 echo "Not installed SNMP on system: $(hostname), check command synatax" >> /var/log/smx-log/fail.log
                                 echo "Command run: $(which yum) -y install net-snmp-utils | $(which tee) /var/log/smx-log/fail.log" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
                                 echo "############################################################################################" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
-                                read -p "Press [enter] to conitnue..." ReadDamKey
+                                read -p "Press [enter] to continue..." ReadDamKey
                                 clear
                                 echo
                                 cat /var/log/smx-log/fail.log | tail -n 7
@@ -30669,8 +30686,8 @@ function snmp_menu() {
                            update_spinner
                            sleep 1
                            $(which snmpwalk) -v 1 -c public -O e 127.0.0.1 | $(which tee) /var/log/smx-log/snmp.log
-                           if [ $? -eq 0 ]; then
-			                    echo
+                           if [ $PIPESTATUS -eq 0 ]; then
+			                   echo
                                 echo "SNMP successfuly configured on system: $(hostname)"
                                 read -p "Press [enter] to continue..." ReadDamKey
 			               else
@@ -30712,7 +30729,7 @@ function snmp_menu() {
                                 update_spinner
                                 sleep 1
                                 $(which apt-get) -y install snmpd | $(which tee) /var/log/smx-log/apt-get.log
-                                if [ $? -eq 0 ]; then
+                                if [ $PIPESTATUS -eq 0 ]; then
                                      echo "##########################################################################################" >> /var/log/smx-log/success.log
                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                      echo "Successfuly installed snmpd on system: $(hostname)" >> /var/log/smx-log/success.log
@@ -30769,7 +30786,7 @@ function snmp_menu() {
                                 update_spinner
                                 sleep 1
                                 $(which snmpwalk) -v 1 -c public -O e 127.0.0.1 | $(which tee) /var/log/smx-log/snmp.log
-                                if [ $? -eq 0 ]; then
+                                if [ $PIPESTATUS -eq 0 ]; then
 			                         echo
                                      echo "SNMP successfuly configured on system: $(hostname)"
                                      read -p "Press [enter] to continue..." ReadDamKey
@@ -30777,7 +30794,7 @@ function snmp_menu() {
                                      echo
                                      echo "SNMP not installed, check command syntax and log files"
                                      read -p "Press [enter] to continue..." ReadDamKey
-				               fi
+				                fi
 			               else
                                 clear
                                 cat /proc/version | grep "Ubuntu" > /dev/null
@@ -30828,7 +30845,7 @@ function snmp_menu() {
                                      update_spinner
                                      sleep 1
                                      $(which apt-get) -y install snmpd | $(which tee) /var/log/smx-log/apt-get.log
-                                     if [ $? -eq 0 ]; then
+                                     if [ $PIPESTATUS -eq 0 ]; then
                                           echo "##########################################################################################" >> /var/log/smx-log/success.log
                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                           echo "Successfuly installed snmpd on system: $(hostname)" >> /var/log/smx-log/success.log
@@ -30886,12 +30903,12 @@ function snmp_menu() {
                                      update_spinner
                                      sleep 1
                                      $(which snmpwalk) -v 1 -c public -O e 127.0.0.1
-                                     if [ $? -eq 0 ]; then
+                                     if [ $PIPESTATUS -eq 0 ]; then
                                           echo
                                           echo "SNMP successfuly configured on system: $(hostname)"
                                           read -p "Press [enter] to continue..." ReadDamKey
 				                     else
-                                          echo
+					                      echo
                                           echo "SNMP not installed, check command syntax and log files"
                                           read -p "Press [enter] to continue..." ReadDamKey
 				                     fi
@@ -30948,7 +30965,7 @@ function snmp_menu() {
                                           update_spinner
                                           sleep 1
                                           $(which zypper) in  -y install net-snmp-utils | $(which tee) /var/log/smx-log/zypper.log
-                                          if [ $? -eq 0 ]; then
+                                          if [ $PIPESTATUS -eq 0 ]; then
                                                echo "###########################################################################################" >> /var/log/smx-log/success.log
                                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                                                echo "Successfuly installed SNMP on system: $(hostname)" >> /var/log/smx-log/success.log
@@ -30961,7 +30978,7 @@ function snmp_menu() {
                                                echo
                                                cat /var/log/smx-log/success.log | tail -n 7
                                                echo
-                                               read -p "Press [enter] to conitnue..." ReadDamKey
+                                               read -p "Press [enter] to continue..." ReadDamKey
                                           else
                                                echo "###############################################################################################" >> /var/log/smx-log/fail.log
                                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
@@ -30970,7 +30987,7 @@ function snmp_menu() {
                                                echo "" >> /var/log/smx-log/fail.log
                                                echo "############################################################################################" >> /var/log/smx-log/fail.log
                                                echo "" >> /var/log/smx-log/fail.log
-                                               read -p "Press [enter] to conitnue..." ReadDamKey
+                                               read -p "Press [enter] to continue..." ReadDamKey
                                                clear
                                                echo
                                                cat /var/log/smx-log/fail.log | tail -n 7
@@ -31013,7 +31030,7 @@ function snmp_menu() {
                                           update_spinner
                                           sleep 1
                                           $(which snmpwalk) -v 1 -c public -O e 127.0.0.1 | $(which tee) /var/log/smx-log/snmp.log
-                                          if [ $? -eq 0 ]; then
+                                          if [ $PIPESTATUS -eq 0 ]; then
                                                echo
                                                echo "SNMP successfuly configured on system: $(hostname)"
                                                read -p "Press [enter] to continue..." ReadDamKey
@@ -31177,8 +31194,8 @@ function snmp_menu() {
                                         cat /var/log/smx-log/success.log | tail -n 7
                                         echo
                                         read -p "Press [enter] to continue..." ReadDamKey
-				                   else
-				                        echo "#########################################" >> /var/log/smx-log/fail.log
+                				   else
+                				        echo "#########################################" >> /var/log/smx-log/fail.log
                                         echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
                                         echo "Not started snmpd, check command syntax" >> /var/log/smx-log/fail.log
                                         echo "Command run: /etc/init.d/snmpd start" >> /var/log/smx-log/fail.log
@@ -31247,8 +31264,8 @@ function snmp_menu() {
                                              read -p "Press [enter] to continue..." ReadDamKey
 					                    fi
                                    fi
-			                  fi
-			             fi
+            			      fi
+            			 fi
                     fi
                     ;;
             stop)
@@ -31354,7 +31371,7 @@ function snmp_menu() {
                                   echo "" >> /var/log/smx-log/fail.log
                                   echo "#############################################################" >> /var/log/smx-log/fail.log
                                   echo "" >> /var/log/smx-log/fail.log
-                                  read -p "Press [enter] to continue..." ReadDamKeyclear
+                                  read -p "Press [enter] to continue..." ReadDamKey
                                   clear
                                   echo
                                   cat /var/log/smx-log/fail.log | tail -n 7
@@ -31464,7 +31481,7 @@ function snmp_menu() {
                                             echo "" >> /var/log/smx-log/fail.log
                                             echo "#############################################################" >> /var/log/smx-log/fail.log
                                             echo "" >> /var/log/smx-log/fail.log
-                                            read -p "Press [enter] to continue..." ReadDamKeyclear
+                                            read -p "Press [enter] to continue..." ReadDamKey
                                             echo
                                             cat /var/log/smx-log/fail.log | tail -n 7
                                             echo
@@ -31745,7 +31762,7 @@ function snmp_menu() {
                        update_spinner
                        sleep 1
                        $(which snmpwalk) -v 1 -c $SNMP_STRING -O e $SNMP_SERVER | $(which tee) /var/log/smx-log/snmp.log
-                       if [ $? -eq 0 ]; then
+                       if [ $PIPESTATUS -eq 0 ]; then
                             echo "##############################################################################################################" >> /var/log/smx-log/success.log
                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                             echo "Successfuly tested snmp server: $SNMP_SERVER" >> /var/log/smx-log/success.log
@@ -31819,6 +31836,1521 @@ function snmp_menu() {
                        read -p "Press [enter] to continue..." ReadDamKey;;
         esac
     done
+}
+
+function dns_menu() {
+    while :
+    do
+        clear
+        echo "$(date)                                     $(whoami)@$(hostname)"
+        echo
+        read -p "(config-dns)#" choice_dns
+        echo
+    
+        case "$choice_dns" in
+            install)
+                      clear
+                      cat /proc/version | grep "Red Hat" > /dev/null
+                      if [ $? -eq 0 ]; then           
+                           clear
+                           echo "OS = Red Hat"
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo "Domain name example: example.local"
+                           echo "Nameserver address example: 192.168.1.1"
+                           echo "Email contact example: root.exaple.local"
+                           echo "Hostname example: ns1"
+                           echo "Full qualified domain name: ns1.example.local"
+                           echo "[TOP]                                     [Entry Fields]"
+                           read -p " Enter domain name --------------------- > " domainName
+                           read -p " Enter nameserver address -------------- > " dnsSrvAddr
+                           read -p " Enter email contact ------------------- > " emailAddr
+                           read -p " Enter hostname ------------------------ > " hostAddr
+			               read -p " Enter fully qualified domain name ----- > " fqdnName
+                           printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
+                           if [ "$netIntf" = "" ]; then
+                                 NETINTF=""
+                                read netIntf
+                                NETINTF=$NETINTF
+                           fi
+                           if [ "$netIntf" = "" ]; then
+                                 NETINTF=""
+                                 NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
+                           fi
+                           printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] > "
+                           if [ "$ipAddr" = "" ]; then
+                                 IP_ADDR=""
+                                 read ipAddr
+                                 IP_ADDR=$ipAddr
+                           fi
+                           if [ "$ipAddr" = "" ]; then
+                                 IP_ADDR=""
+                                 IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
+                           fi
+                           # Check for existing .zone files in /var/named - may create problems with creating new domains
+                           $(which find) '/var/named/$domainName.zone' >> /dev/null
+                           if [ $? -eq 0 ]; then
+                                rm /var/named/$domainName.zone
+                           fi     
+                           clear
+                           echo "           COMMAND STATUS           "
+                           echo
+                           echo "$(date)                                     $(whoami)@$(hostname)"
+                           echo
+                           echo "Command: RUNNING    stdout: yes    stderr: no     "
+                           echo
+                           echo "Before command completion, additional instructions may appear below"
+                           echo
+                           echo "File                                 Fileset                 Type"
+                           echo "-----------------------------------------------------------------"
+                           echo "$(which yum)                         bos.pkgmgt.yum          exec"
+                           echo "$(which sed)                         bos.sysmgt.sed          exec"
+                           echo "$(which service)                     bos.sysmgt.service      exec"
+                           echo "$(which rndc)                        bos.sysmgt.rndc         exec"
+                           echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
+                           echo "Command run: $(which yum) -y install bind bind-utils bind-chroot | $(which tee) /var/log/smx-log/yum.log"
+                           echo "Command run: $(which service) named start"
+                           echo "Command run: $(which rndc) reload"
+                           echo "Command run: $(which chkconfig) named on"
+                           update_spinner
+                           sleep 1
+                           update_spinner
+                           echo "Installing BIND on system"
+                           sleep 1
+                           update_spinner
+                           sleep 1 
+                           $(which yum) -y install bind bind-utils bind-chroot | $(which tee) /var/log/smx-log/yum.log
+                           if [ $PIPESTATUS -eq 0 ]; then
+                                echo "########################################################################################################" >> /var/log/smx-log/success.log
+                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                echo "Successfuly installed BIND on system" >> /var/log/smx-log/success.log
+                                echo "Command run: $(which yum) -y install bind bind-utils bind-chroot | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                echo "########################################################################################################" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                clear
+                                echo
+                                cat /var/log/smx-log/success.log | tail -n 7
+                                echo
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else
+                                echo "########################################################################################################" >> /var/log/smx-log/fail.log
+                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                echo "Not installed BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                echo "Command run: $(which yum) -y install bind bind-utils bind-chroot | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                                echo "" >> /var/log/smx-log/fail.log
+                                echo "########################################################################################################" >> /var/log/smx-log/fail.log
+                                echo "" >> /var/log/smx-log/fail.log
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                clear
+                                echo
+                                cat /var/log/smx-log/fail.log | tail -n 7
+                                echo
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           fi
+                           $(which sed) -i 's/listen-on port 53/#listen-on port 53/g' /etc/named.conf
+                           $(which sed) -i 's/localhost/any/g' /etc/named.conf
+                           $(which sed) -i 's/recursion yes/recursion no/g' /etc/named.conf
+                           echo "" >> /etc/named.conf
+                           echo 'zone "'$domainName'" IN {' >> /etc/named.conf
+                           echo "     type master;" >> /etc/named.conf
+                           echo '     file "'$domainName.zone'";' >> /etc/named.conf
+                           echo "     allow-update { none; };" >> /etc/named.conf
+                           echo "};" >> /etc/named.conf
+                           echo '$TTL 86400' >> /var/named/$domainName.zone
+                           echo "@    IN    SOA    $fqdnName. $emailAddr. (" >> /var/named/$domainName.zone
+                           echo "           2015653402      ;Serial" >> /var/named/$domainName.zone
+                           echo "           3600            ;Refresh" >> /var/named/$domainName.zone
+                           echo "           1800            ;Retry" >> /var/named/$domainName.zone
+                           echo "           604800          ;Expire" >> /var/named/$domainName.zone
+                           echo "           86400           ;Minimum TTL" >> /var/named/$domainName.zone
+                           echo ")" >> /var/named/$domainName.zone
+                           echo "; Specify nameservers" >> /var/named/$domainName.zone
+                           echo "          IN    NS    $dnsSrvAddr." >> /var/named/$domainName.zone
+                           echo "" >> /var/named/$domainName.zone
+                           echo "; Resolve nameserver hostnames to IP" >> /var/named/$domainName.zone
+                           echo "$hostAddr    IN    A    $IP_ADDR" >> /var/named/$domainName.zone
+                           echo "" >> /var/named/$domainName.zone
+                           echo "; Define hostnames to IP" >> /var/named/$domainName.zone
+                           $(which service) named start
+                           if [ $? -eq 0 ]; then
+			                    echo
+                                echo "BIND started, reloading zone files..."
+                                echo
+                                $(which rdnc) reload
+                                $(which chkconfig) named on
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else
+			                    echo
+                                echo "BIND not started, zone files not reloaded"
+                                echo
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           fi     
+                      else
+                           clear
+                           cat /proc/version | grep "Debian" > /dev/null
+                           if [ $? -eq 0 ]; then
+                                clear
+                                echo "OS = Debian"
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo "Domain name example: example.local"
+                                echo "Reverse IP address example: 1.0.168.192"
+                                echo "Enter nameserver address example: 192.168.0.1"
+                                echo "Enter email contact: root.example.local"
+                                echo "Enter hostname example: ns1"
+                                echo "[TOP]                                      [Entry Fields]"
+                                read -p " Enter domain name --------------------- > " domainName
+                                read -p " Enter reverse IP address -------------- > " reverseIPAddr
+                                read -p " Enter nameserver address -------------- > " dnsSrvAddr
+                                read -p " Enter email contact ------------------- > " emailAddr
+                                read -p " Enter hostname ------------------------ > " hostName
+                                printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
+                                if [ "$netIntf" = "" ]; then
+                                      NETINTF=""
+                                      read netIntf
+                                      NETINTF=$NETINTF
+                                fi
+                                if [ "$netIntf" = "" ]; then
+                                      NETINTF=""
+                                      NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
+                                fi
+                                printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] > "
+                                if [ "$ipAddr" = "" ]; then
+                                      IP_ADDR=""
+                                      read ipAddr
+                                      IP_ADDR=$ipAddr
+                                fi
+                                if [ "$ipAddr" = "" ]; then
+                                      IP_ADDR=""
+                                      IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
+                                fi
+                                clear
+                                echo "          COMMAND STATUS         "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                          Type"
+                                echo "--------------------------------------------------------------------------"
+                                echo "$(which apt-get)                     bos.pkgmgt.apt-get               exec"
+                                echo "$(which named-checkconf)             bos.sysmgt.named-checkconf       exec"
+                                echo "/etc/init.d/bind9                    bos.sysmgt.bind9                 exec"
+                                echo "Command run: $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log"
+                                echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local"
+                                echo "Command run: /etc/init.d/bind9 restart"
+                                update_spinner
+                                sleep 1
+                                update_spinner
+                                echo "Installing BIND on system"
+                                sleep 1
+                                update_spinner
+                                sleep 1
+                                $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log
+                                if [ $PIPESTATUS -eq 0 ]; then
+                                     echo "########################################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                     echo "Successfuly installed BIND on system" >> /var/log/smx-log/success.log
+                                     echo "Command run: $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     echo "########################################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     clear
+                                     echo
+                                     cat /var/log/smx-log/success.log | tail -n 7
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                else
+                                     echo "########################################################################################################################" >> /var/log/smx-log/fail.log
+                                     echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                     echo "Not installed BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                     echo "Command run: $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
+                                     echo "########################################################################################################################" >> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
+                                     clear
+                                     echo
+                                     cat /var/log/smx-log/fail.log | tail -n 7
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                fi
+                                echo 'zone "'$domainName'" {' >> /etc/bind/named.conf.local
+                                echo "          type master;" >> /etc/bind/named.conf.local
+                                echo '          file "/etc/bind/for.$domainName";' >> /etc/bind/named.conf.local
+                                echo "};" >> /etc/bind/named.conf.local
+                                echo "" >> /etc/bind/named.conf.local
+                                echo 'zone      "'$reverseIPAddr.in-addr.arpa'"    {' >> /etc/bind/named.conf.local
+                                echo "          type master;" >> /etc/bind/named.conf.local
+                                echo 'file      "/etc/bind/rev.$domainName";' >> /etc/bind/named.conf.local
+                                echo "};" >> /etc/bind/named.conf.local
+                                cp /etc/bind/db.local /etc/bind/for.$domainName
+                                echo ";" >> /etc/bind/for.$domainName
+                                echo "; BIND data file for forward.$domainName zone" >> /etc/bind/for.$domainName
+                                echo ";" >> /etc/bind/for.$domainName
+                                echo '$TTL    604800' >> /etc/bind/for.$domainName
+                                echo "@    IN    SOA    $dnsSrvAddr. $emailAddr." >> /etc/bind/for.$domainName
+                                echo "2015342309 ;Serial" >> /etc/bind/for.$domainName
+                                echo "604800 ;Refresh" >> /etc/bind/for.$domainName
+                                echo "86400 ;Retry" >> /etc/bind/for.$domainName
+                                echo "2419200 ;Expire" >> /etc/bind/for.$domainName
+                                echo "604800 ) ;Negative Cache TTL" >> /etc/bind/for.$domainName
+                                echo "        IN    A    $IP_ADDR" >> /etc/bind/for.$domainName
+                                echo "" >> /etc/bind/for.$domainName
+                                echo ";" >> /etc/bind/for.$domainName
+                                echo "@    IN    NS    $dnsSrvAddr." >> /etc/bind/for.$domainName
+                                echo "$hostName    IN    A    $IP_ADDR" >> /etc/bind/for.$domainName
+                                cp /etc/bind/db.127 /etc/bind/rev.$domainName
+                                echo ";" >> /etc/bind/rev.$domainName
+                                echo "; BIND reverse data file for rev.$domainName" >> /etc/bind/rev.$domainName
+                                echo ";" >> /etc/bind/rev.$domainName
+                                echo '$TTL 604800' >> /etc/bind/rev.$domainName
+                                echo "@    IN    SOA    $dnsSrvAddr. $emailAddr. (" >> /etc/bind/rev.$domainName
+                                echo "2015342309 ;Serial" >> /etc/bind/rev.$domainName
+                                echo "604800 ;Retry" >> /etc/bind/rev.$domainName
+                                echo "2419200 ;Expire" >> /etc/bind/rev.$domainName
+                                echo "604800 ) ;Negative Cache TTL" >> /etc/bind/rev.$domainName
+                                echo "@    IN    NS    $hostName." >> /etc/bind/rev.$domainName
+                                echo "@    IN    A     $IP_ADDR." >> /etc/bind/rev.$domainName
+                                echo "200  IN    PTR   $dnsSrvAddr." >> /etc/bind/rev.$domainName
+                                $(which named-checkconf) /etc/bind/named.conf.local
+                                /etc/init.d/bind9 restart
+                                if [ $? -eq 0 ]; then
+                                     echo "BIND successfuly started..."
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                else
+                                     echo "BIND not started, check error logs..."
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                fi
+                           else
+                                clear
+                                cat /proc/version | grep "Ubuntu" > /dev/null
+                                if [ $? -eq 0 ]; then
+                                     clear
+                                     echo "OS = Ubuntu"
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo "Domain name example: example.local"
+                                     echo "Reverse IP address example: 1.0.168.192"
+                                     echo "Enter nameserver address example: 192.168.0.1"
+                                     echo "Enter email contact: root.example.local"
+                                     echo "Enter hostname example: ns1"
+                                     echo "[TOP]                                      [Entry Fields]"
+                                     read -p " Enter domain name --------------------- > " domainName
+                                     read -p " Enter reverse IP address -------------- > " reverseIPAddr
+                                     read -p " Enter nameserver address -------------- > " dnsSrvAddr
+                                     read -p " Enter email contact ------------------- > " emailAddr
+                                     read -p " Enter hostname ------------------------ > " hostName
+                                     printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
+                                     if [ "$netIntf" = "" ]; then
+                                           NETINTF=""
+                                           read netIntf
+                                           NETINTF=$NETINTF
+                                     fi
+                                     if [ "$netIntf" = "" ]; then
+                                           NETINTF=""
+                                           NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
+                                     fi
+                                     printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] > "
+                                     if [ "$ipAddr" = "" ]; then
+                                           IP_ADDR=""
+                                           read ipAddr
+                                           IP_ADDR=$ipAddr
+                                     fi
+                                     if [ "$ipAddr" = "" ]; then
+                                           IP_ADDR=""
+                                           IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
+                                     fi
+                                     clear
+                                     echo "          COMMAND STATUS         "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                          Type"
+                                     echo "--------------------------------------------------------------------------"
+                                     echo "$(which apt-get)                     bos.pkgmgt.apt-get               exec"
+                                     echo "$(which named-checkconf)             bos.sysmgt.named-checkconf       exec"
+                                     echo "/etc/init.d/bind9                    bos.sysmgt.bind9                 exec"
+                                     echo "Command run: $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log"
+                                     echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local"
+                                     echo "Command run: /etc/init.d/bind9 restart"
+                                     update_spinner
+                                     sleep 1
+                                     update_spinner
+                                     echo "Installing BIND on system"
+                                     sleep 1
+                                     update_spinner
+                                     sleep 1
+                                     $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log
+                                     if [ $PIPESTATUS -eq 0 ]; then
+                                          echo "########################################################################################################################" >> /var/log/smx-log/success.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                          echo "Successfuly installed BIND on system" >> /var/log/smx-log/success.log
+                                          echo "Command run: $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          echo "########################################################################################################################" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          clear
+                                          echo
+                                          cat /var/log/smx-log/success.log | tail -n 7
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+                                          echo "########################################################################################################################" >> /var/log/smx-log/fail.log
+                                          echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                          echo "Not installed BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                          echo "Command run: $(which apt-get) -y install bind9 bind9utils bind9-doc dnsutils | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                                          echo "" >> /var/log/smx-log/fail.log
+                                          echo "########################################################################################################################" >> /var/log/smx-log/fail.log
+                                          echo "" >> /var/log/smx-log/fail.log
+                                          clear
+                                          echo
+                                          cat /var/log/smx-log/fail.log | tail -n 7
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                     echo 'zone      "'$domainName'"     {' >> /etc/bind/named.conf.local
+                                     echo "          type master;" >> /etc/bind/named.conf.local
+                                     echo '          file "/etc/bind/for.$domainName";' >> /etc/bind/named.conf.local
+                                     echo "};" >> /etc/bind/named.conf.local
+                                     echo "" >> /etc/bind/named.conf.local
+                                     echo 'zone      "'$reverseIPAddr.in-addr.arpa'"    {' >> /etc/bind/named.conf.local
+                                     echo "          type master;" >> /etc/bind/named.conf.local
+                                     echo 'file      "/etc/bind/rev.$domainName";' >> /etc/bind/named.conf.local
+                                     echo "};" >> /etc/bind/named.conf.local
+                                     cp /etc/bind/db.local /etc/bind/for.$domainName
+                                     echo ";" >> /etc/bind/for.$domainName
+                                     echo "; BIND data file for forward.$domainName zone" >> /etc/bind/for.$domainName
+                                     echo ";" >> /etc/bind/for.$domainName
+                                     echo '$TTL    604800' >> /etc/bind/for.$domainName
+                                     echo "@    IN    SOA    $dnsSrvAddr. $emailAddr." >> /etc/bind/for.$domainName
+                                     echo "2015342309 ;Serial" >> /etc/bind/for.$domainName
+                                     echo "604800 ;Refresh" >> /etc/bind/for.$domainName
+                                     echo "86400 ;Retry" >> /etc/bind/for.$domainName
+                                     echo "2419200 ;Expire" >> /etc/bind/for.$domainName
+                                     echo "604800 ) ;Negative Cache TTL" >> /etc/bind/for.$domainName
+                                     echo "        IN    A    $IP_ADDR" >> /etc/bind/for.$domainName
+                                     echo "" >> /etc/bind/for.$domainName
+                                     echo ";" >> /etc/bind/for.$domainName
+                                     echo "@    IN    NS    $dnsSrvAddr." >> /etc/bind/for.$domainName
+                                     echo "$hostName    IN    A    $IP_ADDR" >> /etc/bind/for.$domainName
+                                     cp /etc/bind/db.127 /etc/bind/rev.$domainName
+                                     echo ";" >> /etc/bind/rev.$domainName
+                                     echo "; BIND reverse data file for rev.$domainName" >> /etc/bind/rev.$domainName
+                                     echo ";" >> /etc/bind/rev.$domainName
+                                     echo '$TTL 604800' >> /etc/bind/rev.$domainName
+                                     echo "@    IN    SOA    $dnsSrvAddr. $emailAddr. (" >> /etc/bind/rev.$domainName
+                                     echo "2015342309 ;Serial" >> /etc/bind/rev.$domainName
+                                     echo "604800 ;Retry" >> /etc/bind/rev.$domainName
+                                     echo "2419200 ;Expire" >> /etc/bind/rev.$domainName
+                                     echo "604800 ) ;Negative Cache TTL" >> /etc/bind/rev.$domainName
+                                     echo "@    IN    NS    $hostName." >> /etc/bind/rev.$domainName
+                                     echo "@    IN    A     $IP_ADDR." >> /etc/bind/rev.$domainName
+                                     echo "200  IN    PTR   $dnsSrvAddr." >> /etc/bind/rev.$domainName
+                                     $(which named-checkconf) /etc/bind/named.conf.local
+                                     /etc/init.d/bind9 restart
+                                     if [ $? -eq 0 ]; then
+                                          echo "BIND successfuly started..."
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+                                          echo "BIND not started, check error logs..."
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                else
+                                     clear
+                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     if [ $? -eq 0 ]; then
+                                          clear
+                                          echo "OS = SuSE"
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo "IP address range (With CIDR notation) example: 192.168.1.0/24"
+                                          echo "Domain name example: example.local"
+                                          echo "Nameserver server address example: 192.168.1.1"
+                                          echo "Email contact exaple: root.example.local"
+                                          echo "Enter hostname example: ns1"
+                                          echo "Fully qualified domain name example: ns1.example.local"
+                                          echo "Reverse IP address example: 1.1.168.192"
+                                          echo "[TOP]                                               [Entry Fields]"
+                                          read -p " Enter IP address range (with CIDR notation) ---- > " ipRange
+                                          read -p " Enter domain name ------------------------------ > " domainName
+                                          read -p " Enter nameserver address ----------------------- > " dnsSrvAddr
+                                          read -p " Enter email contact ---------------------------- > " emailAddr
+                                          read -p " Enter hostname --------------------------------- > " hostAddr
+                                          read -p " Enter fully qualified domain name -------------- > " fqdnName
+                                          read -p " Enter reverse IP address ----------------------- > " reverseIPAddr
+                                          printf " Enter network interface [$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)] > "
+                                          if [ "$netIntf" = "" ]; then
+                                                NETINTF=""
+                                               read netIntf
+                                               NETINTF=$NETINTF
+                                          fi
+                                          if [ "$netIntf" = "" ]; then
+                                                NETINTF=""
+                                                NETINTF=$(route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev)
+                                          fi
+                                          printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] > "
+                                          if [ "$ipAddr" = "" ]; then
+                                                IP_ADDR=""
+                                                read ipAddr
+                                                IP_ADDR=$ipAddr
+                                          fi
+                                          if [ "$ipAddr" = "" ]; then
+                                                IP_ADDR=""
+                                                IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
+                                          fi
+                                          # Check for existing .zone files in /var/named - may create problems with creating new/existing domains for test installs
+                                          # for OpenSuSE remove /etc/named.conf - will be recreated during installation
+                                          $(which find) '/etc/named.conf' >> /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               cp /etc/named.conf /etc/named.conf.org
+                                               rm /etc/named.conf
+                                          fi     
+                                          $(which find) '/var/lib/named/for.$domainName' >> /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               rm /var/lib/named/for.$domainName
+                                          fi
+                                          $(which find) '/var/lib/named/rev.$domainName' >> /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               rm /var/lib/named/rev.$domainName
+                                          fi     
+                                          clear
+                                          echo "           COMMAND STATUS              "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                        Type"
+                                          echo "------------------------------------------------------------------------"
+                                          echo "$(which zypper)                      bos.pkgmgt.zypper              exec"
+                                          echo "/etc/init.d/named                    bos.sysmgt.named               exec"
+                                          echo "$(which chkconfig)                   bos.sysmgt.chkconfig           exec"
+                                          echo "$(which named-checkconf)             bos.sysmgt.named-checkconf     exec"
+                                          echo "$(which named-checkzone)             bos.sysmgt.named-checkzone     exec"
+                                          echo "Command run: $(which zypper) in -y bind | $(which tee) /var/log/smx-log/zypper.log"
+                                          echo "Command run: /etc/init.d/named start"
+                                          echo "Command run: $(which chkconfig) named on"
+                                          echo "Command run: $(which named-checkconf) /etc/named.conf"
+                                          echo "Command run: $(which named-checkzone) $domainName /var/lib/named/for.$domainName"
+                                          echo "Command run: $(which named-checkzone) $domainName /var/lib/named/rev.$domainName"
+                                          update_spinner
+                                          sleep 1
+                                          update_spinner
+                                          echo "Installing BIND on system"
+                                          sleep 1
+                                          update_spinner
+                                          sleep 1
+                                          $(which zypper) in -y bind | $(which tee) /var/log/smx-log/zypper.log
+                                          if [ $PIPESTATUS -eq 0 ]; then
+                                               echo "##################################################################################" >> /var/log/smx-log/success.log
+                                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                               echo "Successfuly installed bind on system" >> /var/log/smx-log/success.log
+                                               echo "Command run: $(which zypper) in -y bind | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               echo "##################################################################################" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/success.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          else
+                                               echo "##################################################################################" >> /var/log/smx-log/fail.log
+                                               echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                               echo "Not installed bind on system, check command syntax" >> /var/log/smx-log/fail.log
+                                               echo "Command run: $(which zypper) in -y bind | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                                               echo "" >> /var/log/smx-log/fail.log
+                                               echo "##################################################################################" >> /var/log/smx-log/fail.log
+                                               echo "" >> /var/log/smx-log/fail.log
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/fail.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          fi
+                                          # Check for existing .zone files in /var/named - may create problems with creating new/existing domains for test installs
+                                          # for OpenSuSE remove /etc/named.conf - will be recreated during installation
+                                          $(which find) '/etc/named.conf' >> /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               cp /etc/named.conf /etc/named.conf.org
+                                               rm /etc/named.conf
+                                          fi     
+                                          $(which find) '/var/lib/named/for.$domainName' >> /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               rm /var/lib/named/for.$domainName
+                                          fi
+                                          $(which find) '/var/lib/named/rev.$domainName' >> /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               rm /var/lib/named/rev.$domainName
+                                          fi
+                                          echo "options {" >> /etc/named.conf
+                                          echo '     directory "/var/lib/named";' >> /etc/named.conf
+                                          echo '     dump-file "/var/log/named_dump.db";' >> /etc/named.conf
+                                          echo '     statistics-file "/var/log/named.stats";' >> /etc/named.conf
+                                          echo "     allow-query { localhost; $ipRange;};" >> /etc/named.conf
+                                          echo "};" >> /etc/named.conf
+                                          echo "" >> /etc/named.conf
+                                          echo 'zone "'$domainName'"   {' >> /etc/named.conf
+                                          echo "       type master;" >> /etc/named.conf
+                                          echo 'file   "'for.$domainName'";' >> /etc/named.conf
+                                          echo "};" >> /etc/named.conf
+                                          echo "" >> /etc/named.conf
+                                          echo 'zone "'$reverseIPAddr.in-addr.arpa'"    {' >> /etc/named.conf
+                                          echo "     type master;" >> /etc/named.conf
+                                          echo '     file "'rev.$domainName'";' >> /etc/named.conf
+                                          echo "};" >> /etc/named.conf
+                                          echo '$TTL    604800' >> /var/lib/named/for.$domainName
+                                          echo "@    IN    SOA    $fqdnName $emailAddr (" >> /var/lib/named/for.$domainName
+                                          echo "2015342012 ; Serial" >> /var/lib/named/for.$domainName
+                                          echo "604800     ; Retry" >> /var/lib/named/for.$domainName
+                                          echo "2419200    ; Expire" >> /var/lib/named/for.$domainName
+                                          echo "604800 )     ; Negative Cache TTL" >> /var/lib/named/for.$domainName
+                                          echo "         IN    A    $IP_ADDR" >> /var/lib/named/for.$domainName
+                                          echo "" >> /var/lib/named/for.$domainName
+                                          echo "@    IN    NS    $hostAddr." >> /var/lib/named/for.$domainName
+                                          echo "@    IN    NS    $IP_ADDR" >> /var/lib/named/for.$domainName
+                                          echo "$hostAddr  IN    A    $IP_ADDR" >> /var/lib/named/for.$domainName
+                                          echo '$TTL    604800' >> /var/lib/named/rev.$domainName
+                                          echo "@    IN    SOA    $fqdnName $emailAddr (" >> /var/lib/named/rev.$domainName
+                                          echo "2015342012 ; Serial" >> /var/lib/named/rev.$domainName
+                                          echo "604800     ; Retry" >> /var/lib/named/rev.$domainName
+                                          echo "2419200    ; Expire" >> /var/lib/named/rev.$domainName
+                                          echo "604800 )     ; Negative Cache TTL" >> /var/lib/named/rev.$domainName
+                                          echo "" >> /var/lib/named/rev.$domainName
+                                          echo "@    IN    NS    $hostAddr." >> /var/lib/named/rev.$domainName
+                                          echo "@    IN    NS    $IP_ADDR" >> /var/lib/named/rev.$domainName
+                                          echo "$IP_ADDR    IN    PTR    $fqdnName." >> /var/lib/named/rev.$domainName
+                                          /etc/iint.d/named start
+                                          $(which chkconfig) named on
+                                          $(which named-checkconf) /etc/named.conf
+                                          $(which named-checkzone) $domainName /var/lib/named/for.$domainName
+                                          $(which named-checkzone) $domainName /var/lib/named/rev.$domainName
+                                     fi
+                                fi
+                           fi
+                      fi
+                      ;;
+            start)
+                    clear
+                    cat /proc/version | grep "Red Hat" > /dev/null
+                    if [ $? -eq 0 ]; then
+                         clear
+                         echo "OS = Red Hat"
+                         echo "        COMMAND STATUS          "
+                         echo
+                         echo "$(date)                                     $(whoami)@$(hostname)"
+                         echo
+                         echo "Command: RUNNING    stdout: yes    stderr: no     "
+                         echo
+                         echo "Before command completion, additional instructions may appear below"
+                         echo
+                         echo "File                                 Fileset                 Type"
+                         echo "-----------------------------------------------------------------"
+                         echo "$(which service)                     bos.sysmgt.service      exec"
+                         echo "Command run: $(which service) named start"
+                         update_spinner
+                         sleep 1
+                         update_spinner
+                         echo "Starting BIND on system"
+                         sleep 1
+                         update_spinner
+                         sleep 1
+                         $(which service) named start
+                         if [ $? -eq 0 ]; then
+                              echo "####################################################" >> /var/log/smx-log/success.log
+                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                              echo "Command run: $(which service) named start" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              echo "####################################################" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              clear
+                              echo
+                              cat /var/log/smx-log/success.log | tail -n 7
+                              echo
+                              read -p "Press [enter] to continue..." ReadDamKey
+                         else
+                              echo "####################################################" >> /var/log/smx-log/fail.log
+                              echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                              echo "Command run: $(which system) named start" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/fail.log
+                              echo "####################################################" >> /var/log/smx-log/fail.log
+                              echo "" >> /var/log/smx-log/fail.log
+                              clear
+                              echo
+                              cat /var/log/smx-log/fail.log | tail -n 7
+                              echo
+                              read -p "Press [enter] to continue..." ReadDamKey
+                         fi          
+                    else
+                         clear
+                         cat /proc/version | grep "Debian" > /dev/null
+                         if [ $? -eq 0 ]; then
+                              clear
+                              echo "OS = Debian"
+                              echo "         COMMAND STATUS          "
+                              echo
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              echo
+                              echo "Command: RUNNING    stdout: yes    stderr: no     "
+                              echo
+                              echo "Before command completion, additional instructions may appear below"
+                              echo
+                              echo "File                                 Fileset                 Type"
+                              echo "-----------------------------------------------------------------"
+                              echo "/etc/init.d/bind9                    bos.sysmgt.bind9        exec"
+                              echo "Command run: /etc/init.d/bind9 start"
+                              update_spinner
+                              sleep 1
+                              update_spinner
+                              echo "Starting BIND on system"
+                              sleep 1
+                              update_spinner
+                              sleep 1
+                              /etc/init.d/bind9 start
+                              if [ $? -eq 0 ]; then
+                                   echo "#################################################" >> /var/log/smx-log/success.log
+                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                   echo "Successfuly started BIND on system" >> /var/log/smx-log/success.log
+                                   echo "Command run: /etc/init.d/bind9 start" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   echo "#################################################" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   clear
+                                   echo
+                                   cat /var/log/smx-log/success.log | tail -n 7
+                                   echo
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                              else
+                                   echo "#################################################" >> /var/log/smx-log/fail.log
+                                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                   echo "Not started BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                   echo "Command run: /etc/init.d/bin9 start" >> /var/log/smx-log/fail.log
+                                   echo "#################################################" >> /var/log/smx-log/fail.log
+                                   echo "" >> /var/log/smx-log/fail.log
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   clear
+                                   echo
+                                   cat /var/log/smx-log/fail.log | tail -n 7
+                                   echo
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                              fi          
+                         else
+                              clear
+                              cat /proc/version | grep "Ubuntu" > /dev/null
+                              if [ $? -eq 0 ]; then
+                                   clear
+                                   echo "OS = Ubuntu"
+                                   echo "         COMMAND STATUS          "
+                                   echo
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                 Type"
+                                   echo "-----------------------------------------------------------------"
+                                   echo "/etc/init.d/bind9                    bos.sysmgt.bind9        exec"
+                                   echo "Command run: /etc/init.d/bind9 start"
+                                   update_spinner
+                                   sleep 1
+                                   update_spinner
+                                   echo "Starting BIND on system"
+                                   sleep 1
+                                   update_spinner
+                                   sleep 1
+                                   /etc/init.d/bind9 start
+                                   if [ $? -eq 0 ]; then
+                                        echo "#################################################" >> /var/log/smx-log/success.log
+                                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                        echo "Successfuly started BIND on system" >> /var/log/smx-log/success.log
+                                        echo "Command run: /etc/init.d/bind9 start" >> /var/log/smx-log/success.log
+                                        echo "" >> /var/log/smx-log/success.log
+                                        echo "#################################################" >> /var/log/smx-log/success.log
+                                        echo "" >> /var/log/smx-log/success.log
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                        clear
+                                        echo
+                                        cat /var/log/smx-log/success.log | tail -n 7
+                                        echo
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                   else
+                                        echo "#################################################" >> /var/log/smx-log/fail.log
+                                        echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                        echo "Not started BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                        echo "Command run: /etc/init.d/bin9 start" >> /var/log/smx-log/fail.log
+                                        echo "#################################################" >> /var/log/smx-log/fail.log
+                                        echo "" >> /var/log/smx-log/fail.log
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                        clear
+                                        echo
+                                        cat /var/log/smx-log/fail.log | tail -n 7
+                                        echo
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                   fi
+                              else
+                                   clear
+                                   cat /proc/version | grep "SUSE" > /dev/null
+                                   if [ $? -eq 0 ]; then
+                                        clear
+                                        echo "OS = SuSE"
+                                        echo "         COMMAND STATUS           "
+                                        echo
+                                        echo "$(date)                                     $(whoami)@$(hostname)"
+                                        echo
+                                        echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                        echo
+                                        echo "Before command completion, additional instructions may appear below"
+                                        echo
+                                        echo "File                                 Fileset                 Type"
+                                        echo "-----------------------------------------------------------------"
+                                        echo "/etc/init.d/named                    bos.sysmgt.named        exec"
+                                        echo "Command run: /etc/init.d/named start"
+                                        /etc/init.d/named start
+                                        if [ $? -eq 0 ]; then
+                                             echo "################################################" >> /var/log/smx-log/success.log
+                                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                             echo "Successfuly started BIND on system" >> /var/log/smx-log/success.log
+                                             echo "Command run: /etc/init.d/named start" >> /var/log/smx-log/success.log
+                                             echo "" >> /var/log/smx-log/success.log
+                                             echo "################################################" >> /var/log/smx-log/success.log
+                                             echo "" >> /var/log/smx-log/success.log
+                                             clear
+                                             echo
+                                             cat /var/log/smx-log/success.log
+                                             echo
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                        else
+                                             echo "################################################" >> /var/log/smx-log/fail.log
+                                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                             echo "Not started BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                             echo "Command run: /etc/init.d/named start" >> /var/log/smx-log/fail.log
+                                             echo "" >> /var/log/smx-log/fail.log
+                                             echo "################################################" >> /var/log/smx-log/fail.log
+                                             echo "" >> /var/log/smx-log/fail.log
+                                             clear
+                                             echo
+                                             cat /var/log/smx-log/fail.log | tail -n 6
+                                             echo
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                        fi          
+                                   fi
+                              fi
+                         fi
+                    fi
+                    ;;
+            stop)
+                   clear
+                   cat /proc/version | grep "Red Hat" > /dev/null
+                   if [ $? -eq 0 ]; then
+                        clear
+                        echo "OS = Red Hat"
+                        echo "        COMMAND STATUS          "
+                        echo
+                        echo "$(date)                                     $(whoami)@$(hostname)"
+                        echo
+                        echo "Command: RUNNING    stdout: yes    stderr: no     "
+                        echo
+                        echo "Before command completion, additional instructions may appear below"
+                        echo
+                        echo "File                                 Fileset                 Type"
+                        echo "-----------------------------------------------------------------"
+                        echo "$(which service)                     bos.sysmgt.service      exec"
+                        echo "Command run: $(which service) named start"
+                        update_spinner
+                        sleep 1
+                        update_spinner
+                        echo "Stopping BIND on system"
+                        sleep 1
+                        update_spinner
+                        sleep 1
+                        $(which service) named stop
+                        if [ $? -eq 0 ]; then
+                             echo "####################################################" >> /var/log/smx-log/success.log
+                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                             echo "Successfuly stopped BIND on system" >> /var/log/smx-log/success.log
+                             echo "Command run: $(which service) named stop" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/success.log
+                             echo "####################################################" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/success.log
+                             clear
+                             echo
+                             cat /var/log/smx-log/success.log | tail -n 7
+                             echo
+                             read -p "Press [enter] to continue..." ReadDamKey
+                        else
+                             echo "####################################################" >> /var/log/smx-log/fail.log
+                             echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                             echo "Not stopped BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                             echo "Command run: $(which system) named stop" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/fail.log
+                             echo "####################################################" >> /var/log/smx-log/fail.log
+                             echo "" >> /var/log/smx-log/fail.log
+                             clear
+                             echo
+                             cat /var/log/smx-log/fail.log | tail -n 7
+                             echo
+                             read -p "Press [enter] to continue..." ReadDamKey
+                        fi          
+                   else
+                        clear
+                        cat /proc/version | grep "Debian" > /dev/null
+                        if [ $? -eq 0 ]; then
+                             clear
+                             echo "OS = Debian"
+                             echo "         COMMAND STATUS          "
+                             echo
+                             echo "$(date)                                     $(whoami)@$(hostname)"
+                             echo
+                             echo "Command: RUNNING    stdout: yes    stderr: no     "
+                             echo
+                             echo "Before command completion, additional instructions may appear below"
+                             echo
+                             echo "File                                 Fileset                 Type"
+                             echo "-----------------------------------------------------------------"
+                             echo "/etc/init.d/bind9                    bos.sysmgt.bind9        exec"
+                             echo "Command run: /etc/init.d/bind9 stop"
+                             update_spinner
+                             sleep 1
+                             update_spinner
+                             echo "Stopping BIND on system"
+                             sleep 1
+                             update_spinner
+                             sleep 1
+                             /etc/init.d/bind9 stop
+                             if [ $? -eq 0 ]; then
+                                  echo "#################################################" >> /var/log/smx-log/success.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                  echo "Successfuly stopped BIND on system" >> /var/log/smx-log/success.log
+                                  echo "Command run: /etc/init.d/bind9 stop" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  echo "#################################################" >> /var/log/smx-log/success.log
+                                  echo "" >> /var/log/smx-log/success.log
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  clear
+                                  echo
+                                  cat /var/log/smx-log/success.log | tail -n 7
+                                  echo
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                             else
+                                  echo "#################################################" >> /var/log/smx-log/fail.log
+                                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                  echo "Not stopped BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                  echo "Command run: /etc/init.d/bin9 stop" >> /var/log/smx-log/fail.log
+                                  echo "#################################################" >> /var/log/smx-log/fail.log
+                                  echo "" >> /var/log/smx-log/fail.log
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  clear
+                                  echo
+                                  cat /var/log/smx-log/fail.log | tail -n 7
+                                  echo
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                             fi          
+                        else
+                             clear
+                             cat /proc/version | grep "Ubuntu" > /dev/null
+                             if [ $? -eq 0 ]; then
+                                  clear
+                                  echo "OS = Ubuntu"
+                                  echo "         COMMAND STATUS          "
+                                  echo
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                 Type"
+                                  echo "-----------------------------------------------------------------"
+                                  echo "/etc/init.d/bind9                    bos.sysmgt.bind9        exec"
+                                  echo "Command run: /etc/init.d/bind9 stop"
+                                  update_spinner
+                                  sleep 1
+                                  update_spinner
+                                  echo "Stopping BIND on system"
+                                  sleep 1
+                                  update_spinner
+                                  sleep 1
+                                  /etc/init.d/bind9 stop
+                                  if [ $? -eq 0 ]; then
+                                       echo "#################################################" >> /var/log/smx-log/success.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                       echo "Successfuly stopped BIND on system" >> /var/log/smx-log/success.log
+                                       echo "Command run: /etc/init.d/bind9 stop" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       echo "#################################################" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       clear
+                                       echo
+                                       cat /var/log/smx-log/success.log | tail -n 7
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                  else
+                                       echo "#################################################" >> /var/log/smx-log/fail.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                       echo "Not stopped BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                       echo "Command run: /etc/init.d/bin9 stop" >> /var/log/smx-log/fail.log
+                                       echo "#################################################" >> /var/log/smx-log/fail.log
+                                       echo "" >> /var/log/smx-log/fail.log
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       clear
+                                       echo
+                                       cat /var/log/smx-log/fail.log | tail -n 7
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                  fi
+                             else
+                                  clear
+                                  cat /proc/version | grep "SUSE" > /dev/null
+                                  if [ $? -eq 0 ]; then
+                                       clear
+                                       echo "OS = SuSE"
+                                       echo "         COMMAND STATUS           "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                 Type"
+                                       echo "-----------------------------------------------------------------"
+                                       echo "/etc/init.d/named                    bos.sysmgt.named        exec"
+                                       echo "Command run: /etc/init.d/named stop"
+                                       update_spinner
+                                       sleep 1
+                                       update_spinner
+                                       echo "Stopping BIND on system"
+                                       sleep 1
+                                       update_spinner
+                                       sleep 1
+                                       /etc/init.d/named start
+                                       if [ $? -eq 0 ]; then
+                                            echo "################################################" >> /var/log/smx-log/success.log
+                                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                            echo "Successfuly stopped BIND on system" >> /var/log/smx-log/success.log
+                                            echo "Command run: /etc/init.d/named stop" >> /var/log/smx-log/success.log
+                                            echo "" >> /var/log/smx-log/success.log
+                                            echo "################################################" >> /var/log/smx-log/success.log
+                                            echo "" >> /var/log/smx-log/success.log
+                                            clear
+                                            echo
+                                            cat /var/log/smx-log/success.log
+                                            echo
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                       else
+                                            echo "################################################" >> /var/log/smx-log/fail.log
+                                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                            echo "Not stopped BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                            echo "Command run: /etc/init.d/named stop" >> /var/log/smx-log/fail.log
+                                            echo "" >> /var/log/smx-log/fail.log
+                                            echo "################################################" >> /var/log/smx-log/fail.log
+                                            echo "" >> /var/log/smx-log/fail.log
+                                            clear
+                                            echo
+                                            cat /var/log/smx-log/fail.log | tail -n 6
+                                            echo
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                       fi          
+                                  fi
+                             fi
+                        fi
+                   fi
+                   ;;
+            restart)
+                       clear
+                       cat /proc/version | grep "Red Hat" > /dev/null
+                       if [ $? -eq 0 ]; then
+                            clear
+                            echo "OS = Red Hat"
+                            echo "        COMMAND STATUS          "
+                            echo
+                            echo "$(date)                                     $(whoami)@$(hostname)"
+                            echo
+                            echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            echo
+                            echo "Before command completion, additional instructions may appear below"
+                            echo
+                            echo "File                                 Fileset                 Type"
+                            echo "-----------------------------------------------------------------"
+                            echo "$(which service)                     bos.sysmgt.service      exec"
+                            echo "Command run: $(which service) named start"
+                            update_spinner
+                            sleep 1
+                            update_spinner
+                            echo "Restarting BIND on system"
+                            sleep 1
+                            update_spinner
+                            sleep 1
+                            $(which service) named restart
+                            if [ $? -eq 0 ]; then
+                                 echo "####################################################" >> /var/log/smx-log/success.log
+                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                 echo "Successfuly restarted BIND on system" >> /var/log/smx-log/success.log
+                                 echo "Command run: $(which service) named stop" >> /var/log/smx-log/success.log
+                                 echo "" >> /var/log/smx-log/success.log
+                                 echo "####################################################" >> /var/log/smx-log/success.log
+                                 echo "" >> /var/log/smx-log/success.log
+                                 clear
+                                 echo
+                                 cat /var/log/smx-log/success.log | tail -n 7
+                                 echo
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                            else
+                                 echo "####################################################" >> /var/log/smx-log/fail.log
+                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                 echo "Not restarted BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                 echo "Command run: $(which system) named stop" >> /var/log/smx-log/success.log
+                                 echo "" >> /var/log/smx-log/fail.log
+                                 echo "####################################################" >> /var/log/smx-log/fail.log
+                                 echo "" >> /var/log/smx-log/fail.log
+                                 clear
+                                 echo
+                                 cat /var/log/smx-log/fail.log | tail -n 7
+                                 echo
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                            fi          
+                       else
+                            clear
+                            cat /proc/version | grep "Debian" > /dev/null
+                            if [ $? -eq 0 ]; then
+                                 clear
+                                 echo "OS = Debian"
+                                 echo "         COMMAND STATUS          "
+                                 echo
+                                 echo "$(date)                                     $(whoami)@$(hostname)"
+                                 echo
+                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                 echo
+                                 echo "Before command completion, additional instructions may appear below"
+                                 echo
+                                 echo "File                                 Fileset                 Type"
+                                 echo "-----------------------------------------------------------------"
+                                 echo "/etc/init.d/bind9                    bos.sysmgt.bind9        exec"
+                                 echo "Command run: /etc/init.d/bind9 restart"
+                                 update_spinner
+                                 sleep 1
+                                 update_spinner
+                                 echo "Restarting BIND on system"
+                                 sleep 1
+                                 update_spinner
+                                 sleep 1
+                                 /etc/init.d/bind9 restart
+                                 if [ $? -eq 0 ]; then
+                                      echo "#################################################" >> /var/log/smx-log/success.log
+                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                      echo "Successfuly restarted BIND on system" >> /var/log/smx-log/success.log
+                                      echo "Command run: /etc/init.d/bind9 stop" >> /var/log/smx-log/success.log
+                                      echo "" >> /var/log/smx-log/success.log
+                                      echo "#################################################" >> /var/log/smx-log/success.log
+                                      echo "" >> /var/log/smx-log/success.log
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                      clear
+                                      echo
+                                      cat /var/log/smx-log/success.log | tail -n 7
+                                      echo
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                 else
+                                      echo "#################################################" >> /var/log/smx-log/fail.log
+                                      echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                      echo "Not restarted BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                      echo "Command run: /etc/init.d/bin9 stop" >> /var/log/smx-log/fail.log
+                                      echo "#################################################" >> /var/log/smx-log/fail.log
+                                      echo "" >> /var/log/smx-log/fail.log
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                      clear
+                                      echo
+                                      cat /var/log/smx-log/fail.log | tail -n 7
+                                      echo
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                 fi          
+                            else
+                                 clear
+                                 cat /proc/version | grep "Ubuntu" > /dev/null
+                                 if [ $? -eq 0 ]; then
+                                      clear
+                                      echo "OS = Ubuntu"
+                                      echo "         COMMAND STATUS          "
+                                      echo
+                                      echo "$(date)                                     $(whoami)@$(hostname)"
+                                      echo
+                                      echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                      echo
+                                      echo "Before command completion, additional instructions may appear below"
+                                      echo
+                                      echo "File                                 Fileset                 Type"
+                                      echo "-----------------------------------------------------------------"
+                                      echo "/etc/init.d/bind9                    bos.sysmgt.bind9        exec"
+                                      echo "Command run: /etc/init.d/bind9 restart"
+                                      update_spinner
+                                      sleep 1
+                                      update_spinner
+                                      echo "Restarting BIND on system"
+                                      sleep 1
+                                      update_spinner
+                                      sleep 1
+                                      /etc/init.d/bind9 restart
+                                      if [ $? -eq 0 ]; then
+                                           echo "#################################################" >> /var/log/smx-log/success.log
+                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                           echo "Successfuly restarted BIND on system" >> /var/log/smx-log/success.log
+                                           echo "Command run: /etc/init.d/bind9 stop" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           echo "#################################################" >> /var/log/smx-log/success.log
+                                           echo "" >> /var/log/smx-log/success.log
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                                           echo
+                                           cat /var/log/smx-log/success.log | tail -n 7
+                                           echo
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                      else
+                                           echo "#################################################" >> /var/log/smx-log/fail.log
+                                           echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                           echo "Not restarted BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                           echo "Command run: /etc/init.d/bin9 stop" >> /var/log/smx-log/fail.log
+                                           echo "#################################################" >> /var/log/smx-log/fail.log
+                                           echo "" >> /var/log/smx-log/fail.log
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                           clear
+                                           echo
+                                           cat /var/log/smx-log/fail.log | tail -n 7
+                                           echo
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                      fi
+                                 else
+                                      clear
+                                      cat /proc/version | grep "SUSE" > /dev/null
+                                      if [ $? -eq 0 ]; then
+                                           clear
+                                           echo "OS = SuSE"
+                                           echo "         COMMAND STATUS           "
+                                           echo
+                                           echo "$(date)                                     $(whoami)@$(hostname)"
+                                           echo
+                                           echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                           echo
+                                           echo "Before command completion, additional instructions may appear below"
+                                           echo
+                                           echo "File                                 Fileset                 Type"
+                                           echo "-----------------------------------------------------------------"
+                                           echo "/etc/init.d/named                    bos.sysmgt.named        exec"
+                                           echo "Command run: /etc/init.d/named restart"
+                                           update_spinner
+                                           sleep 1
+                                           update_spinner
+                                           echo "Restarting BIND on system"
+                                           sleep 1
+                                           update_spinner
+                                           sleep 1
+                                           /etc/init.d/named restart
+                                           if [ $? -eq 0 ]; then
+                                                echo "################################################" >> /var/log/smx-log/success.log
+                                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                                echo "Successfuly restarted BIND on system" >> /var/log/smx-log/success.log
+                                                echo "Command run: /etc/init.d/named restart" >> /var/log/smx-log/success.log
+                                                echo "" >> /var/log/smx-log/success.log
+                                                echo "################################################" >> /var/log/smx-log/success.log
+                                                echo "" >> /var/log/smx-log/success.log
+                                                clear
+                                                echo
+                                                cat /var/log/smx-log/success.log
+                                                echo
+                                                read -p "Press [enter] to continue..." ReadDamKey
+                                           else
+                                                echo "################################################" >> /var/log/smx-log/fail.log
+                                                echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                                echo "Not restarted BIND on system, check command syntax" >> /var/log/smx-log/fail.log
+                                                echo "Command run: /etc/init.d/named restart" >> /var/log/smx-log/fail.log
+                                                echo "" >> /var/log/smx-log/fail.log
+                                                echo "################################################" >> /var/log/smx-log/fail.log
+                                                echo "" >> /var/log/smx-log/fail.log
+                                                clear
+                                                echo
+                                                cat /var/log/smx-log/fail.log | tail -n 6
+                                                echo
+                                                read -p "Press [enter] to continue..." ReadDamKey
+                                           fi          
+                                      fi
+                                 fi
+                            fi
+                       fi
+                       ;;
+            chconfig)
+                       clear
+                       cat /proc/version | grep "Red Hat" > /dev/null
+                       if [ $? -eq 0 ]; then
+                            clear
+                            echo "OS = Red Hat"
+                            echo "          COMMAND STATUS            "
+                            echo
+                            echo "$(date)                                     $(whoami)@$(hostname)"
+                            echo
+                            echo "Command: RUNNING    stdout: yes    stderr: no     "
+                            echo
+                            echo "Before command completion, additional instructions may appear below"
+                            echo
+                            echo "File                                 Fileset                        Type"
+                            echo "------------------------------------------------------------------------"
+                            echo "$(which named-checkconf)             bos.sysmgt.named-checkconf     exec"
+                            echo "Command run: $(which named-checkconf) /etc/named.conf"
+                            update_spinner
+                            sleep 1
+                            update_spinner
+                            echo "Checking BIND configuration"
+                            sleep 1
+                            update_spinner
+                            sleep 1
+                            $(which named-checkconf) /etc/named.conf
+                            if [ $? -eq 0 ]; then
+                                 echo "#####################################################" >> /var/log/smx-log/success.log
+                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                 echo "Successfuly checked BIND configuration file" >> /var/log/smx-log/success.log
+                                 echo "Command run: $(which named-checkconf) /etc/named.conf" >> /var/log/smx-log/success.log
+                                 echo "" >> /var/log/smx-log/success.log
+                                 echo "#####################################################" >> /var/log/smx-log/success.log
+                                 echo "" >> /var/log/smx-log/success.log
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                                 clear
+                                 echo
+                                 cat /var/log/smx-log/success.log | tail -n 7
+                                 echo
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                            else
+                                 echo "#########################################################" >> /var/log/smx-log/fail.log
+                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                 echo "Not checked BIND configuration file, check command syntax" >> /var/log/smx-log/fail.log
+                                 echo "Command run: $(which named-checkconf) /etc/named.conf" >> /var/log/smx-log/fail.log
+                                 echo "#########################################################" >> /var/log/smx-log/fail.log
+                                 echo "" >> /var/log/smx-log/fail.log
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                                 clear
+                                 echo
+                                 cat /var/log/smx-log/fail.log | tail -n 7
+                                 echo
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                            fi          
+                       else
+                             clear
+                             cat /proc/version | grep "Debian" > /dev/null
+                             if [ $? -eq 0 ]; then
+                                  clear
+                                  echo "OS = Debian"
+                                  echo "          COMMAND STATUS             "
+                                  echo
+                                  echo "$(date)                                     $(whoami)@$(hostname)"
+                                  echo
+                                  echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                  echo
+                                  echo "Before command completion, additional instructions may appear below"
+                                  echo
+                                  echo "File                                 Fileset                         Type"
+                                  echo "-------------------------------------------------------------------------"
+                                  echo "$(which named-checkconf)             bos.sysmgt.named-checkconf      exec"
+                                  echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local"
+                                  update_spinner
+                                  sleep 1
+                                  update_spinner
+                                  echo "Checking BIND configuration"
+                                  sleep 1
+                                  update_spinner
+                                  sleep 1
+                                  $(which named-checkconf) /etc/bind/named.conf.local
+                                  if [ $? -eq 0 ]; then
+                                       echo "################################################################" >> /var/log/smx-log/success.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                       echo "Successfuly checked BIND configuration file" >> /var/log/smx-log/success.log
+                                       echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       echo "################################################################" >> /var/log/smx-log/success.log
+                                       echo "" >> /var/log/smx-log/success.log
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       clear
+                                       echo
+                                       cat /var/log/smx-log/success.log | tail -n 7
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                  else
+                                       echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                       echo "Not successfuly checked BIND configuration file, check command syntax" >> /var/log/smx-log/fail.log
+                                       echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local" >> /var/log/smx-log/fail.log
+                                       echo "" >> /var/log/smx-log/fail.log
+                                       echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                       echo "" >> /var/log/smx-log/fail.log
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       clear
+                                       echo
+                                       cat /var/log/smx-log/success.log | tail -n 7
+                                       echo
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                  fi           
+                             else
+                                  clear
+                                  cat /proc/version | grep "Ubuntu" > /dev/null
+                                  if [ $? -eq 0 ]; then
+                                       clear
+                                       echo "OS = Ubuntu"
+                                       echo "          COMMAND STATUS             "
+                                       echo
+                                       echo "$(date)                                     $(whoami)@$(hostname)"
+                                       echo
+                                       echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                       echo
+                                       echo "Before command completion, additional instructions may appear below"
+                                       echo
+                                       echo "File                                 Fileset                         Type"
+                                       echo "-------------------------------------------------------------------------"
+                                       echo "$(which named-checkconf)             bos.sysmgt.named-checkconf      exec"
+                                       echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local"
+                                       update_spinner
+                                       sleep 1
+                                       update_spinner
+                                       echo "Checking BIND configuration"
+                                       sleep 1
+                                       update_spinner
+                                       sleep 1
+                                       $(which named-checkconf) /etc/bind/named.conf.local
+                                       if [ $? -eq 0 ]; then
+                                            echo "################################################################" >> /var/log/smx-log/success.log
+                                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                            echo "Successfuly checked BIND configuration file" >> /var/log/smx-log/success.log
+                                            echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local" >> /var/log/smx-log/success.log
+                                            echo "" >> /var/log/smx-log/success.log
+                                            echo "################################################################" >> /var/log/smx-log/success.log
+                                            echo "" >> /var/log/smx-log/success.log
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                            clear
+                                            echo
+                                            cat /var/log/smx-log/success.log | tail -n 7
+                                            echo
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                       else
+                                            echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                            echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                            echo "Not successfuly checked BIND configuration file, check command syntax" >> /var/log/smx-log/fail.log
+                                            echo "Command run: $(which named-checkconf) /etc/bind/named.conf.local" >> /var/log/smx-log/fail.log
+                                            echo "" >> /var/log/smx-log/fail.log
+                                            echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                            echo "" >> /var/log/smx-log/fail.log
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                            clear
+                                            echo
+                                            cat /var/log/smx-log/success.log | tail -n 7
+                                            echo
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                       fi
+                                  else
+                                       clear
+                                       cat /proc/version | grep "SUSE" > /dev/null
+                                       if [ $? -eq 0 ]; then
+                                            clear
+                                            echo "OS = SuSE"
+                                            echo "         COMMAND STATUS         "
+                                            echo
+                                            echo "$(date)                                     $(whoami)@$(hostname)"
+                                            echo
+                                            echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                            echo
+                                            echo "Before command completion, additional instructions may appear below"
+                                            echo
+                                            echo "File                                  Fileset                       Type"
+                                            echo "------------------------------------------------------------------------"
+                                            echo "$(which named-checkconf)              bos.sysmgt.named-checkconf    exec"
+                                            echo "Command run: $(which named-checkconf) /etc/named.conf"
+                                            update_spinner
+                                            sleep 1
+                                            update_spinner
+                                            echo "Checking BIND configuration"
+                                            sleep 1
+                                            update_spinner
+                                            sleep 1
+                                            $(which named-checkconf) /etc/named.conf
+                                            if [ $? -eq 0 ]; then
+                                                 echo "#####################################################" >> /var/log/smx-log/success.log
+                                                 echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                                                 echo "Successfuly checked BIND configuration file" >> /var/log/smx-log/success.log
+                                                 echo "Command run: $(which named-checkconf) /etc/named.conf" >> /var/log/smx-log/success.log
+                                                 echo "" >> /var/log/smx-log/success.log
+                                                 echo "#####################################################" >> /var/log/smx-log/success.log
+                                                 echo "" >> /var/log/smx-log/success.log
+                                                 read -p "Press [enter] to continue..." ReadDamKey
+                                                 clear
+                                                 echo
+                                                 cat /var/log/smx-log/success.log | tail -n 7
+                                                 echo
+                                                 read -p "Press [enter] to continue..." ReadDamKey
+                                            else
+                                                 echo "#########################################################" >> /var/log/smx-log/fail.log
+                                                 echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/fail.log
+                                                 echo "Not checked BIND configuration file, check command syntax" >> /var/log/smx-log/fail.log
+                                                 echo "" >> /var/log/smx-log/fail.log
+                                                 echo "#########################################################" >> /var/log/smx-log/fail.log
+                                                 echo "" >> /var/log/smx-log/fail.log
+                                                 read -p "Press [enter] to continue..." ReadDamKey
+                                                 clear
+                                                 echo
+                                                 cat /var/log/smx-log/fail.log | tail -n 7
+                                                 echo
+                                                 read -p "Press [enter] to continue..." ReadDamKey
+                                            fi          
+                                       fi
+                                  fi
+                             fi
+                       fi
+                       ;;
+            help)
+                   echo "install > Install BIND on system"
+                   echo "start > Start BIND service"
+                   echo "stop > Stop BIND service"
+                   echo "restart > Restart BIND service"
+                   echo "chconfig > Check for syntax errors in BIND configuration file"
+                   echo "help > This program"
+                   echo "exit > Exit back to srv_menu"
+                   echo "exit-mas > Exit back to shell"
+                   read -p "Press [enter] to continue..." ReadDamKey
+                   ;;            
+            exit)
+                   clear
+                   echo "########################################################" >> /var/log/smx-log/exit.log
+                   echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
+                   echo "successfuly terminated $(basename $0)/srv_menu/bind_menu" >> /var/log/smx-log/exit.log
+                   echo "" >> /var/log/smx-log/exit.log
+                   echo "########################################################" >> /var/log/smx-log/exit.log
+                   echo "" >> /var/log/smx-log/exit.log
+                   srv_menu
+                   ;;
+            exit-mas)
+                       clear
+                       echo "#####################################" >> /var/log/smx-log/exit.log
+                       echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/exit.log
+                       echo "successfuly terminated $(basename $0)" >> /var/log/smx-log/exit.log
+                       echo "" >> /var/log/smx-log/exit.log
+                       echo "#####################################" >> /var/log/smx-log/exit.log
+                       echo "" >> /var/log/smx-log/exit.log
+                       exit 0
+                       ;;
+            *)         clear
+                       echo "        COMMAND STATUS        "
+                       echo
+                       echo "$(date)                                     $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: FAIL    stdout: yes    stderr: no        "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "Unkonwn command, please consult the command list, executed with pid - 5874 (0x1)"
+                       read -p "Press [enter] to continue..." ReadDamKey;;
+        esac
+    done
 }                                     
 
 case "$1" in
@@ -31838,6 +33370,7 @@ case "$1" in
     --vnc) vnc_menu;;
     --ssh) ssh_menu;;
     --snmp) snmp_menu;;
+    --dns) dns_menu;;
     --pkgmgt) pkg_menu;;
     --system-update) system_upd;;
     --ipmgt) ip_menu;;
