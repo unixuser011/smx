@@ -5,7 +5,7 @@ read -p "Enter domain name > " domainName
 read -p "Enter top level domain name > " tldName
 
 SUFFIX='dc=$domainName,dc=$tldName'
-LDIF='ldapuser.ldif'
+LDIF='ldapgroup.ldif'
 
 for line in `grep "x:[5-9][0-9][0-9]:" /etc/group`
 do
