@@ -94,18 +94,18 @@ orriginal bug count:
 
 8/4/2014
         smc 3.11 completed, had to remove tee command logging, messing up exit codes, for commands that use pipelines changed from $? to 
-$PIPESTATUS
+        $PIPESTATUS
 
 21/4/2014
          smc 4.0 completed, created password sub-menu, authenticated by groups, but changed back to root, due to the use of $USER and $USERNAME on both linux and os x being too complicated,
          added option to create a system user (user that controls a deamon), removed 'command status' for when moving to sub-menu, 'command status' only used for commands, fully removed ssh and
-	 telnet support - program not being used as a telnet/ssh client, changed licence to mozilla v 2.0, release date confirmed as 22/4/2014
+	       telnet support - program not being used as a telnet/ssh client, changed licence to mozilla v 2.0, release date confirmed as 22/4/2014
 
 10/5/2014
-	 smc 5.0 completed, finaly created the ability to move to difrent sectons of the program with flags, added option to send mail to a
-	 user, added ability to send mail to root if authentication fails, added option to run command an other user, used full path for
-	 command ie '/bin/cp', using logging with program depentant log files ie '/var/log/smc-finger', created option to display boot
-	 messages with dmesg
+	       smc 5.0 completed, finaly created the ability to move to difrent sectons of the program with flags, added option to send mail to a
+    	   user, added ability to send mail to root if authentication fails, added option to run command an other user, used full path for
+    	   command ie '/bin/cp', using logging with program depentant log files ie '/var/log/smc-finger', created option to display boot
+         messages with dmesg
 3/6/2014
          smc 6.0 completed, started on version 7, implamenting radical changes, like removing master authentication and running on a program by program basis
 17/6/2014
@@ -122,13 +122,22 @@ $PIPESTATUS
           and also give current run level by using who -r
 28/07/2014
           adm-ux 10.0 completed, changed software install, first you search for the program, and adm-ux will ask you if you want to install the program you searched for
-	  added install section to install .rpm file
+          added install section to install .rpm file
 
 27/10/2014
           adm-ux 11.0 completed, added server admin section for apache, NFS, NIS, SQL, Samba, renamed the program to unixadmin, added support for BSD using pkg_add -r
-	  added option to modify /etc/inittab, added option to use vmstat
+ 	        added option to modify /etc/inittab, added option to use vmstat
 10/12/2014
           sysExec 12.0 completed, created OS detection script for program install, passed -y to package management install, added seperator to log files
 28/01/2015
           smx 13.0 completed, included os detection for server management and starting/stoping services, changed code layout so that if a command is unsuccessful
-          (exit code: 0x1) it won't run the next code in line, added defaults for sertan variables
+          (exit code: 0x1) it won't run the next code in line, added defaults for certan variables
+01/04/2015
+          For smx/sms 14.0, removed underlines in command names, currently adding spinning cursor for command processing, and will change IP management
+    	    to edit config files to set static IP address insted of using ipconfig (changes when system is rebooted - back to old IP address)
+    	    Forgot to add /etc/init.d/isc-dhcp-server start to debian/ubuntu for DHCP server management, changed $privileges to $privChoice in SQL management
+          still to test on gentoo, arch, knoppix and slackware, but will install and test in next couple of days, found bug in ssh management for samba, will
+          start server insted of stop - fixed, changed from service to /etc/init.d/ in vnc mgmt start/stop in debian, ubuntu, and suse
+          Changed echo to read -p in chip, changed NET_INTF to NETINTF in ip_menuosx for OS X, adding default network controler (eth0, en0) to ip_menu for
+          Linux/OS X, changed static IP setup for OS X from ifconfig to networksetup, adding mariadb-server and samba-client for sql and smb management for
+          RHEL v 7
