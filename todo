@@ -1,27 +1,29 @@
 ## todo for next release ##
-version 14.0 (Codename: Hekaton (Codename for Microsoft SQL server In-Memory Online Transaction Processing  (OTLP) system))
+version 15.0 (Codename: Wolverine (Codename for TCP/IP stack for Windows 3.11))
 
 Key: * - todo
      ** - To do in current fix/change session
      *** - Currently doing
+     ? - not sure if fixed or not, will check 
+     X - done 
+     
+1 - May change success or fail screen to alot smaller version with just log file output and a small error/success message [X]  
+     
+2 - May change layout to not display commands and use help system with help command displaying information about all commands in that subMenu [X]
 
-1 - For unmount, add eject using udisks (udisks --eject <diskName>) [X]
+3 - Add DNS (use BIND or NSD) to server management [X]
 
-2 - May combine OS X disk mount and unmount [X]
+4 - May change log to display date for all entries ([date] - ) [*]
 
-3 - May remove underline in command names (example: change add_usr to add-usr, etc) [X]
+5 - May add linux intergration with MS AD [*]
 
-4 - Add snmp server support to server management [X]
+6 - May change name to SMS - System Management Service(s) [*]
 
-5 - May add SUCCESS or FAIL message in ASCII art form and add spinning cursor (See spin.sh) [X] (UPDATE: not using ASCII art, but including spinning cursor)
+7 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) [*]
 
-6 - For default variables, unset or set to null (Example: USER_SHELL="") [X]
+8 - With fix #7 include pros/cons of each [*]
+    
+9 - include support for arch, gentoo, knoppix and BSD [*]
 
-7 - May remove Default: <default> from default section and just use pre-set default (Example: Network Interface [eth0] > ) [X]
-													  
-8 - With change 36, change chip to edit config files to set static ip address [X]
-
-9 - May add samba-client and mariadb-server for mysql install for redhat for version 7 [X]
-
-10 - May add code to find active network interface (route -n | grep "^0.0.0.0" | rev | cut -d' ' -f1 | rev') [X]
-     for ip_menu to get current active network interface
+10 - For OS detection script - change to use /etc/redhat-release for redhat 6/7, /etc/debian_version, and /etc/issue for ubuntu (only where nessasary - if 6 and 7 follow the same path, then just keep same) [*]
+(if however, the path is difrent, like for example mysql/samba/openldap install, rhel 7 uses mariadb-server insted of mysql-server samba requires samba-client, openldap imports diffrent schemas) (may use /etc/os-release instead of distro-specific solution)
