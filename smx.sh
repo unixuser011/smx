@@ -125,7 +125,7 @@ echo " ######  ##     ## ##     ## "
 echo
 echo "System Management eXecutive (for UNIX/Linux) Version 15.0 (Codename: Wolverine (Codename for TCP/IP stack for Windows 3.11))"
 echo "Copyright (c) 2010 - 2016 Darius Anderson, d.anderson1147@gmail.com"
-echo "Created in and optimised for Notepad++"
+echo "Created in and optimised for Sublime Text"
 echo
 echo "Log files located in: /var/log/smx-log/success.log /var/log/smx-log/fail.log and /var/log/smx-log/exit.log"
 echo "Program log files located in: /var/log/smx-log/<program>.log"
@@ -136,15 +136,15 @@ if [ $(id -g $(whoami)) != "0" ]; then
      clear
      echo "WARNING!! WARNING!! WARNING!!"
      echo "#######################################################"
-     echo "SORRY!! ACCESS DENIED!!"
+     echo "!!ACCESS DENIED!!"
      echo "ACCESS TO NON-ROOT USERS IS FORBIDDEN"
-     echo "ACCESS IS PERMITTED TO ROOT USERS ONLY!!"
+     echo "ACCESS IS PERMITTED TO ROOT ONLY!!"
      echo "THIS WILL BE REPORTED!!"
      echo "#######################################################"
      echo "WARNING!! WARNING!! WARNING!!"
      echo ""
      echo "DATE=$(date), CMD=$(basename $0), USER=$(whoami), UID=$(id -u), GID=$(id -g)
-     User: $(whoami) attempted to access SMX at: $(date) - this operation is not permitted" | mail -s "SMX access violation" root@localhost
+     User: $(whoami) attempted to access SMX at: $(date) - this operation is not permitted" | mail -s "access violation - SMX" root@localhost
      exit 1
 else
      echo "User: $(whoami) successfuly authenticated"
@@ -16152,14 +16152,14 @@ function srv_menu() {
             dns)
                   clear
                   echo "###############################################" >> /var/log/smx-log/success.log
-                  echo "$(date):$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
+                  echo "$(date)::$(whoami)@$(hostname)" >> /var/log/smx-log/success.log
                   echo "Entering dns_menu" >> /var/log/smx-log/success.log
                   echo "Command run: $(basename $0)/srv_menu/dns_menu" >> /var/log/smx-log/success.log
                   echo "" >> /var/log/smx-log/success.log
                   echo "###############################################" >>/var/log/smx-log/success.log
                   echo "" >> /var/log/smx-log/success.log
                   dns_menu
-                  ;;
+                  ;;    
             help)
                    echo "apache > Apache server management"
                    echo "nfs > NFS server management"
@@ -31947,6 +31947,7 @@ function dns_menu() {
                                 cat /var/log/smx-log/fail.log | tail -n 7
                                 echo
                                 read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
                            fi
                            $(which sed) -i 's/listen-on port 53/#listen-on port 53/g' /etc/named.conf
                            $(which sed) -i 's/localhost/any/g' /etc/named.conf
@@ -31977,7 +31978,7 @@ function dns_menu() {
 			                    echo
                                 echo "BIND started, reloading zone files..."
                                 echo
-                                $(which rdnc) reload
+                                $(which rndc) reload
                                 $(which chkconfig) named on
                                 read -p "Press [enter] to continue..." ReadDamKey
                            else
@@ -32075,6 +32076,7 @@ function dns_menu() {
                                      cat /var/log/smx-log/fail.log | tail -n 7
                                      echo
                                      read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
                                 fi
                                 echo 'zone "'$domainName'" {' >> /etc/bind/named.conf.local
                                 echo "          type master;" >> /etc/bind/named.conf.local
@@ -32212,6 +32214,7 @@ function dns_menu() {
                                           cat /var/log/smx-log/fail.log | tail -n 7
                                           echo
                                           read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
                                      fi
                                      echo 'zone      "'$domainName'"     {' >> /etc/bind/named.conf.local
                                      echo "          type master;" >> /etc/bind/named.conf.local
@@ -32373,6 +32376,7 @@ function dns_menu() {
                                                cat /var/log/smx-log/fail.log | tail -n 7
                                                echo
                                                read -p "Press [enter] to continue..." ReadDamKey
+                                               exit 1
                                           fi
                                           # Check for existing .zone files in /var/named - may create problems with creating new/existing domains for test installs
                                           # for OpenSuSE remove /etc/named.conf - will be recreated during installation
@@ -32426,7 +32430,7 @@ function dns_menu() {
                                           echo "@    IN    NS    $hostAddr." >> /var/lib/named/rev.$domainName
                                           echo "@    IN    NS    $IP_ADDR" >> /var/lib/named/rev.$domainName
                                           echo "$IP_ADDR    IN    PTR    $fqdnName." >> /var/lib/named/rev.$domainName
-                                          /etc/iint.d/named start
+                                          /etc/init.d/named start
                                           $(which chkconfig) named on
                                           $(which named-checkconf) /etc/named.conf
                                           $(which named-checkzone) $domainName /var/lib/named/for.$domainName
@@ -33351,7 +33355,7 @@ function dns_menu() {
                        read -p "Press [enter] to continue..." ReadDamKey;;
         esac
     done
-}                                     
+}
 
 case "$1" in
     --main-menu) main_menu;;
