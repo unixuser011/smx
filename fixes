@@ -1,0 +1,11 @@
+## Fixes for next release ##
+version 15.0 (Codename: Wolverine (codename for TCP/IP stack for Windows 3.11))
+
+Key: * - todo
+     ** - To do in current fix/change session
+     *** - Currently doing
+     ? - not sure if fixed or not, will check 
+     X - done
+
+1 - Null IP_ADDR, HOST_NAME and NETINTF variables so that IP address, hostname and network interface 
+    is not set next time that the variable are called []
