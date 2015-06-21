@@ -1,0 +1,12 @@
+## test log for SMX/SMS ##
+version 15.0 (Codename: Wolverine (Codename for TCP/IP stack for Windows 3.11))
+
+Key: * - todo
+     ** - To do in current fix/change session
+     *** - Currently doing
+     ? - not sure if fixed or not, will check 
+     X - done
+
+1 - Test BIND on centos, debian/ubuntu and SuSE [X]
+
+2 - Test LDAP on centos, debian/ubutnu and SuSE []
