@@ -106,3 +106,7 @@ Key: * - todo
 50 - May add suport for Apache hadoop []
 
 51 - May add suport for Sendmail []
+
+52 - May change rhel listing updates from yum list updates to yum check-updates []
+
+53 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code []
