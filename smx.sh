@@ -5515,7 +5515,7 @@ function ip_menu() {
                   if [ "$netIntf" = "" ]; then
                         NETINTF=""
                         read netIntf
-                        NETINTF=$NETINTF
+                        NETINTF=$netIntf
                   fi
                   if [ "$netIntf" = "" ]; then
                         NETINTF=""
@@ -5586,7 +5586,7 @@ function ip_menu() {
                 if [ "$netIntf" = "" ]; then
                       NETINTF=""
                       read netIntf
-                      NETINTF=$NETINTF
+                      NETINTF=$netIntf
                 fi
                 if [ "$netIntf" = "" ]; then
                       NETINTF=""
@@ -5935,7 +5935,7 @@ function fire_menu() {
 			            if [ "$netIntf" = "" ]; then
                               NETINTF=""
                               read netIntf
-                              NETINTF=$NETINTF
+                              NETINTF=$netIntf
                       	fi
                       	if [ "$netIntf" = "" ]; then
                               NETINTF=""
@@ -6011,7 +6011,7 @@ function fire_menu() {
 			             if [ "$netIntf" = "" ]; then
                                NETINTF=""
                                read netIntf
-                               NETINTF=$NETINTF
+                               NETINTF=$netIntf
                       	 fi
                       	 if [ "$netIntf" = "" ]; then
                                NETINTF=""
@@ -6088,7 +6088,7 @@ function fire_menu() {
 			               if [ "$netIntf" = "" ]; then
                                  NETINTF=""
                             	 read netIntf
-                            	 NETINTF=$NETINTF
+                            	 NETINTF=$netIntf
                       	   fi
                       	   if [ "$netIntf" = "" ]; then
                                  NETINTF=""
@@ -6167,7 +6167,7 @@ function fire_menu() {
                        if [ "$netIntf" = "" ]; then
                              NETINTF=""
                              read netIntf
-                             NETINTF=$NETINTF
+                             NETINTF=$netIntf
                        fi
                        if [ "$netIntf" = "" ]; then
                              NETINTF=""
@@ -6243,7 +6243,7 @@ function fire_menu() {
                   if [ "$netIntf" = "" ]; then
                         NETINTF=""
                         read netIntf
-                        NETINTF=$NETINTF
+                        NETINTF=$netIntf
                   fi
                   if [ "$netIntf" = "" ]; then
                         NETINTF=""
@@ -14912,7 +14912,7 @@ function ip_menuosx() {
                    if [ "$netIntf" = "" ]; then
                          NETINTF=""
                          read netIntf
-                         NETINTF=$NETINTF
+                         NETINTF=$netIntf
                    fi
                    if [ "$netIntf" = "" ]; then
                          NETINTF=""
@@ -14972,7 +14972,7 @@ function ip_menuosx() {
                       if [ "$netIntf" = "" ]; then
                             NETINTF=""
                             read netIntf
-                            NETINTF=$NETINTF
+                            NETINTF=$netIntf
                       fi
                       if [ "$netIntf" = "" ]; then
                             NETINTF=""
@@ -15179,7 +15179,7 @@ function ip_menuosx() {
                    if [ "$netIntf" = "" ]; then
                          NETINTF=""
                          read netIntf
-                         NETINTF=$NETINTF
+                         NETINTF=$netIntf
                    fi
                    if [ "$netIntf" = "" ]; then
                          NETINTF=""
@@ -15250,7 +15250,7 @@ function ip_menuosx() {
                  if [ "$netIntf" = "" ]; then
                        NETINTF=""
                        read netIntf
-                       NETINTF=$NETINTF
+                       NETINTF=$netIntf
                  fi
                  if [ "$netIntf" = "" ]; then
                        NETINTF=""
@@ -16235,7 +16235,7 @@ function apache_menu(){
 			               if [ "$netIntf" = "" ]; then
                                  NETINTF=""
                             	 read netIntf
-                            	 NETINTF=$NETINTF
+                            	 NETINTF=$netIntf
                     	   fi
                     	   if [ "$netIntf" = "" ]; then
                                  NETINTF=""
@@ -16941,7 +16941,7 @@ function apache_menu(){
                         		if [ "$netIntf" = "" ]; then
                         		      NETINTF=""
                         		      read netIntf
-                        		      NETINTF=$NETINTF
+                        		      NETINTF=$netIntf
                         		fi
                         		if [ "$netIntf" = "" ]; then
                         		      NETINTF=""
@@ -17535,7 +17535,7 @@ function apache_menu(){
                         		     if [ "$netIntf" = "" ]; then
                         				   NETINTF=""
                         				   read netIntf
-                        				   NETINTF=$NETINTF
+                        				   NETINTF=$netIntf
                         		     fi
                         		     if [ "$netIntf" = "" ]; then
                         				   NETINTF=""
@@ -17548,7 +17548,7 @@ function apache_menu(){
                         				   IP_ADDR=$ipAddr
                         		     fi
                         		     if [ "$ipAddr" = "" ]; then
-    					                   NETINTF=""
+    					                   IP_ADDR=""
                     			           IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
                         		     fi          
                         		     printf " Enter admin email [root@localhost] ----------------------------------------------------------------------- > "
@@ -18048,7 +18048,7 @@ function apache_menu(){
                         				  if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
                                 				read netIntf
-                                				NETINTF=$NETINTF
+                                				NETINTF=$netIntf
                         				  fi
                         				  if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
@@ -21504,7 +21504,7 @@ function nis_menu() {
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
                                       read netIntf
-                                      NETINTF=$NETINTF
+                                      NETINTF=$netIntf
                                 fi
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
@@ -21863,7 +21863,7 @@ function nis_menu() {
                                       if [ "$netIntf" = "" ]; then
                                             NETINTF=""
                                             read netIntf
-                                            NETINTF=$NETINTF
+                                            NETINTF=$netIntf
                                       fi
                                       if [ "$netIntf" = "" ]; then
                                             NETINTF=""
@@ -21871,19 +21871,23 @@ function nis_menu() {
                                       fi            
                                       printf " Enter IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')]) --------- > "
                                       if [ "$ipAddr" = "" ]; then
+                                            IP_ADDR=""
                                             read ipAddr
                                             IP_ADDR=$ipAddr
                                       fi
                                       if [ "$ipAddr" = "" ]; then
+                                            IP_ADDR=""
 				  	                        IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 } ' | sed 's/addr://')
                                       fi      
                                       read -p " Enter server FQDN name ------------------------------------------------------------------------- > " fqdnName
                                       printf " Enter hostname [$(hostname) --------------------------------------------------------------------- > "
                                       if [ "$hostName" = "" ]; then
+                                            HOST_NAME=""
                                             read hostName
                                             HOST_NAME=$hostName
                                       fi
                                       if [ "$hostName" = "" ]; then
+                                            HOST_NAME=""
 					                        HOST_NAME=$(hostname)
                                       fi      
                                       clear
@@ -22114,7 +22118,7 @@ function nis_menu() {
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
                                                 read netIntf
-                                                NETINTF=$NETINTF
+                                                NETINTF=$netIntf
                                           fi
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
@@ -23500,7 +23504,7 @@ function dhcp_menu() {
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
                                       read netIntf
-                                      NETINTF=$NETINTF
+                                      NETINTF=$netIntf
                                 fi
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
@@ -23841,7 +23845,7 @@ function dhcp_menu() {
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
                                                 read netIntf
-                                                NETINTF=$NETINTF
+                                                NETINTF=$netIntf
                                           fi
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
@@ -28735,7 +28739,7 @@ function ssh_menu() {
                            if [ "$netIntf" = "" ]; then
                                  NETINTF=""
                                  read netIntf
-                                 NETINTF=$NETINTF
+                                 NETINTF=$netIntf
                            fi
                            if [ "$netIntf" = "" ]; then
                                  NETINTF=""
@@ -28809,7 +28813,7 @@ function ssh_menu() {
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
                                       read netIntf
-                                      NETINTF=$NETINTF
+                                      NETINTF=$netIntf
                                 fi
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
@@ -28911,7 +28915,7 @@ function ssh_menu() {
 				                     if [ "$netIntf" = "" ]; then
                                            NETINTF=""
                                            read netIntf
-                                           NETINTF=$NETINTF
+                                           NETINTF=$netIntf
                                      fi
                                      if [ "$netIntf" = "" ]; then
                                            NETINTF=""
@@ -29013,7 +29017,7 @@ function ssh_menu() {
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
                                                 read netIntf
-                                                NETINTF=$NETINTF
+                                                NETINTF=$netIntf
                                           fi
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
@@ -31868,7 +31872,7 @@ function dns_menu() {
                            if [ "$netIntf" = "" ]; then
                                  NETINTF=""
                                 read netIntf
-                                NETINTF=$NETINTF
+                                NETINTF=$netIntf
                            fi
                            if [ "$netIntf" = "" ]; then
                                  NETINTF=""
@@ -32007,7 +32011,7 @@ function dns_menu() {
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
                                       read netIntf
-                                      NETINTF=$NETINTF
+                                      NETINTF=$netIntf
                                 fi
                                 if [ "$netIntf" = "" ]; then
                                       NETINTF=""
@@ -32145,7 +32149,7 @@ function dns_menu() {
                                      if [ "$netIntf" = "" ]; then
                                            NETINTF=""
                                            read netIntf
-                                           NETINTF=$NETINTF
+                                           NETINTF=$netIntf
                                      fi
                                      if [ "$netIntf" = "" ]; then
                                            NETINTF=""
@@ -32287,7 +32291,7 @@ function dns_menu() {
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
                                                read netIntf
-                                               NETINTF=$NETINTF
+                                               NETINTF=$netIntf
                                           fi
                                           if [ "$netIntf" = "" ]; then
                                                 NETINTF=""
