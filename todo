@@ -13,7 +13,7 @@ Key: * - todo
 
 3 - Add DNS (use BIND or NSD) to server management [X]
 
-4 - May change log to display date for all entries ([date] - ) [*]
+4 - May change log to display date for all entries ([date] - ) [X]
 
 5 - May add linux intergration with MS AD [*]
 
