@@ -25234,10 +25234,10 @@ function sql_menu () {
       	case "$choice_sql" in
       	    install)
 		              clear
-                      cat /proc/version | grep "Red Hat" > /dev/null
+                      cat /etc/redhat-release | grep 7 > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-			               echo "OS = Red Hat"
+			               echo "OS = Red Hat v7"
                            echo "        COMMAND STATUS          "
                            echo
                            echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25253,25 +25253,25 @@ function sql_menu () {
                            echo "$(which chkconfig)                  bos.sysmgt.chkconfig                     exec"
                            echo "$(which mysql_secure_installation)  bos.sysmgt.mysql_secure_installation     exec"
                            echo "$(which mysql)                      bos.sysmgt.mysql                         exec"
-                           echo "Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log"
-                           echo "Command run: $(which service) mysqld start"
-                           echo "Command run: $(which chkconfig) mysqld on"
+                           echo "Command run: $(which yum) -y install mariadb-server | $(which tee) /var/log/smx-log/yum.log"
+                           echo "Command run: $(which service) mariadb start"
+                           echo "Command run: $(which chkconfig) mariadb on"
                            echo "Command run: $(which mysql_secure_installation)"
                            echo "Command run: $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'"
                            echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
                            update_spinner
                            sleep 1
                            update_spinner
-                           echo "Installing packages: mysql-server and mariadb-server"
+                           echo "Installing package: mariadb-server"
                            sleep 1
                            update_spinner
                            sleep 1
-                           $(which yum) -y install mysql-server mariadb-server | $(which tee) /var/log/smx-log/yum.log
+                           $(which yum) -y install mariadb-server | $(which tee) /var/log/smx-log/yum.log
                            if [ $PIPESTATUS -eq 0 ]; then
 			                    echo "########################################################################################################" >> /var/log/smx-log/success.log
                                 echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                                 echo "[$(date)] Successfuly installed mysql on system: $(hostname)" >> /var/log/smx-log/success.log
-                                echo "[$(date)] Command run: $(which yum) -y install mysql-server mariadb-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                                echo "[$(date)] Command run: $(which yum) -y install mariadb-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
                                 echo "" >> /var/log/smx-log/success.log
                                 echo "########################################################################################################" >> /var/log/smx-log/success.log
                                 echo "" >> /var/log/smx-log/success.log
@@ -25285,7 +25285,7 @@ function sql_menu () {
 			                    echo "#######################################################################################################" >> /var/log/smx-log/fail.log
                                 echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
                                 echo "[$(date)] Not installed mysql on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                                echo "[$(date)] Command run: $(which yum) -y install mysql-server mariadb-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                                echo "[$(date)] Command run: $(which yum) -y install mariadb-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
                                 echo "#######################################################################################################" >> /var/log/smx-log/fail.log
                                 echo "" >> /var/log/smx-log/fail.log
@@ -25305,7 +25305,7 @@ function sql_menu () {
                            sleep 1
                            update_spinner
                            sleep 1
-                           $(which service) mysqld start
+                           $(which service) mariadb start
                            update_spinner
                            sleep 1
                            update_spinner
@@ -25313,7 +25313,7 @@ function sql_menu () {
                            sleep 1
                            update_spinner
                            sleep 1
-                           $(which chkconfig) mysqld on
+                           $(which chkconfig) mariadb on
                            update_spinner
                            sleep 1
                            update_spinner
@@ -25331,25 +25331,28 @@ function sql_menu () {
 			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
-                           cat /proc/version | grep "Debian" > /dev/null
+                           cat /etc/redhat-release | grep 6
                            if [ $? -eq 0 ]; then
                                 clear
-                                echo "OS = Debian"
-                                echo "             COMMAND STATUS        "
+                                echo "OS = Red Hat v6"
+                                echo "        COMMAND STATUS          "
+                                echo
                                 echo "$(date)                                     $(whoami)@$(hostname)"
                                 echo
                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
                                 echo
                                 echo "Before command completion, additional instructions may appear below"
                                 echo
-                                echo "File                                 Fileset                                     Type"
-                                echo "-------------------------------------------------------------------------------------"
-                                echo "$(which apt-get)                     bos.pkgmgt.apt-get                          exec"
-                                echo "/etc/init.d/mysqld                   bos.sysmgt.mysqld                           exec"
-                                echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
-                                echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
-                                echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
-                                echo "Command run: /etc/init.d/mysqld start"
+                                echo "File                                Fileset                                  Type"
+                                echo "---------------------------------------------------------------------------------"
+                                echo "$(which yum)                        bos.pkgmgt.yum                           exec"
+                                echo "$(which service)                    bos.sysmgt.service                       exec"
+                                echo "$(which chkconfig)                  bos.sysmgt.chkconfig                     exec"
+                                echo "$(which mysql_secure_installation)  bos.sysmgt.mysql_secure_installation     exec"
+                                echo "$(which mysql)                      bos.sysmgt.mysql                         exec"
+                                echo "Command run: $(which yum) -y install Mysql-server | $(which tee) /var/log/smx-log/yum.log"
+                                echo "Command run: $(which service) mysqld start"
+                                echo "Command run: $(which chkconfig) mysqld on"
                                 echo "Command run: $(which mysql_secure_installation)"
                                 echo "Command run: $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'"
                                 echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
@@ -25360,14 +25363,14 @@ function sql_menu () {
                                 sleep 1
                                 update_spinner
                                 sleep 1
-                                $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log
+                                $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log
                                 if [ $PIPESTATUS -eq 0 ]; then
-                                     echo "#####################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "########################################################################################################" >> /var/log/smx-log/success.log
                                      echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                                     echo "[$(date)] Successfuly installed mysql-server on: $(hostname)" >> /var/log/smx-log/success.log
-                                     echo "[$(date)] Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                     echo "[$(date)] Successfuly installed mysql on system: $(hostname)" >> /var/log/smx-log/success.log
+                                     echo "[$(date)] Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
                                      echo "" >> /var/log/smx-log/success.log
-                                     echo "#####################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "########################################################################################################" >> /var/log/smx-log/success.log
                                      echo "" >> /var/log/smx-log/success.log
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      clear
@@ -25375,13 +25378,13 @@ function sql_menu () {
                                      cat /var/log/smx-log/success.log | tail -n 7
                                      echo
                                      read -p "Press [enter] to continue..." ReadDamKey
-      				            else
-                                     echo "#####################################################################################################" >> /var/log/smx-log/fail.log
+                                else
+                                     echo "#######################################################################################################" >> /var/log/smx-log/fail.log
                                      echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
-                                     echo "[$(date)] Not installed mysql-server on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                                     echo "[$(date)] Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
+                                     echo "[$(date)] Not installed mysql on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                                     echo "[$(date)] Command run: $(which yum) -y install mysql-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
                                      echo "" >> /var/log/smx-log/fail.log
-                                     echo "#####################################################################################################" >> /var/log/smx-log/fail.log
+                                     echo "#######################################################################################################" >> /var/log/smx-log/fail.log
                                      echo "" >> /var/log/smx-log/fail.log
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      clear
@@ -25390,7 +25393,8 @@ function sql_menu () {
                                      echo
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      exit 1
-                		        fi
+                                fi
+                                echo "character-set-server=utf8" >> /etc/my.cnf
                                 update_spinner
                                 sleep 1
                                 update_spinner
@@ -25398,7 +25402,15 @@ function sql_menu () {
                                 sleep 1
                                 update_spinner
                                 sleep 1
-                		        /etc/init.d/mysqld start
+                                $(which service) mysqld start
+                                update_spinner
+                                sleep 1
+                                update_spinner
+                                echo "Setting mysql to start at startup"
+                                sleep 1
+                                update_spinner
+                                sleep 1
+                                $(which chkconfig) mysqld on
                                 update_spinner
                                 sleep 1
                                 update_spinner
@@ -25414,12 +25426,12 @@ function sql_menu () {
                                 echo
                                 echo "SQL [$(date)] Successfuly installed on system: $(hostname)"
                                 read -p "Press [enter] to continue..." ReadDamKey
-                           else
                                 clear
-                                cat /proc/version | grep "Ubuntu" > /dev/null
+                           else     
+                                cat /proc/version | grep "Debian" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-                                     echo "OS = Ubuntu"
+                                     echo "OS = Debian"
                                      echo "             COMMAND STATUS        "
                                      echo "$(date)                                     $(whoami)@$(hostname)"
                                      echo
@@ -25460,7 +25472,7 @@ function sql_menu () {
                                           cat /var/log/smx-log/success.log | tail -n 7
                                           echo
                                           read -p "Press [enter] to continue..." ReadDamKey
-				                     else 
+           				             else
                                           echo "#####################################################################################################" >> /var/log/smx-log/fail.log
                                           echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
                                           echo "[$(date)] Not installed mysql-server on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
@@ -25475,7 +25487,7 @@ function sql_menu () {
                                           echo
                                           read -p "Press [enter] to continue..." ReadDamKey
                                           exit 1
-                		             fi
+                       		         fi
                                      update_spinner
                                      sleep 1
                                      update_spinner
@@ -25483,7 +25495,7 @@ function sql_menu () {
                                      sleep 1
                                      update_spinner
                                      sleep 1
-                                     /etc/init.d/mysqld start
+                     		         /etc/init.d/mysqld start
                                      update_spinner
                                      sleep 1
                                      update_spinner
@@ -25501,12 +25513,11 @@ function sql_menu () {
                                      read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
-                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     cat /proc/version | grep "Ubuntu" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-                                          echo "OS = SuSE"
-                                          echo "         COMMAND STATUS           "
-                                          echo
+                                          echo "OS = Ubuntu"
+                                          echo "             COMMAND STATUS        "
                                           echo "$(date)                                     $(whoami)@$(hostname)"
                                           echo
                                           echo "Command: RUNNING    stdout: yes    stderr: no     "
@@ -25515,32 +25526,30 @@ function sql_menu () {
                                           echo
                                           echo "File                                 Fileset                                     Type"
                                           echo "-------------------------------------------------------------------------------------"
-                                          echo "$(which zypper)                      bos.pkgmgt.zypper                           exec"
-                                          echo "/etc/init.d/mysql                    bos.sysmgt.mysql                            exec"
-                                          echo "$(which chkconfig)                   bos.sysmgt.chkconfig                        exec"
+                                          echo "$(which apt-get)                     bos.pkgmgt.apt-get                          exec"
+                                          echo "/etc/init.d/mysqld                   bos.sysmgt.mysqld                           exec"
                                           echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
                                           echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
-                                          echo "Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log"
+                                          echo "Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log"
                                           echo "Command run: /etc/init.d/mysqld start"
-                                          echo "Command run: $(which chkconfig) mysql on"
                                           echo "Command run: $(which mysql_secure_installation)"
-                                          echo "Command run: $(which mysql) -u root -p -e 'list user,host,password from mysql.user;'"
+                                          echo "Command run: $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'"
                                           echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
                                           update_spinner
                                           sleep 1
                                           update_spinner
-                                          echo "Installing package: mysql"
+                                          echo "Installing package: mysql-server"
                                           sleep 1
                                           update_spinner
                                           sleep 1
-                                          $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log
+                                          $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log
                                           if [ $PIPESTATUS -eq 0 ]; then
-                                               echo "#######################################################################################" >> /var/log/smx-log/success.log
+                                               echo "#####################################################################################################" >> /var/log/smx-log/success.log
                                                echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                                               echo "[$(date)] Successfuly installed mysql on: $(hostname)" >> /var/log/smx-log/success.log
-                                               echo "[$(date)] Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Successfuly installed mysql-server on: $(hostname)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
                                                echo "" >> /var/log/smx-log/success.log
-                                               echo "#######################################################################################" >> /var/log/smx-log/success.log
+                                               echo "#####################################################################################################" >> /var/log/smx-log/success.log
                                                echo "" >> /var/log/smx-log/success.log
                                                read -p "Press [enter] to continue..." ReadDamKey
                                                clear
@@ -25548,13 +25557,13 @@ function sql_menu () {
                                                cat /var/log/smx-log/success.log | tail -n 7
                                                echo
                                                read -p "Press [enter] to continue..." ReadDamKey
-                                          else
-                                               echo "#######################################################################################" >> /var/log/smx-log/fail.log
+    			    	                  else 
+                                               echo "#####################################################################################################" >> /var/log/smx-log/fail.log
                                                echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
-                                               echo "[$(date)] Not installed mysql on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
-                                               echo "[$(date)] Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                                               echo "[$(date)] Not installed mysql-server on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                                               echo "[$(date)] Command run: $(which apt-get) -y install mysql-server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/fail.log
                                                echo "" >> /var/log/smx-log/fail.log
-                                               echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                                               echo "#####################################################################################################" >> /var/log/smx-log/fail.log
                                                echo "" >> /var/log/smx-log/fail.log
                                                read -p "Press [enter] to continue..." ReadDamKey
                                                clear
@@ -25563,7 +25572,7 @@ function sql_menu () {
                                                echo
                                                read -p "Press [enter] to continue..." ReadDamKey
                                                exit 1
-                    			          fi
+                    		              fi
                                           update_spinner
                                           sleep 1
                                           update_spinner
@@ -25571,15 +25580,7 @@ function sql_menu () {
                                           sleep 1
                                           update_spinner
                                           sleep 1
-                    			          /etc/init.d/mysql start
-                                          update_spinner
-                                          sleep 1
-                                          update_spinner
-                                          echo "Setting mysql to start on startup"
-                                          sleep 1
-                                          update_spinner
-                                          sleep 1
-                    			          $(which chkconfig) mysql on
+                                          /etc/init.d/mysqld start
                                           update_spinner
                                           sleep 1
                                           update_spinner
@@ -25595,17 +25596,114 @@ function sql_menu () {
                                           echo
                                           echo "SQL [$(date)] Successfuly installed on system: $(hostname)"
                                           read -p "Press [enter] to continue..." ReadDamKey
-                                     fi
-                                fi 
-			               fi
+                                     else
+                                          clear
+                                          cat /proc/version | grep "SUSE" > /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               clear
+                                               echo "OS = SuSE"
+                                               echo "         COMMAND STATUS           "
+                                               echo
+                                               echo "$(date)                                     $(whoami)@$(hostname)"
+                                               echo
+                                               echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                               echo
+                                               echo "Before command completion, additional instructions may appear below"
+                                               echo
+                                               echo "File                                 Fileset                                     Type"
+                                               echo "-------------------------------------------------------------------------------------"
+                                               echo "$(which zypper)                      bos.pkgmgt.zypper                           exec"
+                                               echo "/etc/init.d/mysql                    bos.sysmgt.mysql                            exec"
+                                               echo "$(which chkconfig)                   bos.sysmgt.chkconfig                        exec"
+                                               echo "$(which mysql_secure_installation)   bos.sysmgt.mysql_secure_installation        exec"
+                                               echo "$(which mysql)                       bos.sysmgt.mysql                            exec"
+                                               echo "Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log"
+                                               echo "Command run: /etc/init.d/mysqld start"
+                                               echo "Command run: $(which chkconfig) mysql on"
+                                               echo "Command run: $(which mysql_secure_installation)"
+                                               echo "Command run: $(which mysql) -u root -p -e 'list user,host,password from mysql.user;'"
+                                               echo "Command run: $(which mysql) -u root -p -e 'show databases;'"
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Installing package: mysql"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                                               $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log
+                                               if [ $PIPESTATUS -eq 0 ]; then
+                                                    echo "#######################################################################################" >> /var/log/smx-log/success.log
+                                                    echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                                    echo "[$(date)] Successfuly installed mysql on: $(hostname)" >> /var/log/smx-log/success.log
+                                                    echo "[$(date)] Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/success.log
+                                                    echo "" >> /var/log/smx-log/success.log
+                                                    echo "#######################################################################################" >> /var/log/smx-log/success.log
+                                                    echo "" >> /var/log/smx-log/success.log
+                                                    read -p "Press [enter] to continue..." ReadDamKey
+                                                    clear
+                                                    echo
+                                                    cat /var/log/smx-log/success.log | tail -n 7
+                                                    echo
+                                                    read -p "Press [enter] to continue..." ReadDamKey
+                                               else
+                                                    echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                                                    echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                                    echo "[$(date)] Not installed mysql on: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                                                    echo "[$(date)] Command run: $(which zypper) in -y mysql | $(which tee) /var/log/smx-log/zypper.log" >> /var/log/smx-log/fail.log
+                                                    echo "" >> /var/log/smx-log/fail.log
+                                                    echo "#######################################################################################" >> /var/log/smx-log/fail.log
+                                                    echo "" >> /var/log/smx-log/fail.log
+                                                    read -p "Press [enter] to continue..." ReadDamKey
+                                                    clear
+                                                    echo
+                                                    cat /var/log/smx-log/fail.log | tail -n 7
+                                                    echo
+                                                    read -p "Press [enter] to continue..." ReadDamKey
+                                                    exit 1
+                           			           fi
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Starting mysql server"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                         			           /etc/init.d/mysql start
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Setting mysql to start on startup"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                         			           $(which chkconfig) mysql on
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Securing mysql installation"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                                               $(which mysql_secure_installation)
+                                               echo "Enter SQL root password to list mysql.user..."
+                                               $(which mysql) -u root -p -e 'select user,host,password from mysql.user;'
+                                               echo "Enter SQL root password to show databases..."
+                                               $(which mysql) -u root -p -e 'show databases;'
+                                               echo
+                                               echo "SQL [$(date)] Successfuly installed on system: $(hostname)"
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          fi
+                                     fi 
+    			                fi
+                           fi     
                       fi
                       ;;
 	        start)
 		            clear
-                    cat /proc/version | grep "Red Hat" > /dev/null
+                    cat /etc/redhat-release | grep 7 > /dev/null
                     if [ $? -eq 0 ]; then
                          clear
-			             echo "OS = Red Hat"
+			             echo "OS = Red Hat v7"
                          echo "         COMMAND STATUS          "
                          echo
                          echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25617,7 +25715,7 @@ function sql_menu () {
                          echo "File                                 Fileset                 Type"
                          echo "-----------------------------------------------------------------"
                          echo "$(which service)                     bos.sysmgt.service      exec"
-                         echo "Command run: $(which service) mysqld start"
+                         echo "Command run: $(which service) mariadb start"
                          update_spinner
                          sleep 1
                          update_spinner
@@ -25625,11 +25723,11 @@ function sql_menu () {
                          sleep 1
                          update_spinner
                          sleep 1
-                         /etc/rc.d/init.d/mysqld start
+                         /etc/rc.d/init.d/mariadb start
 			             echo "##########################################" >> /var/log/smx-log/success.log
                          echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                         echo "[$(date)] Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-                         echo "[$(date)] Command run: $(which service) mysqld start" >> /var/log/smx-log/success.log
+                         echo "[$(date)] Successfuly started mariadb on: $(hostname)" >> /var/log/smx-log/success.log
+                         echo "[$(date)] Command run: $(which service) mariadb start" >> /var/log/smx-log/success.log
                          echo "" >> /var/log/smx-log/success.log
                          echo "##########################################" >> /var/log/smx-log/success.log
                          echo "" >> /var/log/smx-log/success.log
@@ -25641,10 +25739,10 @@ function sql_menu () {
 			             read -p "Press [enter] to continue..." ReadDamKey
                     else
                          clear
-                         cat /proc/version | grep "Debian" > /dev/null
+                         cat /etc/redhat-release | grep 6 > /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-			                  echo "OS = Debian"
+                              echo "OS = Red Hat v6"
                               echo "         COMMAND STATUS          "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25655,8 +25753,8 @@ function sql_menu () {
                               echo
                               echo "File                                 Fileset                 Type"
                               echo "-----------------------------------------------------------------"
-                              echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-                              echo "Command run: /etc/init.d/mysql start"
+                              echo "$(which service)                     bos.sysmgt.service      exec"
+                              echo "Command run: $(which service) mysqld start"
                               update_spinner
                               sleep 1
                               update_spinner
@@ -25664,11 +25762,11 @@ function sql_menu () {
                               sleep 1
                               update_spinner
                               sleep 1
-                              /etc/init.d/mysql start
-			                  echo "##########################################" >> /var/log/smx-log/success.log
+                              /etc/rc.d/init.d/mysqld start
+                              echo "##########################################" >> /var/log/smx-log/success.log
                               echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                               echo "[$(date)] Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-                              echo "[$(date)] Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
+                              echo "[$(date)] Command run: $(which service) ,mysqld start" >> /var/log/smx-log/success.log
                               echo "" >> /var/log/smx-log/success.log
                               echo "##########################################" >> /var/log/smx-log/success.log
                               echo "" >> /var/log/smx-log/success.log
@@ -25677,13 +25775,13 @@ function sql_menu () {
                               echo
                               cat /var/log/smx-log/success.log | tail -n 7
                               echo
-			                  read -p "Press [enter] to continue..." ReadDamKey
+                              read -p "Press [enter] to continue..." ReadDamKey
                          else
                               clear
-                              cat /proc/version | grep "Ubuntu" > /dev/null
+                              cat /proc/version | grep "Debian" > /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-                                   echo "OS = Ubuntu"
+    			                   echo "OS = Debian"
                                    echo "         COMMAND STATUS          "
                                    echo
                                    echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25704,7 +25802,7 @@ function sql_menu () {
                                    update_spinner
                                    sleep 1
                                    /etc/init.d/mysql start
-                                   echo "##########################################" >> /var/log/smx-log/success.log
+    			                   echo "##########################################" >> /var/log/smx-log/success.log
                                    echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                                    echo "[$(date)] Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
                                    echo "[$(date)] Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
@@ -25716,13 +25814,13 @@ function sql_menu () {
                                    echo
                                    cat /var/log/smx-log/success.log | tail -n 7
                                    echo
-                                   read -p "Press [enter] to continue..." ReadDamKey
+    			                   read -p "Press [enter] to continue..." ReadDamKey
                               else
                                    clear
-                                   cat /proc/version | grep "SUSE" > /dev/null
+                                   cat /proc/version | grep "Ubuntu" > /dev/null
                                    if [ $? -eq 0 ]; then
                                         clear
-                                        echo "OS = SuSE"
+                                        echo "OS = Ubuntu"
                                         echo "         COMMAND STATUS          "
                                         echo
                                         echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25734,7 +25832,7 @@ function sql_menu () {
                                         echo "File                                 Fileset                 Type"
                                         echo "-----------------------------------------------------------------"
                                         echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-                                        echo "[$(date)] Command run: /etc/init.d/mysql start"
+                                        echo "Command run: /etc/init.d/mysql start"
                                         update_spinner
                                         sleep 1
                                         update_spinner
@@ -25756,17 +25854,57 @@ function sql_menu () {
                                         cat /var/log/smx-log/success.log | tail -n 7
                                         echo
                                         read -p "Press [enter] to continue..." ReadDamKey
-                                   fi
-                              fi 
-			             fi
+                                   else
+                                        clear
+                                        cat /proc/version | grep "SUSE" > /dev/null
+                                        if [ $? -eq 0 ]; then
+                                             clear
+                                             echo "OS = SuSE"
+                                             echo "         COMMAND STATUS          "
+                                             echo
+                                             echo "$(date)                                     $(whoami)@$(hostname)"
+                                             echo
+                                             echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                             echo
+                                             echo "Before command completion, additional instructions may appear below"
+                                             echo
+                                             echo "File                                 Fileset                 Type"
+                                             echo "-----------------------------------------------------------------"
+                                             echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                             echo "[$(date)] Command run: /etc/init.d/mysql start"
+                                             update_spinner
+                                             sleep 1
+                                             update_spinner
+                                             echo "Starting mysql server"
+                                             sleep 1
+                                             update_spinner
+                                             sleep 1
+                                             /etc/init.d/mysql start
+                                             echo "##########################################" >> /var/log/smx-log/success.log
+                                             echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                             echo "[$(date)] Successfuly started mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                                             echo "[$(date)] Command run: /etc/init.d/mysql start" >> /var/log/smx-log/success.log
+                                             echo "" >> /var/log/smx-log/success.log
+                                             echo "##########################################" >> /var/log/smx-log/success.log
+                                             echo "" >> /var/log/smx-log/success.log
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                             clear
+                                             echo
+                                             cat /var/log/smx-log/success.log | tail -n 7
+                                             echo
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                        fi
+                                   fi 
+    			              fi
+                         fi     
                     fi
                     ;;
 	        stop)
 		           clear
-                   cat /proc/version | grep "Red Hat" > /dev/null
+                   cat /etc/redhat-release | grep 7 > /dev/null
                    if [ $? -eq 0 ]; then
                         clear
-			            echo "OS = Red Hat"
+			            echo "OS = Red Hat v7"
                         echo "         COMMAND STATUS          "
                         echo
                         echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25778,7 +25916,7 @@ function sql_menu () {
                         echo "File                                 Fileset                 Type"
                         echo "-----------------------------------------------------------------"
                         echo "$(which service)                     bos.sysmgt.service      exec"
-                        echo "Command run: $(which service) mysqld stop"
+                        echo "Command run: $(which service) mariadb stop"
                         update_spinner
                         sleep 1
                         update_spinner
@@ -25786,11 +25924,11 @@ function sql_menu () {
                         sleep 1
                         update_spinner
                         sleep 1
-                        /etc/init.d/mysqld stop
+                        /etc/init.d/mariadb stop
 			            echo "##########################################" >> /var/log/smx-log/success.log
                         echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                        echo "[$(date)] Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-                        echo "[$(date)] Command run: $(which service) mysqld stop" >> /var/log/smx-log/success.log
+                        echo "[$(date)] Successfuly stopped mariadb on: $(hostname)" >> /var/log/smx-log/success.log
+                        echo "[$(date)] Command run: $(which service) mariadb stop" >> /var/log/smx-log/success.log
                         echo "" >> /var/log/smx-log/success.log
                         echo "##########################################" >> /var/log/smx-log/success.log
                         echo "" >> /var/log/smx-log/success.
@@ -25802,10 +25940,10 @@ function sql_menu () {
 			            read -p "Press [enter] to continue..." ReadDamKey
                    else
                         clear
-                        cat /proc/version | grep "Debian" > /dev/null
+                        cat /etc/redhat-release | grep 6 > /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-			                 echo "OS = Debian"
+                             echo "OS = Red Hat v6"
                              echo "         COMMAND STATUS          "
                              echo
                              echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25816,8 +25954,8 @@ function sql_menu () {
                              echo
                              echo "File                                 Fileset                 Type"
                              echo "-----------------------------------------------------------------"
-                             echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-                             echo "Command run: /etc/init.d/mysql stop"
+                             echo "$(which service)                     bos.sysmgt.service      exec"
+                             echo "Command run: $(which service) mysqld stop"
                              update_spinner
                              sleep 1
                              update_spinner
@@ -25825,26 +25963,26 @@ function sql_menu () {
                              sleep 1
                              update_spinner
                              sleep 1
-                             /etc/init.d/mysql stop
+                             /etc/init.d/mysqld stop
                              echo "##########################################" >> /var/log/smx-log/success.log
                              echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                              echo "[$(date)] Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-                             echo "[$(date)] Command run: /etc/init.d/mysql stop" >> /var/log/smx-log/success.log
+                             echo "[$(date)] Command run: $(which service) mysqld stop" >> /var/log/smx-log/success.log
                              echo "" >> /var/log/smx-log/success.log
                              echo "##########################################" >> /var/log/smx-log/success.log
-                             echo "" >> /var/log/smx-log/success.log
+                             echo "" >> /var/log/smx-log/success.
                              read -p "Press [enter] to continue..." ReadDamKey
                              clear
                              echo
                              cat /var/log/smx-log/success.log | tail -n 7
                              echo
-			                 read -p "Press [enter] to continue..." ReadDamKey
-                        else
+                             read -p "Press [enter] to continue..." ReadDamKey
+                        else      
                              clear
-                             cat /proc/version | grep "Ubuntu" > /dev/null
+                             cat /proc/version | grep "Debian" > /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = Ubuntu"
+    			                  echo "OS = Debian"
                                   echo "         COMMAND STATUS          "
                                   echo
                                   echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25865,8 +26003,6 @@ function sql_menu () {
                                   update_spinner
                                   sleep 1
                                   /etc/init.d/mysql stop
-                                  read -p "Press [enter] to continue..." ReadDamKey
-                                  clear
                                   echo "##########################################" >> /var/log/smx-log/success.log
                                   echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                                   echo "[$(date)] Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
@@ -25874,16 +26010,18 @@ function sql_menu () {
                                   echo "" >> /var/log/smx-log/success.log
                                   echo "##########################################" >> /var/log/smx-log/success.log
                                   echo "" >> /var/log/smx-log/success.log
+                                  read -p "Press [enter] to continue..." ReadDamKey
+                                  clear
                                   echo
                                   cat /var/log/smx-log/success.log | tail -n 7
                                   echo
-                                  read -p "Press [enter] to continue..." ReadDamKey
+    			                  read -p "Press [enter] to continue..." ReadDamKey
                              else
                                   clear
-                                  cat /proc/version | grep "SUSE" > /dev/null
+                                  cat /proc/version | grep "Ubuntu" > /dev/null
                                   if [ $? -eq 0 ]; then
                                        clear
-                                       echo "OS = SuSE"
+                                       echo "OS = Ubuntu"
                                        echo "         COMMAND STATUS          "
                                        echo
                                        echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25904,6 +26042,8 @@ function sql_menu () {
                                        update_spinner
                                        sleep 1
                                        /etc/init.d/mysql stop
+                                       read -p "Press [enter] to continue..." ReadDamKey
+                                       clear
                                        echo "##########################################" >> /var/log/smx-log/success.log
                                        echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                                        echo "[$(date)] Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
@@ -25911,23 +26051,61 @@ function sql_menu () {
                                        echo "" >> /var/log/smx-log/success.log
                                        echo "##########################################" >> /var/log/smx-log/success.log
                                        echo "" >> /var/log/smx-log/success.log
-                                       read -p "Press [enter] to continue..." ReadDamKey
-                                       clear
                                        echo
                                        cat /var/log/smx-log/success.log | tail -n 7
                                        echo
                                        read -p "Press [enter] to continue..." ReadDamKey
-                                  fi
-                             fi 
-			            fi
+                                  else
+                                       clear
+                                       cat /proc/version | grep "SUSE" > /dev/null
+                                       if [ $? -eq 0 ]; then
+                                            clear
+                                            echo "OS = SuSE"
+                                            echo "         COMMAND STATUS          "
+                                            echo
+                                            echo "$(date)                                     $(whoami)@$(hostname)"
+                                            echo
+                                            echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                            echo
+                                            echo "Before command completion, additional instructions may appear below"
+                                            echo
+                                            echo "File                                 Fileset                 Type"
+                                            echo "-----------------------------------------------------------------"
+                                            echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                            echo "Command run: /etc/init.d/mysql stop"
+                                            update_spinner
+                                            sleep 1
+                                            update_spinner
+                                            echo "Stopping mysql server"
+                                            sleep 1
+                                            update_spinner
+                                            sleep 1
+                                            /etc/init.d/mysql stop
+                                            echo "##########################################" >> /var/log/smx-log/success.log
+                                            echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                            echo "[$(date)] Successfuly stopped mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                                            echo "[$(date)] Command run: /etc/init.d/mysql stop" >> /var/log/smx-log/success.log
+                                            echo "" >> /var/log/smx-log/success.log
+                                            echo "##########################################" >> /var/log/smx-log/success.log
+                                            echo "" >> /var/log/smx-log/success.log
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                            clear
+                                            echo
+                                            cat /var/log/smx-log/success.log | tail -n 7
+                                            echo
+                                            read -p "Press [enter] to continue..." ReadDamKey
+                                       fi
+                                  fi 
+    			             fi
+                        fi     
                    fi
                    ;;
 	        restart)
 		              clear
-                      cat /proc/version | grep "Red Hat" > /dev/null
+                      cat /etc/redhat-release | grep 7 > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-			               echo "OS = Red Hat"
+			               echo "OS = Red Hat v7"
                            echo "         COMMAND STATUS          "
                            echo
                            echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25939,7 +26117,7 @@ function sql_menu () {
                            echo "File                                 Fileset                 Type"
                            echo "-----------------------------------------------------------------"
                            echo "$(which service)                     bos.sysmgt.service      exec"
-                           echo "[$(date)] Command run: $(which service) mysqld restart"
+                           echo "Command run: $(which service) mariadb restart"
                            update_spinner
                            sleep 1
                            update_spinner
@@ -25947,11 +26125,11 @@ function sql_menu () {
                            sleep 1
                            update_spinner
                            sleep 1 
-                           $(which service) mysqld restart
+                           $(which service) mariadb restart
 			               echo "############################################" >> /var/log/smx-log/success.log
                            echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                           echo "[$(date)] Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-                           echo "[$(date)] Command run: $(which service) mysqld restart" >> /var/log/smx-log/success.log
+                           echo "[$(date)] Successfuly restarted mariadb on: $(hostname)" >> /var/log/smx-log/success.log
+                           echo "[$(date)] Command run: $(which service) mariadb restart" >> /var/log/smx-log/success.log
                            echo "" >> /var/log/smx-log/success.log
                            echo "############################################" >> /var/log/smx-log/success.log
                            echo "" >> /var/log/smx-log/success.log
@@ -25963,10 +26141,10 @@ function sql_menu () {
 			               read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
-                           cat /proc/version | grep "Debian" > /dev/null
+                           cat /etc/redhat-release | grep 6 > /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-                                echo "OS = Debian"
+                                echo "OS = Red Hat v6"
                                 echo "         COMMAND STATUS          "
                                 echo
                                 echo "$(date)                                     $(whoami)@$(hostname)"
@@ -25977,20 +26155,20 @@ function sql_menu () {
                                 echo
                                 echo "File                                 Fileset                 Type"
                                 echo "-----------------------------------------------------------------"
-                                echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
-                                echo "Command run: /etc/init.d/mysql restart"
+                                echo "$(which service)                     bos.sysmgt.service      exec"
+                                echo "Command run: $(which service) mysqld restart"
                                 update_spinner
                                 sleep 1
                                 update_spinner
                                 echo "Restarting mysql server"
                                 sleep 1
                                 update_spinner
-                                sleep 1
-                                /etc/rc.d/init.d/mysqld restart
+                                sleep 1 
+                                $(which service) mysqld restart
                                 echo "############################################" >> /var/log/smx-log/success.log
                                 echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                                 echo "[$(date)] Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
-                                echo "[$(date)] Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
+                                echo "[$(date)] Command run: $(which service) mysqld restart" >> /var/log/smx-log/success.log
                                 echo "" >> /var/log/smx-log/success.log
                                 echo "############################################" >> /var/log/smx-log/success.log
                                 echo "" >> /var/log/smx-log/success.log
@@ -26000,12 +26178,12 @@ function sql_menu () {
                                 cat /var/log/smx-log/success.log | tail -n 7
                                 echo
                                 read -p "Press [enter] to continue..." ReadDamKey
-                           else
+                           else     
                                 clear
-                                cat /proc/version | grep "Ubuntu" > /dev/null
+                                cat /proc/version | grep "Debian" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-                                     echo "OS = Ubuntu"
+                                     echo "OS = Debian"
                                      echo "         COMMAND STATUS          "
                                      echo
                                      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26041,10 +26219,10 @@ function sql_menu () {
                                      read -p "Press [enter] to continue..." ReadDamKey
                                 else
                                      clear
-                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     cat /proc/version | grep "Ubuntu" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-                                          echo "OS = SuSE"
+                                          echo "OS = Ubuntu"
                                           echo "         COMMAND STATUS          "
                                           echo
                                           echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26064,7 +26242,7 @@ function sql_menu () {
                                           sleep 1
                                           update_spinner
                                           sleep 1
-                                          /etc/rc.d/init.d/mysql restart
+                                          /etc/rc.d/init.d/mysqld restart
                                           echo "############################################" >> /var/log/smx-log/success.log
                                           echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                                           echo "[$(date)] Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
@@ -26078,9 +26256,49 @@ function sql_menu () {
                                           cat /var/log/smx-log/success.log | tail -n 7
                                           echo
                                           read -p "Press [enter] to continue..." ReadDamKey
-                                     fi
-                                fi 
-			               fi
+                                     else
+                                          clear
+                                          cat /proc/version | grep "SUSE" > /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               clear
+                                               echo "OS = SuSE"
+                                               echo "         COMMAND STATUS          "
+                                               echo
+                                               echo "$(date)                                     $(whoami)@$(hostname)"
+                                               echo
+                                               echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                               echo
+                                               echo "Before command completion, additional instructions may appear below"
+                                               echo
+                                               echo "File                                 Fileset                 Type"
+                                               echo "-----------------------------------------------------------------"
+                                               echo "/etc/init.d/mysql                    bos.sysmgt.mysql        exec"
+                                               echo "Command run: /etc/init.d/mysql restart"
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Restarting mysql server"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                                               /etc/rc.d/init.d/mysql restart
+                                               echo "############################################" >> /var/log/smx-log/success.log
+                                               echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Successfuly restarted mysqld on: $(hostname)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Command run: /etc/init.d/mysql restart" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               echo "############################################" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/success.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          fi
+                                     fi 
+    			                fi
+                           fi     
                       fi
                       ;;
 	        addusr)
@@ -29631,10 +29849,10 @@ function vnc_menu() {
     	case "$choice_vnc" in
     	    install)	    
                       clear
-                      cat /proc/version | grep "Red Hat" > /dev/null
+                      cat /etc/redhat-release | grep 7 > /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-                           echo "OS = Red Hat"
+                           echo "OS = Red Hat v7"
                            echo "$(date)                                     $(whoami)@$(hostname)"
                            echo "[TOP]                                    [Entry Fields]"
                            read -p " Enter user to configure VNC --------- > " userName
@@ -29653,14 +29871,9 @@ function vnc_menu() {
                            echo "$(which su)                          bos.sysmgt.su           exec"
                            echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
                            echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-                           echo "$(which sed)                         bos.sysmgt.sed          exec"
                            echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log"
                            echo "Command run: $(which su) -l $userName"
                            echo "Command run: $(which vncpasswd)"
-                           echo "Command run: $(which vncserver) :1"
-                           echo "Command run: $(which vncserver) -kill :1"
-                           echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
-                           echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
                            echo "Command run: $(which vncserver) :1 -geometry 800x600 -depth 24"
                            update_spinner
                            sleep 1
@@ -29712,24 +29925,6 @@ function vnc_menu() {
                            update_spinner
                            sleep 1
                            update_spinner
-                           echo "Starting VNC server"
-                           sleep 1
-                           update_spinner
-                           sleep 1
-                           $(which su) -l $userName -c "$(which vncserver) :1"
-                           update_spinner
-                           sleep 1
-                           update_spinner
-                           echo "Stopping VNC server"
-                           sleep 1
-                           update_spinner
-                           sleep 1
-                           $(which su) -l $userName -c "$(which vncserver) -kill :1"
-                           $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
-                           echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
-                           update_spinner
-                           sleep 1
-                           update_spinner
                            echo "Starting VNC server with screen set to: 800x600 and color depth set to: 24"
                            sleep 1
                            update_spinner
@@ -29741,68 +29936,70 @@ function vnc_menu() {
                            read -p "Press [enter] to continue..." ReadDamKey
                       else
                            clear
-                           cat /proc/version | grep "Debian" > /dev/null
+                           cat /etc/redhat-release | grep 6 > /dev/null
                            if [ $? -eq 0 ]; then
-                                clear
-                                echo "OS = Debian"
+                                echo "OS = Red Hat v6"
                                 echo "$(date)                                     $(whoami)@$(hostname)"
-                                echo "[TOP]                                   [Entry Fields]"
-                                read -p " Enter user to configure VNC -------- > " userName
+                                echo "[TOP]                                    [Entry Fields]"
+                                read -p " Enter user to configure VNC --------- > " userName
                                 clear
-                                echo "         COMMAND STATUS        "
+                                echo "           COMMAND STATUS           "
                                 echo
                                 echo "$(date)                                     $(whoami)@$(hostname)"
                                 echo
-                                echo "Command: RUNNING    stdout: yes    stder: no      "
+                                echo "Command: RUNNING    stdout: yes    stderr: no     "
                                 echo
                                 echo "Before command completion, additional instructions may appear below"
                                 echo
                                 echo "File                                 Fileset                 Type"
                                 echo "-----------------------------------------------------------------"
-                                echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
+                                echo "$(which yum)                         bos.pkgmgt.yum          exec"
                                 echo "$(which su)                          bos.sysmgt.su           exec"
                                 echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
                                 echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-                                echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
-                                echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
-                                echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
-                                echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
-                                echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
-                                echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1 -geometry 800x600 -depth 24'"
+                                echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                echo "Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log"
+                                echo "Command run: $(which su) -l $userName"
+                                echo "Command run: $(which vncpasswd)"
+                                echo "Command run: $(which vncserver) :1"
+                                echo "Command run: $(which vncserver) -kill :1"
+                                echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
+                                echo "Command run: $(which vncserver) :1 -geometry 800x600 -depth 24"
                                 update_spinner
                                 sleep 1
                                 update_spinner
-                                echo "Installing package: vnc4server"
+                                echo "Installing package: tigervnc-server"
                                 sleep 1
                                 update_spinner
                                 sleep 1
-                                $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log
-                                 if [ $PIPESTATUS -eq 0 ]; then
-                                     echo "###################################################################################################" >> /var/log/smx-log/success.log
+                                $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log
+                                if [ $PIPESTATUS -eq 0 ]; then
+                                     echo "################################################################################################" >> /var/log/smx-log/success.log
                                      echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                                     echo "[$(date)] Successfuly installed VNC server on system: $(hostname)" >> /var/log/smx-log/success.log
-                                     echo "[$(date)] Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
-                                     echo "" >> /var/log/smx-log/success.log
-                                     echo "###################################################################################################" >> /var/log/smx-log/success.log
-                                     echo "" >> /var/log/smx-log/success.log
+                                     echo "[$(date)] Successfuly installed vnc on system: $(hostname)" >> /var/log/smx-log/success.log
+                                     echo "[$(date)] Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/yum.log
+                                     echo "################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/yum.log
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      clear
                                      echo
                                      cat /var/log/smx-log/success.log | tail -n 7
                                      echo
+                                     echo "[$(date)] Successfuly installed vnc on system: $(hostname)"
                                      read -p "Press [enter] to continue..." ReadDamKey
-                                 else
-                                     echo "###################################################################################################" >> /var/log/smx-log/exit.log
-                                     echo "Log file started at: $(date)" >> /var/log/smx-log/exit.log
-                                     echo "[$(date)] Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/exit.log
-                                     echo "[$(date)] Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/exit.log
-                                     echo "" >> /var/log/smx-log/exit.log
-                                     echo "###################################################################################################" >> /var/log/smx-log/exit.log
-                                     echo "" >> /var/log/smx-log/exit.log
+                                else
+                                     echo "#################################################################################################" >> /var/log/smx-log/fail.log
+                                     echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                     echo "[$(date)] Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/fail.log
+                                     echo "[$(date)] Command run: $(which yum) -y install tigervnc-server | $(which tee) /var/log/smx-log/fail.log" >> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
+                                     echo "#################################################################################################" >> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      clear
                                      echo
-                                     cat /var/log/smx-log/exit.log | tail -n 7
+                                     cat /var/log/smx-log/fail.log | tail -n 7
                                      echo
                                      read -p "Press [enter] to continue..." ReadDamKey
                                      exit 1
@@ -29818,38 +30015,25 @@ function vnc_menu() {
                                 update_spinner
                                 sleep 1
                                 update_spinner
-                                echo "Starting VNC server"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                $(which su) -l $userName -c "$(which vncserver) :1"
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Stopping VNC server"
-                                sleep 1
-                                update_spinner
-                                sleep 1
-                                $(which su) -l $userName -c "$(which vncserver) -kill :1"
+                                $(which vncserver) :1
+                                $(which vncserver) -kill :1
+                                $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
                                 echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
-                                update_spinner
-                                sleep 1
-                                update_spinner
-                                echo "Starting VNC server with screen set to: 800x600 to color depth to: 24"
+                                echo "Starting VNC server with screen set to: 800x600 and color depth set to: 24"
                                 sleep 1
                                 update_spinner
                                 sleep 1
                                 $(which su) -l $userName -c "$(which vncserver) :1 -geometry 800x600 -depth 24"
                                 echo
                                 echo "[$(date)] Successfuly configured VNC on system: $(hostname)"
-                                echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to startup file"
+                                echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to /etc/rc.local or other startup file"
                                 read -p "Press [enter] to continue..." ReadDamKey
-                           else    
+                           else
                                 clear
-                                cat /proc/version | grep "Ubuntu" > /dev/null
+                                cat /proc/version | grep "Debian" > /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-                                     echo "OS = Ubuntu"
+                                     echo "OS = Debian"
                                      echo "$(date)                                     $(whoami)@$(hostname)"
                                      echo "[TOP]                                   [Entry Fields]"
                                      read -p " Enter user to configure VNC -------- > " userName
@@ -29882,7 +30066,7 @@ function vnc_menu() {
                                      update_spinner
                                      sleep 1
                                      $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log
-                                     if [ $PIPESTATUS -eq 0 ]; then
+                                      if [ $PIPESTATUS -eq 0 ]; then
                                           echo "###################################################################################################" >> /var/log/smx-log/success.log
                                           echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                                           echo "[$(date)] Successfuly installed VNC server on system: $(hostname)" >> /var/log/smx-log/success.log
@@ -29896,7 +30080,7 @@ function vnc_menu() {
                                           cat /var/log/smx-log/success.log | tail -n 7
                                           echo
                                           read -p "Press [enter] to continue..." ReadDamKey
-                                     else
+                                      else
                                           echo "###################################################################################################" >> /var/log/smx-log/exit.log
                                           echo "Log file started at: $(date)" >> /var/log/smx-log/exit.log
                                           echo "[$(date)] Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/exit.log
@@ -29940,7 +30124,7 @@ function vnc_menu() {
                                      update_spinner
                                      sleep 1
                                      update_spinner
-                                     echo "Starting VNC server with screen set to: 800x600 and color depth set to: 24"
+                                     echo "Starting VNC server with screen set to: 800x600 to color depth to: 24"
                                      sleep 1
                                      update_spinner
                                      sleep 1
@@ -29949,36 +30133,74 @@ function vnc_menu() {
                                      echo "[$(date)] Successfuly configured VNC on system: $(hostname)"
                                      echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to startup file"
                                      read -p "Press [enter] to continue..." ReadDamKey
-                                else
+                                else    
                                      clear
-                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     cat /proc/version | grep "Ubuntu" > /dev/null
                                      if [ $? -eq 0 ]; then
                                           clear
-                                          echo "OS = SuSE"
+                                          echo "OS = Ubuntu"
                                           echo "$(date)                                     $(whoami)@$(hostname)"
-                                          echo "[TOP]                                    [Entry Fields]"
-                                          read -p " Enter username to configure VNC ---- > " userName
+                                          echo "[TOP]                                   [Entry Fields]"
+                                          read -p " Enter user to configure VNC -------- > " userName
                                           clear
-                                          echo "         COMMAND STATUS            "
+                                          echo "         COMMAND STATUS        "
                                           echo
                                           echo "$(date)                                     $(whoami)@$(hostname)"
                                           echo
-                                          echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                          echo "Command: RUNNING    stdout: yes    stder: no      "
                                           echo
                                           echo "Before command completion, additional instructions may appear below"
                                           echo
                                           echo "File                                 Fileset                 Type"
                                           echo "-----------------------------------------------------------------"
+                                          echo "$(which apt-get)                     bos.pkgmgt.apt-get      exec"
                                           echo "$(which su)                          bos.sysmgt.su           exec"
                                           echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
                                           echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
-                                          echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                          echo "Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log"
                                           echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
                                           echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
-                                          echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
-                                          echo "Command run: echo 'exec gnome-session & >> /home/$userName/.vnc/xstartup"
                                           echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
-                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'"
+                                          echo "Command run: echo 'exec gnome-session &' >> /home/$userName/.vnc/xstartup"
+                                          echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1 -geometry 800x600 -depth 24'"
+                                          update_spinner
+                                          sleep 1
+                                          update_spinner
+                                          echo "Installing package: vnc4server"
+                                          sleep 1
+                                          update_spinner
+                                          sleep 1
+                                          $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log
+                                          if [ $PIPESTATUS -eq 0 ]; then
+                                               echo "###################################################################################################" >> /var/log/smx-log/success.log
+                                               echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Successfuly installed VNC server on system: $(hostname)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               echo "###################################################################################################" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/success.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          else
+                                               echo "###################################################################################################" >> /var/log/smx-log/exit.log
+                                               echo "Log file started at: $(date)" >> /var/log/smx-log/exit.log
+                                               echo "[$(date)] Not installed VNC on system: $(hostname), check command syntax" >> /var/log/smx-log/exit.log
+                                               echo "[$(date)] Command run: $(which apt-get) -y install vnc4server | $(which tee) /var/log/smx-log/apt-get.log" >> /var/log/smx-log/exit.log
+                                               echo "" >> /var/log/smx-log/exit.log
+                                               echo "###################################################################################################" >> /var/log/smx-log/exit.log
+                                               echo "" >> /var/log/smx-log/exit.log
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/exit.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               exit 1
+                                          fi
                                           update_spinner
                                           sleep 1
                                           update_spinner
@@ -29995,8 +30217,6 @@ function vnc_menu() {
                                           update_spinner
                                           sleep 1
                                           $(which su) -l $userName -c "$(which vncserver) :1"
-                                          $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
-                                          echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
                                           update_spinner
                                           sleep 1
                                           update_spinner
@@ -30005,32 +30225,102 @@ function vnc_menu() {
                                           update_spinner
                                           sleep 1
                                           $(which su) -l $userName -c "$(which vncserver) -kill :1"
+                                          echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
                                           update_spinner
                                           sleep 1
                                           update_spinner
-                                          echo "Starting VNC server with screen set to: 800x600"
+                                          echo "Starting VNC server with screen set to: 800x600 and color depth set to: 24"
                                           sleep 1
                                           update_spinner
                                           sleep 1
-                                          $(which su) -l $userName -c "$(which vncserver) -geometry 800x600 :1"
-                                          echo "##################################################################################" >> /var/log/smx-log/success.log
-                                          echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Successfuly installed VNC on system: $(hostname)" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'" >> /var/log/smx-log/success.log
-                                          echo "" >> /var/log/smx-log/success.log
-                                          echo "##################################################################################" >> /var/log/smx-log/success.log
-                                          echo "" >> /var/log/smx-log/success.log
-                                          read -p "Press [enter] to continue..." ReadDamKey
-                                          clear
-                                          echo
-                                          cat /var/log/smx-log/success.log | tail -n 7
+                                          $(which su) -l $userName -c "$(which vncserver) :1 -geometry 800x600 -depth 24"
                                           echo
                                           echo "[$(date)] Successfuly configured VNC on system: $(hostname)"
-                                          echo "Add: $(which su) -l $userName -c 'vncserver -geometry 800x600 :1' to startup file"
+                                          echo "Please add: $(which su) -l $userName -c 'vncserver :1 -geometry 800x600 -depth 24' to startup file"
                                           read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+                                          clear
+                                          cat /proc/version | grep "SUSE" > /dev/null
+                                          if [ $? -eq 0 ]; then
+                                               clear
+                                               echo "OS = SuSE"
+                                               echo "$(date)                                     $(whoami)@$(hostname)"
+                                               echo "[TOP]                                    [Entry Fields]"
+                                               read -p " Enter username to configure VNC ---- > " userName
+                                               clear
+                                               echo "         COMMAND STATUS            "
+                                               echo
+                                               echo "$(date)                                     $(whoami)@$(hostname)"
+                                               echo
+                                               echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                               echo
+                                               echo "Before command completion, additional instructions may appear below"
+                                               echo
+                                               echo "File                                 Fileset                 Type"
+                                               echo "-----------------------------------------------------------------"
+                                               echo "$(which su)                          bos.sysmgt.su           exec"
+                                               echo "$(which vncpasswd)                   bos.sysmgt.vncpasswd    exec"
+                                               echo "$(which vncserver)                   bos.sysmgt.vncserver    exec"
+                                               echo "$(which sed)                         bos.sysmgt.sed          exec"
+                                               echo "Command run: $(which su) -l $userName -c '$(which vncpasswd)'"
+                                               echo "Command run: $(which su) -l $userName -c '$(which vncserver) :1'"
+                                               echo "Command run: $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup"
+                                               echo "Command run: echo 'exec gnome-session & >> /home/$userName/.vnc/xstartup"
+                                               echo "Command run: $(which su) -l $userName -c '$(which vncserver) -kill :1'"
+                                               echo "Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'"
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Setting VNC password"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                                               $(which su) -l $userName -c "$(which vncpasswd)"
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Starting VNC server"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                                               $(which su) -l $userName -c "$(which vncserver) :1"
+                                               $(which sed) -i 's/twm/#twm/g' /home/$userName/.vnc/xstartup
+                                               echo "exec gnome-session &" >> /home/$userName/.vnc/xstartup
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Stopping VNC server"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                                               $(which su) -l $userName -c "$(which vncserver) -kill :1"
+                                               update_spinner
+                                               sleep 1
+                                               update_spinner
+                                               echo "Starting VNC server with screen set to: 800x600"
+                                               sleep 1
+                                               update_spinner
+                                               sleep 1
+                                               $(which su) -l $userName -c "$(which vncserver) -geometry 800x600 :1"
+                                               echo "##################################################################################" >> /var/log/smx-log/success.log
+                                               echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Successfuly installed VNC on system: $(hostname)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Command run: $(which su) -l $userName -c '$(which vncserver) -geometry 800x600 :1'" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               echo "##################################################################################" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/success.log | tail -n 7
+                                               echo
+                                               echo "[$(date)] Successfuly configured VNC on system: $(hostname)"
+                                               echo "Add: $(which su) -l $userName -c 'vncserver -geometry 800x600 :1' to startup file"
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          fi
                                      fi
                                 fi
-                           fi
+                           fi     
                       fi
                       ;;
             start)
