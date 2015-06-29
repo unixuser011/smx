@@ -15,15 +15,15 @@ Key: * - todo
 
 4 - May change log to display date for all entries ([date] - ) [X]
 
-5 - May add linux intergration with MS AD [*]
-
-6 - May change name to SMS - System Management Service(s) [*]
-
-7 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) [*]
-
-8 - With fix #7 include pros/cons of each [*]
-    
-9 - include support for arch, gentoo, knoppix and BSD [*]
-
-10 - For OS detection script - change to use /etc/redhat-release for redhat 6/7, /etc/debian_version, and /etc/issue for ubuntu (only where nessasary - if 6 and 7 follow the same path, then just keep same) [*]
+5 - For OS detection script - change to use /etc/redhat-release for redhat 6/7, /etc/debian_version, and /etc/issue for ubuntu (only where nessasary - if 6 and 7 follow the same path, then just keep same) [X]
 (if however, the path is difrent, like for example mysql/samba/openldap install, rhel 7 uses mariadb-server insted of mysql-server samba requires samba-client, openldap imports diffrent schemas) (may use /etc/os-release instead of distro-specific solution)
+
+6 - May add linux intergration with MS AD []
+
+7 - May change name to SMS - System Management Service(s) [*]
+
+8 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) [*]
+
+9 - With fix #7 include pros/cons of each [*]
+    
+10 - include support for arch, gentoo, knoppix and BSD [*]
