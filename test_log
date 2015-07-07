@@ -8,3 +8,5 @@ Key: * - todo
      X - done
 
 1 - Test BIND on centos, debian/ubuntu and SuSE [X]
+
+2 - Test MS AD intergration [X]
