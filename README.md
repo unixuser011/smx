@@ -1,7 +1,15 @@
-# smx - README
-SMX (System Management eXecutive) is a sysadmin tool for Linux, and OS X, with support for RHEL-based, Debian-based and
-SuSE-based Linux, with full sysvinit and systemd support
+---
+title: SMX
+description: SMX - System Management eXecutive, program designed for Linux/UNIX management including user, disk, general systems management and server management
+author: Darius Anderson - d.anderson1147@gmail.com
+created: 2010 Jul 10
+modified: 2015 Jul 7
 
+---
 
+SMX
+===
 
+## Linux\UNIX systems management
 
+[![main-menu start screen]()]
