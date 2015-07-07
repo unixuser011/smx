@@ -72,7 +72,8 @@ Option:
 [ --ssh ] > Start program from SSH server management (linux)			   
 [ --vnc ] > Start program from VNC server management (linux)
 [ --snmp ] > Start program from SNMP server management (linux)
-[ --dns ] > Start program from DNS server management (linux)	       
+[ --dns ] > Start program from DNS server management (linux)
+[ --ms-ad ] > Start program from MS Active Directory server management (linux)	       
 [ --pkgmgt ] > Start program from software management (linux)	       
 [ --system-update ] > Start program from system update (linux)	       
 [ --ipmgt ] > Start program from IP management (linux)	       
@@ -33539,7 +33540,7 @@ function dns_menu() {
                                        else
                                             echo "#####################################################################" >> /var/log/smx-log/fail.log
                                             echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
-                                            echo "[$(date)] Not [$(date)] Successfuly checked BIND configuration file, check command syntax" >> /var/log/smx-log/fail.log
+                                            echo "[$(date)] Not Successfuly checked BIND configuration file, check command syntax" >> /var/log/smx-log/fail.log
                                             echo "[$(date)] Command run: $(which named-checkconf) /etc/bind/named.conf.local" >> /var/log/smx-log/fail.log
                                             echo "" >> /var/log/smx-log/fail.log
                                             echo "#####################################################################" >> /var/log/smx-log/fail.log
@@ -33657,6 +33658,998 @@ function dns_menu() {
     done
 }
 
+function ms-ad_menu() {
+    while :
+    do
+        clear
+        echo "$(date)                                     $(whoami)@$(hostname)"
+        echo
+        read -p "(config-ms-ad)#" choice_ad
+        echo
+    
+        case "$choice_ad" in
+            install)
+                      clear
+                      cat /proc/version | grep "Red Hat" > /dev/null
+                      if [ $? -eq 0 ]; then
+                           clear
+                           echo "OS = Red Hat"
+                           echo "$(date)                                      $(whoami)@$(hostname)"
+                           echo "Active Directory domain name, short version, all caps example: EXAMPLE"
+                           echo "Active Directory domain name, long version, all caps example: EXAMPLE.COM"
+                           echo "Active Directory domain name, long version, lower case example: example.com"
+                           echo "Active Directory domain name security group example: linuxusers (space represented with \, ie, Power\ Users)"
+                           echo "Active Directory server fully qualified domain name example: ns1.example.com"
+                           echo "[TOP]                                                                  [Entry Fields]"
+                           read -p " Enter Active Directory domain name (short version, all caps) ------ > " adDomainLongLowerShort
+                           read -p " Enter Active Directory domain name (long version, all caps) ------- > " adDomainLong
+                           read -p " Enter Active Directory domain name (long version, lower case) ----- > " adDomainLongLower
+                           read -p " Enter Active Directory server IP address -------------------------- > " adIPAddr
+                           read -p " Enter Active Directory security group ----------------------------- > " adSecurityGroup
+                           read -p " Enter Active Directory server fully qualified domain name --------- > " adFqdnName
+                           read -p " Enter Active Directory server hostname ---------------------------- > " adHostName
+                           printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                           if [ "$ADADMIN" = "" ]; then
+                                 ADADMIN=""
+                                 read ADADMIN
+                                 ADADMIN=$ADADMIN
+                           fi
+                           if [ "$ADADMIN" = "" ]; then
+                                 ADADMIN=""
+                                 ADADMIN=Administrator
+                           fi
+                           clear
+                           echo "            COMMAND STATUS                 "
+                           echo
+                           echo "$(date)                                      $(whoami)@$(hostname)"
+                           echo
+                           echo "Command: RUNNING    stdout: yes    stderr: no      "
+                           echo
+                           echo "Before command completion, additional instructions may appear below"
+                           echo
+                           echo "File                                 Fileset                 Type"
+                           echo "-----------------------------------------------------------------"
+                           echo "$(which yum)                         bos.sysmgt.yum          exec"
+                           echo "$(which authconfig)                  bos.sysmgt.authconfig   exec"
+                           echo "$(which kinit)                       bos.sysmgt.kinit        exec"
+                           echo "$(which ntpdate)                     bos.sysmgt.ntpdate      exec"
+                           echo "$(which net)                         bos.sysmgt.net          exec"
+                           echo "$(which mkdir)                       bos.sysmgt.mkdir        exec"
+                           echo "$(which chmod)                       bos.sysmgt.chmod        exec"
+                           echo "$(which chkconfig)                   bos.sysmgt.chkconfig    exec"
+                           echo "Command run: $(which yum) -y install authconfig krb5-workstation pam_krb5 samba-common oddjob-mkhomedir sudo ntp | $(which tee) /var/log/smx-log/yum.log"
+                           echo "Command run: $(which authconfig) --disablecache --enablewinbind --enablewinbindauth --smbsecurity=ads --smbworkgroup=$adDomainLongLowerShort --smbrealm=$adDomainLong --enablewinbindusedefaultdomain --winbindtemplatehomedir=/home/$adDomainLongLower/%U --winbindtemplateshell=/bin/bash --enablekrb5 --krb5realm=$adDomainLong --enablekrb5kdcdns --enablekrb5realmdns --enablelocauthorize --enablemkhomedir --enablepamaccess --updateall"
+                           echo "Command run: $(which kinit) $ADADMIN"
+                           echo "Command run: $(which ntpdate) $adIPAddr"
+                           echo "Command run: $(which net) ads join -U $ADADMIN -S $adFqdnName"
+                           echo "Command run: $(which net) testjoin"
+                           echo "Command run: $(which mkdir) -p /home/$adDomainLongLower/"
+                           echo "Command run: $(which chmod) 777 /home/$adDomainLongLower/"
+                           echo "Command run: $(which chkconfig) oddjobd on"
+                           echo "Command run: $(which chkconfig) winbind on"
+                           echo "Command run: $(which chkconfig) messagebus on"
+                           update_spinner
+                           sleep 1
+                           update_spinner
+                           echo "Adding system to Active Directory server"
+                           sleep 1
+                           update_spinner
+                           sleep 1
+                           $(which yum) -y install authconfig krb5-workstation pam_krb5 samba-common oddjob-mkhomedir sudo ntp | $(which tee) /var/log/smx-log/yum.log
+                           if [ $? -eq 0 ]; then
+                                echo "#################################################################################################################################################################" >> /var/log/smx-log/success.log
+                                echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                echo "[$(date)] Successfuly downloaded files to add system to Active Directory" >> /var/log/smx-log/success.log
+                                echo "[$(date)] Command run: $(which yum) -y install authconfig krb5-workstation pam_krb5 samba-common oddjob-mkhomedir sudo ntp | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                echo "##################################################################################################################################################################" >> /var/log/smx-log/success.log
+                                echo "" >> /var/log/smx-log/success.log
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                clear
+                                echo
+                                cat /var/log/smx-log/success.log | tail -n 7
+                                echo
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else
+                                echo "##################################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                echo "[$(date)] Not downloaded files to add system to Active Directory, check command syntax" >> /var/log/smx-log/fail.log
+                                echo "[$(date)] Command run: $(which yum) -y install authconfig krb5-workstation pam_krb5 samba-common oddjob-mkhomedir sudo ntp | $(which tee) /var/log/smx-log/yum.log" >> /var/log/smx-log/fail.log
+                                echo "" >> /var/log/smx-log/fail.log
+                                echo "##################################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                echo "" >> /var/log/smx-log/fail.log
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                clear
+                                echo
+                                cat /var/log/smx-log/fail.log | tail -n 7
+                                echo
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
+                           fi
+                           $(which authconfig) --disablecache --enablewinbind --enablewinbindauth --smbsecurity=ads --smbworkgroup=$adDomainLongLowerShort --smbrealm=$adDomainLong --enablewinbindusedefaultdomain --winbindtemplatehomedir=/home/$adDomainLongLower/%U --winbindtemplateshell=/bin/bash --enablekrb5 --krb5realm=$adDomainLong --enablekrb5kdcdns --enablekrb5realmdns --enablelocauthorize --enablemkhomedir --enablepamaccess --updateall
+                           mv /etc/krb5.conf /etc/krb5.conf.org
+                           echo "[logging]" >> /etc/krb5.conf
+                           echo " default = FILE:/var/log/krb5libs.log" >> /etc/krb5.conf
+                           echo " kdc = FILE:/var/log/krb5kdc.log" >> /etc/krb5.conf
+                           echo " admin_server = FILE:/var/log/kadmind.log" >> /etc/krb5.conf
+                           echo "" >> /etc/krb5.conf
+                           echo "[libdefaults]" >> /etc/krb5.conf
+                           echo " default_realm = $adDomainLong" >> /etc/krb5.conf
+                           echo " dns_lookup_realm = false" >> /etc/krb5.conf
+                           echo " dns_lookup_kdc = true" >> /etc/krb5.conf
+                           echo " ticket_lifetime = 24h" >> /etc/krb5.conf
+                           echo " renew_lifetime = 7d" >> /etc/krb5.conf
+                           echo " forwardable = true" >> /etc/krb5.conf
+                           echo "" >> /etc/krb5.conf
+                           echo "[realms]" >> /etc/krb5.conf
+                           echo " {$adDomainLong} = {" >> /etc/krb5.conf
+                           echo " admin_server = $adIPAddr:88" >> /etc/krb5.conf
+                           echo " kdc = $adIPAddr" >> /etc/krb5.conf
+                           echo " default_domain = $adDomainLongLower" >> /etc/krb5.conf
+                           echo " }" >> /etc/krb5.conf
+                           echo "" >> /etc/krb5.conf
+                           echo "[domain_realm]" >> /etc/krb5.conf
+                           echo ".$adDomainLongLower = $adDomainLong" >> /etc/krb5.conf
+                           echo "$adDomainLongLower = $adDomainLong" >> /etc/krb5.conf
+                           $(which kinit) $ADADMIN
+                           if [ $? -eq 0 ]; then
+                                echo "Kerberos ticket successfuly received"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else
+                                echo "Kerberos ticket not received, check network connection, AD status and user credentials"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
+                           fi          
+                           $(which ntpdate) $adIPAddr
+                           if [ $? -eq 0 ]; then
+                                echo "ntp update successful"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else
+                                echo "ntp update failed, check AD IP Address, and system time on local system"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
+                           fi          
+                           read -p "Use other DNS server (other than AD server)? (Y/N) > " ans_dns
+                           if [ "$ans_dns" = "Y" ]; then
+                                 read -p "Enter DNS server IP address > " dnsIPAddr
+                                 mv /etc/resolv.conf /etc/resolv.conf.org
+                                 echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                 echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                 echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                                 echo "nameserver $dnsIPAddr" >> /etc/resolv.conf
+                           else
+                                 mv /etc/resolv.conf /etc/resolv.conf.org
+                                 echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                 echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                 echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                           fi
+                           echo "$adIPAddr $adFqdnName $adHostName" >> /etc/hosts
+                           $(which net) ads join -U $ADADMIN -S $adFqdnName
+                           if [ $? -eq 0 ]; then
+                                echo
+                                echo "System has successfuly joined Active Directory domain"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                           else
+                                echo
+                                echo "System has not been joined to Active Directory domain"
+                                read -p "Press [enter] to continue..." ReadDamKey
+                                exit 1
+                           fi
+                           $(which net) testjoin
+                           $(which mkdir) -p /home/$adDomainLongLower/
+                           $(which chmod) 777 /home/$adDomainLongLower/
+                           mv /etc/pam.d/system-auth /etc/pam.d/system-auth.org
+                           echo "#%PAM-1.0" >> /etc/pam.d/system-auth
+                           echo "auth required pam_env.so" >> /etc/pam.d/system-auth
+                           echo "auth sufficient pam_unix.so nullok try_first_pass" >> /etc/pam.d/system-auth
+                           echo "auth requisite pam_succeed_if.so uid >= 500 quiet" >> /etc/pam.d/system-auth
+                           echo "auth sufficient pam_krb5.so use_first_pass" >> /etc/pam.d/system-auth
+                           echo "auth required pam_deny.so" >> /etc/pam.d/system-auth
+                           echo "" >> /etc/pam.d/system-auth
+                           echo "account required pam_access.so" >> /etc/pam.d/system-auth
+                           echo "account required pam_unix.so broken_shadow" >> /etc/pam.d/system-auth
+                           echo "account [default=ignore success=1] pam_succeed_if.so uid < 16777216 quiet" >> /etc/pam.d/system-auth
+                           echo "account [default ban success=ignore] pam_succeed_if.so user ingroup $adSecurityGroup quiet" >> /etc/pam.d/system-auth
+                           echo "account sufficient pam_localuser.so" >> /etc/pam.d/system-auth
+                           echo "account [default=bad success=ok user_unknown=ignore] pam_krb5.so" >> /etc/pam.d/system-auth
+                           echo "account sufficient pam_localuser.so" >> /etc/pam.d/system-auth
+                           echo "account sufficient pam_succeed_if.so uid < 500 quiet" >> /etc/pam.d/system-auth
+                           echo "account [default=bad success=ok user_unknown=ignore] pam_krb5.so" >> /etc/pam.d/system-auth
+                           echo "account required pam_deny.so" >> /etc/pam.d/system-auth
+                           echo "" >> /etc/pam.d/system-auth
+                           echo "password requisite pam_cracklib.so try_first_pass retry=3 type=" >> /etc/pam.d/system-auth
+                           echo "password sufficient pam_unix.so sha512 shadow nullok try_first_pass use_authtok" >> /etc/pam.d/system-auth
+                           echo "password sufficient pam_krb5.so use_authtok" >> /etc/pam.d/system-auth
+                           echo "password required pam_deny.so" >> /etc/pam.d/system-auth
+                           echo "" >> /etc/pam.d/system-auth
+                           echo "session optional pam_keyinit.so revoke" >> /etc/pam.d/system-auth
+                           echo "session required pam_limits.so" >> /etc/pam.d/system-auth
+                           echo "session optional pam_oddjob_mkhomedir.so umask=0077" >> /etc/pam.d/system-auth
+                           echo "session [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" >> /etc/pam.d/system-auth
+                           echo "session required pam_unix.so" >> /etc/pam.d/system-auth
+                           echo "session optional pam_krb5.so" >> /etc/pam.d/system-auth
+                           echo "$adDomainLong\\%$adSecurityGroup ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+                           $(which chkconfig) oddjobd on
+                           $(which chkconfig) winbind on
+                           $(which chkconfig) messagebus
+                           echo
+                           echo "System has been successfuly joined to Active Directory domain, the system must now reboot"
+                           read -p "Reboot system [Y/N] > " ans_reboot
+                           if [ "$ans_reboot" = "Y" ]; then
+                                 $(which reboot) -f --verbose; exit
+                           else
+                                 echo "System will not reboot"
+                                 read -p "Press [enter] to continue..." ReadDamKey
+                           fi            
+                      else     
+                           clear
+                           cat /proc/version | grep "Debian" > /dev/null
+                           if [ $? -eq 0 ]; then
+                                clear
+                                echo "OS = Debian"
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo "Active Directory domain name, long version, all caps example: EXAMPLE.COM"
+                                echo "Active Directory domain name, long version, lower case example: example.com"
+                                echo "Active Directory domain name security group example: linuxusers (space represented with \, ie, Power\ Users)"
+                                echo "[TOP]                                                                        [Entry Fields]"
+                                read -p " Enter Active Directory domain name (Long version, caps) ----------------- > " adDomainLong
+                                read -p " Enter Active Directory domain name (Long version, lower case) ----------- > " adDomainLongLower
+                                read -p " Enter Active Directory server IP address -------------------------------- > " adIPAddr
+                                read -p " Enter Active Directory security group ----------------------------------- > " adSecurityGroup
+                                printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                                if [ "$ADADMIN" = "" ]; then
+                                      ADADMIN=""
+                                      read ADADMIN
+                                      ADADMIN=$ADADMIN
+                                fi
+                                if [ "$ADADMIN" = "" ]; then
+                                      ADADMIN=""
+                                      ADADMIN=Administrator
+                                fi
+                                clear
+                                echo "         COMMAND STATUS               "
+                                echo
+                                echo "$(date)                                     $(whoami)@$(hostname)"
+                                echo
+                                echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                echo
+                                echo "Before command completion, additional instructions may appear below"
+                                echo
+                                echo "File                                 Fileset                        Type"
+                                echo "------------------------------------------------------------------------"
+                                echo "$(which wget)                        bos.sysmgt.wget                exec"
+                                echo "$(which chmod)                       bos.sysmgt.chmod               exec"
+                                echo "/opt/pbis/bin/domainjoin-cli         bos.sysmgt.domainjoin-cli      exec"
+                                echo "/opt/pbis/bin/config                 bos.sysmgt.config              exec"
+                                echo "/opt/pbis/bin/ad-cache               bos.sysmgt.ad-cache            exec"
+                                echo "Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp"
+                                echo "Command run: $(which chmod) a+x /tmp/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh"
+                                echo "Command run: /tmp/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh"
+                                echo "Command run: /opt/pbis/bin/domainjoin-cli join $adDomainLongLower $ADADMIN"
+                                echo "Command run: /opt/pbis/bin/config Requiremembershipof '$adDomainLongLower\\$adSecurityGroup'"
+                                echo "Command run: /opt/pbis/bin/config AssumeDefaultDomain true"
+                                echo "Command run: /opt/pbis/bin/config UserDomainPrefix $adDomainLongLower"
+                                echo "Command run: /opt/pbis/bin/config LoginShellTemplate /bin/bash"
+                                echo "Command run: /opt/pbis/bin/config HomeDirTemplate %H/%U"
+                                echo "Command run: /opt/pbis/bin/ad-cache --delete-all"
+                                update_spinner
+                                sleep 1
+                                update_spinner
+                                echo "Adding system to Active Directory server"
+                                sleep 1
+                                update_spinner
+                                sleep 1
+                                $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp
+                                if [ $? -eq 0 ]; then
+                                     echo "###################################################################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                     echo "[$(date)] Successfuly downloaded configuration script for Active Directory" >> /var/log/smx-log/success.log
+                                     echo "[$(date)] Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     echo "###################################################################################################################################################" >> /var/log/smx-log/success.log
+                                     echo "" >> /var/log/smx-log/success.log
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     clear
+                                     echo
+                                     cat /var/log/smx-log/success.log | tail -n 7
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                else
+                                     echo "###################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                     echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                     echo "[$(date)] Not downloaded configuration script for Active Directory, check command syntax" >> /var/log/smx-log/fail.log
+                                     echo "[$(date)] Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0-3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp">> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
+                                     echo "###################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                     echo "" >> /var/log/smx-log/fail.log
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     clear
+                                     echo
+                                     cat /var/log/smx-log/fail.log | tail -n 7
+                                     echo
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
+                                fi
+                                $(which chmod) a+x /tmp/pbis-open-8.3.0-3287.linux.`uname -m`.deb.sh
+                                /tmp/pbis-open-8.3.0-3287.linux.`uname -m`.deb.sh
+                                read -p "Use other DNS server (other than AD server)? (Y/N) > " ans_dns
+                                if [ "$ans_dns" = "Y" ]; then
+                                      read -p "Enter DNS server IP address > " dnsIPAddr
+                                      mv /etc/resolv.conf /etc/resolv.conf.org
+                                      echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                      echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                      echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                                      echo "nameserver $dnsIPAddr" >> /etc/resolv.conf
+                                else
+                                      mv /etc/resolv.conf /etc/resolv.conf.org
+                                      echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                      echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                      echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                                fi
+                                /opt/pbis/bin/domainjoin-cli join $adDomainLongLower $ADADMIN
+                                if [ $? -eq 0 ]; then
+                                     echo
+                                     echo "Successfuly joined Active Directory server: $adDomainLongLower"
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                else
+                                     echo
+                                     echo "Not joined Active Directory server: $adDomainLongLower"
+                                     read -p "Press [enter] to continue..." ReadDamKey
+                                     exit 1
+                                fi
+                                /opt/pbis/bin/config Requiremembershipof "$adDomainLongLower\\$adSecurityGroup"
+                                /opt/pbis/bin/config AssumeDefaultDomain true
+                                /opt/pbis/bin/config UserDomainPrefix $adDomainLongLower
+                                /opt/pbis/bin/config LoginShellTemplate /bin/bash
+                                /opt/pbis/bin/config HomeDirTemplate %H/%U
+                                /opt/pbis/bin/ad-cache --delete-all
+                                $(which sed) -i 'session sufficient pam_slass.so/session [success=ok default=ignore] pam_slass.so/g' /etc/pam.d/common-session
+                                echo "%$adDomainLong\\$adSecurityGroup ALL=(ALL:ALL) ALL" >> /etc/sudoers
+                                echo
+                                echo "System has been successfuly configured to access Active Directory, however the system must now reboot"
+                                read -p "Reboot system [Y/N]? > " ans_reboot
+                                if [ "$ans_reboot" = "" ]; then
+                                      $(which reboot) -f --verbose; exit
+                                else
+                                      echo "System will not reboot, system will not be able to authenticate auth Active Directory until next reboot"
+                                      read -p "Press [enter] to continue..." ReadDamKey
+                                fi           
+                           else
+                                clear
+                                cat /proc/version | grep "Ubuntu" > /dev/null
+                                if [ $? -eq 0 ]; then
+                                     clear
+                                     echo "OS = Ubuntu"
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo "Active Directory domain name, long version, all caps example: EXAMPLE.COM"
+                                     echo "Active Directory domain name, long version, lower case example: example.com"
+                                     echo "Active Directory domain name security group example: linuxusers (space represented with \, ie, Power\ Users)"
+                                     echo "[TOP]                                                                        [Entry Fields]"
+                                     read -p " Enter Active Directory domain name (Long version, caps) ----------------- > " adDomainLong
+                                     read -p " Enter Active Directory domain name (Long version, lower case) ----------- > " adDomainLongLower
+                                     read -p " Enter Active Directory server IP address -------------------------------- > " adIPAddr
+                                     read -p " Enter Active Directory security group ----------------------------------- > " adSecurityGroup
+                                     printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                                     if [ "$ADADMIN" = "" ]; then
+                                           ADADMIN=""
+                                           read ADADMIN
+                                           ADADMIN=$ADADMIN
+                                     fi
+                                     if [ "$ADADMIN" = "" ]; then
+                                           ADADMIN=""
+                                           ADADMIN=Administrator
+                                     fi
+                                     clear
+                                     echo "         COMMAND STATUS               "
+                                     echo
+                                     echo "$(date)                                     $(whoami)@$(hostname)"
+                                     echo
+                                     echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                     echo
+                                     echo "Before command completion, additional instructions may appear below"
+                                     echo
+                                     echo "File                                 Fileset                        Type"
+                                     echo "------------------------------------------------------------------------"
+                                     echo "$(which wget)                        bos.sysmgt.wget                exec"
+                                     echo "$(which chmod)                       bos.sysmgt.chmod               exec"
+                                     echo "/opt/pbis/bin/domainjoin-cli         bos.sysmgt.domainjoin-cli      exec"
+                                     echo "/opt/pbis/bin/config                 bos.sysmgt.config              exec"
+                                     echo "/opt/pbis/bin/ad-cache               bos.sysmgt.ad-cache            exec"
+                                     echo "Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp"
+                                     echo "Command run: $(which chmod) a+x /tmp/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh"
+                                     echo "Command run: /tmp/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh"
+                                     echo "Command run: /opt/pbis/bin/domainjoin-cli join $adDomainLongLower $ADADMIN"
+                                     echo "Command run: /opt/pbis/bin/config Requiremembershipof '$adDomainLongLower\\$adSecurityGroup'"
+                                     echo "Command run: /opt/pbis/bin/config AssumeDefaultDomain true"
+                                     echo "Command run: /opt/pbis/bin/config UserDomainPrefix $adDomainLongLower"
+                                     echo "Command run: /opt/pbis/bin/config LoginShellTemplate /bin/bash"
+                                     echo "Command run: /opt/pbis/bin/config HomeDirTemplate %H/%U"
+                                     echo "Command run: /opt/pbis/bin/ad-cache --delete-all"
+                                     update_spinner
+                                     sleep 1
+                                     update_spinner
+                                     echo "Adding system to Active Directory server"
+                                     sleep 1
+                                     update_spinner
+                                     sleep 1
+                                     $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp
+                                     if [ $? -eq 0 ]; then
+                                          echo "###################################################################################################################################################" >> /var/log/smx-log/success.log
+                                          echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                          echo "[$(date)] Successfuly downloaded configuration script for Active Directory" >> /var/log/smx-log/success.log
+                                          echo "[$(date)] Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          echo "###################################################################################################################################################" >> /var/log/smx-log/success.log
+                                          echo "" >> /var/log/smx-log/success.log
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          clear
+                                          echo
+                                          cat /var/log/smx-log/success.log | tail -n 7
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+                                          echo "###################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                          echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                          echo "[$(date)] Not downloaded configuration script for Active Directory, check command syntax" >> /var/log/smx-log/fail.log
+                                          echo "[$(date)] Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.deb.sh --directory-prefix=/tmp" >> /var/log/smx-log/fail.log
+                                          echo "" >> /var/log/smx-log/fail.log
+                                          echo "###################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                          echo "" >> /var/log/smx-log/fail.log
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          clear
+                                          echo
+                                          cat /var/log/smx-log/fail.log | tail -n 7
+                                          echo
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
+                                     fi
+                                     $(which chmod) a+x /tmp/pbis-open-8.3.0-3287.linux.`uname -m`.deb.sh
+                                     /tmp/pbis-open-8.3.0-3287.linux.`uname -m`.deb.sh
+                                     read -p "Use other DNS server (other than AD server)? (Y/N) > " ans_dns
+                                     if [ "$ans_dns" = "Y" ]; then
+                                           read -p "Enter DNS server IP address > " dnsIPAddr
+                                           mv /etc/resolv.conf /etc/resolv.conf.org
+                                           echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                           echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                           echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                                           echo "nameserver $dnsIPAddr" >> /etc/resolv.conf
+                                     else
+                                           mv /etc/resolv.conf /etc/resolv.conf.org
+                                           echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                           echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                           echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                                     fi
+                                     /opt/pbis/bin/domainjoin-cli join $adDomainLongLower $ADADMIN
+                                     if [ $? -eq 0 ]; then
+                                          echo
+                                          echo "Successfuly joined Active Directory server: $adDomainLongLower"
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                     else
+                                          echo
+                                          echo "Not joined Active Directory server: $adDomainLongLower"
+                                          read -p "Press [enter] to continue..." ReadDamKey
+                                          exit 1
+                                     fi
+                                     /opt/pbis/bin/config Requiremembershipof "$adDomainLongLower\\$adSecurityGroup"
+                                     /opt/pbis/bin/config AssumeDefaultDomain true
+                                     /opt/pbis/bin/config UserDomainPrefix $adDomainLongLower
+                                     /opt/pbis/bin/config LoginShellTemplate /bin/bash
+                                     /opt/pbis/bin/config HomeDirTemplate %H/%U
+                                     /opt/pbis/bin/ad-cache --delete-all
+                                     $(which sed) -i 'session sufficient pam_slass.so/session [success=ok default=ignore] pam_slass.so/g' /etc/pam.d/common-session
+                                     echo "%$adDomainLong\\$adSecurityGroup ALL=(ALL:ALL) ALL" >> /etc/sudoers
+                                     echo
+                                     echo "System has been successfuly configured to access Active Directory, however the system must now reboot"
+                                     read -p "Reboot system [Y/N]? > " ans_reboot
+                                     if [ "$ans_reboot" = "" ]; then
+                                           $(which reboot) -f --verbose; exit
+                                     else
+                                           echo "System will not reboot, system will not be able to authenticate auth Active Directory until next reboot"
+                                           read -p "Press [enter] to continue..." ReadDamKey
+                                     fi
+                                else
+                                     clear
+                                     cat /proc/version | grep "SUSE" > /dev/null
+                                     if [ $? -eq 0 ]; then
+                                          clear
+                                          echo "OS = SuSE"
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo "Active Directory domain name, long version, all caps example: EXAMPLE.COM"
+                                          echo "Active Directory domain name, long version, lower case example: example.com"
+                                          echo "Active Directory domain name security group example: linuxusers (space represented with \, ie, Power\ Users)"
+                                          echo "[TOP]                                                                        [Entry Fields]"
+                                          read -p " Enter Active Directory domain name (Long version, caps) ----------------- > " adDomainLong
+                                          read -p " Enter Active Directory domain name (Long version, lower case) ----------- > " adDomainLongLower
+                                          read -p " Enter Active Directory server IP address -------------------------------- > " adIPAddr
+                                          read -p " Enter Active Directory security group ----------------------------------- > " adSecurityGroup
+                                          printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                                          if [ "$ADADMIN" = "" ]; then
+                                                ADADMIN=""
+                                                read ADADMIN
+                                                ADADMIN=$ADADMIN
+                                          fi
+                                          if [ "$ADADMIN" = "" ]; then
+                                                ADADMIN=""
+                                                ADADMIN=Administrator
+                                          fi
+                                          clear
+                                          echo "         COMMAND STATUS              "
+                                          echo
+                                          echo "$(date)                                     $(whoami)@$(hostname)"
+                                          echo
+                                          echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                          echo
+                                          echo "Before command completion, additional instructions may appear below"
+                                          echo
+                                          echo "File                                 Fileset                        Type"
+                                          echo "------------------------------------------------------------------------"
+                                          echo "$(which wget)                        bos.sysmgt.wget                exec"
+                                          echo "$(which chmod)                       bos.sysmgt.chmod               exec"
+                                          echo "/opt/pbis/bin/domainjoin-cli         bos.sysmgt.domainjoin-cli      exec"
+                                          echo "/opt/pbis/bin/config                 bos.sysmgt.config              exec"
+                                          echo "/opt/pbis/bin/ad-cache               bos.sysmgt.ad-cache            exec"
+                                          echo "Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.rpm.sh --directory-prefix=/tmp"
+                                          echo "Command run: $(which chmod) a+x /tmp/pbis-open-8.3.0.-3287.linux.`uname -m`.rpm.sh"
+                                          echo "Command run: /tmp/pbis-open-8.3.0-3287.`uname -m`.rpm.sh"
+                                          echo "Command run: /opt/pbis/bin/domainjoin-cli join $adDomainLongLower $ADADMIN"
+                                          echo "Command run: /opt/pbis/bin/config Requiremembershipof '$adDomainLongLower\\$adSecurityGroup'"
+                                          echo "Command run: /opt/pbis/bin/config AssumeDefaultDomain true"
+                                          echo "Command run: /opt/pbis/bin/config UserDomainPrefix $adDomainLongLower"
+                                          echo "Command run: /opt/pbis/bin/config LoginShellTemplate /bin/bash"
+                                          echo "Command run: /opt/pbis/bin/config HomeDirTemplate %H/%U"
+                                          echo "Command run: /opt/pbis/bin/ad-cache --delete-all"
+                                          update_spinner
+                                          sleep 1
+                                          update_spinner
+                                          echo "Adding system to Active Directory server"
+                                          sleep 1
+                                          update_spinner
+                                          sleep 1
+                                          $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.rpm.sh --directory-prefix=/tmp
+                                          if [ $? -eq 0 ]; then
+                                               echo "####################################################################################################################################################" >> /var/log/smx-log/success.log
+                                               echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                               echo "[$(date)] Successfuly downlaod Active Directory configuration script" >> /var/log/smx-log/smx-log/success.log
+                                               echo "[$(date)] Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.rpm.sh --directory-prefix=/tmp" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               echo "####################################################################################################################################################" >> /var/log/smx-log/success.log
+                                               echo "" >> /var/log/smx-log/success.log
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/success.log | tail -n 7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          else
+                                               echo "####################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                               echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                               echo "[$(date)] Not downloaded Active Directory configuration script, check command syntax" >> /var/log/smx-log/fail.log
+                                               echo "[$(date)] Command run: $(which wget) http://download.beyondtrust.com/PBISO/8.3/pbis-open-8.3.0.3287.linux.`uname -m`.rpm.sh --directory-prefix=/tmp" >> /var/log/smx-log/fail.log
+                                               echo "" >> /var/log/smx-log/fail.log
+                                               echo "####################################################################################################################################################" >> /var/log/smx-log/fail.log
+                                               echo "" >> /var/log/smx-log/fail.log
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                               clear
+                                               echo
+                                               cat /var/log/smx-log/fail.log | tail -n  7
+                                               echo
+                                               read -p "Press [enter] to continue..." ReadDamKey
+                                          fi
+                                          $(which chmod) a+x /tmp/pbis-open-8.3.0.3287.linux.`uname -m`.rpm.sh
+                                          /tmp/pbis-open-8.3.0.3287.linux.`uname -m`.rpm.sh
+                                          read -p "Use other DNS server (other than AD server)? (Y/N) > " ans_dns
+                                          if [ "$ans_dns" = "Y" ]; then
+                                                read -p "Enter DNS server IP address > " dnsIPAddr
+                                                mv /etc/resolv.conf /etc/resolv.conf.org
+                                                echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                                echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                                echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                                                echo "nameserver $dnsIPAddr" >> /etc/resolv.conf
+                                          else
+                                                mv /etc/resolv.conf /etc/resolv.conf.org
+                                                echo "domain $adDomainLongLower" >> /etc/resolv.conf
+                                                echo "search $adDomainLongLower" >> /etc/resolv.conf
+                                                echo "nameserver $adIPAddr" >> /etc/resolv.conf
+                                          fi 
+                                          /opt/pbis/bin/domainjoin-cli join $adDomainLongLower $ADADMIN
+                                          if [ $? -eq 0 ]; then
+                                               echo
+                                               echo "Successfuly joined Active Directory server"
+                                          else
+                                               echo
+                                               echo "Not joined Active Directory server"
+                                               exit 1
+                                          fi
+                                          /opt/pbis/bin/config Requiremembershipof "$adDomainLongLower\\$adSecurityGroup"
+                                          /opt/pbis/bin/config AssumeDefaultDomain true
+                                          /opt/pbis/bin/config UserDomainPrefix $adDomainLongLower
+                                          /opt/pbis/bin/config LoginShellTemplate /bin/bash
+                                          /opt/pbis/bin/config HomeDirTemplate %H/%U
+                                          /opt/pbis/bin/config ad-cache --delete-all
+                                          $(which sed) -i 'session sufficient pam_slass.so/session [success=ok default=ignore] pam_slass.so/g' /etc/pam.d/common-session
+                                          echo "%$adDomainLong\\$adSecurityGroup ALL=(ALL:ALL) ALL" >> /etc/sudoers
+                                          echo
+                                          echo "System has been successfuly configured to access Active Directory, however the system must now reboot"
+                                          read -p "Reboot system [Y/N]? > " ans_reboot
+                                          if [ "$ans_reboot" = "" ]; then
+                                                $(which reboot) -f --verbose; exit
+                                          else
+                                                echo "System will not reboot, system will not be able to authenticate auth Active Directory until next reboot"
+                                                read -p "Press [enter] to continue..." ReadDamKey
+                                          fi             
+                                     fi
+                                fi
+                           fi
+                      fi     
+                      ;;
+            leave)
+                    clear
+                    cat /proc/version | grep "Red Hat" > /dev/null
+                    if [ $? -eq 0 ]; then
+                         clear
+                         echo "OS = Red Hat"
+                         echo "$(date)                                     $(whoami)@$(hostname)"
+                         echo "[TOP]                                                                        [Entry Fields]"
+                         read -p " Enter Active Directory server fully qualified domain name --------------- > " adFqdnName
+                         printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                         if [ "$ADADMIN" = "" ]; then
+                               ADADMIN=""
+                               read ADADMIN
+                               ADADMIN=$ADADMIN
+                         fi
+                         if [ "$ADADMIN" = "" ]; then
+                               ADADMIN=""
+                               ADADMIN=Administrator
+                         fi
+                         clear
+                         echo "          COMMAND STATUS               "
+                         echo
+                         echo "$(date)                                     $(whoami)@$(hostname)"
+                         echo
+                         echo "Command: RUNNING    stdout: yes    stderr: no     "
+                         echo
+                         echo "Before command completion, additional instructions may appear below"
+                         echo
+                         echo "File                                 Fileset                        Type"
+                         echo "------------------------------------------------------------------------"
+                         echo "$(which net)                         bos.sysmgt.net                 exec"
+                         echo "Command run: $(which net) ads leave -U $ADADMIN -S $adFqdnName"
+                         update_spinner
+                         sleep 1
+                         update_spinner
+                         echo "Leaving Active Directory domain"
+                         sleep 1
+                         update_spinner
+                         sleep 1
+                         $(which net) ads leave -U $ADADMIN -S $adFqdnName
+                         if [ $? -eq 0 ]; then
+                              echo "####################################################################################" >> /var/log/smx-log/success.log
+                              echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                              echo "[$(date)] Successfuly removed system from Active Directory" >> /var/log/smx-log/success.log
+                              echo "[$(date)] Command run: $(which net) ads leave -U $ADADMIN -S $adFqdnName" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              echo "####################################################################################" >> /var/log/smx-log/success.log
+                              echo "" >> /var/log/smx-log/success.log
+                              read -p "Press [enter] to continue..." ReadDamKey
+                              clear
+                              echo
+                              cat /var/log/smx-log/success.log | tail -n 7
+                              echo
+                              read -p "Press [enter] to continue..." ReadDamKey
+                         else
+                              echo "####################################################################################" >> /var/log/smx-log/fail.log
+                              echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                              echo "[$(date)] Not removed system from Active Directory, check command syntax" >> /var/log/smx-log/fail.log
+                              echo "[$(date)] Command run: $(which net) ads leave -U $ADADMIN -S $adFqdnName" >> /var/log/smx-log/fail.log
+                              echo "" >> /var/log/smx-log/fail.log
+                              echo "####################################################################################" >> /var/log/smx-log/fail.log
+                              echo "" >> /var/log/smx-log/fail.log
+                              read -p "Press [enter] to continue..." ReadDamKey
+                              clear
+                              echo
+                              cat /var/log/smx-log/fail.log | tail -n 7
+                              echo
+                              read -p "Press [enter] to continue..." ReadDamKey
+                              exit 1
+                         fi          
+                         rm -rf /etc/resolv.conf
+                         mv /etc/resolv.conf.org /etc/resolv.conf
+                         echo "System has been successfuly removed from Active Directory domain, /etc/resolv.conf has been restored"
+                         echo "The system must be rebooted to complete configuration"
+                         read -p "Reboot system [Y/N]? > " ans_reboot
+                         if [ "$ans_reboot" = "Y" ]; then
+                               $(which reboot) -f --verbose; exit
+                         else
+                               echo "System will not reboot"
+                         fi                           
+                    else     
+                         clear
+                         cat /proc/version | grep "Debian" > /dev/null
+                         if [ $? -eq 0 ]; then
+                              clear
+                              echo "OS = Debian"
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              echo "[TOP]                                                                        [Entry Fields]"
+                              printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                              if [ "$ADADMIN" = "" ]; then
+                                    ADADMIN=""
+                                    read ADADMIN
+                                    ADADMIN=$ADADMIN
+                              fi
+                              if [ "$ADADMIN" = "" ]; then
+                                    ADADMIN=""
+                                    ADADMIN=Administrator
+                              fi
+                              clear
+                              echo "          COMMAND STATUS               "
+                              echo
+                              echo "$(date)                                     $(whoami)@$(hostname)"
+                              echo
+                              echo "Command: RUNNING    stdout: yes    stderr: no     "
+                              echo
+                              echo "Before command completion, additional instructions may appear below"
+                              echo
+                              echo "File                                 Fileset                        Type"
+                              echo "------------------------------------------------------------------------"
+                              echo "/opt/pbis/bin/domainjoin-cli         bos.sysmgt.domainjoin-cli      exec"
+                              echo "Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN"
+                              update_spinner
+                              sleep 1
+                              update_spinner
+                              echo "Leaving Active Directory domain"
+                              sleep 1
+                              update_spinner
+                              sleep 1
+                              /opt/pbis/bin/domainjoin-cli leave $ADADMIN
+                              if [ $? -eq 0 ]; then
+                                   echo "#####################################################################" >> /var/log/smx-log/success.log
+                                   echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                   echo "[$(date)] Successfuly left Active Directory domain" >> /var/log/smx-log/success.log
+                                   echo "[$(date)] Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   echo "#####################################################################" >> /var/log/smx-log/success.log
+                                   echo "" >> /var/log/smx-log/success.log
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   clear
+                                   echo
+                                   cat /var/log/smx-log/success.log | tail -n 7
+                                   echo
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                              else
+                                   echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                   echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                   echo "[$(date)] Not left Active Directory domain, check command syntax" >> /var/log/smx-log/fail.log
+                                   echo "[$(date)] Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN" >> /var/log/smx-log/fail.log
+                                   echo "" >> /var/log/smx-log/fail.log
+                                   echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                   echo "" >> /var/log/smx-log/fail.log
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   clear
+                                   echo
+                                   cat /var/log/smx-log/fail.log | tail -n 7
+                                   echo
+                                   read -p "Press [enter] to continue..." ReadDamKey
+                                   exit 1
+                              fi
+                              rm -rf /etc/resolv.conf
+                              mv /etc/resolv.conf.org /etc/resolv.conf
+                              echo "System has been successfuly removed from Active Directory domain, /etc/resolv.conf has been restored"
+                              echo "The system must be rebooted to complete configuration"
+                              echo "NOTE: This process only disables the AD account, you must now remove the account manually from AD"
+                              read -p "Reboot system [Y/N]? > " ans_reboot
+                              if [ "$ans_reboot" = "Y" ]; then
+                                    $(which reboot) -f --verbose; exit
+                              else
+                                    echo "System will not reboot"
+                              fi
+                         else
+                              clear
+                              cat /proc/version | grep "Ubuntu" > /dev/null
+                              if [ $? -eq 0 ]; then
+                                   clear
+                                   echo "OS = Ubuntu"
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo "[TOP]                                                                        [Entry Fields]"
+                                   printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                                   if [ "$ADADMIN" = "" ]; then
+                                         ADADMIN=""
+                                         read ADADMIN
+                                         ADADMIN=$ADADMIN
+                                   fi
+                                   if [ "$ADADMIN" = "" ]; then
+                                         ADADMIN=""
+                                         ADADMIN=Administrator
+                                   fi
+                                   clear
+                                   echo "          COMMAND STATUS               "
+                                   echo
+                                   echo "$(date)                                     $(whoami)@$(hostname)"
+                                   echo
+                                   echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                   echo
+                                   echo "Before command completion, additional instructions may appear below"
+                                   echo
+                                   echo "File                                 Fileset                        Type"
+                                   echo "------------------------------------------------------------------------"
+                                   echo "/opt/pbis/bin/domainjoin-cli         bos.sysmgt.domainjoin-cli      exec"
+                                   echo "Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN"
+                                   update_spinner
+                                   sleep 1
+                                   update_spinner
+                                   echo "Leaving Active Directory domain"
+                                   sleep 1
+                                   update_spinner
+                                   sleep 1
+                                   /opt/pbis/bin/domainjoin-cli leave $ADADMIN
+                                   if [ $? -eq 0 ]; then
+                                        echo "#####################################################################" >> /var/log/smx-log/success.log
+                                        echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                        echo "[$(date)] Successfuly left Active Directory domain" >> /var/log/smx-log/success.log
+                                        echo "[$(date)] Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN" >> /var/log/smx-log/success.log
+                                        echo "" >> /var/log/smx-log/success.log
+                                        echo "#####################################################################" >> /var/log/smx-log/success.log
+                                        echo "" >> /var/log/smx-log/success.log
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                        clear
+                                        echo
+                                        cat /var/log/smx-log/success.log | tail -n 7
+                                        echo
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                   else
+                                        echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                        echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                        echo "[$(date)] Not left Active Directory domain, check command syntax" >> /var/log/smx-log/fail.log
+                                        echo "[$(date)] Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN" >> /var/log/smx-log/fail.log
+                                        echo "" >> /var/log/smx-log/fail.log
+                                        echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                        echo "" >> /var/log/smx-log/fail.log
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                        clear
+                                        echo
+                                        cat /var/log/smx-log/fail.log | tail -n 7
+                                        echo
+                                        read -p "Press [enter] to continue..." ReadDamKey
+                                        exit 1
+                                   fi
+                                   rm -rf /etc/resolv.conf
+                                   mv /etc/resolv.conf.org /etc/resolv.conf
+                                   echo "System has been successfuly removed from Active Directory domain, /etc/resolv.conf has been restored"
+                                   echo "The system must be rebooted to complete configuration"
+                                   echo "NOTE: This process only disables the AD account, you must now remove the account manually from AD"
+                                   read -p "Reboot system [Y/N]? > " ans_reboot
+                                   if [ "$ans_reboot" = "Y" ]; then
+                                         $(which reboot) -f --verbose; exit
+                                   else
+                                         echo "System will not reboot"
+                                   fi
+                              else
+                                   clear
+                                   cat /proc/version | grep "SUSE" > /dev/null
+                                   if [ $? -eq 0 ]; then
+                                        clear
+                                        echo "OS = SuSE"
+                                        echo "$(date)                                     $(whoami)@$(hostname)"
+                                        echo "[TOP]                                                                        [Entry Fields]"
+                                        printf " Enter Active Directory domain administrator name [Admimistrator] --------- > " 
+                                        if [ "$ADADMIN" = "" ]; then
+                                              ADADMIN=""
+                                              read ADADMIN
+                                              ADADMIN=$ADADMIN
+                                        fi
+                                        if [ "$ADADMIN" = "" ]; then
+                                              ADADMIN=""
+                                              ADADMIN=Administrator
+                                        fi
+                                        clear
+                                        echo "          COMMAND STATUS               "
+                                        echo
+                                        echo "$(date)                                     $(whoami)@$(hostname)"
+                                        echo
+                                        echo "Command: RUNNING    stdout: yes    stderr: no     "
+                                        echo
+                                        echo "Before command completion, additional instructions may appear below"
+                                        echo
+                                        echo "File                                 Fileset                        Type"
+                                        echo "------------------------------------------------------------------------"
+                                        echo "/opt/pbis/bin/domainjoin-cli         bos.sysmgt.domainjoin-cli      exec"
+                                        echo "Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN"
+                                        update_spinner
+                                        sleep 1
+                                        update_spinner
+                                        echo "Leaving Active Directory domain"
+                                        sleep 1
+                                        update_spinner
+                                        sleep 1
+                                        /opt/pbis/bin/domainjoin-cli leave $ADADMIN
+                                        if [ $? -eq 0 ]; then
+                                             echo "#####################################################################" >> /var/log/smx-log/success.log
+                                             echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+                                             echo "[$(date)] Successfuly left Active Directory domain" >> /var/log/smx-log/success.log
+                                             echo "[$(date)] Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN" >> /var/log/smx-log/success.log
+                                             echo "" >> /var/log/smx-log/success.log
+                                             echo "#####################################################################" >> /var/log/smx-log/success.log
+                                             echo "" >> /var/log/smx-log/success.log
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                             clear
+                                             echo
+                                             cat /var/log/smx-log/success.log | tail -n 7
+                                             echo
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                        else
+                                             echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                             echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+                                             echo "[$(date)] Not left Active Directory domain, check command syntax" >> /var/log/smx-log/fail.log
+                                             echo "[$(date)] Command run: /opt/pbis/bin/domainjoin-cli leave $ADADMIN" >> /var/log/smx-log/fail.log
+                                             echo "" >> /var/log/smx-log/fail.log
+                                             echo "#####################################################################" >> /var/log/smx-log/fail.log
+                                             echo "" >> /var/log/smx-log/fail.log
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                             clear
+                                             echo
+                                             cat /var/log/smx-log/fail.log | tail -n 7
+                                             echo
+                                             read -p "Press [enter] to continue..." ReadDamKey
+                                             exit 1
+                                        fi
+                                        rm -rf /etc/resolv.conf
+                                        mv /etc/resolv.conf.org /etc/resolv.conf
+                                        echo "System has been successfuly removed from Active Directory domain, /etc/resolv.conf has been restored"
+                                        echo "The system must be rebooted to complete configuration"
+                                        echo "NOTE: This process only disables the AD account, you must now remove the account manually from AD"
+                                        read -p "Reboot system [Y/N]? > " ans_reboot
+                                        if [ "$ans_reboot" = "Y" ]; then
+                                              $(which reboot) -f --verbose; exit
+                                        else
+                                              echo "System will not reboot"
+                                        fi
+                                   fi
+                              fi
+                         fi
+                    fi     
+                    ;;
+            help)
+                  echo "install > Install configuration software and add system to Active Directory domain"
+                  echo "leave > Leave Active Directory domain"
+                  echo "help > This menu"
+                  echo "exit > Exit back to srv_menu"
+                  echo "exit-mas > Exit back to shell"
+                  read -p "Press [enter] to continue..." ReadDamKey
+                  ;;         
+            exit)
+                   clear
+                   echo "###################################################################" >> /var/log/smx-log/exit.log
+                   echo "Log file started at: $(date)" >> /var/log/smx-log/exit.log
+                   echo "[$(date)] Successfuly terminated $(basename $0)/srv_menu/ms-ad_menu" >> /var/log/smx-log/exit.log
+                   echo "" >> /var/log/smx-log/exit.log
+                   echo "###################################################################" >> /var/log/smx-log/exit.log
+                   echo "" >> /var/log/smx-log/exit.log
+                   srv_menu
+                   ;;
+            exit-mas)
+                       clear
+                       echo "#####################################" >> /var/log/smx-log/exit.log
+                       echo "Log file started at: $(date)" >> /var/log/smx-log/exit.log
+                       echo "[$(date)] Successfuly terminated $(basename $0)" >> /var/log/smx-log/exit.log
+                       echo "" >> /var/log/smx-log/exit.log
+                       echo "#####################################" >> /var/log/smx-log/exit.log
+                       echo "" >> /var/log/smx-log/exit.log
+                       exit 0
+                       ;;
+            *)         clear
+                       echo "        COMMAND STATUS        "
+                       echo
+                       echo "$(date)                                     $(whoami)@$(hostname)"
+                       echo
+                       echo "Command: FAIL    stdout: yes    stderr: no        "
+                       echo
+                       echo "Before command completion, additional instructions may appear below"
+                       echo
+                       echo "Unkonwn command, please consult the command list, executed with pid - 6843 (0x1)"
+                       read -p "Press [enter] to continue..." ReadDamKey;;
+        esac
+    done
+}        
+
 case "$1" in
     --main-menu) main_menu;;
     --usrmgt) usr_menu;;
@@ -33675,6 +34668,7 @@ case "$1" in
     --ssh) ssh_menu;;
     --snmp) snmp_menu;;
     --dns) dns_menu;;
+    --ms-ad) ms-ad_menu;;
     --pkgmgt) pkg_menu;;
     --system-update) system_upd;;
     --ipmgt) ip_menu;;
