@@ -110,3 +110,12 @@ Key: * - todo
 52 - May change rhel listing updates from yum list updates to yum check-updates []
 
 53 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code []
+
+54 - May change licence to GNU GPL v3 []
+
+55 - May add OS and system hardening using bastille-linux []
+
+56 - May change root authentication using sudo -v, rather than id -g []
+
+57 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
+
