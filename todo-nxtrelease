@@ -119,3 +119,8 @@ Key: * - todo
 
 57 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
 
+58 - May rename to SMS - Systems management centeral []
+
+59 - May rename IP management to network management []
+
+60 - May add option to create/delete MySQL database using mysqladmin []
