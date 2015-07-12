@@ -45,14 +45,20 @@ the documentation for it is terrible, it expects you to know Chef before using i
 
 Comparision:
 
-Chef                                                                                                 SMX
-----                                                                                                 ---
-Supports a wide range of systems from AT&T UNIX, Linux and Windows									 Supports All major Linux versions, and OS X
-Uses Ruby and domain-specific language to create configutation scripts								 Written entirely in Bash, easy to learn and extend the program
-Works best in client/server mode                                                                     Works in standalone and can be used to manage remote system
-Configration engine for chef requires you to know chef before you use it                             easy to learn and use since the program is written in Bash
-           								 															 Written in portable language and uses non-specific software 
-																									 and uses $(which <software>) to get program path
+Chef
+----
+Supports a wide range of systems from AT&T UNIX, Linux and Windows
+Uses Ruby and domain-specific language to create configutation scripts
+Works best in client/server mode
+Configration engine for chef requires you to know chef before you use it
+
+SMX
+---
+Supports all major Linux versions, and OS X
+Written entirely in Bash, easy to learn and extend the program
+Works in standalone and can be used to manage a remote system
+Written in portable language and uses non-specific software and uses 
+$(which <software>) to get program path
 
 CFENGINE
 ========
@@ -69,17 +75,21 @@ Cons - It does require some expert knoledge about the OS that CFEngine is being 
 
 Comparision:
 
-CFEngine                                                                                             SMX
---------                                                                                             ---
-Largly web-based, could suffer from self-signed SSL certs and may cause firewall problems            Strictly command-line based, allowing only root user access
-																									 using id -g (will be switching to sudo -v in the future)
-Like Chef, it uses self-made configuration scripts to perform its tasks								 Written completely in Bash script, easy to learn and extend
-Configuration language has been described as a "programming language without resonable syntax"       Since it is written in Bash, its a language that sysadmins
-																									 allready know, and as such it is easy to work in
-Is battle-tested against the most hostile of environments, the college campus network, with users    Amount of users is currently unknown, but it can be run 
-up to 50,000 or more																				 anywhere that UNIX/Linux and a set of pre-installed programs
-																									 can be run
+CFEngine
+--------
+Largly web-based, could suffer from self-signed SSL certs and may cause firewall problems
+Like Chef, it uses self-made configuration scripts to perform its tasks
+Configuration language has been described as a "programming language without resonable syntax"
+Is battle-tested against the most hostile of environments, the college campus network, with users 
+up to 50,000 or mor
 Does not play well with file integrity checkers such as tripwire
+
+SMX
+---
+Strictly command-line based, allowing only root user access using id -g 
+(will be switching to sudo -v in the future)
+Written completely in Bash script, a language that sysadmins allready know
+and as such, its a language that is easy to work in
 
 PUPPET
 ======
@@ -97,15 +107,18 @@ Cons - Like chef, it uses a Ruby DSL to create its configutation scripts, so it 
 
 Comparision:
 
-Puppet                                                                                               SMX
-------                                                                                               ---
-like chef, it uses Ruby DSL to create its configuration scripts, requires knoledge of Ruby           Written purly in Bash, a language that is easy to learn 
-                                                                                                     and expand, a language that sysadmins know
-No need for OS specific commands such as rpm, yum and apt                                            Uses unique OS detection script to "guess" which OS 
-                                                                                                     or distrobution to use
+Puppet
+------
+like chef, it uses Ruby DSL to create its configuration scripts, requires knoledge of Ruby
+No need for OS specific commands such as rpm, yum and apt 
 Requies connection to main server, known as a "puppet master" if this server goes down, system       
-conifguatation is impossible																		 Does not require connection to master server, as each client 
-                                                                                                     works independantly of one another
+conifguatation is impossible
+
+SMX
+---
+Written purly in Bash, a language that is easy to learn and expand, a language that systadmins know
+Uses unique OS detection script to "guess" which OS or distrobution to use
+Does not require connection to master server, as each client works independantly of one another
 
 SPACEWALK
 =========
@@ -125,14 +138,18 @@ certificates
 
 Comparision:
 
-Spacewalk                                                                                            SMX
----------                                                                                            ---
-Requries subscription to Red Hat Network                                                             Fully open-source, requires no licence, exept GPLv2
-Requries connection to central spacewalk server, if that system goes down, system config impossible  Does not require Internet connection or connection to master
-                                                                                                     server, works independantly of each other
+Spacewalk
+---------
+Requries subscription to Red Hat Network
+Requries connection to central spacewalk server, if that system goes down, system config impossible
 Doesn't perform tasks such as user, disk and other standard sysadmin tasks, is really patch
-management software                                                                                  Performs all user/group, disk and other sysadmin tasks such 
-                                                                                                     as, server management
+management software
+
+SMX
+---
+Fully open-source, requires no licence, exept GPLv2
+Does not require Internet connection or connection to master server, works independantly of each other
+Performs all user/group, disk and other sysadmin tasks such as server management
 
 SCCM (System Center Configuration Manager)
 ==========================================
@@ -152,16 +169,49 @@ Cons - Requries Windows server to use as sccm main server, can work with non-win
 
 Comparision:
 
-SCCM                                                                                                 SMX
-----                                                                                                 ---
-Requries Windows server to run management console                                                    Can be run on any varient of linux, requires no centeral 
-                                                                                                     server
-Can't perform task that other systems management programs can                                        can perform all user/group, disk and systems/server mgmt tasks
-Follows proprietary software model                                                                   fully open source, requring acceptance of GPLv2 licence
+SCCM
+----
+Requries Windows server to run management console
+Can't perform task that other systems management programs can
+Follows proprietary software model
 
+SMX
+---
+Can be run on any varient of Linux, requres no centeral server
+Can perform all user/group, disk and systems/server management tasks
+Fully open source, requring acceptance of GPLv2 licence
+
+Webmin
+======
+
+[![Webmin](http://www.tecadmin.net/wp-content/uploads/2014/03/webmin-logo.png)](#webmin-logo)
+
+A web-based system configuration tool for UNIX and Linux systems, used to configure OS internals such as users, disks, services or configuration files, build
+around modules, so it is easy to add new functonality, it also allows multiple systems to be controled through one interface, however, since its web based, it
+suffers from self-signed SSL certificates and does not use SSL by default, requires the install of the Perl SSL package to use SSL
+
+Pros - Very well written, concidering that it can modify system internals from the web-based interface, expandable because of its module-type setup
+
+Cons - Not very powerfull because it is web-based, does not use SSL by default, requires Perl SSL package to be installed, suffers from self-signed SSL
+       certificates
+
+Comparision:
+
+Webmin
+------
+Web-based allowing modification of system internals, from user and group modifications, to server administration
+Suffers from self-signed SSL certificates and does not use SSL by default - requires Perl SSL package
+Can't install packages or install servers, requires to have servers allready installed
+Program relyes on set paths for programs, can't use some modules because the program, even if it exists, webmin can't find it
+
+SMX
+---
+Can install packages for Linux and does not requies servers to be installed, as the program will install the program and configure it
+Program uses $(which <program>) to get program path
+More powerfull because of it being command-line based
 
 SMX (Systems Management eXecutive)
-----------------------------------
+==================================
 
 [![SMX](https://raw.githubusercontent.com/unixuser011/smx/master/screenshots/main-screen.JPG)](#smx-main-screen)
 
