@@ -20,10 +20,8 @@ Key: * - todo
 
 6 - May add linux intergration with MS AD [X]
 
-7 - May change name to SMS - System Management Service(s) [*]
+7 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) [X]
 
-8 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) [*]
-
-9 - With fix #7 include pros/cons of each [*]
+8 - With fix #7 include pros/cons of each [X]
     
-10 - include support for arch, gentoo, knoppix and BSD [*]
+9 - include support for arch, gentoo, knoppix and BSD [*]
