@@ -32,16 +32,18 @@ COMPARISON BETWEEN SYSTEM MANAGEMENT PROGRAMS
 CHEF
 ====
 
-[![chef](http://s3.amazonaws.com/opscode-corpside/assets/121/pic-chef-logo.png)](#chef-logo)
+[![chef](http://s3.amazonaws.com/opscode-corpsite/assets/121/pic-chef-logo.png)](#chef-logo)
 
 An open-source configuration program written in Ruby using pure-Ruby, domain-specific language (DSL) for writing system configuation scripts, also known as
 "recipes" that describe how server applications such as Apache, MySQL or Hadoop are to be configured
 
-Pros - Chef does support a wide range of systems including AT&T UNIX, Linux, BSD and Microsoft Windows and relitivly easy to setup and use ether in a stand alone
-configuration or in a client/server configuration
+Pros - Chef does support a wide range of systems including AT&T UNIX, Linux, BSD and Microsoft Windows 
+       relitivly easy to setup and use ether in a stand alone configuration or in a client/server configuration
 
-Cons - Since Chef is written in Ruby and uses DSL (Domain-Specific Language) for writing its configutation scripts, it almost requires you to know Ruby,
-the documentation for it is terrible, it expects you to know Chef before using it, and the examples try and do everything at once
+Cons - Since Chef is written in Ruby and uses DSL (Domain-Specific Language) for writing its configutation scripts - it almost requires you to know Ruby,
+	   the documentation for it is terrible
+	   it expects you to know Chef before using it
+	   and the examples try and do everything at once
 
 Comparision:
 
@@ -63,15 +65,18 @@ $(which <software>) to get program path
 CFENGINE
 ========
 
-[![CFEngine](http://media.marketwire.com/attachments/201402/227117_cfengine-log.jpg)](#cfengine-logo)
+[![CFEngine](http://media.marketwire.com/attachments/201402/227117_cfengine-logo.jpg)](#cfengine-logo)
 
 An open-source configutation manager which is web based and command line based, to provide automated configuration of large-scale systems such as servers, desktops,
 imbedded networked devices, and like chef, it too uses configuation scripts to configure how a user were to configure a server or program in its own language, even though, it is very well written, better than chef, and supports a wide range of systems from UNIX and Linux to Windows and in v2 features options for machine learning
 
-Pros - Very well written and designed for a whole slew of systems ranging from small embedded networked devices to corporate servers and desktops, offers a web-based interface as a subsutute for the command-line client, and has support for machine learning, which no other program (except those created for IBM's Watson)
-has support for
+Pros - Very well written and designed for a whole slew of systems ranging from small embedded networked devices to corporate servers and desktops
+	   offers a web-based interface as a subsutute for the command-line client
+	   and has support for machine learning, which no other program (except those created for IBM's Watson) has support for
 
-Cons - It does require some expert knoledge about the OS that CFEngine is being installed on, and also with the web-based management console, since its web-based, it will suffer from all other web-based programs such as invalid or self-signed SSL certificates, insecure login management, etc
+Cons - It does require some expert knoledge about the OS that CFEngine is being installed on
+	   and also with the web-based management console, since its web-based
+	   it will suffer from all other web-based programs such as invalid or self-signed SSL certificates, insecure login management, etc
 
 Comparision:
 
@@ -99,11 +104,14 @@ PUPPET
 An open-source configuration manager for Linux/UNIX and Windows-based systems written in Ruby and, like chef, it uses a Ruby DSL to create its configuration
 scripts, as such it is system-specific and works in a client/server configuration, and requires connection to a main server, also known as the "puppet master"
 
-Pros - Very well written, used by many Fortune-500 companies such as Mozilla, CERN, Dell, Oracle, Intel and Google to name a few, uses a Ruby DSL to create
-its configration scripts and as such it is a high-level, system-specific language, that allows configuration for multiple systems without having to put in
-OS specific commands such as rpm, yum and apt
+Pros - Very well written
+	   used by many Fortune-500 companies such as Mozilla, CERN, Dell, Oracle, Intel and Google to name a few
+        uses a Ruby DSL to create its configration scripts and as such it is a high-level, system-specific language, that allows configuration for multiple 
+        systems without having to put in OS specific commands such as rpm, yum and apt
 
-Cons - Like chef, it uses a Ruby DSL to create its configutation scripts, so it almost requires you to know Ruby before you use it, and it requires works in a client/server environment and requires connection to a main server, known as a "puppet master" and if that server goes down you can't configure your systems
+Cons - Like chef, it uses a Ruby DSL to create its configutation scripts, so it almost requires you to know Ruby before you use it
+       it requires works in a client/server environment and requires connection to a main server, known as a "puppet master" and if that server goes down you 
+       can't configure your systems
 
 Comparision:
 
@@ -132,9 +140,9 @@ or may require ports to be open in a firewall which can cause problems for sysad
 
 Pros - Great support for RHEL-based, Debian-based, Ubuntu-based and SuSE-based systems and support for Solaris
 
-Cons - Can't perform tasks such as user admin, disk admin, etc. really is just patch management software that can push out OS updates to registered systems, no
-support for OS X, requires connection to main spacewalk server, and like other web-based system management programs, it may suffer from self-signed SSL 
-certificates
+Cons - Can't perform tasks such as user admin, disk admin, etc. really is just patch management software that can push out OS updates to registered systems
+       no support for OS X, requires connection to main spacewalk server, and like other web-based system management programs, it may suffer from self-signed SSL 
+	   certificates
 
 Comparision:
 
@@ -154,7 +162,7 @@ Performs all user/group, disk and other sysadmin tasks such as server management
 SCCM (System Center Configuration Manager)
 ==========================================
 
-[![SCCM](http://www.theitbros.com/wp-content/2011/03/sccm1.png)](#sccm-logo)
+[![SCCM](http://its.unl.edu/images/sccm-short.png)](#sccm-logo)
 
 Microsoft System Center Configuration Manager is a systems management software platform for Windows, Linux, OS X and UNIX-based systems as well as mobile OS's
 such as Android, iOS and Windows Phone, it provides patch management, remote control, software distrobution, OS deployment and network access protection
@@ -164,8 +172,9 @@ tasks that other systems configuration managers can perform such as user/group m
 Pros - Great support for Windows, working with Active Directory and other Microsoft clients, performing OS deployment, patch management, and software distrobution
 
 Cons - Requries Windows server to use as sccm main server, can work with non-windows clients (Linux, UNIX and the like) but "preferes" to work with Windows clients
-       not very poweful - as it only uses a GUI to perform tasks, and as typical with Microsoft it uses the proprietary model, so users can't change the product
-       to suit their needs
+       not very poweful - as it only uses a GUI to perform tasks
+       and as typical with Microsoft it uses the proprietary model
+       so users can't change the product to suit their needs
 
 Comparision:
 
@@ -238,7 +247,7 @@ Group management:
 
 Password management:
 
-[![SMX-passwd-mgmt](https://raw.githubusercontent.com/unixuser011/smx/master/screenshots/passwd-management)](#smx-passwd-mgmt)
+[![SMX-passwd-mgmt](https://raw.githubusercontent.com/unixuser011/smx/master/screenshots/passwd-management.JPG)](#smx-passwd-mgmt)
 
 Disk management:
 
