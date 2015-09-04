@@ -1,0 +1,12 @@
+## Notes file for smx ##
+# This file contains general notes for possible changes or new features, it may be possible for these notes/ideas to make it into a future release
+# but generaly it is a list of things that may be changed, new ideas that I have, checks to be made, etc
+##
+
+freebsd-firewall - copy GENERIC	folder from /usr/src/sys/<arch>/conf to /usr/obj/usr/src/sys [COMPLETED]
+
+check that apache/PHP install for RHELv7 uses remi-php56 repo for PHP install
+
+for Debian update, change apt-get -v --assume-no to apt-get -s upgrade
+
+Ubuntu - may change to service(8) rather than using /etc/init.d/
