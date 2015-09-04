@@ -46,6 +46,7 @@ Cons - Since Chef is written in Ruby and uses DSL (Domain-Specific Language) for
 	   and the examples try and do everything at once
 
 Comparision:
+===========
 
 Chef
 ----
@@ -79,6 +80,7 @@ Cons - It does require some expert knoledge about the OS that CFEngine is being 
 	   it will suffer from all other web-based programs such as invalid or self-signed SSL certificates, insecure login management, etc
 
 Comparision:
+===========
 
 CFEngine
 --------
@@ -114,6 +116,7 @@ Cons - Like chef, it uses a Ruby DSL to create its configutation scripts, so it 
        can't configure your systems
 
 Comparision:
+===========
 
 Puppet
 ------
@@ -145,6 +148,7 @@ Cons - Can't perform tasks such as user admin, disk admin, etc. really is just p
 	   certificates
 
 Comparision:
+===========
 
 Spacewalk
 ---------
@@ -177,6 +181,7 @@ Cons - Requries Windows server to use as sccm main server, can work with non-win
        so users can't change the product to suit their needs
 
 Comparision:
+===========
 
 SCCM
 ----
@@ -205,6 +210,7 @@ Cons - Not very powerfull because it is web-based, does not use SSL by default, 
        certificates
 
 Comparision:
+===========
 
 Webmin
 ------
