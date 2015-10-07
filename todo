@@ -24,4 +24,8 @@ Key: * - todo
 
 8 - With fix #7 include pros/cons of each [X]
     
-9 - include support for arch, gentoo, knoppix and BSD [*]
+9 - include support for BSD [X]
+
+10 - May combine user management for linux, OS X and BSD into one using OS detection script [X] - this also includes support for diffrent versions of rhel, when installing php, use epel and remi for install, seperate from rhelV6.x
+
+11 - For chadm - add OS detection [X]
