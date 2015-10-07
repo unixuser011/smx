@@ -141,3 +141,10 @@ orriginal bug count:
           Changed echo to read -p in chip, changed NET_INTF to NETINTF in ip_menuosx for OS X, adding default network controler (eth0, en0) to ip_menu for
           Linux/OS X, changed static IP setup for OS X from ifconfig to networksetup, adding mariadb-server and samba-client for sql and smb management for
           RHEL v 7
+6/10/2015
+          For SMX 15.0, changed command success/fail screen - new one is much smaller displaying only the log file outputs, changed help so that it only
+	  displays help for that specific sub-menu, added DNS (bind 9x) to server management for Linux and BSD, added a date/timestamp for log entires,
+	  added change to OS detection script so that Linux distro-specific instructions/packages can be used/installed (ie, rhel 7x uses samba-client
+	  along with samba, v6 doesn't), added full Linux intergration with Microsoft Active Directory, added full support for BSD (free* for now, plan
+	  to add support for open* and net* in a future next release), combined Linux, BSD and OS X into one for OS detection script, changed
+	  $(which apt-get) -u --assume-no to $(which apt-get) -s upgrade
