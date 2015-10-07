@@ -26,101 +26,82 @@ Key: * - todo
 
 11 - May change shell commands from bos.sysmgt.* to bos.shell.* []
 
-12 - May change layout to not display commands and use help system with help command displaying information about all commands in that subMenu [*]
+12 - may add option to update NIS database for user creation section [X]
 
-13 - may add option to update NIS database for user creation section [*]
+13 - May add kickstart for red hat, etc for debian and suse for remote install []
 
-14 - May add kickstart for red hat, etc for debian and suse for remote install []
-
-15 - Change user management for user modifications, to run sub-menu to ask for user name (stored as: $MASTER-USR) and replace
+14 - Change user management for user modifications, to run sub-menu to ask for user name (stored as: $MASTER-USR) and replace
      $userName with $MASTER-USR []
      
-16 - May add support for AIX, HP-UX and solaris []
+15 - May add support for AIX, HP-UX and solaris []
 
-17 - In conjuction with change 4, create log files seperators such as -- or ## between enteries (for command log enteries) []
+16 - In conjuction with change 4, create log files seperators such as -- or ## between enteries (for command log enteries) []
 
-18 - Create master variable for command being run to get error information ($ERROR_CMD=`cmd`) [*]
+17 - Overhaul remote management section, run with ssh, create sub-menus for ssh []
 
-19 - Overhaul remote management section, run with ssh, create sub-menus for ssh []
+18 - May remove OS X support []
 
-20 - Add DNS (use BIND or NSD) and LDAP to server management [*]
+19 - May add date/timestamp to log files []
 
-21 - May remove OS X support []
+29 - May add linux intergration with MS AD [X]
 
-23 - May add date/timestamp to log files []
+21 - May add fail2ban for SSH config []
 
-24 - May add linux intergration with MS AD [*]
+22 - May add func_ to function name [] (Example: func_main_menu())
 
-25 - May add fail2ban for SSH config []
+23 - For functions for OS X change from /osx to -osx (example: diskmgt/osx to diskmgt-osx) []
 
-26 - May change name to SMS - System Management Service(s) [*]
+24 - for delusr on linux, include option to delete users home directory, mail files, cron jobs, etc []
 
-27 - May add func_ to function name [] (Example: func_main_menu())
+25 - may add default for mntPoint for disk mounting/unmounting []
 
-28 - For chadm - add OS detection []
+26 - With firewall management, add code to ensure that firewall is turned on []
 
-29 - For DHCP, add default for network interface [?]
+27 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # []
 
-30 - May add extra echo after input request (example: read -p "One"
-                                                      echo
-                                                      read -p "Two") []
+28 - May add vulnrability check using lynis and tiger []
 
-31 - For functions for OS X change from /osx to -osx (example: diskmgt/osx to diskmgt-osx) []
+29 - Add support for diffrent desktop envronments for vnc []
 
-32 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) [*]
+30 - May change cp for rsync -ah --progress []
 
-33 - include support for arch, gentoo, knoppix and BSD [*]
+31 - May include support for oracle, postgres, and nginx []
 
-34 - for delusr on linux, include option to delete users home directory, mail files, cron jobs, etc []
+32 - May include support for Solaris (SunOS) []
 
-35 - may add default for mntPoint for disk mounting/unmounting []
+33 - For hostname change, change CURR_HOST to use $(hostname) []
 
-36 - With firewall management, add code to ensure that firewall is turned on []
+34 - For pkgmgt - include option to install program from source []
 
-37 - With fix #30 include pros/cons of each [*]
+35 - for server management, will add uninstall section, to remove server and return system to pre-server stats []
 
-38 - Change help system to show help for specific menu (example: if you are in the usrmgt section, the program will display all commands and what they do) [*]
+36 - May add suport for Apache hadoop []
 
-39 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # []
+37 - May add suport for Sendmail []
 
-40 - May add vulnrability check using lynis and tiger []
+38 - May change rhel listing updates from yum list updates to yum check-updates []
 
-41 - Add support for diffrent desktop envronments for vnc []
+39 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code []
 
-42 - May change cp for rsync -ah --progress []
+40 - May change licence to GNU GPL v3 []
 
-43 - May include support for oracle, postgres, and nginx []
+41 - May add OS and system hardening using bastille-linux []
 
-44 - May include support for Solaris (SunOS) []
+42 - May change root authentication using sudo -v, rather than id -g []
 
-45 - May change log to display date for all entries ([date] - ) [*]
+43 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
 
-46 - For hostname change, change CURR_HOST to use $(hostname) []
+44 - May rename to SMS - Systems management centeral []
 
-47 - For OS detection script - change to use /etc/redhat-release for redhat 6/7 [*]
+45 - May rename IP management to network management []
 
-48 - For pkgmgt - include option to install program from source []
+46 - May add option to create/delete MySQL database using mysqladmin []
 
-49 - for server management, will add uninstall section, to remove server and return system to pre-server stats []
+47 - May add exception into new OS detection script - at end of if statement, will give else, and will echo out that
+     the OS is ether not supported or the OS is unknown (echo back what kind of OS it is (echo $OS)) []
 
-50 - May add suport for Apache hadoop []
+48 - May add support for OpenBSD and NetBSD []
 
-51 - May add suport for Sendmail []
+49 - May add exit code checks for starting/stopping/restarting services []
 
-52 - May change rhel listing updates from yum list updates to yum check-updates []
-
-53 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code []
-
-54 - May change licence to GNU GPL v3 []
-
-55 - May add OS and system hardening using bastille-linux []
-
-56 - May change root authentication using sudo -v, rather than id -g []
-
-57 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
-
-58 - May rename to SMS - Systems management centeral []
-
-59 - May rename IP management to network management []
-
-60 - May add option to create/delete MySQL database using mysqladmin []
+50 - May change Active Directory config for rhel to use pbis insted of samba/kerberos (works for both v7.x and v6.x) []
