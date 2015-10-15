@@ -3166,8 +3166,7 @@ function dsk_menu() {
                               read -p "Press [enter] to continue..." ReadDamKey
                         fi
                    fi
-               fi
-               ;;
+                   ;;
             lsdisk)
                      clear
                      $(which uname) | grep Linux >> /dev/null
@@ -27555,11 +27554,11 @@ function dhcp_menu() {
 				   echo
 				   read -p "Press [enter] to continue..." ReadDamKey
 			      fi
+			 else
+                              echo "Feature not avaliable for OS X"
+			      read -p "Press [enter] to continue..." ReadDamKey
+			      dhcp_menu
 			 fi
-		    else
-			 echo "Feature not avaliable for OS X"
-			 read -p "Press [enter] to continue..." ReadDamKey
-			 dhcp_menu
 		    fi
                     ;;
 	    stop)
@@ -27779,11 +27778,11 @@ function dhcp_menu() {
 				  echo
 				  read -p "Press [enter] to continue..." ReadDamKey
 			     fi
+			else
+                             echo "Feature not avaliable for OS X"
+			     read -p "Press [enter] to continue..." ReadDamKey
+			     dhcp_menu
 			fi
-		   else
-		        echo "Feature not avaliable for OS X"
-			read -p "Press [enter] to continue..." ReadDamKey
-			dhcp_menu
 		   fi
                    ;;
 	    restart)
@@ -28004,11 +28003,11 @@ function dhcp_menu() {
 				     echo
 				     read -p "Press [enter] to continue..." ReadDamKey
 				fi
+			   else
+                                echo "Feature not available for OS X"
+				read -p "Press [enter] to continue..." ReadDamKey
+				dhcp_menu	
 			   fi
-		      else
-			   echo "Feature not avaliable for OS X"
-			   read -p "Press [enter] to continue..." ReadDamKey
-			   dhcp_menu
 		      fi
                       ;;
 	    ch_lease)
@@ -38104,7 +38103,7 @@ function dns_menu() {
 				echo "$hostIPAddr     IN    PTR    $fqdnName." >> /usr/local/etc/namedb/master/$domainName.rev
 				mv /etc/resolv.conf /etc/resolv.conf.org
 				echo "domain $domainName" >> /etc/resolv.conf
-				echo "nameserver $IP_ADDR" >> >> /etc/resolv.conf
+				echo "nameserver $IP_ADDR" >> /etc/resolv.conf
 				$(which sysrc) named_enable=YES
 				/usr/local/etc/rc.d/named start
 				if [ $? -eq 0 ]; then
