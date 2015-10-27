@@ -26,82 +26,78 @@ Key: * - todo
 
 11 - May change shell commands from bos.sysmgt.* to bos.shell.* []
 
-12 - may add option to update NIS database for user creation section [X]
+12 - May add kickstart for red hat, etc for debian and suse for remote install []
 
-13 - May add kickstart for red hat, etc for debian and suse for remote install []
-
-14 - Change user management for user modifications, to run sub-menu to ask for user name (stored as: $MASTER-USR) and replace
+13 - Change user management for user modifications, to run sub-menu to ask for user name (stored as: $MASTER-USR) and replace
      $userName with $MASTER-USR []
      
-15 - May add support for AIX, HP-UX and solaris []
+14 - May add support for AIX, HP-UX and solaris []
 
-16 - In conjuction with change 4, create log files seperators such as -- or ## between enteries (for command log enteries) []
+15 - In conjuction with change 4, create log files seperators such as -- or ## between enteries (for command log enteries) []
 
-17 - Overhaul remote management section, run with ssh, create sub-menus for ssh []
+16 - Overhaul remote management section, run with ssh, create sub-menus for ssh []
 
-18 - May remove OS X support []
+17 - May remove OS X support []
 
-19 - May add date/timestamp to log files []
+19 - May add fail2ban for SSH config [X]
 
-29 - May add linux intergration with MS AD [X]
+20 - May add func_ to function name [] (Example: func_main_menu())
 
-21 - May add fail2ban for SSH config []
+21 - For functions for OS X change from /osx to -osx (example: diskmgt/osx to diskmgt-osx) []
 
-22 - May add func_ to function name [] (Example: func_main_menu())
+22 - for delusr on linux, include option to delete users home directory, mail files, cron jobs, etc []
 
-23 - For functions for OS X change from /osx to -osx (example: diskmgt/osx to diskmgt-osx) []
+23 - may add default for mntPoint for disk mounting/unmounting []
 
-24 - for delusr on linux, include option to delete users home directory, mail files, cron jobs, etc []
+24 - With firewall management, add code to ensure that firewall is turned on []
 
-25 - may add default for mntPoint for disk mounting/unmounting []
+25 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # [X]
 
-26 - With firewall management, add code to ensure that firewall is turned on []
+26 - May add vulnrability check using lynis and tiger [X]
 
-27 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # []
+27 - Add support for diffrent desktop envronments for vnc []
 
-28 - May add vulnrability check using lynis and tiger []
+28 - May change cp for rsync -ah --progress []
 
-29 - Add support for diffrent desktop envronments for vnc []
+29 - May include support for oracle, postgres, and nginx []
 
-30 - May change cp for rsync -ah --progress []
+31 - May include support for Solaris (SunOS) []
 
-31 - May include support for oracle, postgres, and nginx []
+32 - For hostname change, change CURR_HOST to use $(hostname) []
 
-32 - May include support for Solaris (SunOS) []
+33 - For pkgmgt - include option to install program from source [X
 
-33 - For hostname change, change CURR_HOST to use $(hostname) []
+34 - for server management, will add uninstall section, to remove server and return system to pre-server stats [X
 
-34 - For pkgmgt - include option to install program from source []
+35 - May add suport for Apache hadoop []
 
-35 - for server management, will add uninstall section, to remove server and return system to pre-server stats []
+36 - May add suport for Sendmail []
 
-36 - May add suport for Apache hadoop []
+37 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code [X
 
-37 - May add suport for Sendmail []
+38 - May change licence to GNU GPL v3 []
 
-38 - May change rhel listing updates from yum list updates to yum check-updates []
+39 - May add OS and system hardening using bastille-linux [X
 
-39 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code []
+40 - May change root authentication using sudo -v, rather than id -g [X]
 
-40 - May change licence to GNU GPL v3 []
+41 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
 
-41 - May add OS and system hardening using bastille-linux []
+42 - May rename IP management to network management []
 
-42 - May change root authentication using sudo -v, rather than id -g []
+43 - May add option to create/delete MySQL database using mysqladmin []
 
-43 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
-
-44 - May rename to SMS - Systems management centeral []
-
-45 - May rename IP management to network management []
-
-46 - May add option to create/delete MySQL database using mysqladmin []
-
-47 - May add exception into new OS detection script - at end of if statement, will give else, and will echo out that
+44 - May add exception into new OS detection script - at end of if statement, will give else, and will echo out that
      the OS is ether not supported or the OS is unknown (echo back what kind of OS it is (echo $OS)) []
 
-48 - May add support for OpenBSD and NetBSD []
+45 - May add support for OpenBSD and NetBSD []
 
-49 - May add exit code checks for starting/stopping/restarting services []
+46 - May add exit code checks for starting/stopping/restarting services [X]
 
-50 - May change Active Directory config for rhel to use pbis insted of samba/kerberos (works for both v7.x and v6.x) []
+47 - May change Active Directory config for rhel to use pbis insted of samba/kerberos (works for both v7.x and v6.x) []
+
+48 - May create new security-submenu for security hardening, firewall, system security scanning, etc [X]
+
+49 - May add new OK/Fail screen for command completion using ASCII color [X]
+
+53 - May intergrate updFedora into the rest of the system upgrade section []
