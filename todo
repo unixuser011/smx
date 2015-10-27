@@ -7,25 +7,3 @@ Key: * - todo
      ? - not sure if fixed or not, will check 
      X - done 
      
-1 - May change success or fail screen to alot smaller version with just log file output and a small error/success message [X]  
-     
-2 - May change layout to not display commands and use help system with help command displaying information about all commands in that subMenu [X]
-
-3 - Add DNS (use BIND or NSD) to server management [X]
-
-4 - May change log to display date for all entries ([date] - ) [X]
-
-5 - For OS detection script - change to use /etc/redhat-release for redhat 6/7, /etc/debian_version, and /etc/issue for ubuntu (only where nessasary - if 6 and 7 follow the same path, then just keep same) [X]
-(if however, the path is difrent, like for example mysql/samba/openldap install, rhel 7 uses mariadb-server insted of mysql-server samba requires samba-client, openldap imports diffrent schemas) (may use /etc/os-release instead of distro-specific solution)
-
-6 - May add linux intergration with MS AD [X]
-
-7 - rewrite README file and compare to webmin, chef, cfengine, puppet, spacewalk and SCCM (Supports linux/OSX systems) [X]
-
-8 - With fix #7 include pros/cons of each [X]
-    
-9 - include support for BSD [X]
-
-10 - May combine user management for linux, OS X and BSD into one using OS detection script [X] - this also includes support for diffrent versions of rhel, when installing php, use epel and remi for install, seperate from rhelV6.x
-
-11 - For chadm - add OS detection [X]
