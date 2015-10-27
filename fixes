@@ -7,5 +7,3 @@ Key: * - todo
      ? - not sure if fixed or not, will check 
      X - done
 
-1 - Null IP_ADDR, HOST_NAME and NETINTF variables so that IP address, hostname and network interface 
-    is not set next time that the variable are called [X]
