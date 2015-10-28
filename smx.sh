@@ -127,23 +127,17 @@ echo "Program log files located in: /var/log/smx-log/<program>.log"
 echo
 echo "Checking privlage level, please wait..."
 sleep 2
-if [ $(id -g $(whoami)) != "0" ]; then
-     clear
-     echo "WARNING!! WARNING!! WARNING!!"
-     echo "#######################################################"
-     echo "!!ACCESS DENIED!!"
-     echo "ACCESS TO NON-ROOT USERS IS FORBIDDEN"
-     echo "ACCESS IS PERMITTED TO ROOT ONLY!!"
-     echo "THIS WILL BE REPORTED!!"
-     echo "#######################################################"
-     echo "WARNING!! WARNING!! WARNING!!"
-     echo ""
-     echo "DATE=$(date), CMD=$(basename $0), USER=$(whoami), UID=$(id -u), GID=$(id -g)
-     User: $(whoami) attempted to access SMX at: $(date) - this operation is not permitted" | mail -s "access violation - SMX" root@localhost
-     exit 1
+$(which sudo) -v >> /dev/null
+if [ $? -eq 0 ]; then
+     echo "User: $(whoami) successfully authenticatied"
 else
-     echo "User: $(whoami) Successfuly authenticated"
-fi     
+     clear
+     echo "User: $(whoami) is not allowed to run this program, this incident will be reported."
+     echo ""
+     echo "DATE=$(date), COMMAND=$(basename $0), USER=$(whoami), UID=$(id -u), GID=$(id -g)
+     User: $(whoami) attempted to access SMX at: $(date) - this operation is not permitted" | mail -s "*** SECURITY information for $(hostname) ***" root@localhost
+     exit 1
+fi
 
 echo "Checking log file location, please wait..."
 sleep 2
