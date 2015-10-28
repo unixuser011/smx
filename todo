@@ -6,4 +6,25 @@ Key: * - todo
      *** - Currently doing
      ? - not sure if fixed or not, will check 
      X - done 
-     
+
+1 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # []
+
+2 - May add vulnrability check using lynis and tiger []
+
+3 - For pkgmgt - include option to install program from source []
+
+4 - for server management, will add uninstall section, to remove server and return system to pre-server stats []
+
+5 - May add suport for Sendmail/postfix/dovecot []
+
+6 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code []
+
+7 - May add OS and system hardening using bastille-linux []
+
+8 - May change root authentication using sudo -v, rather than id -g []
+
+9 - May add exit code checks for starting/stopping/restarting services []
+
+10 - May create new security-submenu for security hardening, firewall, system security scanning, etc []
+
+11 - May add new OK/Fail screen for command completion using ASCII color []
