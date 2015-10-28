@@ -51,53 +51,33 @@ Key: * - todo
 
 24 - With firewall management, add code to ensure that firewall is turned on []
 
-25 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # [X]
+25 - Add support for diffrent desktop envronments for vnc []
 
-26 - May add vulnrability check using lynis and tiger [X]
+26 - May change cp for rsync -ah --progress []
 
-27 - Add support for diffrent desktop envronments for vnc []
+27 - May include support for oracle, postgres, and nginx []
 
-28 - May change cp for rsync -ah --progress []
+28 - May include support for Solaris (SunOS) []
 
-29 - May include support for oracle, postgres, and nginx []
+29 - For hostname change, change CURR_HOST to use $(hostname) []
 
-31 - May include support for Solaris (SunOS) []
+30 - May add suport for Apache hadoop []
 
-32 - For hostname change, change CURR_HOST to use $(hostname) []
+31 - May change licence to GNU GPL v3 []
 
-33 - For pkgmgt - include option to install program from source [X
+32 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
 
-34 - for server management, will add uninstall section, to remove server and return system to pre-server stats [X
+33 - May rename IP management to network management []
 
-35 - May add suport for Apache hadoop []
+34 - May add option to create/delete MySQL database using mysqladmin []
 
-36 - May add suport for Sendmail []
-
-37 - Change NIS, DHCP, MySQL, SSH and VNC start/stop/restart to check exit code [X
-
-38 - May change licence to GNU GPL v3 []
-
-39 - May add OS and system hardening using bastille-linux [X
-
-40 - May change root authentication using sudo -v, rather than id -g [X]
-
-41 - May change programs that are not initally found, and are found after install to not use $(which <commandName>), insted, use ther full path: /path/to/program []
-
-42 - May rename IP management to network management []
-
-43 - May add option to create/delete MySQL database using mysqladmin []
-
-44 - May add exception into new OS detection script - at end of if statement, will give else, and will echo out that
+35 - May add exception into new OS detection script - at end of if statement, will give else, and will echo out that
      the OS is ether not supported or the OS is unknown (echo back what kind of OS it is (echo $OS)) []
 
-45 - May add support for OpenBSD and NetBSD []
+36 - May add support for OpenBSD and NetBSD []
 
-46 - May add exit code checks for starting/stopping/restarting services [X]
+37 - May change Active Directory config for rhel to use pbis insted of samba/kerberos (works for both v7.x and v6.x) []
 
-47 - May change Active Directory config for rhel to use pbis insted of samba/kerberos (works for both v7.x and v6.x) []
+38 - May intergrate updFedora into the rest of the system upgrade section []
 
-48 - May create new security-submenu for security hardening, firewall, system security scanning, etc [X]
-
-49 - May add new OK/Fail screen for command completion using ASCII color [X]
-
-53 - May intergrate updFedora into the rest of the system upgrade section []
+39 - May remove yp and switch to LDAP []
