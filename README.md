@@ -306,3 +306,6 @@ Package management (For OS X):
 IP management (For OS X):
 
 [![SMX-ip-mgmt-osx](https://raw.githubusercontent.com/unixuser011/smx/master/screenshots/IP-management-OSX.JPG)](#smx-ip-mgmt-osx)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/unixuser011/smx/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
