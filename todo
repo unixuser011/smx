@@ -7,11 +7,11 @@ Key: * - todo
      ? - not sure if fixed or not, will check 
      X - done 
 
-1 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # []
+1 - Change prompt to: user@host:smx.sh/sub_menu/other_sub_menu # [X]
 
 2 - May add vulnrability check using lynis and tiger []
 
-3 - For pkgmgt - include option to install program from source []
+3 - For pkgmgt - include option to install program from source [*]
 
 4 - for server management, will add uninstall section, to remove server and return system to pre-server stats []
 
@@ -21,7 +21,7 @@ Key: * - todo
 
 7 - May add OS and system hardening using bastille-linux []
 
-8 - May change root authentication using sudo -v, rather than id -g []
+8 - May change root authentication using sudo -v, rather than id -g [X]
 
 9 - May add exit code checks for starting/stopping/restarting services []
 
