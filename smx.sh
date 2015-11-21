@@ -1038,16 +1038,6 @@ function usr_menu() {
                                         echo "" >> /var/log/smx-log/success.log
                                         read -p "Press [enter] to continue..." ReadDamKey
                                         clear
-                                        echo "        COMMAND STATUS          "
-                                        echo
-                                        echo "$(date)                                     $(whoami)@$(hostname)"
-                                        echo
-                                        echo "Before command completion, additional instructions may appear below"
-                                        echo
-                                        echo "File                                  Fileset                Type"
-                                        echo "-----------------------------------------------------------------"
-                                        echo "$(which pw)                           bos.usrmgt.pw          exec"
-                                        echo "Command run: $(which pw) useradd -u $USER_IDENT -d $USER_HOME -m -g $USER_GROUP -k $SKEL_DIR -s $USER_SHELL -n $USER_NAME"
                                         echo
                                         cat /var/log/smx-log/success.log | tail -n 7
                                         echo
@@ -1062,16 +1052,6 @@ function usr_menu() {
                                         echo "" >> /var/log/smx-log/fail.log
                                         read -p "Press [enter] to continue..." ReadDamKey
                                         clear
-                                        echo "        COMMAND STATUS          "
-                                        echo
-                                        echo "$(date)                                    $(whoami)@$(hostname)"
-                                        echo
-                                        echo "Before command completion, additional instructions may appear below"
-                                        echo
-                                        echo "File                                 Fileset                 Type"
-                                        echo "-----------------------------------------------------------------"
-                                        echo "$(which pw)                          bos.usrmgt.pw           exec"
-                                        echo "Command run: $(which pw) useradd -u $USER_IDENT -d $USER_HOME -m -g $USER_GROUP -k $SKEL_DIR -s $USER_SHELL -n $USER_NAME"
                                         echo
                                         cat /var/log/smx-log/fail.log | tail -n 7
                                         echo
@@ -2150,8 +2130,8 @@ function usr_menu() {
                          echo "#########################################################" >> /var/log/smx-log/fail.log
                          echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
                          echo "[$(date)] /etc/sudoers not modified, check command syntax" >> /var/log/smx-log/fail.log
-                    	   echo "[$(date)] Command run: $(which visudo)" >> /var/log/smx-log/fail.log
-                    	   echo "" >> /var/log/smx-log/fail.log
+                    	 echo "[$(date)] Command run: $(which visudo)" >> /var/log/smx-log/fail.log
+                    	 echo "" >> /var/log/smx-log/fail.log
                          echo "#########################################################" >> /var/log/smx-log/fail.log
                          read -p "Press [enter] to continue..." ReadDamKey
                          clear
@@ -2310,7 +2290,7 @@ function usr_menu() {
                                     echo "File                                 Fileset                 Type"
                                     echo "-----------------------------------------------------------------"
                                     echo "$(which pw)                          bos.usrmgt.pw           exec"
-				                            echo "$(which chsh)                        bos.usrmgt.chsh         exec"
+				    echo "$(which chsh)                        bos.usrmgt.chsh         exec"
                                     echo "Command run: $(which pw) lock $userName"
                                     echo "Command run: $(which chsh) -s $(which nologin) $userName"
                                     update_spinner
@@ -6089,8 +6069,15 @@ function sys_menu() {
                              echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
                              echo "[$(date)] Successfuly changed system run level from: $(who -r) to: $runLevel" >> /var/log/smx-log/success.log
                              echo "[$(date)] Command run: $(which init) $runLevel; exit" >> /var/log/smx-log/success.log
+			     echo "" >> /var/log/smx-log/success.log
                              echo "##################################################################" >> /var/log/smx-log/success.log
                              echo "" >> /var/log/smx-log/success.log
+			     clear
+			     read -p "Press [enter] to continue..." ReadDamKey
+			     echo
+			     cat /var/log/smx-log/success.log | tail -n 7
+			     echo
+			     read -p "Press [enter] to continue..." ReadDamKey
                              $(which init) $runLevel; exit
                         else
                              clear
@@ -6397,28 +6384,6 @@ function sys_menu() {
                                 echo "#####################################################" >> /var/log/smx-log/success.log
                                 echo "" >> /var/log/smx-log/success.log
                                 read -p "Press [enter] to continue..." ReadDamKey
-                                clear
-                                echo "         COMMAND STATUS                  "
-                                echo
-                                echo "$(date)                                     $(whoami)@$(hostname)"
-                                echo
-                                echo "Command: OK         stdout: yes    stderr: no     "
-                                echo
-                                echo "Before command completion, additional instructions may appear below"
-                                echo
-                                echo "File                                 Fileset                 Type"
-                                echo "-----------------------------------------------------------------"
-                                echo "$(which cp)                          bos.sysmgt.cp           exec"
-                                echo "$(which unzip)                       bos.sysmgt.unzip        exec"
-                                echo "$(which pax)                         bos.sysmgt.pax          exec"
-                                echo "$(which chown)                       bos.sysmgt.chown        exec"
-                                echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-                                echo "Command run: $(which cp) $bakLoc $restLoc"
-                                echo "Command run: $(which unzip) $restLoc$bakName.zip"
-                                echo "Command run: $(which pax) -rf bakName"
-                                echo "Command run: $(which chown) -R $userGroup $restLoc*"
-                                echo "Command run: $(which chmod) -R a+rwx $restLoc*"
-                                read -p "Press [enter] to continue..." ReadDamKey
                           fi
                      else
                           $(which uname) | grep Darwin >> /dev/null
@@ -6576,11 +6541,6 @@ function sys_menu() {
                                      echo "#####################################################" >> /var/log/smx-log/success.log
                                      echo "" >> /var/log/smx-log/success.log
                                      read -p "Press [enter] to continue..." ReadDamKey
-                                     clear
-                                     echo
-                                     cat /var/log/smx-log/success.log | tail -n 9
-                                     echo
-                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else
                                $(which uname) | grep BSD >> /dev/null
@@ -6731,38 +6691,6 @@ function sys_menu() {
                                           $(which pax) -rf $restLoc$bakName
                                           $(which chown) -R $userGroup $restLoc*
                                           $(which chmod) -R a+rwx $restLoc*
-                                          echo "#####################################################" >> /var/log/smx-log/success.log
-                                          echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Successfuly restored backup to: $bakLoc" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Command run: $(which cp) $bakLoc$bakName.zip $restLoc" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Command run: $(which unzip) $restLoc$bakName.zip" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Command run: $(which pax) -rf $restLoc$bakName" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Command run: $(which chown) -R $userGroup $restLoc*" >> /var/log/smx-log/success.log
-                                          echo "[$(date)] Command run: $(which chmod) -R a+rwx $restLoc*" >> /var/log/smx-log/success.log
-                                          echo "#####################################################" >> /var/log/smx-log/success.log
-                                          echo "" >> /var/log/smx-log/success.log
-                                          read -p "Press [enter] to continue..." ReadDamKey
-                                          clear
-                                          echo "         COMMAND STATUS                  "
-                                          echo
-                                          echo "$(date)                                     $(whoami)@$(hostname)"
-                                          echo
-                                          echo "Command: OK         stdout: yes    stderr: no     "
-                                          echo
-                                          echo "Before command completion, additional instructions may appear below"
-                                          echo
-                                          echo "File                                 Fileset                 Type"
-                                          echo "-----------------------------------------------------------------"
-                                          echo "$(which cp)                          bos.sysmgt.cp           exec"
-                                          echo "$(which unzip)                       bos.sysmgt.unzip        exec"
-                                          echo "$(which pax)                         bos.sysmgt.pax          exec"
-                                          echo "$(which chown)                       bos.sysmgt.chown        exec"
-                                          echo "$(which chmod)                       bos.sysmgt.chmod        exec"
-                                          echo "Command run: $(which cp) $bakLoc $restLoc"
-                                          echo "Command run: $(which unzip) $restLoc$bakName.zip"
-                                          echo "Command run: $(which pax) -rf bakName"
-                                          echo "Command run: $(which chown) -R $userGroup $restLoc*"
-                                          echo "Command run: $(which chmod) -R a+rwx $restLoc*"
                                           read -p "Press [enter] to continue..." ReadDamKey
                                     fi     
                                fi
@@ -7797,7 +7725,7 @@ function ip_menu() {
                             echo "OS = OS X"
                             echo "$(date)                                     $(whoami)@$(hostname)"
                             echo "[TOP]                                     [Entry Fields]"
-                            printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                            printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                             if [ "$netIntf" = "" ]; then
                                   NETINTF=""
                                   read netIntf
@@ -7805,7 +7733,7 @@ function ip_menu() {
                             fi
                             if [ "$netIntf" = "" ]; then
                                   NETINTF=""
-                                  NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                  NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                             fi
                             clear
                             echo "        COMMAND STATUS                "
@@ -7857,7 +7785,7 @@ function ip_menu() {
                             if [ $? -eq 0 ]; then
                                  clear
                                  echo "OS = BSD"
-                                 printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                                 printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                                  if [ "$netIntf" = "" ]; then
                                        NETINTF=""
                                        read netIntf
@@ -7865,7 +7793,7 @@ function ip_menu() {
                                  fi
                                  if [ "$netIntf" = "" ]; then
                                        NETINTF=""
-                                       NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                       NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                                  fi
                                  clear
                                  echo "        COMMAND STATUS                "
@@ -7988,7 +7916,7 @@ function ip_menu() {
                                echo "$(date)                                     $(whoami)@$(hostname)"
                                echo "Ethernet: eth0, wireless: wlan0"
                                echo "[TOP]                                     [Entry Fields]"
-                               printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                               printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                                if [ "$netIntf" = "" ]; then
                                      NETINTF=""
                                      read netIntf
@@ -7996,7 +7924,7 @@ function ip_menu() {
                                fi
                                if [ "$netIntf" = "" ]; then
                                      NETINTF=""
-                                     NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                     NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                                fi       
                                clear
                                echo "         COMMAND STATUS                  "
@@ -8048,7 +7976,7 @@ function ip_menu() {
                                if [ $? -eq 0 ]; then
                                     clear
                                     echo "OS = BSD"
-                                    printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                                    printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                                     if [ "$netIntf" = "" ]; then
                                           NETINTF=""
                                           read netIntf
@@ -8056,7 +7984,7 @@ function ip_menu() {
                                     fi
                                     if [ "$netIntf" = "" ]; then
                                           NETINTF=""
-                                          NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                          NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                                     fi
                                     clear
                                     echo "         COMMAND STATUS                  "
@@ -9192,88 +9120,115 @@ function ip_menu() {
                                  echo "OS = BSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                     [Entry Fields]"
-                                 read -p " Enter new IP address ----------------- > " newipAddr
-                                 read -p " Enter new netmask -------------------- > " netMask
-                                 read -p " Enter new default route -------------- > " defGway
-                                 read -p " Enter new DNS server address --------- > " dnsSrvAddr
-                                 printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                                 printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface : / {print $2}')]"]
                                  if [ "$netIntf" = "" ]; then
-                                       NETINTF=""
-                                       read netIntf
-                                       NETINTF=$netIntf
-                                 fi
-                                 if [ "$netIntf" = "" ]; then
-                                       NETINTF=""
-                                       NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
-                                 fi
-                                 printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] -------------- > "
-                                 if [ "$ipAddr" = "" ]; then
-                                       IP_ADDR=""
-                                       read ipAddr
-                                       IP_ADDR=$ipAddr
-                                 fi
-                                 if [ "$ipAddr" = "" ]; then
-                                       IP_ADDR=""
-                                       IP_ADDR=$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')
-                                 fi
-                                 clear
-                                 echo "             COMMAND STATUS                    "
-                                 echo
-                                 echo "$(date)                                     $(whoami)@$(hostname)"
-                                 echo
-                                 echo "Command: RUNNING    stdout: yes    stderr: no     "
-                                 echo
-                                 echo "Before command completion, additional instructions may appear below"
-                                 echo
-                                 echo "File                                  Fileset                Type"
-                                 echo "-----------------------------------------------------------------"
-                                 echo "$(which sed)                          bos.sysmgt.sed         exec"
-                                 echo "Command run: $(which sed) -i 's/inet $IP_ADDR netmask $netMask/inet $newipAddr netmask $netMask/g' /etc/rc.conf"
-                                 echo "Command run: $(which sed) -i 's/$currdefGway/$defGway/g' /etc/rc.conf"
-                                 echo "Command run: $(which sed) -i 's/defaultrouter/#defaultrouter/g' /etc/rc.conf"
-                                 echo "Command run: $(which sed) -i 's/nameserver/#nameserver/g' /etc/rc.conf"
-                                 sleep 2
-                                 update_spinner
-                                 sleep 1
-                                 update_spinner
-                                 echo "Setting static IP address: $newipAddr"
-                                 sleep 1
-                                 update_spinner
-                                 sleep 1
-                                 $(which sed) -i 's/inet $IP_ADDR netmask $netMask/inet $newipAddr netmask $netMask/g' /etc/rc.conf
-                                 if [ $? -eq 0 ]; then
-                                      echo "#######################################################################################################################" >> /var/log/smx-log/success.log
-                                      echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
-                                      echo "[$(date)] Successfuly changed IP address from: $IP_ADDR to: $newipAddr" >> /var/log/smx-log/success.log
-                                      echo "[$(date)] Command run: $(which sed) -i 's/inet $IP_ADDR netmask $netMask/inet $newipAddr netmask $netMask' /etc/rc.conf" >> /var/log/smx-log/success.log
-                                      echo "" >> /var/log/smx-log/success.log
-                                      echo "#######################################################################################################################" >> /var/log/smx-log/success.log
-                                      echo "" >> /var/log/smx-log/success.log
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                      clear
-                                      echo
-                                      cat /var/log/smx-log/success.log | tail -n 7
-                                      echo
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                 else
-                                      echo "#######################################################################################################################" >> /var/log/smx-log/fail.log
-                                      echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
-                                      echo "[$(date)] Not changed IP address from: $IP_ADDR to $newipAddr, check command syntax" >> /var/log/smx-log/fail.log
-                                      echo "[$(date)] Command run: $(which sed) -i 's/inet $IP_ADDR netmask $netMask/inet $newipAddr netmask $netMask' /etc/rc.conf" >> /var/log/smx-log/fail.log
-                                      echo "" >> /var/log/smx-log/fail.log
-                                      echo "#######################################################################################################################" >> /var/log/smx-log/fail.log
-                                      echo "" >> /var/log/smx-log/fail.log
-                                      read -p "Press [enter] to continue.." ReadDamKey
-                                      clear
-                                      echo
-                                      cat /var/log/smx-log/fail.log | tail -n 7
-                                      echo
-                                      read -p "Press [enter] to continue..." ReadDamKey
-                                 fi     
-                            fi
-                       fi
+				       NETINTF=""
+				       read netIntf
+				       NETINTF=$netIntf
+				 fi
+				 if [ "$netIntf" = "" ]; then
+				       NETINTF=""
+				       NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | auk '/interface : / {print $2}')
+				 fi
+				 read -p " Enter new IP address ----------------- > " ipAddr
+				 read -p " Enter netmask ------------------------ > " netMask
+				 read -p " Enter default gateway ---------------- > " defGway
+				 read -p " Enter DNS server address ------------- > " dnsSrvAddr
+				 clear
+				 echo "         COMMAND STATUS                       "
+				 echo
+				 echo "$(date)                                     $(whoami)@$(hostname)"
+				 echo
+				 echo "Command: RUNNING    stdout: yes    stderr: no     "
+				 echo
+				 echo "Before command completion, additional instructions may appear below"
+				 echo
+				 echo "File                                 Fileset                 Type"
+				 echo "-----------------------------------------------------------------"
+				 echo "$(which sed)                         bos.sysmgt.sed          exec"
+				 echo "/etc/rc.d/netif                      bos.sysmgt.netif        exec"
+				 echo "/etc/rc.d/routing                    bos.sysmgt.routing      exec"
+				 echo "Command run: $(which sed) -i 's/ifconfig_$NETINTF/#ifconfig_$NETINTF/g' /etc/rc.conf"
+				 echo "Command run: $(which sed) -i 's/defaultrouter/#defaultrouter/g' /etc/rc.conf"
+				 echo "Command run: /etc/rc.d/netif restart"
+				 echo "Command run: /etc/rc.d/routing restart"
+				 sleep 2
+				 update_spinner
+				 sleep 1
+				 update_spinner
+				 echo "Setting static IP address: $ipAddr on interface: $NETINTF"
+				 sleep 1
+				 update_spinner
+				 sleep 1
+				 $(which sed) -i 's/ifconfig_$NETINTF/#ifconfig_$NETINTF/g' /etc/rc.conf
+				 $(which sed) -i 's/defaultrouter/#defaultrouter/g' /etc/rc.conf
+				 echo "ifconfig_$NETINTF="'"inet $ipAddr netmask $netMask"'"" >> /etc/rc.conf
+				 echo "defaultrouter="'"$defGway"'"" >> /etc/rc.conf
+				 echo "nameserver $dnsSrvAddr" >> /etc/rc.conf
+				 /etc/rc.d/netif restart
+				 if [ $? -eq 0 ]; then
+				      echo "###########################################################################################" >> /var/log/smx-log/success.log
+				      echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+				      echo "[$(date)] Successfully changed IP address to: $ipAddr on interface: $NETINTF" >> /var/log/smx-log/success.log
+				      echo "[$(date)] Command run: echo ifconfig_$NETINTF=inet $ipAddr netmask $netMask >> /etc/rc.conf" >> /var/log/smx-log/success.log
+				      echo "" >> /var/log/smx-log/success.log
+				      echo "###########################################################################################" >> /var/log/smx-log/success.log
+				      echo "" >> /var/log/smx-log/success.log
+				      read -p "Press [enter] to continue..." ReadDamKey
+				      clear
+				      echo
+				      cat /var/log/smx-log/success.log | tail -n 7
+				      echo
+				      read -p "Press [enter] to continue..." ReadDamKey
+				 else
+				      echo "###########################################################################################" >> /var/log/smx-log/fail.log
+				      echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+				      echo "[$(date)] Not changed IP address to: $ipAddr on interface: $NETINTF, check command syntax" >> /var/log/smx-log/fail.log
+				      echo "[$(date)] Command run: echo ifconfig_$NETINTF=inet $ipAddr netmask $netMask >> /etc/rc.conf" >> /var/log/smx-log/fail.log
+				      echo "" >> /var/log/smx-log/fail.log
+				      echo "###########################################################################################" >> /var/log/smx-log/fail.log
+				      echo "" >> /var/log/smx-log/fail.log
+				      read -p "Press [enter] to continue..." ReadDamKey
+				      clear
+				      echo
+				      cat /var/log/smx-log/fail.log | tail -n 7
+				      echo
+				      read -p "Press [enter] to continue..." ReadDamKey
+				 fi
+				 /etc/rc.d/routing restart
+				 if [ $? -eq 0 ]; then
+				      echo "###########################################################################################" >> /var/log/smx-log/success.log
+				      echo "Log file started at: $(date)" >> /var/log/smx-log/success.log
+				      echo "[$(date)] Successfully restarted routing" >> /var/log/smx-log/success.log
+				      echo "[$(date)] Command run: /etc/rc.d/routing restart" >> /var/log/smx-log/success.log
+				      echo "" >> /var/log/smx-log/success.log
+				      echo "###########################################################################################" >> /var/log/smx-log/success.log
+				      echo "" >> /var/log/smx-log/success.log
+				      read -p "Press [enter] to continue..." ReadDamKey
+				      clear
+				      echo
+				      cat /var/log/smx-log/success.log | tail -n 7
+				      echo
+				      read -p "Press [enter] to conitnue..." ReadDamKey
+				 else
+				      echo "###########################################################################################" >> /var/log/smx-log/fail.log
+				      echo "Log file started at: $(date)" >> /var/log/smx-log/fail.log
+				      echo "[$(date)] Not restarted routing, check command syntax" >> /var/log/smx-log/fail.log
+				      echo "[$(date)] Command run: /etc/rc.d/routing restart" >> /var/log/smx-log/fail.log
+				      echo "" >> /var/log/smx-log/fail.log
+				      echo "############################################################################################" >> /var/log/smx-log/fail.log
+				      echo "" >> /var/log/smx-log/fail.log
+				      read -p "Press [enter] to conitnue..." ReadDamKey
+				      clear
+				      echo
+				      cat /var/log/smx-log/fail.log | tail -n 7
+				      echo
+				      read -p "Press [enter] to continue..." ReadDamKey
+				 fi
+			    fi
+		       fi
                   fi
-                  ;;
+		  ;;
 	   down)
                   clear
                   $(which uname) | grep Linux >> /dev/null
@@ -9355,7 +9310,7 @@ function ip_menu() {
                             echo "OS = OS X"
                             echo "$(date)                                     $(whoami)@$(hostname)"
                             echo "[TOP]                                    [Entry Fields]"
-                            printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                            printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                             if [ "$netIntf" = "" ]; then
                                   NETINTF=""
                                   read netIntf
@@ -9363,7 +9318,7 @@ function ip_menu() {
                             fi
                             if [ "$netIntf" = "" ]; then
                                   NETINTF=""
-                                  NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                  NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                             fi        
                             clear
                             echo "         COMMAND STATUS                     "
@@ -9428,7 +9383,7 @@ function ip_menu() {
                                  echo "OS = BSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                    [Entry Fields]"
-                                 printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                                 printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                                  if [ "$netIntf" = "" ]; then
                                        NETINTF=""
                                        read netIntf
@@ -9436,7 +9391,7 @@ function ip_menu() {
                                  fi
                                  if [ "$netIntf" = "" ]; then
                                        NETINTF=""
-                                       NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                       NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                                  fi        
                                  clear
                                  echo "         COMMAND STATUS                     "
@@ -9599,7 +9554,7 @@ function ip_menu() {
                           echo "OS = OS X"
                           echo "$(date)                                     $(whoami)@$(hostname)"
                           echo "[TOP]                                    [Entry Fields]"
-                          printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                          printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                           if [ "$netIntf" = "" ]; then
                                 NETINTF=""
                                 read netIntf
@@ -9607,7 +9562,7 @@ function ip_menu() {
                           fi
                           if [ "$netIntf" = "" ]; then
                                 NETINTF=""
-                                NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                           fi        
                           clear
                           echo "         COMMAND STATUS                     "
@@ -9672,7 +9627,7 @@ function ip_menu() {
                                echo "OS = BSD"
                                echo "$(date)                                     $(whoami)@$(hostname)"
                                echo "[TOP]                                    [Entry Fields]"
-                               printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                               printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                                if [ "$netIntf" = "" ]; then
                                      NETINTF=""
                                      read netIntf
@@ -9680,7 +9635,7 @@ function ip_menu() {
                                fi
                                if [ "$netIntf" = "" ]; then
                                      NETINTF=""
-                                     NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                                     NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                                fi        
                                clear
                                echo "         COMMAND STATUS                     "
@@ -11148,7 +11103,7 @@ function fire_menu() {
                     echo "$(date)                                     $(whoami)@$(hostname)"
                     echo "FreeBSD version example: 10.1"
                     echo "[TOP]                                   [Entry Fields]"
-                    printf " Enter network interface [$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
+                    printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                     if [ "$netIntf" = "" ]; then
                           NETINTF=""
                           read netIntf
@@ -11156,7 +11111,7 @@ function fire_menu() {
                     fi
                     if [ "$netIntf" = "" ]; then
                           NETINTF=""
-                          NETINTF=$(route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
+                          NETINTF=$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')
                     fi
                     printf " Enter server IP address [$(ifconfig $NETINTF | awk '/inet / { print $2 }' | sed 's/addr://')] -------------------------- > "
                     if [ "$ipAddr" = "" ]; then
