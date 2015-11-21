@@ -41,8 +41,8 @@
 # Added date/timestamp for log file
 # Changed OS detection script, changed for distro-specific instructions/packages (ie, rhel v7 uses samba-client, rhel v6 doesn't)
 # Added full intergration for Microsoft Active Directory
-# Added full support BSD
-# Combined Linux, OS X and BSD into one with OS detection script
+# Added full support FreeBSD
+# Combined Linux, OS X and FreeBSD into one with OS detection script
 ##
 
 # Usage for flags - START
@@ -934,10 +934,10 @@ function usr_menu() {
                               echo
                               read -p "Press [enter] to continue..." ReadDamKey
                          else
-                              $(which uname) | grep BSD >> /dev/null
+                              $(which uname) | grep FreeBSD >> /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-                                   echo "OS = BSD"
+                                   echo "OS = FreeBSD"
                                    echo "$(date)                                     $(whoami)@$(hostname)"
                                    echo "[TOP]                                             [Entry Fields]"
                                    printf " Enter username [guest] ------------------------ > "
@@ -1069,7 +1069,7 @@ function usr_menu() {
             	    if [ $? -eq 0 ]; then
     			 echo "OS = Linux"
     		    else
-                	 echo "Option not availible for OS X and BSD"
+                	 echo "Option not availible for OS X and FreeBSD"
                 	 usr_menu
               	    fi 
               	    # System user - controling deamon like stuff only (I think :-))
@@ -1411,10 +1411,10 @@ function usr_menu() {
                                    read -p "Press [enter] to continue..." ReadDamKey
                               fi
                          else
-                              $(which uname) | grep BSD >> /dev/null
+                              $(which uname) | grep FreeBSD >> /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-                                   echo "OS = BSD"
+                                   echo "OS = FreeBSD"
                                    echo "$(date)                                     $(whoami)@$(hostname)"
                                    echo "[TOP]                                    [Entry Fields]"
                                    read -p " Enter username ---------------------- > " userName
@@ -1610,10 +1610,10 @@ function usr_menu() {
                                  read -p "Press [enter] to continue..." ReadDamKey
                             fi
                        else
-                            $(which uname) | grep BSD >> /dev/null
+                            $(which uname) | grep FreeBSD >> /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-                                 echo "OS = BSD"
+                                 echo "OS = FreeBSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                    [Entry Fields]"
                                  read -p " Enter username ---------------------- > " userName
@@ -1837,10 +1837,10 @@ function usr_menu() {
                               fi
                               $(which rm) -rf /Users/$userName
                          else
-                              $(which uname) | grep BSD >> /dev/null
+                              $(which uname) | grep FreeBSD >> /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-                                   echo "OS = BSD"
+                                   echo "OS = FreeBSD"
                                    echo "$(date)                                     $(whoami)@$(hostname)"
                                    echo "[TOP]                                     [Entry Fields]"
                                    read -p " Enter username ----------------------- > " userName
@@ -2271,10 +2271,10 @@ function usr_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     echo "$(date)                                     $(whoami)@$(hostname)"
                                     echo "[TOP]                                     [Entry Fields]"
                                     read -p " Enter username ----------------------- > " userName
@@ -2490,10 +2490,10 @@ function usr_menu() {
                                    read -p "Press [enter] to continue..." ReadDamKey
                               fi
                          else
-                              $(which uname) | grep BSD >> /dev/null
+                              $(which uname) | grep FreeBSD >> /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-                                   echo "OS = BSD"
+                                   echo "OS = FreeBSD"
                                    echo "$(date)                                     $(whoami)@$(hostname)"
                                    echo "[TOP]                                    [Entry Fields]"
                                    read -p " Enter username ---------------------- > " userName
@@ -2991,10 +2991,10 @@ function dsk_menu() {
                               read -p "Press [enter] to continue..." ReadDamKey
                         fi
                    else
-                        $(which uname) | grep BSD
+                        $(which uname) | grep FreeBSD
                         if [ $? -eq 0 ]; then
                              clear
-                             echo "OS = BSD"
+                             echo "OS = FreeBSD"
                              echo "$(date)                                     $(whoami)@$(hostname)"
                              echo "[TOP]                                                [Entry Fields]"
                              printf " Enter /dev/ disk name [/dev/ada0] ---------------- > "
@@ -3264,10 +3264,10 @@ function dsk_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else     
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     echo "         COMMAND STATUS                 "
                                     echo
                                     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -3508,7 +3508,7 @@ function dsk_menu() {
                                       read -p "Press [enter] to continue..." ReadDamKey
                                  fi
                             else    
-                                 echo "Option not avalible for BSD"
+                                 echo "Option not avalible for FreeBSD"
                                  read -p "Press [enter] to continue..." ReadDamKey
                                  dsk_menu
                             fi     
@@ -3769,7 +3769,7 @@ function dsk_menu() {
                                 MNT_POINT=""
 			        MNT_POINT=/mnt/disk
 			  fi
-                          read -p " Eject disk after unmount (Option not avalible for OS X and BSD) ---------- (Y/N) > " ans	
+                          read -p " Eject disk after unmount (Option not avalible for OS X and FreeBSD) ---------- (Y/N) > " ans	
                           clear
                           echo "         COMMAND STATUS                      "
                           echo
@@ -3842,7 +3842,7 @@ function dsk_menu() {
                           if [ $? -eq 0 ]; then
                                echo "OS = Linux"
                           else
-                               echo "Option not avalible for OS X and BSD"
+                               echo "Option not avalible for OS X and FreeBSD"
                                read -p "Press [enter] to continue..." ReadDamKey
                                dsk_menu
                           fi
@@ -4175,7 +4175,7 @@ function dsk_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else
-                               echo "Option not avalible for BSD"
+                               echo "Option not avalible for FreeBSD"
                                read -p "Press [enter] to continue..." ReadDamKey
                                dsk_menu
                           fi           
@@ -4408,10 +4408,10 @@ function dsk_menu() {
                                   read -p "Press [enter] to continue..." ReadDamKey
                              fi
                         else
-                             $(which uname) | grep BSD >> /dev/null
+                             $(which uname) | grep FreeBSD >> /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = BSD"
+                                  echo "OS = FreeBSD"
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "Filesystem: 1 = UFS1, 2 = UFS2"
                                   echo "[TOP]                                            [Entry Fields]"
@@ -4787,10 +4787,10 @@ function dsk_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     echo "$(date)                                     $(whoami)@$(hostname)"
                                     echo "Filesystem: 1 = UFS1, 2 = UFS2"
                                     echo "[TOP]                                   [Entry Fields]"
@@ -5179,10 +5179,10 @@ function dsk_menu() {
                                       read -p "Press [enter] to continue..." ReadDamKey
                                  fi
                             else
-                                 $(which uname) | grep BSD
+                                 $(which uname) | grep FreeBSD
                                  if [ $? -eq 0 ]; then
                                       clear
-                                      echo "OS = BSD"
+                                      echo "OS = FreeBSD"
                                       echo "$(date)                                     $(whoami)@$(hostname)"
                                       echo "[TOP]                                     [Entry Fields]"
                                       printf " Enter /dev/ disk name [/dev/ada0] ------ > "
@@ -5962,10 +5962,10 @@ function sys_menu() {
                                fi
                           else
                                clear
-                               $(which uname) | grep BSD
+                               $(which uname) | grep FreeBSD
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     echo "          COMMAND STATUS                "
                                     echo
                                     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -6081,7 +6081,7 @@ function sys_menu() {
                              $(which init) $runLevel; exit
                         else
                              clear
-                             echo "Feature not avalible for OS X or BSD"
+                             echo "Feature not avalible for OS X or FreeBSD"
                              read -p "Press [enter] to continue..." ReadDamKey
                         fi
                         ;;
@@ -6134,10 +6134,10 @@ function sys_menu() {
                                read -p "Press [enter] to continue..." ReadDamKey
                           fi
                      else
-                          $(which uname) | grep BSD
+                          $(which uname) | grep FreeBSD
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "        COMMAND STATUS       "
                                echo
                                echo "$(date)                                     $(whoami)@$(hostname)"
@@ -6543,10 +6543,10 @@ function sys_menu() {
                                      read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     $(which zip) >> /dev/null
                                     if [ $? -eq 0 ]; then
                                          clear
@@ -6767,10 +6767,10 @@ function sys_menu() {
                          fi
                     else
                          clear
-                         $(which uname) | grep BSD
+                         $(which uname) | grep FreeBSD
                          if [ $? -eq 0 ]; then
                               clear
-                              echo "OS = BSD"
+                              echo "OS = FreeBSD"
                               echo "$(date)                                     $(whoami)@$(hostname)"
                               echo "Permissions example: rwx"
                               echo "[TOP]                              [Entry Fields]"
@@ -6902,7 +6902,7 @@ function sys_menu() {
                              echo "OS = Linux"
                         else
                              clear
-                             echo "Feature not avalible on OS X and BSD"
+                             echo "Feature not avalible on OS X and FreeBSD"
                         fi          
                         echo "$(date)                                     $(whoami)@$(hostname)"
                         echo "Valid selinux security ratings: enforcing, permissive, disabled"
@@ -7125,10 +7125,10 @@ function sys_menu() {
                              read -p "Press [enter] to continue..." ReadDamKey     
                         fi
                    else
-                        $(which uname) | grep BSD >> /dev/null
+                        $(which uname) | grep FreeBSD >> /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-                             echo "OS = BSD"
+                             echo "OS = FreeBSD"
                              $(which nmap) >> /dev/null
                              if [ $? -eq 0 ]; then
                                  echo "nmap found in PATH"
@@ -7503,10 +7503,10 @@ function sys_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     $(which nmap) >> /dev/null
                                     if [ $? -eq 0 ]; then
                                          echo "Nmap found in $PATH"
@@ -7781,10 +7781,10 @@ function ip_menu() {
                                  read -p "Press [enter] to continue..." ReadDamKey
                             fi
                        else
-                            $(which uname) | grep BSD
+                            $(which uname) | grep FreeBSD
                             if [ $? -eq 0 ]; then
                                  clear
-                                 echo "OS = BSD"
+                                 echo "OS = FreeBSD"
                                  printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                                  if [ "$netIntf" = "" ]; then
                                        NETINTF=""
@@ -7972,10 +7972,10 @@ function ip_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi
                           else
-                               $(which uname) | grep BSD
+                               $(which uname) | grep FreeBSD
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                                     if [ "$netIntf" = "" ]; then
                                           NETINTF=""
@@ -8602,10 +8602,10 @@ function ip_menu() {
                                     echo "System will not be rebooted"
                               fi
                          else
-                              $(which uname) | grep BSD >> /dev/null
+                              $(which uname) | grep FreeBSD >> /dev/null
                               if [ $? -eq 0 ]; then
                                    clear
-                                   echo "OS = BSD"
+                                   echo "OS = FreeBSD"
                                    echo "$(date)                                     $(whoami)@$(hostname)"
                                    CURR_HOST=`$(hostname)`
                                    echo "[TOP]                                     [Entry Fields]"
@@ -9114,10 +9114,10 @@ function ip_menu() {
                                   echo "The system will not reboot"
                             fi
                        else
-                            $(which uname) | grep BSD >> /dev/null
+                            $(which uname) | grep FreeBSD >> /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-                                 echo "OS = BSD"
+                                 echo "OS = FreeBSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                     [Entry Fields]"
                                  printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface : / {print $2}')]"]
@@ -9377,10 +9377,10 @@ function ip_menu() {
                                  read -p "Press [enter] to continue..." ReadDamKey
                             fi
                        else
-                            $(which uname) | grep BSD >> /dev/null
+                            $(which uname) | grep FreeBSD >> /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-                                 echo "OS = BSD"
+                                 echo "OS = FreeBSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                    [Entry Fields]"
                                  printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
@@ -9621,10 +9621,10 @@ function ip_menu() {
                               read -p "Press [enter] to continue..." ReadDamKey
                           fi
                      else
-                          $(which uname) | grep BSD
+                          $(which uname) | grep FreeBSD
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "$(date)                                     $(whoami)@$(hostname)"
                                echo "[TOP]                                    [Entry Fields]"
                                printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
@@ -10077,7 +10077,7 @@ function ip_menu() {
                              $(which uname) | grep >> /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = BSD"
+                                  echo "OS = FreeBSD"
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "[TOP]                          [Entry Fields]"
                                   read -p " Enter ip address ---------- > " ipAddr
@@ -10351,10 +10351,10 @@ function fire_menu() {
                                read -p "Press [enter] to continue..." ReadDamKey
                           fi
                      else
-                          $(which uname) | grep BSD >> /dev/null
+                          $(which uname) | grep FreeBSD >> /dev/null
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "          COMMAND STATUS               "
                                echo
                                echo "$(date)                                     $(whoami)@$(hostname)"
@@ -10497,10 +10497,10 @@ function fire_menu() {
                              fi
                              $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                         else
-                             $(which uname) | grep BSD >> /dev/null
+                             $(which uname) | grep FreeBSD >> /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = BSD"
+                                  echo "OS = FreeBSD"
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "[TOP]                                    [Entry Fields]"
                                   read -p " Enter port -------------------------- > " firePort
@@ -10682,10 +10682,10 @@ function fire_menu() {
                               fi
                               $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                          else
-                              $(which uname) | grep BSD
+                              $(which uname) | grep FreeBSD
                               if [ $? -eq 0 ]; then
                                    clear
-                                   echo "OS = BSD"
+                                   echo "OS = FreeBSD"
                                    echo "$(date)                                     $(whoami)@$(hostname)"
                                    echo "[TOP]                                     [Entry Fields]"
                                    read -p " Enter port --------------------------- > " firePort
@@ -10866,10 +10866,10 @@ function fire_menu() {
                                 fi
                                 $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                            else
-                                $(which uname) | grep BSD >> /dev/null
+                                $(which uname) | grep FreeBSD >> /dev/null
                                 if [ $? -eq 0 ]; then
                                      clear
-                                     echo "OS = BSD"
+                                     echo "OS = FreeBSD"
                                      echo "$(date)                                     $(whoami)@$(hostname)"
                                      echo "[TOP]                                   [Entry Fields]"
                                      read -p " Enter domain name ------------------ > " domainName
@@ -11017,10 +11017,10 @@ function fire_menu() {
                             fi
                             $(which iptables-save) | $(which tee) /var/log/smx-log/iptables-save.log
                        else
-                            $(which uname) | grep BSD >> /dev/null
+                            $(which uname) | grep FreeBSD >> /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-                                 echo "OS = BSD"
+                                 echo "OS = FreeBSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                     [Entry Fields]"
                                  read -p " Enter IP address --------------------- > " ipAddr
@@ -11090,10 +11090,10 @@ function fire_menu() {
                        fi
                        ;;
             setup)
-                    $(which uname) | grep BSD
+                    $(which uname) | grep FreeBSD
                     if [ $? -eq 0 ]; then
                          clear
-                         echo "OS = BSD"
+                         echo "OS = FreeBSD"
                     else
                          clear
                          echo "Feature not avalible for Linux or OS X"
@@ -11101,7 +11101,7 @@ function fire_menu() {
                          fire_menu
                     fi
                     echo "$(date)                                     $(whoami)@$(hostname)"
-                    echo "FreeBSD version example: 10.1"
+                    echo "FreeFreeBSD version example: 10.1"
                     echo "[TOP]                                   [Entry Fields]"
                     printf " Enter network interface [$(route -n show default 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}')] > "
                     if [ "$netIntf" = "" ]; then
@@ -11189,7 +11189,7 @@ function fire_menu() {
                    echo "port_close > Close a port in the firewall"
                    echo "block_domain > Block domain in firewall"
                    echo "block_ip > Block IP address in firewall"
-                   echo "setup > Setup and configure ipfw (BSD only)"
+                   echo "setup > Setup and configure ipfw (FreeBSD only)"
                    echo "help > This menu"
                    echo "exit > Exit back to sys_menu"
                    echo "exit-mas > Exit back to shell" 
@@ -11921,10 +11921,10 @@ function pkg_menu() {
                                      fi
                                fi      
                           else
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     echo "$(date)                                     $(whoami)@$(hostname)"
                                     echo "Package source example: lang/perl5.14"
                                     echo "[TOP]                                    [Entry Fields]"
@@ -12323,7 +12323,7 @@ function pkg_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi          
                           else
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
                                     $(which pkg_deinstall) >> /dev/null
@@ -12333,7 +12333,7 @@ function pkg_menu() {
                                          $(which make) -C /usr/ports/ports-mgmt/portsupgrade install clean
                                          read -p "Press [enter] to continue..." ReadDamKey
                                     fi               
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     echo "$(date)                                     $(whoami)@$(hostname)"
                                     echo "Package example: lynx"
                                     echo "[TOP]                                      [Entry Fields]"
@@ -13164,10 +13164,10 @@ function pkg_menu() {
                                fi
                           fi
                      else
-                          $(which uname) | grep BSD >> /dev/null
+                          $(which uname) | grep FreeBSD >> /dev/null
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "          COMMAND STATUS                 "
                                echo
                                echo "$(date)                                     $(whoami)@$(hostname)"
@@ -13311,7 +13311,7 @@ function pkg_menu() {
                            clear
                            echo "OS = Linux"
                       else
-                           echo "Feature not avalible for OS X and BSD"
+                           echo "Feature not avalible for OS X and FreeBSD"
                            read -p "Press [enter] to continue..." ReadDamKey
                            pkg_menu
                       fi          
@@ -15156,10 +15156,10 @@ function grp_menu() {
                                   read -p "Press [enter] to continue..." ReadDamKey
                              fi
 			else
-                             $(which uname) | grep BSD >> /dev/null
+                             $(which uname) | grep FreeBSD >> /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = BSD"
+                                  echo "OS = FreeBSD"
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "[TOP]                                     [Entry Fields]"
                                   read -p " Enter group name --------------------- > " grpName
@@ -15231,7 +15231,7 @@ function grp_menu() {
                            clear
                            echo "OS = Linux"
                       else
-                           echo "Feature not avalible for OS X and BSD"
+                           echo "Feature not avalible for OS X and FreeBSD"
                            read -p "Press [enter] to continue..." ReadDamKey
                            grp_menu
                       fi          
@@ -15437,10 +15437,10 @@ function grp_menu() {
                                  read -p "Press [enter] to continue..." ReadDamKey
                             fi
                        else
-                            $(which uname) | grep BSD >> /dev/null
+                            $(which uname) | grep FreeBSD >> /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-                                 echo "OS = BSD"
+                                 echo "OS = FreeBSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                     [Entry Fields]"
                                  read -p " Enter current group ID --------------- > " currGrpId
@@ -15637,9 +15637,9 @@ function grp_menu() {
                                    read -p "Press [enter] to continue..." ReadDamKey
                               fi
                          else
-                              $(which uname) | grep BSD >> /dev/null
+                              $(which uname) | grep FreeBSD >> /dev/null
                               if [ $? -eq 0 ]; then
-                                   echo "Feature not avalible for BSD"
+                                   echo "Feature not avalible for FreeBSD"
                                    read -p "Press [enter] to continue..." ReadDamKey
                                    grp_menu   
                               fi
@@ -15787,10 +15787,10 @@ function grp_menu() {
                                   read -p "Press [enter] to continue..." ReadDamKey
                              fi
                         else
-                             $(which uname) | grep BSD >> /dev/null
+                             $(which uname) | grep FreeBSD >> /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = BSD"
+                                  echo "OS = FreeBSD"
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "Seperate groups with a comma"
                                   echo "[TOP]                                     [Entry Fields]"
@@ -16196,10 +16196,10 @@ function grp_menu() {
                                 read -p "Press [enter] to continue..." ReadDamKey
                            fi
                       else
-                           $(which uname) | grep BSD >> /dev/null
+                           $(which uname) | grep FreeBSD >> /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-                                echo "OS = BSD"
+                                echo "OS = FreeBSD"
                                 echo "$(date)                                     $(whoami)@$(hostname)"
                                 echo "[TOP]                                     [Entry Fields]"
                                 read -p " Enter username ----------------------- > " userName
@@ -16497,10 +16497,10 @@ function grp_menu() {
                                  read -p "Press [enter] to continue..." ReadDamKey
                             fi
                        else
-                            $(which uname) | grep BSD >> /dev/null
+                            $(which uname) | grep FreeBSD >> /dev/null
                             if [ $? -eq 0 ]; then
                                  clear
-                                 echo "OS = BSD"
+                                 echo "OS = FreeBSD"
                                  echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                     [Entry Fields]"
                                  read -p " Enter username ----------------------- > " userName
@@ -16695,10 +16695,10 @@ function grp_menu() {
                                   read -p "Press [enter] to continue..." ReadDamKey
                              fi
                         else
-                             $(which uname) | grep BSD >> /dev/null
+                             $(which uname) | grep FreeBSD >> /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = BSD"
+                                  echo "OS = FreeBSD"
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "[TOP]                                     [Entry Fields]"
                                   read -p " Enter group name --------------------- > " grpName
@@ -17013,10 +17013,10 @@ function passwd_menu() {
                                   read -p "Press [enter] to continue..." ReadDamKey
                              fi          
                         else
-                             $(which uname) | grep BSD >> /dev/null
+                             $(which uname) | grep FreeBSD >> /dev/null
                              if [ $? -eq 0 ]; then
                                   clear
-                                  echo "OS = BSD"
+                                  echo "OS = FreeBSD"
                                   echo "$(date)                                     $(whoami)@$(hostname)"
                                   echo "[TOP]                                     [Entry Fields]"
                                   read -p " Enter username ----------------------- > " userName
@@ -17216,10 +17216,10 @@ function passwd_menu() {
                                     read -p "Press [enter] to continue..." ReadDamKey
                                fi          
                           else
-                               $(which uname) | grep BSD >> /dev/null
+                               $(which uname) | grep FreeBSD >> /dev/null
                                if [ $? -eq 0 ]; then
                                     clear
-                                    echo "OS = BSD"
+                                    echo "OS = FreeBSD"
                                     echo "$(date)                                     $(whoami)@$(hostname)"
                                     echo "[TOP]                                   [Entry Fields]"
                                     read -p " Enter username --------------------- > " userName
@@ -17290,7 +17290,7 @@ function passwd_menu() {
                              clear
                              echo "OS = Linux"
                         else
-                             echo "Feature not avalible for BSD and OS X"
+                             echo "Feature not avalible for FreeBSD and OS X"
                              read -p "Press [enter] to continue..." ReadDamKey
                              passwd_menu
                         fi          
@@ -17422,10 +17422,10 @@ function passwd_menu() {
                                read -p "Press [enter] to continue..." ReadDamKey
                           fi
                      else
-                          $(which uname) | grep BSD >> /dev/null
+                          $(which uname) | grep FreeBSD >> /dev/null
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "$(date)                                     $(whoami)@$(hostname)"
                                echo "[TOP]                                     [Entry Fields]"
                                read -p " Enter username ----------------------- > " userName
@@ -17500,7 +17500,7 @@ function passwd_menu() {
                           clear
                           echo "OS = Linux"
                      else
-                          echo "Feature not avalible for OS X or BSD"
+                          echo "Feature not avalible for OS X or FreeBSD"
                           read -p "Press [enter] to continue..." ReadDamKey
                           passwd_menu
                      fi          
@@ -17573,7 +17573,7 @@ function passwd_menu() {
                             clear
                             echo "OS = Linux"
                        else
-                            echo "Feature not avalible for OS X or BSD"
+                            echo "Feature not avalible for OS X or FreeBSD"
                             read -p "Press [enter] to continue..." ReadDamKey
                             passwd_menu
                        fi
@@ -17647,7 +17647,7 @@ function passwd_menu() {
                              clear
                              echo "OS = Linux"
                         else
-                             echo "Feature not avalible for OS X or BSD"
+                             echo "Feature not avalible for OS X or FreeBSD"
                              read -p "Press [enter] to continue..." ReadDamKey
                              passwd_menu
                         fi
@@ -17721,7 +17721,7 @@ function passwd_menu() {
                               clear
                               echo "OS = Linux"
                          else
-                              echo "Feature not avalible for OS X or BSD"
+                              echo "Feature not avalible for OS X or FreeBSD"
                               read -p "Press [enter] to continue..." ReadDamKey
                               passwd_menu
                          fi
@@ -20445,10 +20445,10 @@ function apache_menu(){
                                 fi
                            fi
                       else
-                           $(which uname) | grep BSD >> /dev/nulll
+                           $(which uname) | grep FreeBSD >> /dev/nulll
                            if [ $? -eq 0 ]; then
                                 clear
-                                echo "OS = BSD"
+                                echo "OS = FreeBSD"
                 		echo "$(date)                                     $(whoami)@$(hostname)"
                 		echo "[TOP]                                     [Entry Fields]"
 				printf " Enter network interface [en0] --------- > "
@@ -20959,10 +20959,10 @@ function apache_menu(){
                                fi
                           fi
                      else
-                          $(which uname) | grep BSD >> /dev/null
+                          $(which uname) | grep FreeBSD >> /dev/null
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "         COMMAND STATUS                 "
                                echo
                                echo "$(date)                                     $(whoami)@$(hostname)"
@@ -21278,10 +21278,10 @@ function apache_menu(){
                                 fi
                            fi
                       else
-                           $(which uname) | grep BSD >> /dev/null
+                           $(which uname) | grep FreeBSD >> /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
                                 echo "          COMMAND STATUS                  "
                                 echo
                                 echo "$(date)                                     $(whoami)@$(hostname)"
@@ -21597,10 +21597,10 @@ function apache_menu(){
                               fi
                          fi
                     else
-                         $(which uname) | grep BSD >> /dev/null
+                         $(which uname) | grep FreeBSD >> /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-                              echo "OS = BSD"
+                              echo "OS = FreeBSD"
                               echo "         COMMAND STATUS            "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -21915,10 +21915,10 @@ function apache_menu(){
                              fi
                         fi
                    else
-                        $(which uname) | grep BSD >> /dev/null
+                        $(which uname) | grep FreeBSD >> /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-                             echo "OS = BSD"
+                             echo "OS = FreeBSD"
                              echo "         COMMAND STATUS                  "
                              echo
                              echo "$(date)                                     $(whoami)@$(hostname)"
@@ -22608,10 +22608,10 @@ function nfs_menu(){
                                fi
                           fi
                      else
-                          $(which uname) | grep BSD >> /dev/null
+                          $(which uname) | grep FreeBSD >> /dev/null
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "$(date)                                   $(whoami)@$(hostname)"
                                echo "Share name example: /nfs/share"
                                echo "Allow access to example: 192.168.1.0/24"
@@ -22898,10 +22898,10 @@ function nfs_menu(){
                              fi
                         fi
                    else
-                        $(which uname) | grep BSD >> /dev/null
+                        $(which uname) | grep FreeBSD >> /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-                             echo "OS = BSD"
+                             echo "OS = FreeBSD"
                              echo "         COMMAND STATUS                "
                              echo
                              echo "$(date)                                     $(whoami)@$(hostname)"
@@ -23185,10 +23185,10 @@ function nfs_menu(){
                             fi
                        fi
                   else
-                       $(which uname) | grep BSD >> /dev/null
+                       $(which uname) | grep FreeBSD >> /dev/null
                        if [ $? -eq 0 ]; then
                             clear
-                            echo "OS = BSD"
+                            echo "OS = FreeBSD"
                             echo "         COMMAND STATUS                "
                             echo
                             echo "$(date)                                     $(whoami)@$(hostname)"
@@ -23473,10 +23473,10 @@ function nfs_menu(){
                                fi
                           fi
                      else
-                          $(which uname) | grep BSD >> /dev/null
+                          $(which uname) | grep FreeBSD >> /dev/null
                           if [ $? -eq 0 ]; then
                                clear
-                               echo "OS = BSD"
+                               echo "OS = FreeBSD"
                                echo "         COMMAND STATUS                "
                                echo
                                echo "$(date)                                     $(whoami)@$(hostname)"
@@ -23813,10 +23813,10 @@ function nfs_menu(){
                            fi
                       fi
                  else
-                      $(which uname) | grep BSD >> /dev/null
+                      $(which uname) | grep FreeBSD >> /dev/null
                       if [ $? -eq 0 ]; then
                            clear
-                           echo "OS = BSD"
+                           echo "OS = FreeBSD"
                            echo "$(date)                                     $(whoami)@$(hostname)"
                            echo "Share location example: /nfs"
                            echo "Host access example: 192.168.1.0/24"
@@ -24155,10 +24155,10 @@ function nfs_menu(){
                               fi
                          fi
                     else
-                         $(which uname) | grep BSD >> /dev/null
+                         $(which uname) | grep FreeBSD >> /dev/null
                          if [ $? -eq 0 ]; then
                               clear
-                              echo "OS = BSD"
+                              echo "OS = FreeBSD"
                               echo "$(date)                                     $(whoami)@$(hostname)"
                               echo "Share location example: /nfs"
                               echo "[TOP]                                      [Entry Fields]"
@@ -25431,10 +25431,10 @@ function nis_menu() {
 				fi
                            fi
                       else
-                           $(which uname) | grep BSD >> /dev/null
+                           $(which uname) | grep FreeBSD >> /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "$(date)                                     $(whoami)@$(hostname)"
 				echo "[TOP]                                     [Entry Fields]"
 				read -p " Enter system role (server/client) ---- > " ans
@@ -25826,10 +25826,10 @@ function nis_menu() {
                               fi
 			 fi
                     else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
                               clear
-                              echo "OS = BSD"
+                              echo "OS = FreeBSD"
                               echo "         COMMAND STATUS                 "
                               echo
                               echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26102,10 +26102,10 @@ function nis_menu() {
                              fi
                         fi
                    else
-                        $(which uname) | grep BSD >> /dev/null
+                        $(which uname) | grep FreeBSD >> /dev/null
                         if [ $? -eq 0 ]; then
                              clear
-                             echo "OS = BSD"
+                             echo "OS = FreeBSD"
                              echo "         COMMAND STATUS                   "
                              echo
                              echo "$(date)                                     $(whoami)@$(hostname)"
@@ -26368,10 +26368,10 @@ function nis_menu() {
 				fi
                            fi
                       else
-                           $(which uname) | grep BSD >> /dev/null
+                           $(which uname) | grep FreeBSD >> /dev/null
                            if [ $? -eq 0 ]; then
                                 clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND SYNTAX                 "
 				echo
 				echo "$(date)                                     $(whoami)@$(hostname)"
@@ -27190,10 +27190,10 @@ function dhcp_menu() {
 			        fi
 		           fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "$(date)                                     $(whoami)@$(hostname)"
 				echo "[TOP]                                       [Entry Fields]"
 				read -p " Enter domain name ---------------------------- > " dnsName
@@ -27455,10 +27455,10 @@ function dhcp_menu() {
 			      fi
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "OS = BSD"
+			      echo "OS = FreeBSD"
 			      echo "         COMMAND STATUS               "
 			      echo
 			      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -27679,10 +27679,10 @@ function dhcp_menu() {
 			     fi
 			fi
 		   else
-		        $(which uname) | grep BSD >> /dev/null
+		        $(which uname) | grep FreeBSD >> /dev/null
 			if [ $? -eq 0 ]; then
 			     clear
-			     echo "OS = BSD"
+			     echo "OS = FreeBSD"
 			     echo "         COMMAND STATUS                    "
 			     echo
 			     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -27904,10 +27904,10 @@ function dhcp_menu() {
 			        fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-			        echo "OS = BSD"
+			        echo "OS = FreeBSD"
 			        echo "         COMMAND STATUS                    "
 				echo
 				echo "$(date)                                     $(whoami)@$(hostname)"
@@ -28421,10 +28421,10 @@ function dhcp_menu() {
 			        fi
 			    fi
 		       else
-			    $(which uname) | grep BSD >> /dev/null
+			    $(which uname) | grep FreeBSD >> /dev/null
 			    if [ $? -eq 0 ]; then
 				 clear
-				 echo "OS = BSD"
+				 echo "OS = FreeBSD"
 				 echo "$(date)                                     $(whoami)@$(hostname)"
                                  echo "[TOP]                                      [Entry Fields]"
                                  read -p " Edit default or max lease times ------- (default/max) > " ans
@@ -28812,10 +28812,10 @@ function dhcp_menu() {
 			         fi
 			    fi
 		       else
-			    $(which uname) | grep BSD >> /dev/null
+			    $(which uname) | grep FreeBSD >> /dev/null
 			    if [ $? -eq 0 ]; then
 				 clear
-				 echo "OS = BSD"
+				 echo "OS = FreeBSD"
 				 echo "$(date)                                     $(whoami)@$(hostname)"
 				 echo "Start IP address example: 192.168.1.10"
 				 echo "End IP address example: 192.168.1.25"
@@ -29417,10 +29417,10 @@ function sql_menu () {
 				fi     
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND STATUS                      "
 				echo
 				echo "$(date)                                     $(whoami)@$(hostname)"
@@ -29696,10 +29696,10 @@ function sql_menu () {
                               fi     
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "OS = BSD"
+			      echo "OS = FreeBSD"
 			      echo "         COMMAND STATUS                      "
 			      echo
 			      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -29961,10 +29961,10 @@ function sql_menu () {
                              fi     
 			fi
 		   else
-		        $(which uname) | grep BSD >> /dev/null
+		        $(which uname) | grep FreeBSD >> /dev/null
 			if [ $? -eq 0 ]; then
 			     clear
-			     echo "OS = BSD"
+			     echo "OS = FreeBSD"
 			     echo "         COMMAND STATUS                "
 			     echo
 			     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -30226,10 +30226,10 @@ function sql_menu () {
 				fi     
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND STATUS                "
 				echo
 			        echo "$(date)                                     $(whoami)@$(hostname)"
@@ -31069,10 +31069,10 @@ function sql_menu () {
 				  fi
                              fi
 			else
-			     $(which uname) | grep BSD >> /dev/null
+			     $(which uname) | grep FreeBSD >> /dev/null
 			     if [ $? -eq 0 ]; then
 				  clear
-				  echo "OS = BSD"
+				  echo "OS = FreeBSD"
 				  echo "$(date)                                     $(whoami)@$(hostname)"
 				  echo "[TOP]                                  [Entry Fields]"
 				  read -p " Enter new SQL root password ------- > " rootPwd
@@ -32403,10 +32403,10 @@ function smb_menu() {
 			        fi
 		           fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "$(date)                                     $(whoami)@$(hostname)"
                                 echo "[TOP]                                    [Entry Fields]"
                                 read -p " Open access or authenticated share --- (open/auth) > " ans
@@ -32821,10 +32821,10 @@ function smb_menu() {
 			      fi
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "OS = BSD"
+			      echo "OS = FreeBSD"
 			      echo "         COMMAND STATUS            "
 			      echo
 			      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -33055,10 +33055,10 @@ function smb_menu() {
 			     fi
 			fi
 		   else
-		        $(which uname) | grep BSD >> /dev/null
+		        $(which uname) | grep FreeBSD >> /dev/null
 			if [ $? -eq 0 ]; then
 			     clear
-			     echo "OS = BSD"
+			     echo "OS = FreeBSD"
 			     echo "         COMMAND STATUS               "
 			     echo
 			     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -33286,10 +33286,10 @@ function smb_menu() {
 			        fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND STATUS                     "
 				echo
 				echo "Command: RUNNING    stdout: yes    stderr: no"
@@ -33821,10 +33821,10 @@ function ssh_menu() {
 			        fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND STATUS                 "
 				echo
 				echo "$(date)                                     $(whoami)@$(hostname)"
@@ -34053,10 +34053,10 @@ function ssh_menu() {
             		      fi
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "OS = BSD"
+			      echo "OS = FreeBSD"
 			      echo "          COMMAND STATUS                          "
 			      echo
 			      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -34282,10 +34282,10 @@ function ssh_menu() {
 			     fi
 			fi
 		   else
-		        $(which uname) | grep BSD >> /dev/null
+		        $(which uname) | grep FreeBSD >> /dev/null
 			if [ $? -eq 0 ]; then
 			     clear
-			     echo "OS = BSD"
+			     echo "OS = FreeBSD"
 			     echo "         COMMAND STATUS                  "
 			     echo
 			     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -34511,10 +34511,10 @@ function ssh_menu() {
 				fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND STATUS               "
 				echo
 				echo "$(date)                                     $(whoami)@$(hostname)"
@@ -35110,10 +35110,10 @@ function vnc_menu() {
 				 fi     
 			    fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "Feature not avaliable for BSD"
+				echo "Feature not avaliable for FreeBSD"
 				read -p "Press [enter] to continue..." ReadDamKey
 				vnc_menu
 			   else
@@ -35292,10 +35292,10 @@ function vnc_menu() {
                               fi
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "Feature not avaliable for BSD"
+			      echo "Feature not avaliable for FreeBSD"
 			      read -p "Press [enter] to conitnue..." ReadDamKey
 			      vnc_menu
 			 else
@@ -35473,10 +35473,10 @@ function vnc_menu() {
                              fi
 			fi
 		   else
-		        $(which uname) | grep BSD >> /dev/null
+		        $(which uname) | grep FreeBSD >> /dev/null
 			if [ $? -eq 0 ]; then
 			     clear
-			     echo "Feature not avaliable for BSD"
+			     echo "Feature not avaliable for FreeBSD"
 			     read -p "Press [enter] to continue..." ReadDamKey
 			     vnc_menu
 			else
@@ -35655,10 +35655,10 @@ function vnc_menu() {
 				fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "Feature not avaliable for BSD"
+				echo "Feature not avaliable for FreeBSD"
 				read -p "Press [enter] to continue..." ReadDamKey
 				vnc_menu
 			   else
@@ -36207,10 +36207,10 @@ function snmp_menu() {
 			        fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "$(date)                                     $(whoami)@$(hostname)"
 				echo "[TOP]                                              [Entry Fields]"
 			        read -p " Enter system location ------------------------- > " sysLocation
@@ -36541,10 +36541,10 @@ function snmp_menu() {
             		      fi
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "OS = BSD"
+			      echo "OS = FreeBSD"
 			      echo "         COMMAND STATUS                    "
 			      echo
 			      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -36833,10 +36833,10 @@ function snmp_menu() {
                              fi
 			fi
 		   else
-		        $(which uname) | grep BSD >> /dev/null
+		        $(which uname) | grep FreeBSD >> /dev/null
 		        if [ $? -eq 0 ]; then
 			     clear
-			     echo "OS = BSD"
+			     echo "OS = FreeBSD"
 			     echo "         COMMAND STATUS             "
 			     echo
 			     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -37126,10 +37126,10 @@ function snmp_menu() {
 				fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND STATUS                 "
 				echo
 				echo "$(date)                                     $(whoami)@$(hostname)"
@@ -37917,10 +37917,10 @@ function dns_menu() {
 				 fi
 			    fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-			        echo "OS = BSD"
+			        echo "OS = FreeBSD"
 			        echo "$(date)                                     $(whoami)@$(hostname)"
 				echo "Host IP address example: x.x.x.100"
 				echo "[TOP]                                               [Entry Fields]"
@@ -38305,10 +38305,10 @@ function dns_menu() {
                               fi
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "OS = BSD"
+			      echo "OS = FreeBSD"
 			      echo "         COMMAND STATUS                 "
 			      echo
 			      echo "$(date)                                     $(whoami)@$(hostname)"
@@ -38592,10 +38592,10 @@ function dns_menu() {
                              fi
 			fi
 		   else
-		        $(which uname) | grep BSD >> /dev/null
+		        $(which uname) | grep FreeBSD >> /dev/null
 			if [ $? -eq 0 ]; then
 			     clear
-			     echo "OS = BSD"
+			     echo "OS = FreeBSD"
 			     echo "         COMMAND STATUS                               "
 			     echo
 			     echo "$(date)                                     $(whoami)@$(hostname)"
@@ -38881,10 +38881,10 @@ function dns_menu() {
 				fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "OS = BSD"
+				echo "OS = FreeBSD"
 				echo "         COMMAND STATUS             "
 				echo
 				echo "$(date)                                     $(whoami)@$(hostname)"
@@ -39174,10 +39174,10 @@ function dns_menu() {
 				 fi
 			    fi
 		       else
-			    $(which uname) | grep BSD >> /dev/null
+			    $(which uname) | grep FreeBSD >> /dev/null
 			    if [ $? -eq 0 ]; then
 				 clear
-				 echo "OS = BSD"
+				 echo "OS = FreeBSD"
 				 echo "         COMMAND STATUS                 "
 				 echo
 				 echo "$(date)                                     $(whoami)@$(hostname)"
@@ -39912,10 +39912,10 @@ function ms-ad_menu() {
 				fi
 			   fi
 		      else
-			   $(which uname) | grep BSD >> /dev/null
+			   $(which uname) | grep FreeBSD >> /dev/null
 			   if [ $? -eq 0 ]; then
 			        clear
-				echo "Feature not avaliable for BSD"                 # Yet, hopefully, in a future release - it will be, if I can get kerberos and samba to stop acting like a bitch (and play nice together with the authentication), as I said, hopefully ;-)
+				echo "Feature not avaliable for FreeBSD"                 # Yet, hopefully, in a future release - it will be, if I can get kerberos and samba to stop acting like a bitch (and play nice together with the authentication), as I said, hopefully ;-)
 				read -p "Press [enter] to continue..." ReadDamKey
 				ms-ad_menu
 			   else
@@ -40258,10 +40258,10 @@ function ms-ad_menu() {
                               fi
 			 fi
 		    else
-			 $(which uname) | grep BSD >> /dev/null
+			 $(which uname) | grep FreeBSD >> /dev/null
 			 if [ $? -eq 0 ]; then
 			      clear
-			      echo "Feature not avaliable for BSD"
+			      echo "Feature not avaliable for FreeBSD"
 			      read -p "Press [enter] to continue..." ReadDamKey
 			      ms-ad_menu
 			 else
